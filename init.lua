@@ -1,24 +1,24 @@
 ---------------
 --  Options  --
 ---------------
-require"nvimrc.options"
+require'options'
 
 ----------------
 --  Plug-ins  --
 ----------------
-require"nvimrc.plugins"
+require'plugins'
 
 ----------------
 --  Mappings  --
 ----------------
-require"nvimrc.mappings"
+require'mappings'
 
 ---------------
 --  Colours  --
 ---------------
-require"nvimrc.colours"
+require'colours'
 
 --------------------
 --  AutoCommands  --
 --------------------
-require"nvimrc.autocmds"
+require'autocmds'
