@@ -1,3 +1,8 @@
+local g = vim.g
+
+-- setting explicitly makes startup faster
+g.python3_host_prog = '/bin/python3'
+
 ---------------
 --  Options  --
 ---------------
