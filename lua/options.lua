@@ -41,7 +41,7 @@ o.clipboard = get_opt('clipboard') == '' and 'unnamedplus' or
 ob.undofile = true
 
 -->> preferred directions on window splitting
-o.splitright, o.splitright = true, true
+o.splitright, o.splitbelow = true, true
 
 -->> remaps in normal mode (compensation for Czech keyboard locale)
 o.langmap = 'ě2,š3,č4,ř5,ž6,ý7,á8,í9'
