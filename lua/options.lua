@@ -52,6 +52,6 @@ ow.spelllang = 'cs,en_gb'
                           <<,>> in normal (shiftwidth)
      shiftround - round to nearest multiple of shiftwidth ]]
 local indent = 4
-o.expandtab = true
-o.tabstop, o.shiftwidth = indent,indent
+ob.expandtab = true
+ob.tabstop, ob.shiftwidth = indent,indent
 o.shiftround = true
