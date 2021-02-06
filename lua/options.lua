@@ -56,5 +56,5 @@ ob.expandtab = true
 ob.tabstop, ob.shiftwidth = indent,indent
 o.shiftround = true
 
-for _,x in ipairs({table.unpack(ob)}) do table.insert(o,x) end
-for _,x in ipairs({table.unpack(ow)}) do table.insert(o,x) end
+for _,x in ipairs{table.unpack(ob)} do table.insert(o,x) end
+for _,x in ipairs{table.unpack(ow)} do table.insert(o,x) end
