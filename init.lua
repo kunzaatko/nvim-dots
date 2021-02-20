@@ -6,24 +6,24 @@ g.python3_host_prog = '/bin/python3'
 ---------------
 --  Options  --
 ---------------
-require'options'
+require 'options'
 
 ----------------
 --  Plug-ins  --
 ----------------
-require'plugins'
+require 'plugins'
 
 ----------------
 --  Mappings  --
 ----------------
-require'mappings'
+require 'mappings'
 
 ---------------
 --  Colours  --
 ---------------
-require'colours'
+require 'colours'
 
 --------------------
 --  AutoCommands  --
 --------------------
-require'autocmds'
+require 'autocmds'
