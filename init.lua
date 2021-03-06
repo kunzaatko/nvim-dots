@@ -16,7 +16,7 @@ require 'plugins'
 ----------------
 --  Mappings  --
 ----------------
-require 'mappings'
+require 'map'
 
 ---------------
 --  Colours  --
