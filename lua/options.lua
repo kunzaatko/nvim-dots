@@ -69,5 +69,9 @@ opt('expandtab', true, buffer)
 opt('tabstop', indent, buffer)
 opt('shiftwidth', indent, buffer)
 opt('shiftround', true)
+
+-- >> do not insert a comment string after hitting <CR> in insert mode
+opt('formatoptions', get_opt('formatoptions'):gsub('.', {o = ''}), buffer) -- TODO: test if works <06-03-21, kunzaatko> --
+
 -- >> use truecolours in colorschemes (this can brake colorschemes if they are not built for it)
 opt('termguicolors', true)
