@@ -50,6 +50,7 @@ opt('clipboard', get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus' .
 --[[ persistent undo on close of the file (undolevel = 1000,
      undodir = "$XDG_DATA_HOME/nvim/undo/") without a swapfile ]]
 opt('undofile', true, buffer)
+opt('swapfile', false, buffer)
 
 -- >> preferred directions on window splitting
 opt('splitright', true)
