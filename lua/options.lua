@@ -1,56 +1,63 @@
-local o, ob, ow = vim.o, vim.ob, vim.ow -- global, buffer, window
+local opt = require'utils'.opt
 local get_opt = vim.api.nvim_get_option
+local window, buffer = {vim.o, vim.wo}, {vim.o, vim.bo} -- scopes
 
 --[[ number and relative number together uses number on current line and
      relativenumber on the surrounding ]]
-ow.relativenumber, ow.number = true, true
+opt('relativenumber', true, window)
+opt('number', true, window)
 
 --[[ ignore case in search and substitute for all lower-case patterns but
      do not ignore case for patterns with an upper-case letter ]]
-o.ignorecase, o.smartcase = true, true
+opt('ignorecase', true)
+opt('smartcase', true)
 
 -- >> when missing end of line at end of screen replace *whole* line with @@@
-o.display = 'truncate'
+opt('display', 'truncate')
 
 -- >> brief jump to matching delimiter when inserted
-o.showmatch = true
+opt('showmatch', true)
 
 -- >> use the mouse in visual and insert mode
-o.mouse = 'vi'
+opt('mouse', 'vi')
 
 --[[ Ex command <tab>-completion succession: common match string with wildmenu
      open, then first full match with wildmenu]]
-o.wildmode = 'longest:full,full'
+opt('wildmode', 'longest:full,full')
 
 --[[ completeopt = insert mode completion: menu (even if only one option), do
      not insert until <tab>ed, do not select until <tab>ed
-     shortmess = do not print messeges like "-- XXX completion (YYY)" ]]
-o.completeopt = 'menuone,noinsert,noselect'
-o.shortmess = get_opt('shortmess') .. 'c'
+     shortmess = do not print messeges like "-- ZZZ completion (YYY)" ]]
+opt('completeopt', 'menuone,noinsert,noselect')
+opt('shortmess', get_opt('shortmess') .. 'c')
 
-ow.scrolloff = 3
+--[[ scrolloff = minimum lines of context on the screen ]]
+opt('scrolloff', 3, window)
+
 
 --[[ copy everything also to the system clipboard (not just while using "+ and
      "* registers) ]]
-o.clipboard = get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus,' ..
-                get_opt('clipboard') -- create if == ''
+opt('clipboard', get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus' ..
+      get_opt('clipboard')) -- create if not yet defined
 
 --[[ persistent undo on close of the file (undolevel = 1000,
-     undodir = "$XDG_DATA_HOME/nvim/undo/") ]]
-ob.undofile = true
+     undodir = "$XDG_DATA_HOME/nvim/undo/") without a swapfile ]]
+opt('undofile', true, buffer)
 
 -- >> preferred directions on window splitting
-o.splitright, o.splitbelow = true, true
+opt('splitright', true)
+opt('splitbelow', true)
 
 -- >> remaps in normal mode (compensation for Czech keyboard locale)
-o.langmap = 'ě2,š3,č4,ř5,ž6,ý7,á8,í9'
-ow.spelllang = 'cs,en_gb'
+opt('langmap', 'ě2,š3,č4,ř5,ž6,ý7,á8,í9')
+opt('spelllang', 'cs,en_gb', buffer)
 
---[[ expandtab - expand a tab into spaces,
+--[[ expandtab = expand a tab into spaces,
      tabstop,shiftwidth - # of spaces for <tab> (tabstop) in insert and for
                           <<,>> in normal (shiftwidth)
-     shiftround - round to nearest multiple of shiftwidth ]]
+     shiftround = round to nearest multiple of shiftwidth ]]
 local indent = 4
-ob.expandtab = true
-ob.tabstop, ob.shiftwidth = indent, indent
-o.shiftround = true
+opt('expandtab', true, buffer)
+opt('tabstop', indent, buffer)
+opt('shiftwidth', indent, buffer)
+opt('shiftround', true)
