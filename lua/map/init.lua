@@ -20,3 +20,10 @@ map('v', '<<', '<<<Esc>gv', {noremap = true}) -- reselect after <<
 map('c', 'w!!',
     [[<Cmd>lua vim.fn.execute("silent! write !sudo tee % >/dev/null") <bar> edit!<CR>]],
     {noremap = true}) -- writing read-only files
+
+
+vim.cmd [[command! PackerInstall exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').install()]]
+vim.cmd [[command! PackerUpdate exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').update()]]
+vim.cmd [[command! PackerSync exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').sync()]]
+vim.cmd [[command! PackerClean exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').clean()]]
+vim.cmd [[command! PackerCompile exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').compile()]]
