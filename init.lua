@@ -9,8 +9,8 @@ local disabled_built_ins = {
 }
 for _, plugin in ipairs(disabled_built_ins) do vim.g['loaded_' .. plugin] = 1 end
 
---  Options  --
-require 'options'
+--  config  --
+require 'conf'
 
 --  Mappings  --
 require 'map'
@@ -18,5 +18,3 @@ require 'map'
 --  Colours  --
 require 'colours'
 
---  AutoCommands  --
-require 'autocmds'
