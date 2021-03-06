@@ -31,7 +31,11 @@ opt('wildmode', 'longest:full,full')
 opt('completeopt', 'menuone,noinsert,noselect')
 opt('shortmess', get_opt('shortmess') .. 'c')
 
---[[ scrolloff = minimum lines of context on the screen ]]
+-- >> Do not show the mode in the command line
+opt('showmode', false)
+
+--[[ scrolloff = minimum lines of context on the screen
+     sidescrolloff = minimum columns of context on the screen ]]
 opt('scrolloff', 3, window)
 
 
