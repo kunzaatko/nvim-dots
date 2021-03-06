@@ -37,6 +37,7 @@ opt('showmode', false)
 --[[ scrolloff = minimum lines of context on the screen
      sidescrolloff = minimum columns of context on the screen ]]
 opt('scrolloff', 3, window)
+opt('sidescrolloff', 5, window)
 
 
 --[[ copy everything also to the system clipboard (not just while using "+ and
