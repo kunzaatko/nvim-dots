@@ -39,6 +39,8 @@ opt('showmode', false)
 opt('scrolloff', 3, window)
 opt('sidescrolloff', 5, window)
 
+-- >> do not split words on wrapping
+opt('linebreak', true, window)
 
 --[[ copy everything also to the system clipboard (not just while using "+ and
      "* registers) ]]
