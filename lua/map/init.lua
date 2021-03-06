@@ -1,5 +1,7 @@
 local map = require'utils'.map
 
+-- Creating a global MapUtilities object
+_G.MUtils = {}
 
 map('n', '<Space>', '<Nop>', {noremap = true}) -- this is needed before mapleader setting
 
@@ -22,8 +24,8 @@ map('c', 'w!!',
     {noremap = true}) -- writing read-only files
 
 
-vim.cmd [[command! PackerInstall exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').install()]]
-vim.cmd [[command! PackerUpdate exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').update()]]
-vim.cmd [[command! PackerSync exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').sync()]]
-vim.cmd [[command! PackerClean exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').clean()]]
-vim.cmd [[command! PackerCompile exe("lua require'plugins.install_packer'") | packadd packer.nvim | lua require('plugins').compile()]]
+vim.cmd [[command! PackerInstall exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').install()]]
+vim.cmd [[command! PackerUpdate exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').update()]]
+vim.cmd [[command! PackerSync exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').sync()]]
+vim.cmd [[command! PackerClean exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').clean()]]
+vim.cmd [[command! PackerCompile exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').compile()]]
