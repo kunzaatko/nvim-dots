@@ -5,8 +5,6 @@ vim.g.python3_host_prog = '/usr/bin/python3'
 --  Options  --
 require 'options'
 
-require 'plugins'
-
 --  Mappings  --
 require 'map'
 
