@@ -21,6 +21,9 @@ opt('showmatch', true)
 -- >> use the mouse in visual and insert mode
 opt('mouse', 'a')
 
+-- >> which shell to use in the terminal
+opt('shell', 'fish')
+
 --[[ Ex command <tab>-completion succession: common match string with wildmenu
      open, then first full match with wildmenu]]
 opt('wildmode', 'longest:full,full')
