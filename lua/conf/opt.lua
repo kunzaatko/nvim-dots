@@ -74,6 +74,9 @@ opt('tabstop', indent, buffer)
 opt('shiftwidth', indent, buffer)
 opt('shiftround', true)
 
+-- >> fold boundaries determined by markers {{{ and }}}
+opt('foldmethod', 'marker', window)
+
 -- >> do not insert a comment string after hitting <CR> in insert mode
 opt('formatoptions', get_opt('formatoptions'):gsub('.', {o = ''}), buffer) -- TODO: test if works <06-03-21, kunzaatko> --
 
