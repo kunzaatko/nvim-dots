@@ -47,8 +47,9 @@ opt('linebreak', true, window)
 
 --[[ copy everything also to the system clipboard (not just while using "+ and
      "* registers) ]]
-opt('clipboard', get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus' ..
-      get_opt('clipboard')) -- create if not yet defined
+opt('clipboard',
+    get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus' ..
+        get_opt('clipboard')) -- create if not yet defined
 
 --[[ persistent undo on close of the file (undolevel = 1000,
      undodir = "$XDG_DATA_HOME/nvim/undo/") without a swapfile ]]
