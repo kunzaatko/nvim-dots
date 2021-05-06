@@ -201,11 +201,11 @@ gls.right[4] = {
   },
 }
 
--- FIXME: Add whitespace separator here <28-04-21, kunzaatko> --
-
 gls.right[5] = {
   DiffAdd = {
     provider = 'DiffAdd',
+    separator = ' ',
+    separator_highlight = {'NONE', colors.bg},
     condition = condition.hide_in_width,
     icon = '  ',
     highlight = {colors.green, colors.bg},
