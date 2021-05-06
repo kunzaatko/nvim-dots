@@ -1,8 +1,5 @@
 local map = require'utils'.map
 
--- Creating a global MapUtilities object
-_G.MUtils = {}
-
 map('n', '<Space>', '<Nop>', {noremap = true}) -- this is needed before mapleader setting
 
 vim.g.mapleader = ' '
@@ -19,6 +16,7 @@ map('v', '>>', '>><Esc>gv', {noremap = true}) -- reselect after >>
 map('v', '<<', '<<<Esc>gv', {noremap = true}) -- reselect after <<
 
 -- COMMAND--
+-- -- TODO: Does not work with wrong permissions... only for write only files <22-03-21, kunzaatko> --
 map('c', 'w!!',
     [[<Cmd>lua vim.fn.execute("silent! write !sudo tee % >/dev/null") <bar> edit!<CR>]],
     {noremap = true}) -- writing read-only files
