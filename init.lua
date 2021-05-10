@@ -2,7 +2,7 @@
 vim.g.loaded_python_provider = 0
 vim.g.python3_host_prog = '/usr/bin/python3'
 
--- Disable some built-in plugins
+-- Disable built-in plugins
 local disabled_built_ins = {
     'gzip', 'man', 'matchit', 'matchparen', 'shada_plugin', 'tarPlugin', 'tar',
     'zipPlugin', 'zip', 'netrwPlugin'
@@ -17,4 +17,3 @@ require 'map'
 
 --  Colours  --
 require 'colours'
-
