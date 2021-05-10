@@ -1,13 +1,12 @@
-require 'map.pkgs.completion-nvim.utils'
-local map = require'utils'.map
+local map = vim.g.nvim_set_keymap
 
-map('i', '<tab>', '<Plug>(completion_smart_tab)')
-map('i', '<s-tab>', '<Plug>(completion_smart_s_tab)')
+map('i', '<tab>', '<Plug>(completion_smart_tab)', {})
+map('i', '<s-tab>', '<Plug>(completion_smart_s_tab)', {})
 
 vim.g.completion_confirm_key = ""
 
-local npairs = require('nvim-autopairs')
 _G.MUtils.completion_confirm = function()
+  local npairs = require('nvim-autopairs')
   if vim.fn.pumvisible() ~= 0 then
     if vim.fn.complete_info()["selected"] ~= -1 then
       require'completion'.confirmCompletion()
