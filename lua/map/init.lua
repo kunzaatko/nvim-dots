@@ -1,9 +1,16 @@
-local map = require'utils'.map
+local map = vim.api.nvim_set_keymap
+local cmd = vim.cmd
+
+-- map utilities
+_G.MUtils = {}
+local MUtils = _G.MUtils
+
+-- leaders --
 
 map('n', '<Space>', '<Nop>', {noremap = true}) -- this is needed before mapleader setting
 
-vim.g.mapleader = ' '
-vim.g.maplocalleader = '-' -- leader local to buffer (for buffer local mappings)
+vim.g.mapleader = ' ' -- global mappings leader
+vim.g.maplocalleader = '-' -- leader for buffer local mapping
 
 --  NORMAL  --
 map('n', '<CR>',
@@ -11,12 +18,12 @@ map('n', '<CR>',
     {silent = true}) -- N<CR> to add N lines below cursor
 map('n', 'Y', 'y$', {noremap = true}) -- Y to act as D and C
 
--- VISUAL --
+-- visual --
+
 map('v', '>>', '>><Esc>gv', {noremap = true}) -- reselect after >>
 map('v', '<<', '<<<Esc>gv', {noremap = true}) -- reselect after <<
 
--- COMMAND--
--- -- TODO: Does not work with wrong permissions... only for write only files <22-03-21, kunzaatko> --
+-- command --
 map('c', 'w!!',
     [[<Cmd>lua vim.fn.execute("silent! write !sudo tee % >/dev/null") <bar> edit!<CR>]],
     {noremap = true}) -- writing read-only files
