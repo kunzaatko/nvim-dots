@@ -1,5 +1,4 @@
 local get_opt = vim.api.nvim_get_option
-local window, buffer = {vim.o, vim.wo}, {vim.o, vim.bo} -- scopes
 
 --[[ number and relative number together uses number on current line and
      relativenumber on the surrounding ]]
