@@ -1,4 +1,3 @@
-local opt = require'utils'.opt
 local get_opt = vim.api.nvim_get_option
 local window, buffer = {vim.o, vim.wo}, {vim.o, vim.bo} -- scopes
 
