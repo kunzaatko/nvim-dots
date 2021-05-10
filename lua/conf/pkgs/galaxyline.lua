@@ -85,7 +85,7 @@ gls.left[2] = {
     provider = function()
       -- auto change color according the vim mode
       vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
-      return '  '
+      return ' 異 '  --   --
     end,
     highlight = {colors.red, colors.bg, 'bold'},
   },
