@@ -44,7 +44,7 @@ cmd [[
         autocmd FileType snippet lua vim.b.noTrimWhiteSpace = true
         autocmd BufWritePre * call v:lua.AUtils.trim_white_space()
     augroup END
-]]       
+]]
 
 -- FIX: This is broken by the relative numbering toggle <23-02-21, kunzaatko> -
 -- do not number terminal window
