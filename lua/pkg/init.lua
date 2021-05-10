@@ -222,7 +222,7 @@ return packer.startup {
         vim.g.kommentary_create_default_mappings = false
       end,
       config = function()
-        require 'map.pkgs.kommentary'
+        require 'conf.pkgs.kommentary'
       end,
     } -- commenting lua drop-in replacement for vim-commentary
     use 'tpope/vim-abolish' -- abbreviations
