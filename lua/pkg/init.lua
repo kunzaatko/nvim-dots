@@ -41,9 +41,9 @@ return packer.startup {
     } -- default configuration for lsp servers
     use {
       'nvim-lua/completion-nvim',
-      after = {'nvim-lspconfig', 'nvim-autopairs'}, -- TODO: Why does it have to be here? In the help of completion-nvim, there is that it can be used without nvim-lspconfig <06-03-21, kunzaatko> --
+      event = 'InsertEnter', -- already implied by loading after nvim-autopairs
+      after = {'nvim-autopairs'}, -- TODO: Why does it have to be here? In the help of completion-nvim, there is that it can be used without nvim-lspconfig <06-03-21, kunzaatko> --
       config = function()
-        require 'map.pkgs.completion-nvim'
         require 'conf.pkgs.completion-nvim'
       end,
     } -- enable lsp and other sources into omnicomp
