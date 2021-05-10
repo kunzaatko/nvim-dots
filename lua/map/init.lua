@@ -12,10 +12,14 @@ map('n', '<Space>', '<Nop>', {noremap = true}) -- this is needed before mapleade
 vim.g.mapleader = ' ' -- global mappings leader
 vim.g.maplocalleader = '-' -- leader for buffer local mapping
 
---  NORMAL  --
-map('n', '<CR>',
-    [[<Cmd>lua vim.fn.append(vim.fn.line("."), vim.fn["repeat"]({""}, vim.api.nvim_get_vvar("count1")))<CR>]],
-    {silent = true}) -- N<CR> to add N lines below cursor
+--  normal  --
+
+MUtils.append_blanks = function()
+  vim.fn.append(vim.fn.line("."),
+                vim.fn["repeat"]({""}, vim.api.nvim_get_vvar("count1")))
+end
+map('n', '<CR>', '<Cmd>lua _G.MUtils.append_blanks()<CR>',
+    {noremap = true, silent = true}) -- N<CR> to append N blank lines below cursor
 map('n', 'Y', 'y$', {noremap = true}) -- Y to act as D and C
 
 -- visual --
@@ -24,13 +28,17 @@ map('v', '>>', '>><Esc>gv', {noremap = true}) -- reselect after >>
 map('v', '<<', '<<<Esc>gv', {noremap = true}) -- reselect after <<
 
 -- command --
-map('c', 'w!!',
-    [[<Cmd>lua vim.fn.execute("silent! write !sudo tee % >/dev/null") <bar> edit!<CR>]],
-    {noremap = true}) -- writing read-only files
 
+-- TODO: Does not work <09-05-21, kunzaatko> --
+MUtils.save_root = function()
+  vim.fn.execute("silent! write !sudo tee % >/dev/null | edit!<CR>")
+end
+map('c', 'w!!', '<Cmd>lua _G.MUtils.save_root()<CR>', {noremap = true}) -- writing read-only files
 
-vim.cmd [[command! PackerInstall exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').install()]]
-vim.cmd [[command! PackerUpdate exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').update()]]
-vim.cmd [[command! PackerSync exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').sync()]]
-vim.cmd [[command! PackerClean exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').clean()]]
-vim.cmd [[command! PackerCompile exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').compile()]]
+cmd [[
+    command! PackerInstall exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').install()
+    command! PackerUpdate exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').update()
+    command! PackerSync exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').sync()
+    command! PackerClean exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').clean()
+    command! PackerCompile exe("lua require'pkg.install_packer'") | packadd packer.nvim | lua require('pkg').compile()
+]] -- these are needed for having packer as an opt package
