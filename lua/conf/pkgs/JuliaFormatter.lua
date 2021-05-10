@@ -1,4 +1,4 @@
-local map = require'utils'.map
+local map = vim.api.nvim_set_keymap
 
 vim.g.JuliaFormatter_options = {["style"] = "blue"}
 
