@@ -1,5 +1,5 @@
 -- installing packer, if it is not already installed
-local  fn, cmd = vim.fn, vim.cmd
+local fn, cmd = vim.fn, vim.cmd
 
 local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 
