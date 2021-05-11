@@ -201,9 +201,11 @@ return packer.startup {
         require 'conf.pkgs.comfortable-motion'
       end,
     } -- for smooth scrolling
-    -- use 'chaoren/vim-wordmotion' -- CamelCase word object definition FIXME: can I live without this plugin?
     use {
-      'tpope/vim-surround',
+      "blackCauldron7/surround.nvim",
+      config = function()
+        require"surround".setup {mappings_style = "surround"}
+      end,
       requires = {'tpope/vim-repeat'}, -- repeat needed for dot command
     } -- text objects and editing surrounding delimiters
 
