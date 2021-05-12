@@ -4,6 +4,8 @@ local get_opt = vim.api.nvim_get_option
      relativenumber on the surrounding ]]
 vim.wo.relativenumber = true
 vim.wo.number = true
+vim.o.relativenumber = true
+vim.o.number = true
 
 --[[ ignore case in search and substitute for all lower-case patterns but
      do not ignore case for patterns with an upper-case letter ]]
@@ -39,18 +41,24 @@ vim.o.showmode = false
      sidescrolloff = minimum columns of context on the screen ]]
 vim.wo.scrolloff = 3
 vim.wo.sidescrolloff = 5
+vim.o.scrolloff = 3
+vim.o.sidescrolloff = 5
 
 -- >> do not split words on wrapping
 vim.wo.linebreak = true
+vim.o.linebreak = true
 
 --[[ copy everything also to the system clipboard (not just while using "+ and
      "* registers) ]]
-vim.o.clipboard = get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus' .. get_opt('clipboard') -- create if not yet defined
+vim.o.clipboard = get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus' ..
+                    get_opt('clipboard') -- create if not yet defined
 
 --[[ persistent undo on close of the file (undolevel = 1000,
      undodir = "$XDG_DATA_HOME/nvim/undo/") without a swapfile ]]
 vim.bo.undofile = true
+vim.o.undofile = true
 vim.bo.swapfile = false
+vim.o.swapfile = false
 
 -- >> preferred directions on window splitting
 vim.o.splitright = true
@@ -59,6 +67,7 @@ vim.o.splitbelow = true
 -- >> remaps in normal mode (compensation for Czech keyboard locale)
 vim.o.langmap = 'ě2,š3,č4,ř5,ž6,ý7,á8,í9'
 vim.bo.spelllang = 'cs,en_gb'
+vim.o.spelllang = 'cs,en_gb'
 
 --[[ expandtab = expand a tab into spaces,
      tabstop,shiftwidth - # of spaces for <tab> (tabstop) in insert and for
@@ -69,12 +78,17 @@ vim.bo.expandtab = true
 vim.bo.tabstop = indent
 vim.bo.shiftwidth = indent
 vim.o.shiftround = true
+vim.o.expandtab = true
+vim.o.tabstop = indent
+vim.o.shiftwidth = indent
 
 -- >> fold boundaries determined by markers {{{ and }}}
 vim.wo.foldmethod = 'marker'
+vim.o.foldmethod = 'marker'
 
 -- >> do not insert a comment string after hitting <CR> in insert mode
 vim.bo.formatoptions = get_opt('formatoptions'):gsub('.', {o = ''}) -- TODO: test if works <06-03-21, kunzaatko> --
+vim.o.formatoptions = get_opt('formatoptions'):gsub('.', {o = ''}) -- TODO: test if works <06-03-21, kunzaatko> --
 
 -- >> use truecolours in colorschemes (this can brake colorschemes if they are not built for it)
 vim.o.termguicolors = true
