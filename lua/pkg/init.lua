@@ -187,6 +187,13 @@ return packer.startup {
         -- vim.g.indent_blankline_space_char = '·'
       end,
     } -- indentation characters
+    use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("todo-comments").setup {highlight = {keyword = "fg", after = ""}}
+      end,
+    } -- todo comments and todo quickfixlist
     -- }}}
 
     -- movement {{{
