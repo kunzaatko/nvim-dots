@@ -174,11 +174,11 @@ snippet todo "TODO comment" bw
 endsnippet
 
 snippet fix "FIX comment" bw
-`!p snip.rv=get_comment_format()[0]` ${2:FIX}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>}FIX snip.rv=get_comment_format()[2]`
+`!p snip.rv=get_comment_format()[0]` ${2:FIX}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
 endsnippet
 
 snippet note "NOTE comment" bw
-`!p snip.rv=get_comment_format()[0]` ${2:NOTE}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>}FIX snip.rv=get_comment_format()[2]`
+`!p snip.rv=get_comment_format()[0]` ${2:NOTE}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
 endsnippet
 
 ##########
