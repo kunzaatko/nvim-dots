@@ -22,6 +22,7 @@ return packer.startup {
     }
     use {
       'lervag/vimtex',
+      ft = {"tex"},
       config = function()
         require 'conf.pkgs.vimtex'
       end,
