@@ -7,8 +7,7 @@ return packer.startup {
 
     use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plug-in
 
-    --  languages  --
-
+    -- languages {{{
     use {
       'JuliaEditorSupport/julia-vim',
       config = function()
@@ -30,9 +29,9 @@ return packer.startup {
     use 'kovetskiy/sxhkd-vim'
     use 'cespare/vim-toml'
     use 'blankname/vim-fish'
+    -- }}}
 
-    --  completion and linting  --
-
+    -- completion and linting {{{
     use {
       'neovim/nvim-lspconfig',
       config = function()
@@ -57,9 +56,9 @@ return packer.startup {
         require 'conf.pkgs.treesitter'
       end,
     }
+    -- }}}
 
-    --  prettyfying --
-
+    -- prettyfying {{{
     use {
       'mhartington/formatter.nvim',
       config = function()
@@ -94,20 +93,21 @@ return packer.startup {
     use {'godlygeek/tabular', cmd = 'Tabularize'} -- tabularizing on a search pattern
     use {
       'norcalli/nvim-colorizer.lua',
-      ft = {'css', 'javascript', 'vim', 'html', 'lua'},
+      ft = {'css', 'javascript', 'vim', 'html', 'lua', 'tex'},
       config = function()
         require'colorizer'.setup({
           'css',
           'javascript',
           'html',
+          'tex',
           vim = {names = false, hsl_fn = true},
           lua = {names = false, hsl_fn = true},
         }, {mode = 'foreground'})
       end,
     } -- colors visualizer
+    -- }}}
 
-    -- sessions and conviniences --
-
+    -- sessions and conviniences {{{
     use {
       'mhinz/vim-startify',
       config = function()
@@ -134,9 +134,9 @@ return packer.startup {
         require'lspkind'.init {with_text = false}
       end,
     }
+    -- }}}
 
-    --  aesthetics  --
-
+    -- aesthetics {{{
     use {
       'glepnir/galaxyline.nvim',
       config = function()
@@ -186,9 +186,9 @@ return packer.startup {
         -- vim.g.indent_blankline_space_char = '·'
       end,
     } -- indentation characters
+    -- }}}
 
-    --  movement  --
-
+    -- movement {{{
     use { -- TODO: Add mappings - it a long loading mapping
       'easymotion/vim-easymotion',
       config = function()
@@ -208,9 +208,9 @@ return packer.startup {
       end,
       requires = {'tpope/vim-repeat'}, -- repeat needed for dot command
     } -- text objects and editing surrounding delimiters
+    -- }}}
 
-    --  text-editing features  --
-
+    -- text-editing features {{{
     use {
       'windwp/nvim-autopairs',
       event = 'InsertEnter',
@@ -229,9 +229,9 @@ return packer.startup {
     } -- commenting lua drop-in replacement for vim-commentary
     use 'tpope/vim-abolish' -- abbreviations
     use 'romainl/vim-cool' -- disable search highlight when done with searching
+    -- }}}
 
-    --  snippets  --
-
+    -- snippets {{{
     use {
       'sirver/ultisnips',
       config = function()
@@ -242,9 +242,9 @@ return packer.startup {
       'honza/vim-snippets',
       opt = true, -- only using packer for updating the repo
     }
+    -- }}}
 
-    --  git --
-
+    -- git {{{
     use {'tpope/vim-fugitive', cmd = {'G', 'Gblame', 'Gpush', 'Gpull'}}
     use {
       'lewis6991/gitsigns.nvim',
@@ -253,15 +253,16 @@ return packer.startup {
         require 'conf.pkgs.gitsigns'
       end,
     }
+    -- }}}
 
-    --  other --
-
+    -- other {{{
     use {
       'dstein64/vim-startuptime',
       cmd = 'StartupTime',
       config = [[vim.g.startuptime_tries = 10]],
     } -- profiling
     use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
+    -- }}}
 
   end,
   config = {disable_commands = true}, -- disable creating commands (created manually)
