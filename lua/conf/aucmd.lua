@@ -41,7 +41,7 @@ end
 cmd [[
     augroup TrimWhiteSpace
         autocmd!
-        autocmd FileType snippet lua vim.b.noTrimWhiteSpace = true
+        autocmd FileType snippet,matlab lua vim.b.noTrimWhiteSpace = true
         autocmd BufWritePre * call v:lua.AUtils.trim_white_space()
     augroup END
 ]]
