@@ -47,6 +47,7 @@ return packer.startup {
         require 'conf.pkgs.completion-nvim'
       end,
     } -- enable lsp and other sources into omnicomp
+    use {'nvim-treesitter/completion-treesitter', after = 'completion-nvim'} -- TODO: setup in the completion-nvim config <10-05-21, kunzaatko> --
     use {
       'nvim-treesitter/nvim-treesitter',
       requires = {
@@ -216,6 +217,10 @@ return packer.startup {
       end,
       requires = {'tpope/vim-repeat'}, -- repeat needed for dot command
     } -- text objects and editing surrounding delimiters
+    use { -- TODO:  Configure. Add mapping <c-j> <c-k> for moving in entries. <19-05-21, kunzaatko> --
+      'nvim-telescope/telescope.nvim',
+      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    }
     -- }}}
 
     -- text-editing features {{{
@@ -270,6 +275,16 @@ return packer.startup {
       config = [[vim.g.startuptime_tries = 10]],
     } -- profiling
     use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
+    use {
+      'glacambre/firenvim',
+      opt = true,
+      run = function()
+        vim.fn['firenvim#install'](0)
+      end,
+      cond = function()
+        return vim.fn.exists('g:started_by_firenvim')
+      end,
+    } -- extention for browser insert boxes to use nvim
     -- }}}
 
   end,
