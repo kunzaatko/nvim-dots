@@ -182,10 +182,10 @@ return packer.startup {
         vim.g.indent_blankline_show_first_indent_level = false
         vim.g.indent_blankline_filetype_exclude = {'help', 'markdown', 'txt'}
         vim.g.indent_blankline_buftype_exclude = {'terminal'}
+        vim.g.indent_blankline_space_char = '·'
         vim.wo.colorcolumn = "999999" -- fix: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
         -- vim.g.indent_blankline_context_highlight_list = true
         -- vim.g.indent_blankline_bufname_exclude = {''}
-        -- vim.g.indent_blankline_space_char = '·'
       end,
     } -- indentation characters
     use {
