@@ -32,7 +32,7 @@ end
 local function latexindent()
   return {
     exe = 'latexindent',
-    args = {'-sl', '-g /dev/stderr', '2> /dev/null'},
+    args = {'--logfile=./target/.latex_indent.log'},
     stdin = true,
   }
 end
