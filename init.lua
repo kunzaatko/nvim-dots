@@ -14,6 +14,3 @@ require 'conf'
 
 --  Mappings  --
 require 'map'
-
---  Colours  --
-require 'colours'
