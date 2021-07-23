@@ -14,11 +14,11 @@ vim.g.maplocalleader = '-' -- leader for buffer local mapping
 
 --  normal  --
 
-MUtils.append_blanks = function()
+MUtils.append_blank_lines = function()
   vim.fn.append(vim.fn.line("."),
                 vim.fn["repeat"]({""}, vim.api.nvim_get_vvar("count1")))
 end
-map('n', '<CR>', '<Cmd>lua _G.MUtils.append_blanks()<CR>',
+map('n', '<CR>', '<Cmd>lua _G.MUtils.append_blank_lines()<CR>',
     {noremap = true, silent = true}) -- N<CR> to append N blank lines below cursor
 map('n', 'Y', 'y$', {noremap = true}) -- Y to act as D and C
 
