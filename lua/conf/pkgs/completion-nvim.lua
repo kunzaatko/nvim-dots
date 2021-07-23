@@ -15,7 +15,7 @@ cmd [[
         autocmd BufEnter * lua vim.g.completion_trigger_character = {'.'}
         autocmd BufEnter *.c,*.cpp,*.rs lua vim.g.completion_trigger_character = {'.','::'}
     augroup END
-]]
+]] -- for method completions for different language syntax
 
 -- options --
 
@@ -63,8 +63,8 @@ vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
 
 local map = vim.api.nvim_set_keymap
 
-map('i', '<tab>', '<Plug>(completion_smart_tab)',{})
-map('i', '<s-tab>', '<Plug>(completion_smart_s_tab)',{})
+map('i', '<tab>', '<Plug>(completion_smart_tab)', {})
+map('i', '<s-tab>', '<Plug>(completion_smart_s_tab)', {})
 
 vim.g.completion_confirm_key = ""
 

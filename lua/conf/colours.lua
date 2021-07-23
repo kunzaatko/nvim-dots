@@ -1,5 +1,6 @@
 local cmd = vim.cmd
 
+-- highlight yanked text
 cmd [[
     augroup HighlightYank
         autocmd!
