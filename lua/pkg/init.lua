@@ -10,16 +10,20 @@ return packer.startup {
     -- languages {{{
     use {
       'JuliaEditorSupport/julia-vim',
+      ft = {"julia"},
       config = function()
         require 'conf.pkgs.julia'
       end,
     }
+
     use {
       'rust-lang/rust.vim',
+      ft = {"rust"},
       config = function()
-        require 'conf.pkgs.rust'
+        vim.g.rustfmt_autosave = 1
       end,
     }
+
     use {
       'lervag/vimtex',
       ft = {"tex"},
@@ -27,9 +31,10 @@ return packer.startup {
         require 'conf.pkgs.vimtex'
       end,
     }
-    use 'kovetskiy/sxhkd-vim'
-    use 'cespare/vim-toml'
-    use 'blankname/vim-fish'
+
+    use {'kovetskiy/sxhkd-vim', ft = {"sxhkd"}}
+    use {'cespare/vim-toml', ft = {"toml"}}
+    use {'blankname/vim-fish', ft = {"fish"}}
     -- }}}
 
     -- completion and linting {{{
@@ -39,6 +44,7 @@ return packer.startup {
         require 'conf.pkgs.lsp-config'
       end,
     } -- default configuration for lsp servers
+
     use {
       'nvim-lua/completion-nvim',
       event = 'InsertEnter', -- already implied by loading after nvim-autopairs
@@ -47,7 +53,7 @@ return packer.startup {
         require 'conf.pkgs.completion-nvim'
       end,
     } -- enable lsp and other sources into omnicomp
-    use {'nvim-treesitter/completion-treesitter', after = 'completion-nvim'} -- TODO: setup in the completion-nvim config <10-05-21, kunzaatko> --
+
     use {
       'nvim-treesitter/nvim-treesitter',
       requires = {
@@ -58,14 +64,13 @@ return packer.startup {
         require 'conf.pkgs.treesitter'
       end,
     }
+
+    use {'nvim-treesitter/completion-treesitter', after = 'completion-nvim'} -- TODO: setup in the completion-nvim config <10-05-21, kunzaatko> --
     -- }}}
 
     -- prettyfying {{{
     use {
       'mhartington/formatter.nvim',
-      config = function()
-        require 'conf.pkgs.formatter'
-      end,
       ft = {
         'rust',
         'javascript',
@@ -84,7 +89,11 @@ return packer.startup {
         'bash',
         'json',
       },
+      config = function()
+        require 'conf.pkgs.formatter'
+      end,
     } -- code formatting
+
     use {
       'kdheepak/JuliaFormatter.vim',
       ft = {'julia'},
@@ -92,7 +101,7 @@ return packer.startup {
         require 'conf.pkgs.JuliaFormatter'
       end,
     } -- julia code formatting
-    use {'godlygeek/tabular', cmd = 'Tabularize'} -- tabularizing on a search pattern
+
     use {
       'norcalli/nvim-colorizer.lua',
       ft = {'css', 'javascript', 'vim', 'html', 'lua', 'tex'},
@@ -107,6 +116,8 @@ return packer.startup {
         }, {mode = 'foreground'})
       end,
     } -- colors visualizer
+
+    use {'godlygeek/tabular', cmd = 'Tabularize'} -- tabularizing on a search pattern
     -- }}}
 
     -- sessions and conviniences {{{
@@ -116,6 +127,7 @@ return packer.startup {
         vim.g.startify_fortune_use_unicode = 1
       end,
     } -- launch page
+
     use {
       'mbbill/undotree',
       cmd = 'UndotreeToggle',
@@ -123,6 +135,7 @@ return packer.startup {
         require 'conf.pkgs.undotree'
       end,
     } -- undotree visualizer
+
     use {
       'folke/which-key.nvim',
       config = function()
@@ -130,6 +143,7 @@ return packer.startup {
         require'which-key'.setup {}
       end,
     } -- keymappings echo
+
     use {
       'onsails/lspkind-nvim',
       config = function()
@@ -146,6 +160,7 @@ return packer.startup {
       end,
       requires = {'kyazdani42/nvim-web-devicons', 'rktjmp/lush.nvim'},
     } -- status line
+
     use {
       'npxbr/gruvbox.nvim',
       requires = {'rktjmp/lush.nvim'},
@@ -155,6 +170,7 @@ return packer.startup {
       after = {'lush.nvim'},
       cond = 'false',
     } -- colorscheme
+
     use {
       '~/.config/nvim/pack/opt/nord-vim',
       requires = {'rktjmp/lush.nvim', opt = true},
@@ -167,6 +183,7 @@ return packer.startup {
       after = {'lush.nvim'},
       cond = 'true',
     } -- colorscheme
+
     use {
       'kdav5758/TrueZen.nvim',
       cmd = {'TZMinimalist', 'TZFocus', 'TZAtaraxis', 'TZBottom', 'TZTop', 'TZLeft'},
@@ -174,6 +191,7 @@ return packer.startup {
         -- vim.api.nvim_set_keymap("n", "<F12>", [[<Cmd>TZAtaraxis<CR>]]) -- todo
       end,
     } -- focus mode
+
     use {
       'lukas-reineke/indent-blankline.nvim',
       config = function()
@@ -184,10 +202,9 @@ return packer.startup {
         vim.g.indent_blankline_buftype_exclude = {'terminal'}
         vim.g.indent_blankline_space_char = '·'
         vim.wo.colorcolumn = "999999" -- fix: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
-        -- vim.g.indent_blankline_context_highlight_list = true
-        -- vim.g.indent_blankline_bufname_exclude = {''}
       end,
     } -- indentation characters
+
     use {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
@@ -204,12 +221,14 @@ return packer.startup {
         require 'conf.pkgs.easymotion'
       end,
     } -- enhanced f/F/t/T
+
     use {
       'yuttie/comfortable-motion.vim',
       config = function()
         require 'conf.pkgs.comfortable-motion'
       end,
     } -- for smooth scrolling
+
     use {
       "blackCauldron7/surround.nvim",
       config = function()
@@ -217,6 +236,7 @@ return packer.startup {
       end,
       requires = {'tpope/vim-repeat'}, -- repeat needed for dot command
     } -- text objects and editing surrounding delimiters
+
     use { -- TODO:  Configure. Add mapping <c-j> <c-k> for moving in entries. <19-05-21, kunzaatko> --
       'nvim-telescope/telescope.nvim',
       requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
@@ -231,6 +251,7 @@ return packer.startup {
         require 'conf.pkgs.autopairs'
       end,
     } -- automatically adding matching delimiters
+
     use {
       'b3nj5m1n/kommentary',
       setup = function()
@@ -240,6 +261,7 @@ return packer.startup {
         require 'conf.pkgs.kommentary'
       end,
     } -- commenting lua drop-in replacement for vim-commentary
+
     use 'tpope/vim-abolish' -- abbreviations
     use 'romainl/vim-cool' -- disable search highlight when done with searching
     -- }}}
@@ -247,10 +269,12 @@ return packer.startup {
     -- snippets {{{
     use {
       'sirver/ultisnips',
+      event = 'InsertEnter',
       config = function()
         require 'conf.pkgs.ultisnips'
       end,
     }
+
     use {
       'honza/vim-snippets',
       opt = true, -- only using packer for updating the repo
@@ -259,6 +283,7 @@ return packer.startup {
 
     -- git {{{
     use {'tpope/vim-fugitive', cmd = {'G', 'Gblame', 'Gpush', 'Gpull'}}
+
     use {
       'lewis6991/gitsigns.nvim',
       requires = {'nvim-lua/plenary.nvim'},
@@ -274,7 +299,7 @@ return packer.startup {
       cmd = 'StartupTime',
       config = [[vim.g.startuptime_tries = 10]],
     } -- profiling
-    use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
+
     use {
       'glacambre/firenvim',
       opt = true,
@@ -285,6 +310,8 @@ return packer.startup {
         return vim.fn.exists('g:started_by_firenvim')
       end,
     } -- extention for browser insert boxes to use nvim
+
+    use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
     -- }}}
 
   end,
