@@ -74,3 +74,5 @@ vim.opt.formatoptions = get_opt('formatoptions'):gsub('.', {o = ''}) -- TODO: te
 
 -- >> use truecolours in colorschemes (this can brake colorschemes if they are not built for it)
 vim.opt.termguicolors = true
+vim.opt.guicursor =
+  "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
