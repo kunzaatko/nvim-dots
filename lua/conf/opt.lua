@@ -76,3 +76,9 @@ vim.opt.formatoptions = get_opt('formatoptions'):gsub('.', {o = ''}) -- TODO: te
 vim.opt.termguicolors = true
 vim.opt.guicursor =
   "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
+
+-- >> set rg as the backend for :grep command
+if vim.fn.executable('rg') == 1 then
+  vim.opt.grepprg = "rg --no-heading --vimgrep"
+  vim.opt.grepformat = "%f:%l:%c:%m"
+end
