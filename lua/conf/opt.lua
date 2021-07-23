@@ -2,13 +2,11 @@ local get_opt = vim.api.nvim_get_option
 
 --[[ number and relative number together uses number on current line and
      relativenumber on the surrounding ]]
-vim.opt.relativenumber = true
-vim.opt.number = true
+vim.opt.number, vim.opt.relativenumber = true, true
 
 --[[ ignore case in search and substitute for all lower-case patterns but
      do not ignore case for patterns with an upper-case letter ]]
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+vim.opt.ignorecase, vim.opt.smartcase = true, true
 
 -- >> when missing end of line at end of screen replace *whole* line with @@@
 vim.opt.display = 'truncate'
@@ -46,7 +44,7 @@ vim.opt.linebreak = true
 --[[ copy everything also to the system clipboard (not just while using "+ and
      "* registers) ]]
 vim.opt.clipboard = get_opt('clipboard') == '' and 'unnamedplus' or 'unnamedplus' ..
-                    get_opt('clipboard') -- create if not yet defined
+                      get_opt('clipboard') -- create if not yet defined
 
 --[[ persistent undo on close of the file (undolevel = 1000,
      undodir = "$XDG_DATA_HOME/nvim/undo/") without a swapfile ]]
@@ -54,8 +52,7 @@ vim.opt.undofile = true
 vim.opt.swapfile = false
 
 -- >> preferred directions on window splitting
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.opt.splitbelow, vim.opt.splitright = true, true
 
 -- >> remaps in normal mode (compensation for Czech keyboard locale)
 vim.opt.langmap = 'ě2,š3,č4,ř5,ž6,ý7,á8,í9'
@@ -66,13 +63,8 @@ vim.opt.spelllang = 'cs,en_gb'
                           <<,>> in normal (shiftwidth)
      shiftround = round to nearest multiple of shiftwidth ]]
 local indent = 4
-vim.opt.expandtab = true
-vim.opt.tabstop = indent
-vim.opt.shiftwidth = indent
-vim.opt.shiftround = true
-vim.opt.expandtab = true
-vim.opt.tabstop = indent
-vim.opt.shiftwidth = indent
+vim.opt.expandtab, vim.opt.shiftround = true, true
+vim.opt.tabstop, vim.opt.shiftwidth = indent, indent
 
 -- >> fold boundaries determined by markers {{{ and }}}
 vim.opt.foldmethod = 'marker'
