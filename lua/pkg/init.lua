@@ -10,7 +10,6 @@ return packer.startup {
     -- languages {{{
     use {
       'JuliaEditorSupport/julia-vim',
-      ft = {"julia"},
       config = function()
         require 'conf.pkgs.julia'
       end,
@@ -62,6 +61,20 @@ return packer.startup {
       },
       config = function()
         require 'conf.pkgs.treesitter'
+      end,
+    }
+
+    use {
+      'nvim-lua/lsp_extensions.nvim',
+      ft = {"rust"},
+      config = function()
+        require'lsp_extensions'.inlay_hints()
+        vim.cmd [[
+                augroup RustTypeHints
+                    autocmd!
+                    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
+                augroup END
+        ]]
       end,
     }
 
