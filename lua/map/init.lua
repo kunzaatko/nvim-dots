@@ -12,6 +12,12 @@ map('n', '<Space>', '<Nop>', {noremap = true}) -- this is needed before mapleade
 vim.g.mapleader = ' ' -- global mappings leader
 vim.g.maplocalleader = '-' -- leader for buffer local mapping
 
+-- leader mappings --
+
+map('n', '<Leader>w', ':write<CR>', {noremap = true, silent = true})
+map('n', '<Leader>q', ':quit<CR>', {noremap = true, silent = true})
+map('n', '<Leader>wq', ':wq<CR>', {noremap = true, silent = true})
+
 --  normal  --
 
 MUtils.append_blank_lines = function()
@@ -21,11 +27,14 @@ end
 map('n', '<CR>', '<Cmd>lua _G.MUtils.append_blank_lines()<CR>',
     {noremap = true, silent = true}) -- N<CR> to append N blank lines below cursor
 map('n', 'Y', 'y$', {noremap = true}) -- Y to act as D and C
+map('n', 'p', 'p`]', {noremap = true, silent = true}) -- go to end of pasted text
 
 -- visual --
 
 map('v', '>>', '>><Esc>gv', {noremap = true}) -- reselect after >>
 map('v', '<<', '<<<Esc>gv', {noremap = true}) -- reselect after <<
+map('v', 'y', 'y`]', {noremap = true, silent = true}) -- go to end of yanked text
+map('v', 'p', 'p`]', {noremap = true, silent = true}) -- go to end of pasted text
 
 -- command --
 
