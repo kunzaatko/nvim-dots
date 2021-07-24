@@ -8,12 +8,7 @@ return packer.startup {
     use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plug-in
 
     -- languages {{{
-    use {
-      'JuliaEditorSupport/julia-vim',
-      config = function()
-        require 'conf.pkgs.julia'
-      end,
-    }
+    use {'JuliaEditorSupport/julia-vim'}
 
     use {
       'rust-lang/rust.vim',
@@ -26,7 +21,7 @@ return packer.startup {
     use {
       'lervag/vimtex',
       ft = {"tex"},
-      config = function()
+      setup = function()
         require 'conf.pkgs.vimtex'
       end,
     }
@@ -100,7 +95,6 @@ return packer.startup {
         'toml',
         'sh',
         'bash',
-        'json',
       },
       config = function()
         require 'conf.pkgs.formatter'
@@ -144,7 +138,7 @@ return packer.startup {
     use {
       'mbbill/undotree',
       cmd = 'UndotreeToggle',
-      config = function()
+      setup = function()
         require 'conf.pkgs.undotree'
       end,
     } -- undotree visualizer
@@ -237,15 +231,19 @@ return packer.startup {
 
     use {
       'yuttie/comfortable-motion.vim',
+      setup = function()
+        vim.g.comfortable_motion_friction = 70.0
+        vim.g.comfortable_motion_air_drag = 3.0
+      end,
       config = function()
         require 'conf.pkgs.comfortable-motion'
       end,
     } -- for smooth scrolling
 
     use {
-      "blackCauldron7/surround.nvim",
+      'blackCauldron7/surround.nvim',
       config = function()
-        require"surround".setup {mappings_style = "surround"}
+        require'surround'.setup {mappings_style = 'surround'}
       end,
       requires = {'tpope/vim-repeat'}, -- repeat needed for dot command
     } -- text objects and editing surrounding delimiters
@@ -283,7 +281,7 @@ return packer.startup {
     use {
       'sirver/ultisnips',
       event = 'InsertEnter',
-      config = function()
+      setup = function()
         require 'conf.pkgs.ultisnips'
       end,
     }
