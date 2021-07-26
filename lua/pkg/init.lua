@@ -203,14 +203,14 @@ return packer.startup {
 
     use {
       'lukas-reineke/indent-blankline.nvim',
-      config = function()
+      setup = function()
         vim.g.indent_blankline_char = '│'
         vim.g.indent_blankline_use_treesitter = true
         vim.g.indent_blankline_show_first_indent_level = false
         vim.g.indent_blankline_filetype_exclude = {'help', 'markdown', 'txt'}
         vim.g.indent_blankline_buftype_exclude = {'terminal'}
         vim.g.indent_blankline_space_char = '·'
-        vim.wo.colorcolumn = "999999" -- fix: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+        vim.opt.colorcolumn = "999999" -- fix: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
       end,
     } -- indentation characters
 
