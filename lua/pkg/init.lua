@@ -130,7 +130,7 @@ return packer.startup {
     -- sessions and conviniences {{{
     use {
       'mhinz/vim-startify',
-      config = function()
+      setup = function()
         vim.g.startify_fortune_use_unicode = 1
       end,
     } -- launch page
