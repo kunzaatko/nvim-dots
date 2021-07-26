@@ -295,7 +295,7 @@ return packer.startup {
     -- }}}
 
     -- git {{{
-    use {'tpope/vim-fugitive', cmd = {'G', 'Gblame', 'Gpush', 'Gpull'}}
+    use {'tpope/vim-fugitive', cmd = {'G', 'Gblame', 'Gpush', 'Gpull', 'Gdiffsplit'}}
 
     use {
       'lewis6991/gitsigns.nvim',
