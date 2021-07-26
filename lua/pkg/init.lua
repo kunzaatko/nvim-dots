@@ -40,6 +40,17 @@ return packer.startup {
     } -- default configuration for lsp servers
 
     use {
+      'folke/trouble.nvim',
+      cmd = {'Trouble', 'TroubleClose', 'TroubleToggle', 'TroubleRefresh'},
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = function()
+        require'trouble'.setup {
+            -- TODO: configure https://github.com/folke/trouble.nvim <26-07-21, kunzaatko> --
+        }
+      end,
+    } -- diagnostics and quickfixlist
+
+    use {
       'nvim-lua/completion-nvim',
       event = 'InsertEnter', -- already implied by loading after nvim-autopairs
       after = {'nvim-autopairs'}, -- TODO: Why does it have to be here? In the help of completion-nvim, there is that it can be used without nvim-lspconfig <06-03-21, kunzaatko> --
