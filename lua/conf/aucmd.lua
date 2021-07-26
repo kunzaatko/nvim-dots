@@ -25,8 +25,8 @@ cmd [[
 cmd [[
     augroup NumberToggle
         autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-        autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+        autocmd BufEnter,FocusGained,InsertLeave * lua if vim.o.filetype ~= "" then vim.opt.relativenumber = true end
+        autocmd BufLeave,FocusLost,InsertEnter * lua if vim.o.filetype ~= "" then vim.opt.relativenumber = false end
     augroup END
 ]] -- turn off relative numbering when leaving the buffer
 

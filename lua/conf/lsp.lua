@@ -14,11 +14,3 @@ cmd [[
         autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
     augroup END
 ]] -- Show diagnostic popup on CursorHold
-
-cmd [[
-    augroup HoverWindowNumbering
-        autocmd!
-        autocmd BufEnter * lua if vim.o.filetype == "" then vim.opt.number, vim.opt.relativenumber = false,false end
-        autocmd BufLeave * lua if vim.o.filetype == "" then vim.opt.number, vim.opt.relativenumber = true,true end
-    augroup END
-]] -- Do not number lines in popup hover window
