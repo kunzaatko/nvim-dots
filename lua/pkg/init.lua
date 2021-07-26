@@ -310,7 +310,7 @@ return packer.startup {
     use {
       'dstein64/vim-startuptime',
       cmd = 'StartupTime',
-      config = [[vim.g.startuptime_tries = 10]],
+      setup = [[vim.g.startuptime_tries = 10]],
     } -- profiling
 
     use {
