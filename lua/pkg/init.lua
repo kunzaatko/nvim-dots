@@ -194,10 +194,10 @@ return packer.startup {
     } -- colorscheme
 
     use {
-      'kdav5758/TrueZen.nvim',
-      cmd = {'TZMinimalist', 'TZFocus', 'TZAtaraxis', 'TZBottom', 'TZTop', 'TZLeft'},
+      "folke/zen-mode.nvim",
+      cmd = {'ZenMode'},
       config = function()
-        -- vim.api.nvim_set_keymap("n", "<F12>", [[<Cmd>TZAtaraxis<CR>]]) -- todo
+        require("zen-mode").setup {}
       end,
     } -- focus mode
 
