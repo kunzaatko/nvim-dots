@@ -181,10 +181,12 @@ return packer.startup {
     use {
       '~/.config/nvim/pack/opt/nord-vim',
       requires = {'rktjmp/lush.nvim', opt = true},
-      config = function()
+      setup = function()
         vim.g.nord_italic = 1
         vim.g.nord_italic_comments = 1
         vim.g.nord_underline = 1
+      end,
+      config = function()
         vim.cmd("colorscheme nord")
       end,
       after = {'lush.nvim'},
