@@ -25,8 +25,8 @@ cmd [[
 cmd [[
     augroup NumberToggle
         autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * lua if vim.o.filetype ~= "" then vim.opt.relativenumber = true end
-        autocmd BufLeave,FocusLost,InsertEnter * lua if vim.o.filetype ~= "" then vim.opt.relativenumber = false end
+        autocmd WinEnter,FocusGained,InsertLeave * lua if vim.wo.number == true then vim.wo.relativenumber = true end
+        autocmd WinLeave,FocusLost,InsertEnter * lua if vim.wo.number == true then vim.wo.relativenumber = false end
     augroup END
 ]] -- turn off relative numbering when leaving the buffer
 
@@ -45,11 +45,3 @@ cmd [[
         autocmd BufWritePre * call v:lua.AUtils.trim_white_space()
     augroup END
 ]]
-
--- FIX: This is broken by the relative numbering toggle <23-02-21, kunzaatko> -
--- do not number terminal window
--- autocmd("term", {
---     [[TermOpen,TermEnter * setlocal listchars= nonumber norelativenumber]],
---     [[TermClose * startinsert]] }
---     -- TODO: Add a rule to unset the option scrolloff to 0 <09-03-21, kunzaatko> --
---     )
