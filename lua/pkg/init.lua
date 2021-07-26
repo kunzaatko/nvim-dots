@@ -172,7 +172,7 @@ return packer.startup {
       'npxbr/gruvbox.nvim',
       requires = {'rktjmp/lush.nvim'},
       config = function()
-        vim.cmd("colorscheme gruvbox")
+        vim.cmd('colorscheme gruvbox')
       end,
       after = {'lush.nvim'},
       cond = 'false',
@@ -187,17 +187,19 @@ return packer.startup {
         vim.g.nord_underline = 1
       end,
       config = function()
-        vim.cmd("colorscheme nord")
+        vim.cmd('colorscheme nord')
       end,
       after = {'lush.nvim'},
       cond = 'true',
     } -- colorscheme
 
     use {
-      "folke/zen-mode.nvim",
+      'folke/zen-mode.nvim',
       cmd = {'ZenMode'},
       config = function()
-        require("zen-mode").setup {}
+        require("zen-mode").setup {
+            -- TODO: configure https://github.com/folke/zen-mode.nvim <26-07-21, kunzaatko> --
+                }
       end,
     } -- focus mode
 
@@ -219,6 +221,7 @@ return packer.startup {
       requires = "nvim-lua/plenary.nvim",
       config = function()
         require("todo-comments").setup {highlight = {keyword = "fg", after = ""}}
+        -- TODO: configure https://github.com/folke/todo-comments.nvim <26-07-21, kunzaatko> --
       end,
     } -- todo comments and todo quickfixlist
     -- }}}
