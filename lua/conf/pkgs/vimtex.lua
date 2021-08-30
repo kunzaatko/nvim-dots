@@ -9,6 +9,7 @@
 
 vim.g.vimtex_fold_enabled = 1 -- foldexpr function for folds
 vim.g.vimtex_fold_manual = 1 -- only compute only on demand
+vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1 -- close the quickfix if the cursor is moved after compiling
 -- NOTE: if set to 1 it copies the output after every compilation instead of the last one
 vim.g.vimtex_view_use_temp_files = 2 -- ensures, that the PDF does not update after a failed compilation
 vim.g.vimtex_view_automatic = 1 -- for mklatex it has to be set only if the use_temp_files is nonzero
