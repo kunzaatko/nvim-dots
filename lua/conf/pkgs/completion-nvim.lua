@@ -12,7 +12,6 @@ cmd [[
 cmd [[
     augroup CompletionTriggerCharacter
         autocmd!
-        autocmd BufEnter * lua vim.g.completion_trigger_character = {'.'}
         autocmd BufEnter *.c,*.cpp,*.rs lua vim.g.completion_trigger_character = {'.','::'}
     augroup END
 ]] -- for method completions for different language syntax
@@ -20,24 +19,12 @@ cmd [[
 -- options --
 
 vim.g.completion_enable_snippet = 'UltiSnips'
+
+-- TODO: This does not work <09-09-21, kunzaatko> --
+vim.g.completion_popup_border = 'rounded' -- 'single', 'double', 'rounded', 'solid' and 'shadow'
+vim.g.completion_enable_auto_paren = 1
+
 vim.g.completion_chain_complete_list = {
-  rust = {
-    string = {
-      {complete_items = {'path'}, triggered_only = {'/'}},
-      {mode = '<c-p>'},
-      {mode = '<c-n>'},
-      {mode = '<incl>'},
-      {mode = '<dict>'},
-      {mode = '<thes>'},
-      {mode = '<user>'},
-    },
-    func = {{complete_items = {'lsp', 'path', 'snippet'}}},
-    default = {
-      {complete_items = {'lsp', 'snippet'}},
-      {mode = '<c-p>'},
-      {mode = '<c-n>'},
-    },
-  },
   default = {
     default = {
       {complete_items = {'lsp', 'snippet'}},
@@ -46,6 +33,33 @@ vim.g.completion_chain_complete_list = {
       {mode = '<c-n>'},
     },
     comment = {
+      {complete_items = {'lsp', 'path'}, triggered_only = {'/'}},
+      {mode = '<c-p>'},
+      {mode = '<c-n>'},
+      {mode = '<incl>'},
+      {mode = '<dict>'},
+      {mode = '<thes>'},
+      {mode = '<user>'},
+    },
+  },
+
+  rust = {
+    default = {
+      {complete_items = {'lsp', 'snippet'}},
+      {mode = '<c-p>'},
+      {mode = '<c-n>'},
+    },
+    func = {{complete_items = {'lsp', 'path', 'snippet'}}},
+    comment = {
+      {complete_items = {'lsp', 'path'}, triggered_only = {'/'}},
+      {mode = '<c-p>'},
+      {mode = '<c-n>'},
+      {mode = '<incl>'},
+      {mode = '<dict>'},
+      {mode = '<thes>'},
+      {mode = '<user>'},
+    },
+    string = {
       {complete_items = {'path'}, triggered_only = {'/'}},
       {mode = '<c-p>'},
       {mode = '<c-n>'},
