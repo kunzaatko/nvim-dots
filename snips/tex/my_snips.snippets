@@ -245,7 +245,7 @@ endsnippet
 
 context "math()"
 snippet ddx "d/dx" w
-\frac{\d {${1:V}}}{\d {${2:x}}} $0
+\frac{\dd {${1:V}}}{\dd {${2:x}}} $0
 endsnippet
 
 context "math()"
@@ -597,7 +597,7 @@ snippet "hat" "hat" riA
 endsnippet
 
 context "math()"
-snippet "~" "hat" ri
+snippet "~" "tilde" ri
 \tilde{$1}$0
 endsnippet
 
@@ -665,8 +665,14 @@ snippet qq "\quad" Aw
 \quad
 endsnippet
 
+priority 10
 snippet :: "\dot{}" iA
 \dot{$1}$0
+endsnippet
+
+priority 100
+snippet "([a-zA-Z])::" "dot" riA
+\dot{`!p snip.rv=match.group(1)`}
 endsnippet
 
 snippet msc "\mathscr{}" iA
