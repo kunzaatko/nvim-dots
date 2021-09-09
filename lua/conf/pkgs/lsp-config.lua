@@ -33,12 +33,7 @@ end -- }}}
 
 local servers = {"bashls", "texlab", "ccls", "rust_analyzer", "vimls"}
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
+  lspconfig[lsp].setup {on_attach = on_attach, flags = {debounce_text_changes = 150}}
 end
 
 lspconfig.julials.setup {
