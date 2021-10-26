@@ -45,7 +45,7 @@ return packer.startup {
       requires = 'kyazdani42/nvim-web-devicons',
       config = function()
         require'trouble'.setup {
-            -- TODO: configure https://github.com/folke/trouble.nvim <26-07-21, kunzaatko> --
+          -- TODO: configure https://github.com/folke/trouble.nvim <26-07-21, kunzaatko> --
         }
       end,
     } -- diagnostics and quickfixlist
@@ -209,8 +209,8 @@ return packer.startup {
       cmd = {'ZenMode'},
       config = function()
         require("zen-mode").setup {
-            -- TODO: configure https://github.com/folke/zen-mode.nvim <26-07-21, kunzaatko> --
-                }
+          -- TODO: configure https://github.com/folke/zen-mode.nvim <26-07-21, kunzaatko> --
+        }
       end,
     } -- focus mode
 
@@ -235,6 +235,8 @@ return packer.startup {
         -- TODO: configure https://github.com/folke/todo-comments.nvim <26-07-21, kunzaatko> --
       end,
     } -- todo comments and todo quickfixlist
+
+    use {"rcarriga/nvim-notify"}
     -- }}}
 
     -- movement {{{
