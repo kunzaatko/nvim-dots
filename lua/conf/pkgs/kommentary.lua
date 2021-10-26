@@ -3,7 +3,7 @@ local config = require('kommentary.config')
 
 config.add_keymap("n", "kommentary_line_force_singles", config.context.line, {},
                   "kommentary.toggle_comment_singles")
-config.add_keymap("n", "kommentary_motion_force_singles", config.context.init,
+config.add_keymap("n", "kommentary_motion_force_singles", config.context.motion,
                   {expr = true}, "kommentary.toggle_comment_singles")
 config.add_keymap("v", "kommentary_visual_force_singles", config.context.visual, {},
                   "kommentary.toggle_comment_singles")
