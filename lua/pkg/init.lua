@@ -20,7 +20,7 @@ return packer.startup {
 
     use {
       'lervag/vimtex',
-      ft = {"tex"},
+      ft = "tex",
       setup = function()
         require 'conf.pkgs.vimtex'
       end,
@@ -320,6 +320,10 @@ return packer.startup {
         require 'conf.pkgs.gitsigns'
       end,
     }
+    -- }}}
+
+    -- libraries {{{
+    use {'nvim-lua/plenary.nvim', ft = "tex"}
     -- }}}
 
     -- other {{{
