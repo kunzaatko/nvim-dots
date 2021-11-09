@@ -15,6 +15,7 @@ cmd [[
     augroup END
 ]] -- Show diagnostic popup on CursorHold
 
+-- FIX: does not work <09-11-21, kunzaatko> --
 cmd [[
     sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=
     sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=

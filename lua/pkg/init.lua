@@ -50,6 +50,7 @@ return packer.startup {
       end,
     } -- diagnostics and quickfixlist
 
+    -- FIX: This plugin is not maintained anymore <09-11-21, kunzaatko> --
     use {
       'nvim-lua/completion-nvim',
       event = 'InsertEnter', -- already implied by loading after nvim-autopairs
@@ -57,7 +58,7 @@ return packer.startup {
       config = function()
         require 'conf.pkgs.completion-nvim'
       end,
-    } -- enable lsp and other sources into omnicomp
+    } -- enable lsp and inserts other sources into omnicomplete
 
     use {
       'nvim-treesitter/nvim-treesitter',
@@ -315,15 +316,24 @@ return packer.startup {
 
     use {
       'lewis6991/gitsigns.nvim',
-      requires = {'nvim-lua/plenary.nvim'},
+      requires = 'nvim-lua/plenary.nvim',
       config = function()
-        require 'conf.pkgs.gitsigns'
+        require('gitsigns').setup {
+          signs = {
+            add = {hl = 'GreenSign', text = '│', numhl = 'GitSignsAddNr'},
+            change = {hl = 'BlueSign', text = '│', numhl = 'GitSignsChangeNr'},
+            delete = {hl = 'RedSign', text = '│', numhl = 'GitSignsDeleteNr'},
+            topdelete = {hl = 'RedSign', text = '│', numhl = 'GitSignsDeleteNr'},
+            changedelete = {hl = 'PurpleSign', text = '│', numhl = 'GitSignsChangeNr'},
+          },
+        }
       end,
     }
     -- }}}
 
     -- libraries {{{
-    use {'nvim-lua/plenary.nvim', ft = "tex"}
+    -- NOTE: must be a start plugin because it is required by start package gitsigns <kunzaatko> --
+    use 'nvim-lua/plenary.nvim'
     -- }}}
 
     -- other {{{
