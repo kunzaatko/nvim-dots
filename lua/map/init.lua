@@ -21,7 +21,7 @@ map('n', '<Leader>wq', ':wq<CR>', {noremap = true, silent = true})
 --  normal  --
 
 MUtils.append_blank_lines = function()
-  vim.fn.append(vim.api.nvim_get_current_line(),
+  vim.fn.append(vim.fn.line("."),
                 vim.fn["repeat"]({""}, vim.api.nvim_get_vvar("count1")))
 end
 map('n', '<CR>', '<Cmd>lua _G.MUtils.append_blank_lines()<CR>',
