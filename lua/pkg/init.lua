@@ -302,13 +302,16 @@ return packer.startup {
       event = 'InsertEnter',
       setup = function()
         require 'conf.pkgs.ultisnips'
+
+      end,
+      config = function()
+        if vim.bo.filetype == 'tex' then
+          vim.g.UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit =
+            TEXUtils.get_tex_root():joinpath("snips").filename
+        end
       end,
     }
 
-    use {
-      'honza/vim-snippets',
-      opt = true, -- only using packer for updating the repo
-    }
     -- }}}
 
     -- git {{{

@@ -56,6 +56,12 @@ TEXUtils.kill_watch_daemon = function()
     :start()
 end -- }}}
 
+--- Get the tex root of the current buffer
+---@return table root (plenary path)
+TEXUtils.get_tex_root = function()
+    return path.new(vim.b.vimtex.root)
+end
+
 -- TODO: Some REGEX for adding label and caption at the same time for ex. (some fig (This fig shows a function), or: some fig: this fig shows a function [a sin fucntion in the functions section]) <07-11-21, kunzaatko> "
 
 --- Run `inkscape-figures create` with the right tex root
@@ -82,3 +88,5 @@ MUtils.inkscape_figures_edit = function()
   local figs_root = path.new(vim.b.vimtex.root):joinpath("figures")
   Job:new({command = 'inkscape-figures', args = {'edit', figs_root.filename}}):start()
 end -- }}}
+
+return TEXUtils
