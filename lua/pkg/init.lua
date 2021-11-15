@@ -355,8 +355,11 @@ return packer.startup {
     } -- extention for browser insert boxes to use nvim
 
     use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
+
+    use 'nathom/filetype.nvim' -- speedsup the startuptime by using a lua version of the filetype.vim script
     -- }}}
 
   end,
   config = {disable_commands = true}, -- disable creating commands (created manually)
+
 }
