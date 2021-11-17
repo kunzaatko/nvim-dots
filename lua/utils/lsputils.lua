@@ -34,3 +34,4 @@ LSPUtils.on_attach = function(_, bufnr)
           {noremap = true, silent = true})
 end -- }}}
 
+return LSPUtils
