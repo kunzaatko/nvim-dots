@@ -5,61 +5,97 @@ return packer.startup {
 
     -- package management --
 
-    use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plug-in
+    use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plugin
 
-    -- languages {{{
-    use {'JuliaEditorSupport/julia-vim'}
+    -- LANGUAGES {{{
+    -- FIX: There is a bug that causes this to give errors when it is an opt plugin on several events <17-11-21, kunzaatko> --
+    -- use {'JuliaEditorSupport/julia-vim', as = 'julia'} -- mainly for LaTeX to unicode support
 
+    -- 'rust-lang/rust.vim'{{{
     use {
       'rust-lang/rust.vim',
-      ft = {"rust"},
+      as = 'rust',
+      ft = 'rust',
       config = function()
         vim.g.rustfmt_autosave = 1
       end,
-    }
+    } -- Playpen integration, :RunTest
+    -- }}}
 
     use {
+      'simrat39/rust-tools.nvim',
+      ft = 'rust',
+      config = function()
+        require'rust-tools'.setup()
+      end,
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope.nvim',
+        'neovim/nvim-lspconfig',
+      },
+    }
+
+    -- 'lervag/vimtex'{{{
+    use {
       'lervag/vimtex',
-      ft = "tex",
+      ft = 'tex',
       setup = function()
         require 'conf.pkgs.vimtex'
       end,
-    }
-
-    use {'kovetskiy/sxhkd-vim', ft = {"sxhkd"}}
-    use {'cespare/vim-toml', ft = {"toml"}}
-    use {'blankname/vim-fish', ft = {"fish"}}
+    } -- continuous compilation, folding, indenting etc.
     -- }}}
 
-    -- completion and linting {{{
-    use {
-      'neovim/nvim-lspconfig',
-      config = function()
-        require 'conf.pkgs.lsp-config'
-      end,
-    } -- default configuration for lsp servers
+    use {'kovetskiy/sxhkd-vim', as = 'sxhkd', ft = 'sxhkd'} -- SXHKD spec file support
+    use {'cespare/vim-toml', as = 'toml', ft = 'toml'} -- TOML language support
+    use {'blankname/vim-fish', as = 'fish', ft = 'fish'} -- fish scripts support
+    -- }}}
 
+    -- COMPLETION AND LINTING {{{
+    -- 'folke/trouble.nvim' -- diagnostics and quickfixlist{{{
     use {
       'folke/trouble.nvim',
-      cmd = {'Trouble', 'TroubleClose', 'TroubleToggle', 'TroubleRefresh'},
       requires = 'kyazdani42/nvim-web-devicons',
+      cmd = {'Trouble', 'TroubleToggle', 'TroubleClose', 'TroubleRefresh'},
+      keys = {'<leader>tt', '<leader>tl', '<leader>tr', '<leader>td'},
       config = function()
-        require'trouble'.setup {
-          -- TODO: configure https://github.com/folke/trouble.nvim <26-07-21, kunzaatko> --
-        }
+        vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>',
+                                {noremap = true, silent = true}) -- Trouble 'global' (full workspace diagnostics)
+        vim.api.nvim_set_keymap('n', '<Leader>tl',
+                                '<Cmd>TroubleToggle lsp_document_diagnostics<CR>',
+                                {noremap = true, silent = true}) -- Trouble 'local' (only the current buffer)
+        vim.api.nvim_set_keymap('n', '<Leader>tr',
+                                '<Cmd>TroubleToggle lsp_references<CR>',
+                                {noremap = true, silent = true}) -- Trouble references
+        vim.api.nvim_set_keymap('n', '<Leader>td',
+                                '<Cmd>TroubleToggle lsp_definitions<CR>',
+                                {noremap = true, silent = true}) -- Trouble definitions
       end,
-    } -- diagnostics and quickfixlist
+    }
+    -- }}}
 
-    -- FIX: This plugin is not maintained anymore <09-11-21, kunzaatko> --
+    -- 'hrsh7th/nvim-cmp' -- completion engine {{{
     use {
-      'nvim-lua/completion-nvim',
-      event = 'InsertEnter', -- already implied by loading after nvim-autopairs
-      after = {'nvim-autopairs'}, -- TODO: Why does it have to be here? In the help of completion-nvim, there is that it can be used without nvim-lspconfig <06-03-21, kunzaatko> --
+      'hrsh7th/nvim-cmp',
+      as = 'cmp',
+      requires = {
+        {'hrsh7th/cmp-buffer', after = 'cmp'},
+        {'hrsh7th/cmp-path', after = 'cmp'},
+        {'hrsh7th/cmp-cmdline', after = 'cmp'},
+        {'quangnguyen30192/cmp-nvim-ultisnips', after = 'cmp'},
+        {'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim'},
+        'kdheepak/cmp-latex-symbols',
+        'lukas-reineke/cmp-rg',
+        'hrsh7th/cmp-nvim-lsp',
+        'onsails/lspkind-nvim',
+        'neovim/nvim-lspconfig',
+      },
       config = function()
-        require 'conf.pkgs.completion-nvim'
+        require 'conf.pkgs.nvim_cmp'
       end,
-    } -- enable lsp and inserts other sources into omnicomplete
+    }
+    -- }}}
 
+    -- 'nvim-treesitter/nvim-treesitter' -- treesitter code parsing and refactoring {{{
     use {
       'nvim-treesitter/nvim-treesitter',
       requires = {
@@ -70,10 +106,12 @@ return packer.startup {
         require 'conf.pkgs.treesitter'
       end,
     }
+    -- }}}
 
+    -- 'nvim-lua/lsp_extensions' -- rust type annotations {{{
     use {
       'nvim-lua/lsp_extensions.nvim',
-      ft = {"rust"},
+      ft = 'rust',
       config = function()
         require'lsp_extensions'.inlay_hints()
         vim.cmd [[
@@ -84,11 +122,14 @@ return packer.startup {
         ]]
       end,
     }
-
-    use {'nvim-treesitter/completion-treesitter', after = 'completion-nvim'} -- TODO: setup in the completion-nvim config <10-05-21, kunzaatko> --
     -- }}}
 
-    -- prettyfying {{{
+    use {'folke/lua-dev.nvim', as = 'lua-dev'} -- developement environment for lua and nvim
+
+    -- }}}
+
+    -- PRETTYFYING {{{
+    -- 'mhartington/formatter.nvim' -- code formatting {{{
     use {
       'mhartington/formatter.nvim',
       ft = {
@@ -110,17 +151,26 @@ return packer.startup {
       },
       config = function()
         require 'conf.pkgs.formatter'
+        vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>Format<CR>', {silent = true})
       end,
-    } -- code formatting
+    }
+    -- }}}
 
+    -- TODO: Do this using 'mhartington/formatter.nvim' <17-11-21, kunzaatko> --
+    -- 'kdheepak/JuliaFormatter.vim' -- julia code formatting {{{
     use {
       'kdheepak/JuliaFormatter.vim',
-      ft = {'julia'},
+      ft = 'julia',
+      keys = '<leader>f',
       config = function()
-        require 'conf.pkgs.JuliaFormatter'
+        vim.g.JuliaFormatter_options = {['style'] = 'blue'}
+        vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>JuliaFormatterFormat<CR>',
+                                {silent = true})
       end,
-    } -- julia code formatting
+    }
+    -- }}}
 
+    -- 'norcalli/nvim-colorizer.lua' -- colours visualizer {{{
     use {
       'norcalli/nvim-colorizer.lua',
       ft = {'css', 'javascript', 'vim', 'html', 'lua', 'tex'},
@@ -134,87 +184,84 @@ return packer.startup {
           lua = {names = false, hsl_fn = true},
         }, {mode = 'foreground'})
       end,
-    } -- colors visualizer
+    }
+    -- }}}
 
     use {'godlygeek/tabular', cmd = 'Tabularize'} -- tabularizing on a search pattern
     -- }}}
 
-    -- sessions and conviniences {{{
+    -- SESSIONS AND CONVINIENCES {{{
+    -- 'mhinz/vim-startify'-- launch page{{{
     use {
       'mhinz/vim-startify',
       setup = function()
         vim.g.startify_fortune_use_unicode = 1
       end,
-    } -- launch page
+    }
+    -- }}}
 
+    -- 'mbbill/undotree' -- undotree visualizer {{{
     use {
       'mbbill/undotree',
       cmd = 'UndotreeToggle',
+      keys = '<leader>u',
       setup = function()
-        require 'conf.pkgs.undotree'
+        vim.g.undotree_WindowLayout = 2 -- layout with diff at the bottom
+        vim.g.undotree_DiffpanelHeight = 7 -- most of the time only one line changes
+        vim.g.undotree_ShortIndicators = 1 -- time indicators 's,m,h,d'
+        vim.g.undotree_SplitWidth = 40 -- it fits 3 branches
+        vim.g.undotree_TreeNodeShape = ''
+        vim.g.undotree_TreeVertShape = '│'
+        vim.g.undotree_DiffAutoOpen = 0 -- it does not carry much info
+        vim.g.undotree_SetFocusWhenToggle = 1 -- better for using it for complicated undo and not informative
+        vim.g.undotree_HelpLine = 0 -- do not show the help line hint
       end,
-    } -- undotree visualizer
+      config = function()
+        vim.api.nvim_set_keymap('n', '<leader>u', '<Cmd>UndotreeToggle<CR>',
+                                {noremap = true, silent = true})
+      end,
 
+    } -- }}}
+
+    -- 'folke/which-key.nvim' -- echo keymappings {{{
     use {
       'folke/which-key.nvim',
       config = function()
         -- TODO: configure https://github.com/folke/which-key.nvim <28-04-21, kunzaatko> --
         require'which-key'.setup {}
       end,
-    } -- keymappings echo
-
-    use {
-      'onsails/lspkind-nvim',
-      config = function()
-        require'lspkind'.init {with_text = false}
-      end,
     }
     -- }}}
 
-    -- aesthetics {{{
+    -- }}}
+
+    -- AESTHETICS {{{
+    -- 'glepnir/galaxyline.nvim' -- status line{{{
     use {
       'glepnir/galaxyline.nvim',
       config = function()
         require 'conf.pkgs.galaxyline'
       end,
       requires = {'kyazdani42/nvim-web-devicons', 'rktjmp/lush.nvim'},
-    } -- status line
+    }
+    -- }}}
 
-    use {
-      'npxbr/gruvbox.nvim',
-      requires = {'rktjmp/lush.nvim'},
-      config = function()
-        vim.cmd('colorscheme gruvbox')
-      end,
-      after = {'lush.nvim'},
-      cond = 'false',
-    } -- colorscheme
-
-    use {
-      '~/.config/nvim/pack/opt/nord-vim',
-      requires = {'rktjmp/lush.nvim', opt = true},
-      setup = function()
-        vim.g.nord_italic = 1
-        vim.g.nord_italic_comments = 1
-        vim.g.nord_underline = 1
-      end,
-      config = function()
-        vim.cmd('colorscheme nord')
-      end,
-      after = {'lush.nvim'},
-      cond = 'true',
-    } -- colorscheme
-
+    -- 'folke/zen-mode.nvim' --  focus mode{{{
     use {
       'folke/zen-mode.nvim',
       cmd = {'ZenMode'},
+      keys = '<leader>z',
       config = function()
         require("zen-mode").setup {
           -- TODO: configure https://github.com/folke/zen-mode.nvim <26-07-21, kunzaatko> --
         }
+        vim.api.nvim_set_keymap('n', '<leader>z', '<Cmd>ZenMode<CR>',
+                                {noremap = true, silent = true})
       end,
-    } -- focus mode
+    }
+    -- }}}
 
+    -- 'lukas-reineke/indent-blankline.nvim' -- indentation guides {{{
     use {
       'lukas-reineke/indent-blankline.nvim',
       setup = function()
@@ -226,83 +273,176 @@ return packer.startup {
         vim.g.indent_blankline_space_char = '·'
         vim.opt.colorcolumn = "999999" -- fix: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
       end,
-    } -- indentation characters
+    }
+    -- }}}
 
+    -- 'folke/todo-comments.nvim' -- todo comments and todo quickfixlist {{{
     use {
-      "folke/todo-comments.nvim",
+      'folke/todo-comments.nvim',
       requires = "nvim-lua/plenary.nvim",
       config = function()
         require("todo-comments").setup {highlight = {keyword = "fg", after = ""}}
         -- TODO: configure https://github.com/folke/todo-comments.nvim <26-07-21, kunzaatko> --
       end,
-    } -- todo comments and todo quickfixlist
-
-    use {"rcarriga/nvim-notify"}
+    }
     -- }}}
 
-    -- movement {{{
-    use { -- TODO: Add mappings - it a long loading mapping
-      'easymotion/vim-easymotion',
-      config = function()
-        require 'conf.pkgs.easymotion'
-      end,
-    } -- enhanced f/F/t/T
-
+    -- 'rcarriga/nvim-notify' -- notification UI for nvim {{{
     use {
-      'yuttie/comfortable-motion.vim',
+      'rcarriga/nvim-notify',
+      as = 'notify',
+      config = function()
+        vim.notify = require 'notify'
+      end,
+    }
+    -- }}}
+
+    use 'romainl/vim-cool' -- disable search highlight when done with searching
+
+    ---------------------
+    --  colourschemes  --
+    ---------------------
+    -- 'npxbr/gruvbox.nvim' -- colourscheme {{{
+    use {
+      'npxbr/gruvbox.nvim',
+      requires = {'rktjmp/lush.nvim'},
+      config = function()
+        vim.cmd('colorscheme gruvbox')
+      end,
+      after = {'lush.nvim'},
+      cond = 'false',
+    }
+    -- }}}
+
+    -- 'kunzaatko/nord.nvim' -- colourscheme {{{
+    use {
+      '~/.config/nvim/pack/opt/nord-vim',
+      requires = {'rktjmp/lush.nvim', opt = true},
       setup = function()
-        vim.g.comfortable_motion_friction = 70.0
-        vim.g.comfortable_motion_air_drag = 3.0
+        vim.g.nord_italic = 1
+        vim.g.nord_italic_comments = 1
+        vim.g.nord_underline = 1
       end,
       config = function()
-        require 'conf.pkgs.comfortable-motion'
+        vim.cmd('colorscheme nord')
       end,
-    } -- for smooth scrolling
+    }
+    -- }}}
+    -- }}}
 
+    -- MOVEMENT {{{
+
+    -- 'ggandor/lightspeed.nvim' -- enhanced f,F,t,T and s,S for double letter searching {{{
+    use {
+      'ggandor/lightspeed.nvim',
+      keys = {'s', 'S', 'f', 'F', 't', 'T'},
+      requires = 'tpope/vim-repeat',
+    }
+    -- }}}
+
+    -- 'karb94/neoscroll.nvim' -- for smooth scrolling {{{
+    use {
+      'karb94/neoscroll.nvim',
+      config = function()
+        require'neoscroll'.setup()
+      end,
+    }
+    -- }}}
+
+    -- 'nvim-telescope/telescope.nvim' -- file finder and list shower {{{
+    use {
+      'nvim-telescope/telescope.nvim',
+      keys = {
+        '<leader><leader>f',
+        '<leader><leader>g',
+        '<leader><leader>b',
+        '<leader><leader>h',
+      },
+      cmd = 'Telescope',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+        'nvim-treesitter/nvim-treesitter',
+      },
+      config = function()
+        require'telescope'.setup()
+        require'telescope'.load_extension('fzf')
+
+        if packer_plugins.notify.loaded == true then
+          require('telescope').load_extension('notify')
+        end
+
+        vim.api.nvim_set_keymap('n', '<leader><leader>f',
+                                "<Cmd>lua require'telescope.builtin'.git_files()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader><leader>g',
+                                "<Cmd>lua require'telescope.builtin'.live_grep()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader><leader>b',
+                                "<Cmd>lua require'telescope.builtin'.buffers()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader><leader>h',
+                                "<Cmd>lua require'telescope.builtin'.help_tags()<CR>",
+                                {noremap = true, silent = true})
+      end,
+    }
+
+    -- }}}
+
+    -- }}}
+
+    -- TEXT-EDITING FEATURES {{{
+
+    -- 'windwp/nvim-autopairs' -- automatically adding matching delimiters {{{
+    use {
+      'windwp/nvim-autopairs',
+      event = 'InsertEnter',
+      config = function()
+        require'nvim-autopairs'.setup()
+      end,
+    } -- }}}
+
+    -- 'blackCauldron7/surround.nvim' -- text objects and editing surrounding delimiters{{{
     use {
       'blackCauldron7/surround.nvim',
       config = function()
         require'surround'.setup {mappings_style = 'surround'}
       end,
-      requires = {'tpope/vim-repeat'}, -- repeat needed for dot command
-    } -- text objects and editing surrounding delimiters
+    } -- }}}
 
-    use { -- TODO:  Configure. Add mapping <c-j> <c-k> for moving in entries. <19-05-21, kunzaatko> --
-      'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    -- 'b3nj5m1n/kommentary' -- commenting {{{
+    use {
+      'b3nj5m1n/kommentary',
+      config = function()
+        require'kommentary.config'.configure_language("default", {
+          prefer_single_line_comments = true,
+        })
+      end,
     }
     -- }}}
 
-    -- text-editing features {{{
-    use {
-      'windwp/nvim-autopairs',
-      event = 'InsertEnter',
-      config = function()
-        require 'conf.pkgs.autopairs'
-      end,
-    } -- automatically adding matching delimiters
-
-    use {
-      'b3nj5m1n/kommentary',
-      setup = function()
-        vim.g.kommentary_create_default_mappings = false
-      end,
-      config = function()
-        require 'conf.pkgs.kommentary'
-      end,
-    } -- commenting lua drop-in replacement for vim-commentary
-
     use 'tpope/vim-abolish' -- abbreviations
-    use 'romainl/vim-cool' -- disable search highlight when done with searching
     -- }}}
 
-    -- snippets {{{
+    -- SNIPPETS {{{
+    -- 'sirver/ultisnips' -- snippets {{{
     use {
       'sirver/ultisnips',
       event = 'InsertEnter',
       setup = function()
-        require 'conf.pkgs.ultisnips'
-
+        -- Snippets variables
+        vim.g.snips_author = "kunzaatko"
+        vim.g.snips_email = "martinkunz@email.cz"
+        vim.g.snips_github = "https://github.com/kunzaatko"
+        -- UltiSnips
+        vim.opt.runtimepath = vim.opt.runtimepath + {vim.fn.expand("$PWD")}
+        vim.g.UltiSnipsSnippetDirectories = {'snips'} -- this ensures that snippets directories are not recursively searched
+        vim.g.UltiSnipsEnableSnipMate = 0 -- only look for UltiSnips snippets
+        vim.g.UltiSnipsExpandTrigger = '<c-l>' -- overwrites escaping to insert mode when insertmode option is set
+        vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+        vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+        vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
+        vim.g.UltiSnipsRemoveSelectModeMappings = 0 -- for using tab in nvim-cmp
       end,
       config = function()
         if vim.bo.filetype == 'tex' then
@@ -310,18 +450,41 @@ return packer.startup {
             TEXUtils.get_tex_root():joinpath("snips").filename
         end
       end,
-    }
-
+    } -- }}}
     -- }}}
 
-    -- git {{{
+    -- GIT {{{
     use {'tpope/vim-fugitive', cmd = {'G', 'Gblame', 'Gpush', 'Gpull', 'Gdiffsplit'}}
 
+    -- 'TimUntersberger/neogit' -- magit for neovim {{{
+    use {
+      'TimUntersberger/neogit',
+      cmd = 'Neogit',
+      keys = '<leader>g',
+      requires = 'sindrets/diffview.nvim',
+      config = function()
+        require'neogit'.setup({
+          disable_hint = true,
+          disable_commit_confirmation = true,
+          commit_popup = {kind = "vsplit"},
+          integrations = {diffview = true},
+        })
+        vim.api.nvim_set_keymap('n', '<leader>g',
+                                "<Cmd> lua require'neogit'.open()<CR>",
+                                {noremap = true, silent = true})
+      end,
+    }
+    -- }}}
+
+    -- 'lewis6991/gitsigns.nvim' -- signs of changes in sign column {{{
     use {
       'lewis6991/gitsigns.nvim',
       requires = 'nvim-lua/plenary.nvim',
+      setup = function()
+        vim.cmd "packadd plenary.nvim"
+      end,
       config = function()
-        require('gitsigns').setup {
+        require'gitsigns'.setup {
           signs = {
             add = {hl = 'GreenSign', text = '│', numhl = 'GitSignsAddNr'},
             change = {hl = 'BlueSign', text = '│', numhl = 'GitSignsChangeNr'},
@@ -333,17 +496,18 @@ return packer.startup {
       end,
     }
     -- }}}
-
-    -- libraries {{{
-    -- NOTE: must be a start plugin because it is required by start package gitsigns <kunzaatko> --
-    use 'nvim-lua/plenary.nvim'
     -- }}}
 
-    -- other {{{
+    -- LIBRARIES {{{
+    -- NOTE: Used for starting the watch daemon for figures <kunzaatko> --
+    use {'nvim-lua/plenary.nvim', ft = 'tex'}
+    -- }}}
+
+    -- OTHER {{{
     use {
       'dstein64/vim-startuptime',
       cmd = 'StartupTime',
-      setup = [[vim.g.startuptime_tries = 10]],
+      setup = 'vim.g.startuptime_tries = 10',
     } -- profiling
 
     use {
@@ -363,6 +527,5 @@ return packer.startup {
     -- }}}
 
   end,
-  config = {disable_commands = true}, -- disable creating commands (created manually)
-
+  config = {disable_commands = true, profile = {enable = true}}, -- disable creating commands (created manually)
 }

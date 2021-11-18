@@ -1,5 +1,3 @@
-local map = vim.api.nvim_set_keymap
-
 -- yaml, javascript, json, html, css, PHP, markdown, typescript, toml (added from https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml)
 local function prettier()
   return {
@@ -50,7 +48,7 @@ local function yapf()
   return {exe = 'yapf', stdin = true}
 end -- google python formatter
 
-require('formatter').setup({
+require'formatter'.setup({
   logging = false,
   filetype = {
     yaml = {prettier},
@@ -71,5 +69,3 @@ require('formatter').setup({
   },
 })
 
--- Mapping
-map('n', '<leader>f', '<Cmd>Format<CR>', {silent = true})

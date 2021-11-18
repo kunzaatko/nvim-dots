@@ -4,21 +4,22 @@ local cmd = vim.cmd
 vim.opt.updatetime = 300
 
 -- Enable diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics,
-               {virtual_text = false, signs = true, update_in_insert = true})
+vim.lsp.handlers['textDocument/publishDiagnostics'] =
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    prefix = '● ', -- '■', '▎', 'x'
+  },
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+  })
 
-cmd [[
-    augroup ShowDiagnosticsPopup
-        autocmd!
-        autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
-    augroup END
-]] -- Show diagnostic popup on CursorHold
+-- diagnostic signs in the sign column
+local signs = {Error = " ", Warn = " ", Hint = " ", Info = " "}
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  local col = 'Diagnostic' .. type
+  vim.fn.sign_define(hl, {text = icon, texthl = col})
+end
 
--- FIX: does not work <09-11-21, kunzaatko> --
-cmd [[
-    sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=
-    sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=
-    sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=
-    sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=
-]]
+cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_position_diagnostics({focusable=false})]] -- Show diagnostic popup on CursorHold

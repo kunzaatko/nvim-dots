@@ -20,7 +20,6 @@ cmd [[
 
 vim.g.completion_enable_snippet = 'UltiSnips'
 
--- TODO: This does not work <09-09-21, kunzaatko> --
 vim.g.completion_popup_border = 'rounded' -- 'single', 'double', 'rounded', 'solid' and 'shadow'
 vim.g.completion_enable_auto_paren = 1
 
