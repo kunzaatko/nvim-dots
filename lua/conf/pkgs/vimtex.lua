@@ -8,7 +8,6 @@
 -- TODO: Consider setting fillchars=fold:\ for LaTeX for names of folds <05-03-21, kunzaako> --
 
 vim.g.vimtex_fold_enabled = 1 -- foldexpr function for folds
-vim.g.vimtex_fold_manual = 1 -- only compute only on demand
 vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1 -- close the quickfix if the cursor is moved after compiling
 -- NOTE: if set to 1 it copies the output after every compilation instead of the last one
 vim.g.vimtex_view_use_temp_files = 2 -- ensures, that the PDF does not update after a failed compilation
