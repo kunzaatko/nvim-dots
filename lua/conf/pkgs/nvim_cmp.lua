@@ -197,7 +197,10 @@ cmp.setup {
     {name = 'ultisnips'},
     {name = 'cmp_git'},
     {name = 'latex_symbols'},
-    {name = 'rg', option = {additional_arguments = '--max-depth 4'}},
+    {
+      name = 'rg',
+      option = {additional_arguments = '--max-depth 4', '--hidden', '--glob !*/.git/*'},
+    },
   }, {{name = 'buffer'}}),
   sorting = {
     comparators = {
