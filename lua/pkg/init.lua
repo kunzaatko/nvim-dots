@@ -11,7 +11,7 @@ return packer.startup {
     -- FIX: There is a bug that causes this to give errors when it is an opt plugin on several events <17-11-21, kunzaatko> --
     -- use {'JuliaEditorSupport/julia-vim', as = 'julia'} -- mainly for LaTeX to unicode support
 
-    -- 'rust-lang/rust.vim'{{{
+    -- 'rust-lang/rust.vim' -- Playpen integration, :RunTest{{{
     use {
       'rust-lang/rust.vim',
       as = 'rust',
@@ -22,6 +22,7 @@ return packer.startup {
     } -- Playpen integration, :RunTest
     -- }}}
 
+    -- 'simrat39/rust-tools.nvim' -- lsp rust specifics{{{
     use {
       'simrat39/rust-tools.nvim',
       ft = 'rust',
@@ -34,15 +35,16 @@ return packer.startup {
         'neovim/nvim-lspconfig',
       },
     }
+    -- }}}
 
-    -- 'lervag/vimtex'{{{
+    -- 'lervag/vimtex' -- continuous compilation, folding, indenting etc.{{{
     use {
       'lervag/vimtex',
       ft = 'tex',
       setup = function()
         require 'conf.pkgs.vimtex'
       end,
-    } -- continuous compilation, folding, indenting etc.
+    }
     -- }}}
 
     use {'kovetskiy/sxhkd-vim', as = 'sxhkd', ft = 'sxhkd'} -- SXHKD spec file support
