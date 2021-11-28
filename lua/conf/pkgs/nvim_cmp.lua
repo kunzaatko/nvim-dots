@@ -197,7 +197,7 @@ cmp.setup {
     {name = 'ultisnips'},
     {name = 'cmp_git'},
     {name = 'latex_symbols'},
-    {name = 'rg'},
+    {name = 'rg', option = {additional_arguments = '--max-depth 4'}},
   }, {{name = 'buffer'}}),
   sorting = {
     comparators = {
