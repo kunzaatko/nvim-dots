@@ -45,3 +45,19 @@ cmd [[
         autocmd BufWritePre * call v:lua.AUtils.trim_white_space()
     augroup END
 ]]
+
+-- NOTE: Fix the sxhkd filetype detection issue <kunzaatko> --
+AUtils.check_ft_sxhkd = function ()
+    if packer_plugins["plenary.nvim"].loaded ~= true then
+        vim.cmd[[packadd plenary.nvim]]
+    end
+    local p = require"plenary".path.new(vim.api.nvim_buf_get_name(0))
+    if p:_split()[#p:_split()] == "sxhkdrc" then vim.opt.filetype = "sxhkd" end
+end
+
+cmd [[
+    augroup FtSxhkdDetect
+        autocmd!
+        autocmd BufRead * call v:lua.AUtils.check_ft_sxhkd()
+    augroup END
+]]
