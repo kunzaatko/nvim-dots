@@ -456,8 +456,6 @@ return packer.startup {
     -- }}}
 
     -- GIT {{{
-    use {'tpope/vim-fugitive', cmd = {'G', 'Gblame', 'Gpush', 'Gpull', 'Gdiffsplit'}}
-
     -- 'TimUntersberger/neogit' -- magit for neovim {{{
     use {
       'TimUntersberger/neogit',
