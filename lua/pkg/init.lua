@@ -368,10 +368,20 @@ return packer.startup {
         'nvim-treesitter/nvim-treesitter',
       },
       config = function()
-        require'telescope'.setup()
+        vim.cmd [[packadd trouble.nvim]]
+        local trouble = require("trouble.providers.telescope")
+        require'telescope'.setup({
+          defaults = {
+            mappings = {
+              i = {["<C-q>"] = trouble.open_with_trouble},
+              n = {["<C-q>"] = trouble.open_with_trouble},
+            },
+          },
+        })
         require'telescope'.load_extension('fzf')
 
         if packer_plugins.notify.loaded == true then
+          -- TODO: Defer the loading of this extension when notify is laoded <03-12-21, kunzaatko> --
           require('telescope').load_extension('notify')
         end
 
