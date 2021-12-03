@@ -1,31 +1,5 @@
-local ts_configs = require('nvim-treesitter.configs')
-ts_configs.setup {
-  ensure_installed = {
-    'bash',
-    'c',
-    'c_sharp',
-    'clojure',
-    'cpp',
-    'css',
-    'fennel',
-    'go',
-    'haskell',
-    'html',
-    'javascript',
-    'json',
-    'julia',
-    'kotlin',
-    'lua',
-    'ocaml',
-    'ocaml_interface',
-    'python',
-    'regex',
-    'rust',
-    'teal',
-    'toml',
-    'typescript',
-  },
-  highlight = {enable = true, use_languagetree = true},
+require('nvim-treesitter.configs').setup {
+  highlight = {enable = true},
   indent = {enable = true},
   refactor = {
     smart_rename = {enable = true, keymaps = {smart_rename = "<leader>tr"}},
