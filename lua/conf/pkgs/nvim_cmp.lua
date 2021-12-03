@@ -29,6 +29,7 @@ if packer_plugins['lua-dev'].loaded == true then
   local luadev = require'lua-dev'.setup({
     lspconfig = {
       on_attach = LSPUtils.on_attach,
+      cmd = {'lua-language-server'},
       settings = {Lua = {diagnostics = {globals = {'packer_plugins'}}}},
     },
   })
