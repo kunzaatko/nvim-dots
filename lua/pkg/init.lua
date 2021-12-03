@@ -104,6 +104,7 @@ return packer.startup {
         'nvim-treesitter/nvim-treesitter-refactor',
         'nvim-treesitter/nvim-treesitter-textobjects',
       },
+      run = ':TSUpdate',
       config = function()
         require 'conf.pkgs.treesitter'
       end,
