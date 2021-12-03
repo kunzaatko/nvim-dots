@@ -6,9 +6,9 @@ vim.opt.updatetime = 300
 -- Enable diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = {
-    prefix = '● ', -- '■', '▎', 'x'
-  },
+    virtual_text = {
+      prefix = '● ', -- '■', '▎', 'x'
+    },
     signs = true,
     underline = true,
     update_in_insert = false,

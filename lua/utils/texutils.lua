@@ -59,7 +59,7 @@ end -- }}}
 --- Get the tex root of the current buffer
 ---@return table root (plenary path)
 TEXUtils.get_tex_root = function()
-    return path.new(vim.b.vimtex.root)
+  return path.new(vim.b.vimtex.root)
 end
 
 -- TODO: Some REGEX for adding label and caption at the same time for ex. (some fig (This fig shows a function), or: some fig: this fig shows a function [a sin fucntion in the functions section]) <07-11-21, kunzaatko> "

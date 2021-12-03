@@ -176,7 +176,9 @@ cmp.setup {
     {name = 'latex_symbols'},
     {
       name = 'rg',
-      option = {additional_arguments = '--max-depth 4', '--hidden', '--glob !*/.git/*'},
+      option = {
+        additional_arguments = {'--max-depth 4', '--hidden', '--glob !*/.git/*'},
+      },
     },
   }, {{name = 'buffer'}}),
   sorting = {
