@@ -27,29 +27,14 @@ lspconfig.pyright.setup {
 
 if packer_plugins['lua-dev'].loaded == true then
   local luadev = require'lua-dev'.setup({
-    lspconfig = {on_attach = LSPUtils.on_attach, cmd = {'lua-language-server'}},
+    lspconfig = {
+      on_attach = LSPUtils.on_attach,
+      settings = {Lua = {diagnostics = {globals = {'packer_plugins'}}}},
+    },
   })
 
   lspconfig.sumneko_lua.setup(luadev)
 end
-
--- lspconfig.sumneko_lua.setup {
---   on_attach = LSPUtils.on_attach,
---   cmd = {'lua-language-server'},
---   capabilities = capabilities,
---   settings = {
---     Lua = {
---       diagnostics = {globals = {'vim'}},
---       runtime = {version = 'LuaJIT', path = vim.split(package.path, ';')},
---       workspace = {
---         library = {
---           [vim.fn.expand("$VIMRUNTIME/lua")] = true,
---           [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
---         },
---       },
---     },
---   },
--- }
 
 local cmp = require 'cmp'
 
