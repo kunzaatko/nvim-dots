@@ -196,7 +196,10 @@ cmp.setup.cmdline(':', {
   sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}}),
 })
 
-require'cmp_git'.setup()
+require'cmp_git'.setup({
+  filetypes = {'gitcommit', 'NeogitCommitMessage'},
+  remotes = {'upstream', 'origin', 'github'},
+})
 
 local lspkind = require('lspkind')
 cmp.setup {
