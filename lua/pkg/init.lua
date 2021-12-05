@@ -111,6 +111,14 @@ return packer.startup {
     }
     -- }}}
 
+    -- 'nvim-treesitter/playground' -- see the treesitter tree live {{{
+    use {
+      'nvim-treesitter/playground',
+      cmd = {':TSHighlightCapturesUnderCursor', ':TSPlaygroundToggle'},
+      requires = {'nvim-treesitter'},
+    }
+    -- }}}
+
     -- 'nvim-lua/lsp_extensions' -- rust type annotations {{{
     use {
       'nvim-lua/lsp_extensions.nvim',

@@ -5,4 +5,5 @@ require('nvim-treesitter.configs').setup {
     smart_rename = {enable = true, keymaps = {smart_rename = "<leader>tr"}},
     highlight_definitions = {enable = true},
   },
+  playground = {enable = true},
 }
