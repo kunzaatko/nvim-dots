@@ -88,7 +88,6 @@ return packer.startup {
         'kdheepak/cmp-latex-symbols',
         'lukas-reineke/cmp-rg',
         'hrsh7th/cmp-nvim-lsp',
-        'onsails/lspkind-nvim',
         'neovim/nvim-lspconfig',
       },
       config = function()
