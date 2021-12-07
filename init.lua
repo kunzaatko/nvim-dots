@@ -4,10 +4,20 @@ vim.g.python3_host_prog = '/usr/bin/python3'
 
 -- Disable built-in plugins
 local disabled_built_ins = {
-    'gzip', 'man', 'matchit', 'matchparen', 'shada_plugin', 'tarPlugin', 'tar',
-    'zipPlugin', 'zip', 'netrwPlugin'
+  'gzip',
+  'man',
+  'matchit',
+  'matchparen',
+  'shada_plugin',
+  'tarPlugin',
+  'tar',
+  'zipPlugin',
+  'zip',
+  'netrwPlugin',
 }
-for _, plugin in ipairs(disabled_built_ins) do vim.g['loaded_' .. plugin] = 1 end
+for _, plugin in ipairs(disabled_built_ins) do
+  vim.g['loaded_' .. plugin] = 1
+end
 
 --  config  --
 require 'conf'
