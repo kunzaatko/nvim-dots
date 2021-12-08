@@ -24,7 +24,7 @@ LSPUtils.on_attach = function(_, bufnr)
           {noremap = true, silent = true})
   map_loc(bufnr, 'n', 'gd', "<Cmd>lua vim.lsp.buf.declaration()<CR>",
           {noremap = true, silent = true})
-  map_loc(bufnr, 'n', 'ga', "<Cmd>lua vim.lsp.buf.code_action()<CR>",
+  map_loc(bufnr, 'n', 'ga', "<Cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>",
           {noremap = true, silent = true})
 
   -- Goto previous/next diagnostic warning/error
