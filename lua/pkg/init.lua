@@ -99,16 +99,14 @@ return packer.startup {
     -- 'nvim-treesitter/nvim-treesitter' -- treesitter code parsing and refactoring {{{
     use {
       'nvim-treesitter/nvim-treesitter',
-      requires = {
-        'nvim-treesitter/nvim-treesitter-refactor',
-        'nvim-treesitter/nvim-treesitter-textobjects',
-      },
       run = ':TSUpdate',
       config = function()
         require 'conf.pkgs.treesitter'
       end,
     }
     -- }}}
+
+    use {'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter'}
 
     -- 'nvim-treesitter/playground' -- see the treesitter tree live {{{
     use {
