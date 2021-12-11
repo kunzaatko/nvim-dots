@@ -1,8 +1,8 @@
--- setting explicitly makes startup faster
+-- setting explicitly makes start-up faster
 vim.g.loaded_python_provider = 0
 vim.g.python3_host_prog = '/usr/bin/python3'
 
--- Disable built-in plugins
+-- Disable built-in plug-ins
 local disabled_built_ins = {
   'gzip',
   'man',
