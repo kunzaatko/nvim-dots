@@ -200,50 +200,50 @@ require'cmp_git'.setup({
 })
 
 local kind_icons = { -- completion kind icons in the menu {{{
-    Text = '  ',
-    Method = '  ',
-    Function = '  ',
-    Constructor = '  ',
-    Field = '  ',
-    Variable = '  ',
-    Class = '  ',
-    Interface = '  ',
-    Module = '  ',
-    Property = '  ',
-    Unit = '  ',
-    Value = '  ',
-    Enum = '  ',
-    Keyword = '  ',
-    Snippet = '  ',
-    Color = '  ',
-    File = '  ',
-    Reference = '  ',
-    Folder = '  ',
-    EnumMember = '  ',
-    Constant = '  ',
-    Struct = '  ',
-    Event = '  ',
-    Operator = '  ',
-    TypeParameter = '  '
+  Text = '  ',
+  Method = '  ',
+  Function = '  ',
+  Constructor = '  ',
+  Field = '  ',
+  Variable = '  ',
+  Class = '  ',
+  Interface = '  ',
+  Module = '  ',
+  Property = '  ',
+  Unit = '  ',
+  Value = '  ',
+  Enum = '  ',
+  Keyword = '  ',
+  Snippet = '  ',
+  Color = '  ',
+  File = '  ',
+  Reference = '  ',
+  Folder = '  ',
+  EnumMember = '  ',
+  Constant = '  ',
+  Struct = '  ',
+  Event = '  ',
+  Operator = '  ',
+  TypeParameter = '  ',
 } -- }}}
 
--- TODO: https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu <05-12-21, kunzaatko> --
+local source_icons = { -- source icons in the menu {{{
+  buffer = "[ ]",
+  nvim_lsp = "[ ]",
+  ultisnips = "[ ]",
+  latex_symbols = "[ ]",
+  cmp_git = "[ ]",
+  rg = "[ ]",
+} -- }}}
+
 cmp.setup {
-    formatting = {
-        format = function(entry, vim_item)
-            -- Kind icons
-            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind],
-                                          vim_item.kind)
-            -- Source
-            vim_item.menu = ({
-                buffer = "[ ]",
-                nvim_lsp = "[ ]",
-                ultisnips = "[ ]",
-                latex_symbols = "[ ]",
-                cmp_git = "[ ]",
-                rg = "[ ]"
-            })[entry.source.name]
-            return vim_item
-        end
-    }
+  formatting = {
+    format = function(entry, vim_item)
+      -- Kind icons
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+      -- Source
+      vim_item.menu = source_icons[entry.source.name]
+      return vim_item
+    end,
+  },
 }
