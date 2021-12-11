@@ -30,7 +30,7 @@ cmd [[
     augroup END
 ]] -- turn off relative numbering when leaving the buffer
 
--- trim whitespace after leaving the buffer
+-- trim white-space after leaving the buffer
 AUtils.trim_white_space = function()
   if vim.b.noTrimWhiteSpace then
     return
@@ -46,7 +46,7 @@ cmd [[
     augroup END
 ]]
 
--- NOTE: Fix the sxhkd filetype detection issue <kunzaatko> --
+-- NOTE: Fix the SXHKD filetype detection issue <kunzaatko> --
 AUtils.check_ft_sxhkd = function()
   if packer_plugins["plenary.nvim"].loaded ~= true then
     vim.cmd [[packadd plenary.nvim]]
