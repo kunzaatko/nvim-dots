@@ -25,8 +25,8 @@ opt.shell = 'fish'
 opt.wildmode = {longest = 'full', 'full'}
 
 --[[ completeopt = insert mode completion: menu (even if only one option), do
-     not insert until <tab>ed, do not select until <tab>ed
-     shortmess = do not print messeges like "-- ZZZ completion (YYY)" ]]
+     not insert until tabbed, do not select until tabbed
+     shortmess = do not print messages like "-- ZZZ completion (YYY)" ]]
 opt.completeopt = {'menuone', 'noinsert', 'noselect'}
 opt.shortmess:append('c')
 
@@ -71,12 +71,12 @@ opt.foldmethod = 'marker'
 -- >> do not insert a comment string after hitting <CR> in insert mode
 opt.formatoptions:remove('o')
 
--- >> use truecolours in colorschemes (this can brake colorschemes if they are not built for it)
+-- >> use truecolours in colour-schemes (this can brake colour-schemes if they are not built for it)
 opt.termguicolors = true
 opt.guicursor =
   "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
 
--- >> set rg as the backend for :grep command
+-- >> set rg as the back-end for :grep command
 if vim.fn.executable('rg') == 1 then
   opt.grepprg = "rg --no-heading --vimgrep"
   opt.grepformat = "%f:%l:%c:%m"
