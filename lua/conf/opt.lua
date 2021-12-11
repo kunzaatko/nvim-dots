@@ -55,7 +55,8 @@ opt.splitbelow, opt.splitright = true, true
 
 -- >> remaps in normal mode (compensation for Czech keyboard locale)
 opt.langmap = {'ě2', 'š3', 'č4', 'ř5', 'ž6', 'ý7', 'á8', 'í9'}
-opt.spelllang = 'cs,en_gb'
+
+opt.spelllang = {'cs', 'en_gb'}
 
 --[[ expandtab = expand a tab into spaces,
      tabstop,shiftwidth - # of spaces for <tab> (tabstop) in insert and for
@@ -76,6 +77,9 @@ opt.termguicolors = true
 opt.guicursor =
   "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
 
+-- >> use cursorline but only highlight the number
+opt.cursorline = true
+opt.cursorlineopt = 'number'
 -- >> set rg as the back-end for :grep command
 if vim.fn.executable('rg') == 1 then
   opt.grepprg = "rg --no-heading --vimgrep"
@@ -85,3 +89,4 @@ end
 -- >> show hidden characters
 opt.list = true
 opt.listchars = {eol = '⏎', tab = '▸ ', trail = '·'}
+opt.fillchars = {diff = '░'}
