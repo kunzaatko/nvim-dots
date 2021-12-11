@@ -181,6 +181,7 @@ cmp.setup {
       cmp.config.compare.order,
     },
   },
+  documentation = true,
 }
 
 -- Use buffer source for `/`.
