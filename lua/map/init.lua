@@ -11,9 +11,9 @@ vim.g.maplocalleader = '-' -- leader for buffer local mapping
 
 -- leader mappings --
 
-map('n', '<Leader>w', ':write<CR>', {noremap = true, silent = true})
-map('n', '<Leader>q', ':quit<CR>', {noremap = true, silent = true})
-map('n', '<Leader>wq', ':wq<CR>', {noremap = true, silent = true})
+map('n', '<leader>w', ':write<CR>', {noremap = true, silent = true})
+map('n', '<leader>q', ':quit<CR>', {noremap = true, silent = true})
+map('n', '<leader>wq', ':xit<CR>', {noremap = true, silent = true})
 
 --  normal  --
 
