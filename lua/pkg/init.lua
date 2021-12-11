@@ -8,8 +8,8 @@ return packer.startup {
     use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plug-in
 
     -- LANGUAGES {{{
-    -- FIX: There is a bug that causes this to give errors when it is an opt plugin on several events <17-11-21, kunzaatko> --
-    -- use {'JuliaEditorSupport/julia-vim', as = 'julia'} -- mainly for LaTeX to unicode support
+    -- FIX: There is a bug that causes this to give errors when it is an opt plug-in on several events <17-11-21, kunzaatko> --
+    -- use {'JuliaEditorSupport/julia-vim', as = 'julia'} -- mainly for LaTeX to Unicode support
 
     -- 'rust-lang/rust.vim' -- Playpen integration, :RunTest{{{
     use {
@@ -22,7 +22,7 @@ return packer.startup {
     } -- Playpen integration, :RunTest
     -- }}}
 
-    -- 'simrat39/rust-tools.nvim' -- lsp rust specifics{{{
+    -- 'simrat39/rust-tools.nvim' -- LSP rust specifics{{{
     use {
       'simrat39/rust-tools.nvim',
       ft = 'rust',
@@ -53,7 +53,7 @@ return packer.startup {
     -- }}}
 
     -- COMPLETION AND LINTING {{{
-    -- 'folke/trouble.nvim' -- diagnostics and quickfixlist{{{
+    -- 'folke/trouble.nvim' -- diagnostics and quickfix-list {{{
     use {
       'folke/trouble.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
@@ -132,11 +132,11 @@ return packer.startup {
     }
     -- }}}
 
-    use {'folke/lua-dev.nvim', as = 'lua-dev'} -- developement environment for lua and nvim
+    use {'folke/lua-dev.nvim', as = 'lua-dev'} -- development environment for lua and nvim
 
     -- }}}
 
-    -- PRETTYFYING {{{
+    -- PRETTIFYING {{{
     -- 'mhartington/formatter.nvim' -- code formatting {{{
     use {
       'mhartington/formatter.nvim',
@@ -198,7 +198,7 @@ return packer.startup {
     use {'godlygeek/tabular', cmd = 'Tabularize'} -- tabularizing on a search pattern
     -- }}}
 
-    -- SESSIONS AND CONVINIENCES {{{
+    -- SESSIONS AND CONVENIENCES {{{
     -- 'mhinz/vim-startify'-- launch page{{{
     use {
       'mhinz/vim-startify',
@@ -284,7 +284,7 @@ return packer.startup {
     }
     -- }}}
 
-    -- 'folke/todo-comments.nvim' -- todo comments and todo quickfixlist {{{
+    -- 'folke/todo-comments.nvim' -- todo comments and todo quickfix-list {{{
     use {
       'folke/todo-comments.nvim',
       requires = "nvim-lua/plenary.nvim",
@@ -295,7 +295,7 @@ return packer.startup {
     }
     -- }}}
 
-    -- 'rcarriga/nvim-notify' -- notification UI for nvim {{{
+    -- 'rcarriga/nvim-notify' -- notification UI for neovim {{{
     use {
       'rcarriga/nvim-notify',
       as = 'notify',
@@ -307,10 +307,10 @@ return packer.startup {
 
     use 'romainl/vim-cool' -- disable search highlight when done with searching
 
-    ---------------------
-    --  colourschemes  --
-    ---------------------
-    -- 'npxbr/gruvbox.nvim' -- colourscheme {{{
+    ----------------------
+    --  colour-schemes  --
+    ----------------------
+    -- 'npxbr/gruvbox.nvim' -- colour-scheme {{{
     use {
       'npxbr/gruvbox.nvim',
       requires = {'rktjmp/lush.nvim'},
@@ -322,7 +322,7 @@ return packer.startup {
     }
     -- }}}
 
-    -- 'kunzaatko/nord.nvim' -- colourscheme {{{
+    -- 'kunzaatko/nord.nvim' -- colour-scheme {{{
     use {
       '~/.config/nvim/pack/opt/nord-vim',
       requires = {'rktjmp/lush.nvim', opt = true},
@@ -386,7 +386,7 @@ return packer.startup {
         require'telescope'.load_extension('fzf')
 
         if packer_plugins.notify.loaded == true then
-          -- TODO: Defer the loading of this extension when notify is laoded <03-12-21, kunzaatko> --
+          -- TODO: Defer the loading of this extension when notify is loaded <03-12-21, kunzaatko> --
           require('telescope').load_extension('notify')
         end
 
@@ -535,7 +535,7 @@ return packer.startup {
       cond = function()
         return vim.fn.exists('g:started_by_firenvim')
       end,
-    } -- extention for browser insert boxes to use nvim
+    } -- extension for browser insert boxes to use nvim
 
     use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
 
