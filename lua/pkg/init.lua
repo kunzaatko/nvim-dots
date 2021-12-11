@@ -5,7 +5,7 @@ return packer.startup {
 
     -- package management --
 
-    use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plugin
+    use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plug-in
 
     -- LANGUAGES {{{
     -- FIX: There is a bug that causes this to give errors when it is an opt plugin on several events <17-11-21, kunzaatko> --
