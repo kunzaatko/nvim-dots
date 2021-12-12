@@ -486,6 +486,7 @@ return packer.startup {
       config = function()
         require'neogit'.setup({
           disable_hint = true,
+          disable_builtin_notifications = true,
           disable_commit_confirmation = true,
           commit_popup = {kind = "vsplit"},
           integrations = {diffview = true},
