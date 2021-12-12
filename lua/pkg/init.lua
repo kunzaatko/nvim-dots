@@ -456,7 +456,6 @@ return packer.startup {
         vim.opt.runtimepath = vim.opt.runtimepath + {vim.fn.expand("$PWD")}
         vim.g.UltiSnipsSnippetDirectories = {'snips'} -- this ensures that snippets directories are not recursively searched
         vim.g.UltiSnipsEnableSnipMate = 0 -- only look for UltiSnips snippets
-        vim.g.UltiSnipsExpandTrigger = '<c-l>' -- overwrites escaping to insert mode when insertmode option is set
         vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
         vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
         vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
@@ -467,6 +466,12 @@ return packer.startup {
           vim.g.UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit =
             TEXUtils.get_tex_root():joinpath("snips").filename
         end
+        vim.api.nvim_set_keymap('x', '<C-l>',
+                                ':lua vim.call("UltiSnips#SaveLastVisualSelection")<CR>gvs',
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('s', '<C-l>',
+                                ':lua vim.call("UltiSnips#ExpandSnippet")<CR>',
+                                {noremap = true, silent = true})
       end,
     } -- }}}
     -- }}}
