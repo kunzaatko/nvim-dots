@@ -162,6 +162,23 @@ return packer.startup {
     }
     -- }}}
 
+    -- 'kosayoda/nvim-lightbulb' -- code action discovery {{{
+    use {
+      'kosayoda/nvim-lightbulb',
+      config = function()
+        require'nvim-lightbulb'.update_lightbulb {
+          sign = {enabled = true, priority = 10},
+          float = {enabled = true, text = " "},
+          virtual_text = {enabled = true, text = " ", hl_mode = "replace"},
+          status_text = {enabled = true, text = " ", text_unavailable = ""},
+        }
+        -- NOTE: This will be blue, but it makes most sense logically <kunzaatko>
+        vim.fn.sign_define('LightBulbSign', {text = " ", texthl = "DiagnosticInfo"}) -- 
+        vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+      end,
+    }
+    -- }}}
+
     use {'folke/lua-dev.nvim', as = 'lua-dev'} -- development environment for lua and nvim
 
     -- }}}
