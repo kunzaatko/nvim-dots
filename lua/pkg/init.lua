@@ -415,6 +415,41 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Change style of font in active tab <28-11-21, kunzaatko> --
+    -- 'akinsho/bufferline.nvim' -- buffer symbols and nicer UI {{{
+    use {
+      'akinsho/bufferline.nvim',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = function()
+        require("bufferline").setup {
+          options = {
+            numbers = function(opts)
+              return string.format('%s·%s', opts.ordinal, opts.lower(opts.id))
+            end,
+            always_show_bufferline = false,
+            show_close_icon = false,
+            buffer_close_icon = '',
+            close_icon = '',
+            show_buffer_clos_icon = false,
+            custom_filter = function(buf_number)
+              if vim.bo[buf_number].filetype ~= "startify" then
+                return true
+              end
+            end,
+          },
+        }
+        vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>BufferLinePick<CR>',
+                                {noremap = true, silent = true})
+        local keys = {'+', 'ě', 'š', 'č', 'ř', 'ž', 'ý', 'á', 'í'}
+        for i = 1, 9 do
+          vim.api.nvim_set_keymap('n', '<leader>' .. keys[i],
+                                  '<Cmd>BufferLineGoToBuffer ' .. tostring(i) .. '<CR>',
+                                  {noremap = true, silent = true})
+        end
+      end,
+    }
+    -- }}}
+
     use 'romainl/vim-cool' -- disable search highlight when done with searching
 
     ----------------------
