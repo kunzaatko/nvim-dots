@@ -4,8 +4,10 @@ local cmd = vim.cmd
 _G.MUtils = {}
 
 MUtils.append_blank_lines = function()
-  vim.fn.append(vim.api.nvim_win_get_cursor(0)[1],
-                vim.fn["repeat"]({""}, vim.api.nvim_get_vvar("count1")))
+  vim.fn.append(
+    vim.api.nvim_win_get_cursor(0)[1],
+    vim.fn["repeat"]({ "" }, vim.api.nvim_get_vvar("count1"))
+  )
 end
 
 -- TODO: Does not work <09-05-21, kunzaatko> --
@@ -13,7 +15,7 @@ MUtils.save_root = function()
   vim.fn.execute("silent! write !sudo tee % >/dev/null | edit!<CR>")
 end
 
-MUtils.packer_install = function(f_args)
+MUtils.packer_install = function( f_args )
   require 'pkg.install_packer'
   cmd 'packadd packer.nvim'
   if f_args then
@@ -23,7 +25,7 @@ MUtils.packer_install = function(f_args)
   end
 end
 
-MUtils.packer_update = function(f_args)
+MUtils.packer_update = function( f_args )
   require 'pkg.install_packer'
   cmd 'packadd packer.nvim'
   if f_args then
@@ -33,7 +35,7 @@ MUtils.packer_update = function(f_args)
   end
 end
 
-MUtils.packer_sync = function(f_args)
+MUtils.packer_sync = function( f_args )
   require 'pkg.install_packer'
   cmd 'packadd packer.nvim'
   if f_args then

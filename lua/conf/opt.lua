@@ -22,12 +22,12 @@ opt.shell = 'fish'
 
 --[[ Ex command <tab>-completion succession: common match string with wildmenu
      open, then first full match with wildmenu]]
-opt.wildmode = {longest = 'full', 'full'}
+opt.wildmode = { longest = 'full', 'full' }
 
 --[[ completeopt = insert mode completion: menu (even if only one option), do
      not insert until tabbed, do not select until tabbed
      shortmess = do not print messages like "-- ZZZ completion (YYY)" ]]
-opt.completeopt = {'menuone', 'noinsert', 'noselect'}
+opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 opt.shortmess:append('c')
 
 -- >> Do not show the mode in the command line
@@ -54,12 +54,12 @@ opt.swapfile = false
 opt.splitbelow, opt.splitright = true, true
 
 -- >> remaps in normal mode (compensation for Czech keyboard locale)
-opt.langmap = {'ě2', 'š3', 'č4', 'ř5', 'ž6', 'ý7', 'á8', 'í9'}
+opt.langmap = { 'ě2', 'š3', 'č4', 'ř5', 'ž6', 'ý7', 'á8', 'í9' }
 
 -- >> spelling languages and spell on. Camel indicates that in CamelCased  words,
 -- the upper letter is used as space delimiter.
 opt.spell = true
-opt.spelllang = {'cs', 'en_gb'}
+opt.spelllang = { 'cs', 'en_gb' }
 opt.spelloptions = 'camel'
 
 --[[ expandtab = expand a tab into spaces,
@@ -96,5 +96,5 @@ end
 
 -- >> show hidden characters
 opt.list = true
-opt.listchars = {eol = '⏎', tab = '▸ ', trail = '·'}
-opt.fillchars = {diff = '░'}
+opt.listchars = { eol = '⏎', tab = '▸ ', trail = '·' }
+opt.fillchars = { diff = '░' }

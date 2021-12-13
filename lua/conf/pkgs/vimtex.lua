@@ -27,4 +27,4 @@ vim.g.vimtex_compiler_latexmk = {
   },
 }
 
-vim.g.vimtex_toc_config = {show_help = 0}
+vim.g.vimtex_toc_config = { show_help = 0 }

@@ -91,10 +91,11 @@ local modified_icon = " "
 gls.left[1] = { -- ModeBlockLeft -- ▊   ⟫ {{{
   ModeBlockLeft = {
     provider = function()
-      vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] ..
-                             ' guibg=' .. colors.bg)
+      vim.api.nvim_command(
+        'hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' .. colors.bg
+      )
       local provider = function()
-        local icons = {dos = '', mac = '', unix = ' '}
+        local icons = { dos = '', mac = '', unix = ' ' }
         -- auto change color according the vim mode
         if icons[vim.bo.fileformat] then
           return icons[vim.bo.fileformat]
@@ -104,7 +105,7 @@ gls.left[1] = { -- ModeBlockLeft -- ▊   ⟫ {{{
       end
       return ('▊ ' .. provider() .. ' ⟫')
     end,
-    separator_highlight = {'NONE', colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
     separator = ' ',
     highlight = 'GalaxyViMode',
   },
@@ -112,7 +113,7 @@ gls.left[1] = { -- ModeBlockLeft -- ▊   ⟫ {{{
 gls.left[2] = { -- FileInfo --  galaxyline.lua   {{{
   FileIcon = {
     provider = providers.file_info.get_file_icon,
-    highlight = {providers.file_info.get_file_icon_color, colors.bg},
+    highlight = { providers.file_info.get_file_icon_color, colors.bg },
   },
   FileName = {
     provider = function()
@@ -120,7 +121,7 @@ gls.left[2] = { -- FileInfo --  galaxyline.lua   {{{
                '⟩ '
     end,
     condition = condition.buffer_not_empty,
-    highlight = {colors.darkblue, colors.bg, 'bold'},
+    highlight = { colors.darkblue, colors.bg, 'bold' },
 
   },
 } -- }}}
@@ -133,7 +134,7 @@ gls.left[3] = { --   gls   left[3]   nvimGPS   provider {{{
       -- TODO: Add condition when is too wide from readme <06-12-21, kunzaatko> --
       return gps.is_available() and condition.hide_in_width()
     end,
-    highlight = {palette.nord3_bright.hex, colors.bg, 'italic'},
+    highlight = { palette.nord3_bright.hex, colors.bg, 'italic' },
   },
 } -- }}}
 
@@ -148,36 +149,36 @@ gls.right[1] = { -- LeftLSPSep {{{
     end,
     -- TODO: Check if LSP attached <06-12-21, kunzaatko> --
     -- condition = condition.check_git_workspace,
-    separator_highlight = {'NONE', colors.bg},
-    highlight = {colors.fg, colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
+    highlight = { colors.fg, colors.bg },
   },
 } -- }}}
 gls.right[2] = { -- {{{
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '  ',
-    highlight = {colors.red, colors.bg},
+    highlight = { colors.red, colors.bg },
   },
 } -- }}}
 gls.right[3] = { -- {{{
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.yellow, colors.bg},
+    highlight = { colors.yellow, colors.bg },
   },
 } -- }}}
 gls.right[4] = { -- {{{
   DiagnosticHint = {
     provider = 'DiagnosticHint',
     icon = '  ',
-    highlight = {colors.cyan, colors.bg},
+    highlight = { colors.cyan, colors.bg },
   },
 } -- }}}
 gls.right[5] = { -- {{{
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
     icon = '  ',
-    highlight = {colors.blue, colors.bg},
+    highlight = { colors.blue, colors.bg },
   },
 } -- }}}
 gls.right[6] = { -- {{{
@@ -185,8 +186,8 @@ gls.right[6] = { -- {{{
     provider = function()
       return '  ' .. providers.lsp.get_lsp_client() .. ' '
     end,
-    separator_highlight = {'NONE', colors.bg},
-    highlight = {colors.violet, colors.bg, 'italic'},
+    separator_highlight = { 'NONE', colors.bg },
+    highlight = { colors.violet, colors.bg, 'italic' },
   },
 } -- }}}
 gls.right[7] = { -- {{{
@@ -194,10 +195,10 @@ gls.right[7] = { -- {{{
     provider = function()
       return ' }'
     end,
-    separator_highlight = {'NONE', colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
     -- TODO: Check if LSP attached <06-12-21, kunzaatko> --
     -- condition = condition.check_git_workspace,
-    highlight = {colors.fg, colors.bg},
+    highlight = { colors.fg, colors.bg },
   },
 } -- }}}
 -- }}}
@@ -210,17 +211,17 @@ gls.right[8] = { -- SepGitLeft {{{
       return '{'
     end,
     condition = condition.check_git_workspace,
-    highlight = {colors.fg, colors.bg},
+    highlight = { colors.fg, colors.bg },
   },
 } -- }}}
 gls.right[9] = { -- DiffAdd {{{
   DiffAdd = {
     provider = 'DiffAdd',
     separator = ' ',
-    separator_highlight = {'NONE', colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
     condition = condition.hide_in_width,
     icon = '+',
-    highlight = {colors.green, colors.bg, 'bold'},
+    highlight = { colors.green, colors.bg, 'bold' },
   },
 } -- }}}
 gls.right[10] = { -- DiffModified {{{
@@ -228,7 +229,7 @@ gls.right[10] = { -- DiffModified {{{
     provider = 'DiffModified',
     condition = condition.hide_in_width,
     icon = '~',
-    highlight = {colors.yellow, colors.bg, 'bold'},
+    highlight = { colors.yellow, colors.bg, 'bold' },
   },
 } -- }}}
 gls.right[11] = { -- DiffRemove {{{
@@ -236,7 +237,7 @@ gls.right[11] = { -- DiffRemove {{{
     provider = 'DiffRemove',
     condition = condition.hide_in_width,
     icon = '-',
-    highlight = {colors.red, colors.bg, 'bold'},
+    highlight = { colors.red, colors.bg, 'bold' },
   },
 } -- }}}
 gls.right[12] = { -- GitIcon {{{
@@ -246,8 +247,8 @@ gls.right[12] = { -- GitIcon {{{
     end,
     separator = ' ',
     condition = condition.check_git_workspace,
-    separator_highlight = {'NONE', colors.bg},
-    highlight = {colors.violet, colors.bg, 'italic'},
+    separator_highlight = { 'NONE', colors.bg },
+    highlight = { colors.violet, colors.bg, 'italic' },
   },
 } -- }}}
 gls.right[13] = { -- SepGitRight {{{
@@ -256,9 +257,9 @@ gls.right[13] = { -- SepGitRight {{{
       return '}'
     end,
     separator = ' ',
-    separator_highlight = {'NONE', colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
     condition = condition.check_git_workspace,
-    highlight = {colors.fg, colors.bg},
+    highlight = { colors.fg, colors.bg },
   },
 } -- }}}
 -- }}}
@@ -269,7 +270,7 @@ gls.right[14] = { -- ModeSepRight {{{
       return '⟪'
     end,
     separator = ' ',
-    separator_highlight = {'NONE', colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
     highlight = 'GalaxyViMode',
   },
 } -- }}}
@@ -280,7 +281,7 @@ gls.right[15] = { -- RightPositionNumerical{{{
       return string.format('%s:%s ', vim.fn.line('.'), vim.fn.col('.'))
     end,
     separator = ' ',
-    separator_highlight = {'NONE', colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
     highlight = 'GalaxyViMode',
   },
 } -- }}}
@@ -289,7 +290,7 @@ gls.right[16] = { -- LinePercent {{{
   LinePercent = {
     provider = 'LinePercent',
     separator = ' ',
-    separator_highlight = {'NONE', colors.bg},
+    separator_highlight = { 'NONE', colors.bg },
     highlight = 'GalaxyViMode',
   },
 } -- }}}
@@ -310,8 +311,10 @@ gls.short_line_left = {
   { -- BlockLeft {{{
     BlockLeft = {
       provider = function()
-        vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] ..
-                               ' guibg=' .. colors.bg)
+        vim.api.nvim_command(
+          'hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' ..
+            colors.bg
+        )
         return '▊ ' .. providers.buffer.get_buffer_filetype() .. ' ⟫'
       end,
       highlight = 'GalaxyViMode',
@@ -331,7 +334,7 @@ gls.short_line_right = {
     },
   }, -- }}}
   { -- BufferIcon {{{
-    BufferIcon = {provider = 'BufferIcon', highlight = {colors.fg, colors.bg}},
+    BufferIcon = { provider = 'BufferIcon', highlight = { colors.fg, colors.bg } },
   }, -- }}}
   { -- BlockRight {{{
     BlockRight = {
