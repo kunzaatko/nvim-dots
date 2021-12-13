@@ -439,7 +439,26 @@ return packer.startup {
       setup = function()
         vim.g.nord_italic = 1
         vim.g.nord_italic_comments = 1
+        vim.g.nord_cursor_line_number_background = 1
         vim.g.nord_underline = 1
+        vim.g.nord_langs = {
+          'c',
+          'cmake',
+          'gitconfig',
+          'gitcommit',
+          'go',
+          'help',
+          'sh',
+          'vim',
+          'yaml',
+          'html',
+          'lua',
+          'markdown',
+          'json',
+          'python',
+          'rust',
+        }
+        vim.g.nord_pkgs = {'gitsigns', 'vim-startify', 'tree-sitter', 'cmp', 'vimtex'}
       end,
       config = function()
         vim.cmd('colorscheme nord')
