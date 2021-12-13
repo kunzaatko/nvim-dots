@@ -115,6 +115,8 @@ return packer.startup {
         {'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim'},
         {'kdheepak/cmp-latex-symbols'},
         {'lukas-reineke/cmp-rg'},
+        {'f3fora/cmp-spell'},
+        {'tzachar/cmp-tabnine', run = './install.sh'},
         {'hrsh7th/cmp-nvim-lsp'},
         {'neovim/nvim-lspconfig'},
       },

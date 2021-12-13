@@ -167,7 +167,9 @@ cmp.setup {
         additional_arguments = {'--max-depth 4', '--hidden', '--glob !*/.git/*'},
       },
     },
+    {name = 'cmp_tabnine'},
     {name = 'buffer'},
+    {name = 'spell'},
   }),
   sorting = {
     comparators = {
