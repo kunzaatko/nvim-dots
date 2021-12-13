@@ -757,6 +757,36 @@ return packer.startup {
       end,
     }
     -- }}}
+
+    -- TODO: Currently there is a missing font item in reactions on comments <12-12-21, kunzaatko> --
+    -- 'pwntester/octo.nvim' -- github nvim UI {{{
+    use {
+      'pwntester/octo.nvim',
+      config = function()
+        vim.cmd [[packadd telescope.nvim]]
+        require'octo'.setup({
+          default_remote = {'upstream', 'origin', 'github'},
+          reaction_viewer_hint_icon = "",
+          user_icon = ' ',
+          timeline_marker = ' ',
+        })
+        vim.api.nvim_set_keymap('n', '<leader>oil', '<Cmd>Octo issue list<CR>',
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>oic', '<Cmd>Octo issue create<CR>',
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>orl', '<Cmd>Octo repo list<CR>',
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>opl', '<Cmd>Octo pr list<CR>',
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>opc', '<Cmd>Octo pr create<CR>',
+                                {noremap = true, silent = true})
+
+      end,
+      requires = {'nvim-telescope/telescope.nvim', 'kyazdani42/nvim-web-devicons'},
+    }
+    -- }}}
+
+    -- }}}
     -- }}}
 
     -- LIBRARIES {{{
