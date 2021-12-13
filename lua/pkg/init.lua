@@ -403,7 +403,6 @@ return packer.startup {
               icon = " ",
               color = "error",
               alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
-              signs = false,
             },
             TODO = { icon = " ", color = "info" },
             HACK = { icon = " ", color = "warning" },
