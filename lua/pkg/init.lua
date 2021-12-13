@@ -380,7 +380,22 @@ return packer.startup {
       'folke/todo-comments.nvim',
       requires = "nvim-lua/plenary.nvim",
       config = function()
-        require("todo-comments").setup {highlight = {keyword = "fg", after = ""}}
+        require("todo-comments").setup {
+          highlight = {keyword = "fg", after = ""},
+          keywords = {
+            FIX = {
+              icon = " ",
+              color = "error",
+              alt = {"FIXME", "BUG", "FIXIT", "ISSUE"},
+              signs = false,
+            },
+            TODO = {icon = " ", color = "info"},
+            HACK = {icon = " ", color = "warning"},
+            WARN = {icon = " ", color = "warning", alt = {"WARNING", "XXX"}},
+            PERF = {icon = " ", alt = {"OPTIM", "PERFORMANCE", "OPTIMIZE"}},
+            NOTE = {icon = " ", color = "hint", alt = {"INFO"}},
+          },
+        }
         -- TODO: configure https://github.com/folke/todo-comments.nvim <26-07-21, kunzaatko> --
       end,
     }
