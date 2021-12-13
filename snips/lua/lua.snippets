@@ -104,4 +104,36 @@ snippet local "local x = 1"
 local ${1:x} = ${0:1}
 endsnippet
 
+snippet lush_lang_template "language file template in lush nord"
+local palette = require 'nord-palette'
+local base = require'base'
+
+local clrs = palette.clrs
+local lang = function()
+  return {
+  	$0
+  }
+end
+
+return lang
+
+-- vi:nowrap
+endsnippet
+
+snippet lush_pkg_template "package file template in lush nord"
+local palette = require 'nord-palette'
+local base = require'base'
+
+local clrs = palette.clrs
+local pkg = function()
+  return {
+  	$0
+  }
+end
+
+return pkg
+
+-- vi:nowrap
+endsnippet
+
 # vim:ft=snippets:
