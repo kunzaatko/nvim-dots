@@ -113,10 +113,10 @@ return packer.startup {
         {'hrsh7th/cmp-cmdline'},
         {'quangnguyen30192/cmp-nvim-ultisnips', after = 'cmp'},
         {'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim'},
-        'kdheepak/cmp-latex-symbols',
-        'lukas-reineke/cmp-rg',
-        'hrsh7th/cmp-nvim-lsp',
-        'neovim/nvim-lspconfig',
+        {'kdheepak/cmp-latex-symbols'},
+        {'lukas-reineke/cmp-rg'},
+        {'hrsh7th/cmp-nvim-lsp'},
+        {'neovim/nvim-lspconfig'},
       },
       config = function()
         require 'conf.pkgs.nvim_cmp'
