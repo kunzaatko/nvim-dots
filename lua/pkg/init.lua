@@ -310,7 +310,7 @@ return packer.startup {
       'folke/which-key.nvim',
       config = function()
         -- TODO: configure https://github.com/folke/which-key.nvim <28-04-21, kunzaatko> --
-        require'which-key'.setup {}
+        require'which-key'.setup { plugins = { spelling = { enabled = true } } }
       end,
     }
     -- }}}
