@@ -46,7 +46,10 @@ cmd [[
     augroup END
 ]]
 
+-- does not use neovim inbuilt spell checker on these filetypes
 cmd [[
+    augroup SetNoSpell
         autocmd!
+        autocmd FileType man lua vim.opt_local.spell = false
     augroup END
 ]]
