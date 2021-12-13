@@ -66,6 +66,8 @@ cmp.setup {
           cmp.select_next_item({behavior = cmp.SelectBehavior.Insert})
         elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
           vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+        elseif packer_plugins.neogen.loaded and require'neogen'.jumpable() then
+          vim.fn.feedkeys(t("<Cmd>lua require('neogen').jump_next()<CR>"), "")
         else
           fallback()
         end

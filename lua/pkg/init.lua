@@ -552,6 +552,31 @@ return packer.startup {
                                 {noremap = true, silent = true})
       end,
     } -- }}}
+    -- 'danymat/neogen' -- generate documentation for functions based on treesitter {{{
+    use {
+      'danymat/neogen',
+      keys = {'<leader>dd', '<leader>dc', '<leader>df', '<leader>dt'},
+      config = function()
+        require'neogen'.setup {enabled = true}
+        vim.api.nvim_set_keymap('n', '<leader>dd',
+                                "<Cmd>lua require'neogen'.generate()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>dc',
+                                "<Cmd>lua require'neogen'.generate({ type = 'class' })<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>df',
+                                "<Cmd>lua require'neogen'.generate({ type = 'func' })<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>dt',
+                                "<Cmd>lua require'neogen'.generate({ type = 'type' })<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<C-l>',
+                                "<Cmd>lua require'neogen'.jump_next()<CR>",
+                                {noremap = true, silent = true})
+      end,
+      requires = "nvim-treesitter/nvim-treesitter",
+    } -- }}}
+
     -- }}}
 
     -- GIT {{{
