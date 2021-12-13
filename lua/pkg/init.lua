@@ -141,8 +141,12 @@ return packer.startup {
     -- 'nvim-treesitter/playground' -- see the treesitter tree live {{{
     use {
       'nvim-treesitter/playground',
-      cmd = {':TSHighlightCapturesUnderCursor', ':TSPlaygroundToggle'},
-      requires = {'nvim-treesitter'},
+      config = function()
+        vim.api.nvim_set_keymap('n', '<leader>CC',
+                                '<Cmd>TSHighlightCapturesUnderCursor<CR>',
+                                {silent = true, noremap = true})
+      end,
+      requires = 'nvim-treesitter',
     }
     -- }}}
 
