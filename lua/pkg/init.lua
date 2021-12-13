@@ -47,7 +47,28 @@ return packer.startup {
     }
     -- }}}
 
-    use {'kovetskiy/sxhkd-vim', as = 'sxhkd', ft = 'sxhkd'} -- SXHKD spec file support
+    -- 'kovetskiy/sxhkd-vim' -- SXHKD spec file support{{{
+    use {
+      'kovetskiy/sxhkd-vim',
+      as = 'sxhkd',
+      ft = 'sxhkd',
+      setup = function()
+        -- NOTE: Fix the SXHKD filetype detection issue <kunzaatko> --
+        AUtils.check_ft_sxhkd = function()
+          if packer_plugins['plenary.nvim'].loaded ~= true then
+            vim.cmd [[packadd plenary.nvim]]
+          end
+          local p = require'plenary'.path.new(vim.api.nvim_buf_get_name(0))
+          if p:_split()[#p:_split()] == 'sxhkdrc' then
+            vim.opt.filetype = 'sxhkd'
+          end
+        end
+
+        vim.cmd [[ autocmd BufRead * call v:lua.AUtils.check_ft_sxhkd() ]]
+      end,
+    }
+    -- }}}
+
     use {'cespare/vim-toml', as = 'toml', ft = 'toml'} -- TOML language support
     use {'blankname/vim-fish', as = 'fish', ft = 'fish'} -- fish scripts support
     -- }}}
