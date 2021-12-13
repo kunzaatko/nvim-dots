@@ -181,6 +181,13 @@ return packer.startup {
 
     use {'folke/lua-dev.nvim', as = 'lua-dev'} -- development environment for lua and nvim
 
+    -- 'lewis6991/spellsitter.nvim' -- use the inbuilt neovim spellchecker with treesitter {{{
+    use {
+      'lewis6991/spellsitter.nvim',
+      config = function()
+        require'spellsitter'.setup {spellchecker = 'vimfn'}
+      end,
+    } -- }}}
     -- }}}
 
     -- PRETTIFYING {{{
