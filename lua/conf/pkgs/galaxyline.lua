@@ -21,6 +21,7 @@ gl.short_line_list = {
   'octo',
   'help',
   'toggleterm',
+  'Trouble',
 }
 
 local palette = { -- {{{
@@ -80,7 +81,7 @@ local mode_color = { -- {{{
   t = colors.red,
 } -- }}}
 
--- NOTE: Set the statusline background <kunzaatko> --
+-- NOTE: Set the status line background <kunzaatko> --
 local readonly_icon = " "
 local modified_icon = " "
 
@@ -203,7 +204,7 @@ gls.right[7] = { -- {{{
 } -- }}}
 -- }}}
 
--- TODO: Do not show when there are no modifications in unstaged <05-12-21, kunzaatko> --
+-- TODO: Do not show when there are no modifications in tree <05-12-21, kunzaatko> --
 -- Git {{{
 gls.right[8] = { -- SepGitLeft {{{
   SepGitLeft = {
