@@ -172,6 +172,7 @@ cmp.setup {
     {name = 'cmp_tabnine'},
     {name = 'buffer'},
     {name = 'spell'},
+    {name = 'neorg'},
   }),
   sorting = {
     comparators = {

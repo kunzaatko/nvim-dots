@@ -884,6 +884,15 @@ return packer.startup {
     use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
 
     use 'nathom/filetype.nvim' -- speeds-up the start-up time by using a lua version of the filetype.vim script
+    -- NEORG {{{
+    -- 'vhyrro/neorg' -- main package for norg format {{{
+    use {
+      'vhyrro/neorg',
+      branch = 'unstable',
+      config = function()
+        require 'conf.pkgs.neorg'
+      end,
+    }
     -- }}}
     -- }}}
 
