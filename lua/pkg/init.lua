@@ -298,7 +298,37 @@ return packer.startup {
       config = function()
         require 'conf.pkgs.galaxyline'
       end,
-      requires = {'kyazdani42/nvim-web-devicons', 'rktjmp/lush.nvim'},
+      requires = {
+        {'kyazdani42/nvim-web-devicons'},
+        {'rktjmp/lush.nvim'},
+        {
+          'SmiteshP/nvim-gps',
+          requires = 'nvim-treesitter/nvim-treesitter',
+          config = function()
+            require("nvim-gps").setup({
+              icons = { -- {{{
+                ["string-name"] = '  ',
+                ["class-name"] = '  ',
+                ["function-name"] = '  ',
+                ["method-name"] = '  ',
+                ["array-name"] = '  ',
+                ["container-name"] = '  ',
+                ["table-name"] = '  ',
+                ["object-name"] = '  ',
+                ["inline-table-name"] = '  ',
+                ["tag-name"] = '  ',
+                ["boolean-name"] = '  ',
+                ["number-name"] = '  ',
+                ["integer-name"] = '  ',
+                ["time-name"] = '  ',
+              }, -- }}}
+              separator = ' ⟩ ',
+              depth = 4,
+              depth_limit_indicator = " ",
+            })
+          end,
+        },
+      },
     }
     -- }}}
 
