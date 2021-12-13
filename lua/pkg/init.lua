@@ -214,6 +214,12 @@ return packer.startup {
       config = function()
         require 'conf.pkgs.formatter'
         vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>Format<CR>', {silent = true})
+        vim.cmd [[
+            augroup FormatAutogroup
+                autocmd!
+                autocmd! BufWritePost *.rs,*.lua,*.py,*.toml,*.tex FormatWrite
+            augroup END
+                ]]
       end,
     }
     -- }}}
