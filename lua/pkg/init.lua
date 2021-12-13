@@ -5,7 +5,14 @@ return packer.startup {
 
     -- package management --
 
-    use {'wbthomason/packer.nvim', opt = true} -- manage packer as optional plug-in
+    use {
+      'wbthomason/packer.nvim',
+      opt = true,
+      config = function()
+        -- TODO: Add profiling and do not spell in profile windows <13-12-21, kunzaatko> --
+        vim.cmd [[autocmd FileType packer lua vim.opt_local.spell = false]]
+      end,
+    } -- manage packer as optional plug-in
 
     -- LANGUAGES {{{
     -- FIX: There is a bug that causes this to give errors when it is an opt plug-in on several events <17-11-21, kunzaatko> --
