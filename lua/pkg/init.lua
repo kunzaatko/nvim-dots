@@ -903,5 +903,8 @@ return packer.startup {
     -- }}}
 
   end,
-  config = {disable_commands = true, profile = {enable = true}}, -- disable creating commands (created manually)
+  config = {
+    disable_commands = true, -- disable creating commands (created manually)
+    profile = {enable = true},
+  },
 }
