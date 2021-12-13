@@ -619,6 +619,7 @@ return packer.startup {
                                 {noremap = true, silent = true})
       end,
     } -- }}}
+
     -- 'danymat/neogen' -- generate documentation for functions based on treesitter {{{
     use {
       'danymat/neogen',
@@ -654,6 +655,9 @@ return packer.startup {
       keys = '<leader>g',
       requires = 'sindrets/diffview.nvim',
       config = function()
+        vim.cmd [[
+        autocmd FileType NeogitStatus,NeogitPopup lua vim.opt_local.spell = false; vim.opt_local.list = false
+        ]]
         require'neogit'.setup({
           disable_hint = true,
           disable_builtin_notifications = true,
