@@ -122,7 +122,7 @@ _G.MUtils.smart_pum_snip_bwd = function()
   end
 end
 
--- TODO: Why dont these work? <07-03-21, kunzaatko> --
+-- depTODO: Why dont these work? <07-03-21, kunzaatko> --
 --[[ map('i' , '<c-j>','v:lua.MUtils.smart_pum_snip_fwd()', {expr = true , noremap = true})
 map('i' , '<c-k>','v:lua.MUtils.smart_pum_snip_bwd()', {expr = true , noremap = true}) ]]
 
