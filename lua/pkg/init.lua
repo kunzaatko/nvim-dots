@@ -861,6 +861,7 @@ return packer.startup {
     -- }}}
 
     -- OTHER {{{
+    -- 'dstein64/vim-startuptime' -- profiling for start-up time and plug-in loading {{{
     use {
       'dstein64/vim-startuptime',
       cmd = 'StartupTime',
@@ -868,8 +869,10 @@ return packer.startup {
       config = function()
         vim.cmd [[autocmd FileType startuptime lua vim.opt_local.spell = false]]
       end,
-    } -- profiling
+    }
+    -- }}}
 
+    -- 'glacambre/firenvim' -- extension for browser insert boxes to use nvim {{{
     use {
       'glacambre/firenvim',
       opt = true,
@@ -879,11 +882,14 @@ return packer.startup {
       cond = function()
         return vim.fn.exists('g:started_by_firenvim')
       end,
-    } -- extension for browser insert boxes to use nvim
+    }
+    -- }}}
 
     use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
 
     use 'nathom/filetype.nvim' -- speeds-up the start-up time by using a lua version of the filetype.vim script
+    -- }}}
+
     -- NEORG {{{
     -- 'vhyrro/neorg' -- main package for norg format {{{
     use {
