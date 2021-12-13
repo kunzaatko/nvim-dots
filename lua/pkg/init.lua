@@ -490,10 +490,14 @@ return packer.startup {
     use {
       'nvim-telescope/telescope.nvim',
       keys = {
-        '<leader><leader>f',
-        '<leader><leader>g',
-        '<leader><leader>b',
-        '<leader><leader>h',
+        '<leader>fs',
+        '<leader>fw',
+        '<leader>fF',
+        '<leader>fg',
+        '<leader>fb',
+        '<leader>fh',
+        '<leader>ff',
+        '<leader>fk',
       },
       cmd = 'Telescope',
       requires = {
