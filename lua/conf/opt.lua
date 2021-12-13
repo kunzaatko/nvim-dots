@@ -76,6 +76,9 @@ opt.foldmethod = 'marker'
 -- >> do not insert a comment string after hitting <CR> in insert mode
 opt.formatoptions:remove('o')
 
+-- >> maximum text width to adhere to
+opt.textwidth = 100
+
 -- >> use truecolours in colour-schemes (this can brake colour-schemes if they are not built for it)
 opt.termguicolors = true
 opt.guicursor =
@@ -97,4 +100,4 @@ end
 -- >> show hidden characters
 opt.list = true
 opt.listchars = { eol = '⏎', tab = '▸ ', trail = '·' }
-opt.fillchars = { diff = '░' }
+opt.fillchars = { diff = '░', fold = '┉' }
