@@ -507,7 +507,7 @@ return packer.startup {
       },
       config = function()
         vim.cmd [[packadd trouble.nvim]]
-        local trouble = require("trouble.providers.telescope")
+        local trouble = require 'trouble.providers.telescope'
         require'telescope'.setup({
           defaults = {
             mappings = {
@@ -523,17 +523,29 @@ return packer.startup {
           require('telescope').load_extension('notify')
         end
 
-        vim.api.nvim_set_keymap('n', '<leader><leader>f',
+        vim.api.nvim_set_keymap('n', '<leader>fs',
+                                "<Cmd>lua require'telescope.builtin'.spell_suggest()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>fw',
                                 "<Cmd>lua require'telescope.builtin'.git_files()<CR>",
                                 {noremap = true, silent = true})
-        vim.api.nvim_set_keymap('n', '<leader><leader>g',
+        vim.api.nvim_set_keymap('n', '<leader>fF',
+                                "<Cmd>lua require'telescope.builtin'.find_files()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>fg',
                                 "<Cmd>lua require'telescope.builtin'.live_grep()<CR>",
                                 {noremap = true, silent = true})
-        vim.api.nvim_set_keymap('n', '<leader><leader>b',
+        vim.api.nvim_set_keymap('n', '<leader>fb',
                                 "<Cmd>lua require'telescope.builtin'.buffers()<CR>",
                                 {noremap = true, silent = true})
-        vim.api.nvim_set_keymap('n', '<leader><leader>h',
+        vim.api.nvim_set_keymap('n', '<leader>fh',
                                 "<Cmd>lua require'telescope.builtin'.help_tags()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>ff',
+                                "<Cmd>lua require'telescope.builtin'.builtin()<CR>",
+                                {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<leader>fk',
+                                "<Cmd>lua require'telescope.builtin'.keymaps()<CR>",
                                 {noremap = true, silent = true})
       end,
     }
