@@ -10,7 +10,8 @@ MUtils.append_blank_lines = function()
   )
 end
 
--- TODO: Does not work <09-05-21, kunzaatko> --
+-- FIX: Does not work <09-05-21, kunzaatko> --
+-- NOTE: It is maybe better to edit those files with sudoedit cli <kunzaatko> --
 MUtils.save_root = function()
   vim.fn.execute("silent! write !sudo tee % >/dev/null | edit!<CR>")
 end

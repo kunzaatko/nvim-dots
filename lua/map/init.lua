@@ -35,17 +35,17 @@ map('v', 'p', 'p`]', { noremap = true, silent = true }) -- go to end of pasted t
 
 map('c', 'w!!', '<Cmd>lua MUtils.save_root()<CR>', { noremap = true }) -- writing read-only files
 
--- NOTE: Needed for managing packer as an opt plugin <kunzaatko> --
--- NOTE: Installing spec plugins without needing to have packer loaded <kunzaatko> --
+-- NOTE: Needed for managing packer as an opt plug-in <kunzaatko> --
+-- NOTE: Installing spec plug-ins without needing to have packer loaded <kunzaatko> --
 cmd [[
     command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete  PackerInstall lua MUtils.packer_install(<f-args>)
-]] -- install plugins <f-args> or spec plugins for no <f-args>
+]] -- install plug-ins <f-args> or spec plug-ins for no <f-args>
 cmd [[
     command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerUpdate lua MUtils.packer_update(<f-args>)
-]] -- update plugins <f-args> or spec plugins for no <f-args>
+]] -- update plug-ins <f-args> or spec plug-ins for no <f-args>
 cmd [[
     command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerSync lua MUtils.packer_sync(<f-args>)
-]] -- sync plugins <f-args> or spec plugins for no <f-args>
+]] -- sync plug-ins <f-args> or spec plug-ins for no <f-args>
 cmd [[
   command! PackerClean packadd packer.nvim | lua require('pkg.install_packer');require('pkg').clean()
 ]] -- clean configuration
@@ -54,9 +54,9 @@ cmd [[
 ]] -- compile packer spec
 cmd [[
   command! -bang -nargs=+ -complete=customlist,v:lua.require'packer'.loader_complete PackerLoad lua require('pkg.install_packer');require('packer').loader(<f-args>, '<bang>')
-]] -- load plugins
+]] -- load plug-ins
 
--- TODO: Fix profiling issue (what does wbthomason have in his config) <17-11-21, kunzaatko> --
+-- FIX: Fix profiling issue (what does wbthomason have in his config?) <17-11-21, kunzaatko> --
 cmd [[
   command! PackerProfile packadd packer.nvim | lua require'packer'.profile_output()
 ]] -- profiling window

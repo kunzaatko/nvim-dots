@@ -181,7 +181,6 @@ return packer.startup {
           virtual_text = { enabled = true, text = " ", hl_mode = "replace" },
           status_text = { enabled = true, text = " ", text_unavailable = "" },
         }
-        -- NOTE: This will be blue, but it makes most sense logically <kunzaatko>
         vim.fn
           .sign_define('LightBulbSign', { text = " ", texthl = "DiagnosticInfo" }) -- 
         vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
@@ -413,7 +412,6 @@ return packer.startup {
             NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
           },
         }
-        -- TODO: configure https://github.com/folke/todo-comments.nvim <26-07-21, kunzaatko> --
       end,
     }
     -- }}}
@@ -833,7 +831,7 @@ return packer.startup {
     }
     -- }}}
 
-    -- TODO: Currently there is a missing font item in reactions on comments <12-12-21, kunzaatko> --
+    -- FIX: Currently there is a missing font item in reactions on comments <12-12-21, kunzaatko> --
     -- 'pwntester/octo.nvim' -- github nvim UI {{{
     use {
       'pwntester/octo.nvim',
