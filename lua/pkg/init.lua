@@ -848,7 +848,8 @@ return packer.startup {
 
     use 'antoinemadec/FixCursorHold.nvim' -- bug in neovim - https://github.com/neovim/neovim/issues/12587
 
-    use 'nathom/filetype.nvim' -- speedsup the startuptime by using a lua version of the filetype.vim script
+    use 'nathom/filetype.nvim' -- speeds-up the start-up time by using a lua version of the filetype.vim script
+    -- }}}
     -- }}}
 
   end,
