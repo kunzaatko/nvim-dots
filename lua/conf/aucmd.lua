@@ -53,3 +53,11 @@ cmd [[
         autocmd FileType man lua vim.opt_local.spell = false
     augroup END
 ]]
+
+-- formatting option for different filetypes
+cmd [[
+    augroup FormatOptions
+        autocmd!
+        autocmd BufEnter *.lua lua vim.opt.formatoptions:remove('o')
+    augroup END
+]]
