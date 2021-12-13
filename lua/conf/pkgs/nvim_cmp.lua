@@ -236,9 +236,11 @@ local source_icons = { -- source icons in the menu {{{
   buffer = "[ ]",
   nvim_lsp = "[ ]",
   ultisnips = "[ ]",
-  latex_symbols = "[ ]",
   cmp_git = "[ ]",
+  latex_symbols = "[ ]",
   rg = "[ ]",
+  spell = "[ ]",
+  cmp_tabnine = "[ ]",
 } -- }}}
 
 cmp.setup {
