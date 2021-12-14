@@ -942,7 +942,7 @@ return packer.startup {
     -- 'vhyrro/neorg' -- main package for norg format {{{
     use {
       'vhyrro/neorg',
-      branch = 'unstable',
+      branch = 'main',
       config = function()
         require 'conf.pkgs.neorg'
       end,
