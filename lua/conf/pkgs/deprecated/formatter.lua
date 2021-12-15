@@ -1,4 +1,5 @@
--- yaml, javascript, json, html, css, PHP, markdown, typescript, toml (added from https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml)
+-- yaml, javascript, json, html, css, PHP, markdown, typescript,
+-- toml (added from https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml)
 local function prettier()
   return {
     exe = 'prettier',

@@ -80,7 +80,7 @@ return packer.startup {
     use { 'blankname/vim-fish', as = 'fish', ft = 'fish' } -- fish scripts support
     -- }}}
 
-    -- COMPLETION AND LINTING {{{
+    -- LSP, COMPLETION, LINTING AND FORMATTING {{{
     -- 'folke/trouble.nvim' -- diagnostics and quickfix-list {{{
     use {
       'folke/trouble.nvim',
@@ -197,43 +197,60 @@ return packer.startup {
         require'spellsitter'.setup { spellchecker = 'vimfn' }
       end,
     } -- }}}
-    -- }}}
 
-    -- PRETTIFYING {{{
-    -- 'mhartington/formatter.nvim' -- code formatting {{{
+    -- 'jose-elias-alvarez/null-ls.nvim' -- for attaching command line utilities to nvim LSP client api {{{
     use {
-      'mhartington/formatter.nvim',
-      ft = {
-        'rust',
-        'javascript',
-        'json',
-        'html',
-        'python',
-        'tex',
-        'c',
-        'cpp',
-        'lua',
-        'yaml',
-        'css',
-        'markdown',
-        'toml',
-        'sh',
-        'bash',
-      },
+      'jose-elias-alvarez/null-ls.nvim',
       config = function()
-        require 'conf.pkgs.formatter'
-        vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>Format<CR>', { silent = true })
+        local null_ls = require 'null-ls'
+        require('null-ls').setup {
+          on_attach = LSPUtils.on_attach,
+          sources = {
+            null_ls.builtins.formatting.clang_format,
+            null_ls.builtins.formatting.fish_indent,
+            null_ls.builtins.formatting.prettier,
+            null_ls.builtins.diagnostics.chktex,
+            null_ls.builtins.formatting.yapf,
+            null_ls.builtins.formatting.rustfmt,
+            null_ls.builtins.diagnostics.vale,
+            null_ls.builtins.formatting.lua_format,
+            null_ls.builtins.formatting.taplo,
+            null_ls.builtins.formatting.codespell,
+            null_ls.builtins.formatting.reorder_python_imports,
+            null_ls.builtins.diagnostics.mypy,
+            null_ls.builtins.formatting.shellharden,
+            null_ls.builtins.formatting.shfmt,
+            null_ls.builtins.diagnostics.cppcheck,
+            null_ls.builtins.diagnostics.luacheck,
+            null_ls.builtins.diagnostics.markdownlint,
+            null_ls.builtins.diagnostics.misspell,
+            null_ls.builtins.diagnostics.proselint,
+            null_ls.builtins.diagnostics.pylint,
+            null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.diagnostics.stylelint,
+            null_ls.builtins.diagnostics.write_good,
+            null_ls.builtins.diagnostics.yamllint,
+            null_ls.builtins.code_actions.gitsigns,
+            null_ls.builtins.code_actions.proselint,
+            null_ls.builtins.code_actions.shellcheck,
+            null_ls.builtins.hover.dictionary,
+          },
+        }
         vim.cmd [[
             augroup FormatAutogroup
                 autocmd!
-                autocmd! BufWritePost *.rs,*.lua,*.py,*.toml,*.tex FormatWrite
+                autocmd! BufWritePost *.rs,*.lua,*.py,*.toml,*.tex lua vim.lsp.buf.formatting(); vim.cmd"write"
             augroup END
                 ]]
       end,
+      requires = { "nvim-lua/plenary.nvim" },
     }
     -- }}}
+    -- }}}
 
-    -- TODO: Do this using 'mhartington/formatter.nvim' <17-11-21, kunzaatko> --
+    -- PRETTIFYING {{{
+
+    -- TODO: Do this using 'jose-elias-alvarez/null-ls.nvim' <17-11-21, kunzaatko> --
     -- 'kdheepak/JuliaFormatter.vim' -- julia code formatting {{{
     use {
       'kdheepak/JuliaFormatter.vim',

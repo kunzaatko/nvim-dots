@@ -56,6 +56,14 @@ LSPUtils.on_attach = function( _, bufnr )
     bufnr, 'n', 'g]', "<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
     { noremap = true, silent = true }
   )
+  map_loc(
+    bufnr, 'n', '<leader>f', "<Cmd> lua vim.lsp.buf.formatting()<CR>",
+    { noremap = true, silent = true }
+  )
+  map_loc(
+    bufnr, 'v', '<leader>f', "<Cmd> lua vim.lsp.buf.range_formatting()<CR>",
+    { noremap = true, silent = true }
+  )
 end -- }}}
 
 return LSPUtils
