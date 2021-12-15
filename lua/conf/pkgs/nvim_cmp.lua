@@ -33,7 +33,9 @@ if packer_plugins['lua-dev'].loaded == true then
       lspconfig = {
         on_attach = LSPUtils.on_attach,
         cmd = { 'lua-language-server' },
-        settings = { Lua = { diagnostics = { globals = { 'packer_plugins' } } } },
+        settings = {
+          Lua = { diagnostics = { globals = { 'packer_plugins', 'LSPUtils', 'MUtils' } } },
+        },
       },
     }
                  )
