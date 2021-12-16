@@ -53,7 +53,7 @@ cmd [[
 cmd [[
     augroup SetNoSpell
         autocmd!
-        autocmd FileType man lua vim.opt_local.spell = false
+        autocmd FileType man,gitrebase lua vim.opt_local.spell = false
     augroup END
 ]]
 
