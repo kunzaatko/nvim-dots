@@ -196,7 +196,7 @@ cmp.setup.cmdline(':', {
 })
 
 require('cmp_git').setup {
-  filetypes = { 'gitcommit', 'NeogitCommitMessage', 'octo' },
+  filetypes = { 'gitcommit', 'NeogitCommitMessage', 'octo', 'gitrebase' },
   remotes = { 'upstream', 'origin', 'github' },
 }
 
