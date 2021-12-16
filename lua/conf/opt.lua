@@ -28,7 +28,7 @@ opt.wildmode = { longest = 'full', 'full' }
      not insert until tabbed, do not select until tabbed
      shortmess = do not print messages like "-- ZZZ completion (YYY)" ]]
 opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
-opt.shortmess:append('c')
+opt.shortmess:append 'c'
 
 -- >> Do not show the mode in the command line
 opt.showmode = false
@@ -43,7 +43,7 @@ opt.linebreak = true
 
 --[[ copy everything also to the system clipboard (not just while using "+ and
      "* registers) ]]
-opt.clipboard:prepend('unnamedplus')
+opt.clipboard:prepend 'unnamedplus'
 
 --[[ persistent undo on close of the file (undolevel = 1000,
      undodir = "$XDG_DATA_HOME/nvim/undo/") without a swapfile ]]
@@ -74,15 +74,14 @@ opt.tabstop, opt.shiftwidth = indent, indent
 opt.foldmethod = 'marker'
 
 -- >> do not insert a comment string after hitting <CR> in insert mode
-opt.formatoptions:remove('o')
+opt.formatoptions:remove 'o'
 
 -- >> maximum text width to adhere to
 opt.textwidth = 100
 
 -- >> use truecolours in colour-schemes (this can brake colour-schemes if they are not built for it)
 opt.termguicolors = true
-opt.guicursor =
-  "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
+opt.guicursor = 'n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor'
 
 -- >> use cursorline but only highlight the number
 opt.cursorline = true
@@ -92,9 +91,9 @@ opt.cursorlineopt = 'number'
 opt.foldcolumn = 'auto:4'
 
 -- >> set rg as the back-end for :grep command
-if vim.fn.executable('rg') == 1 then
-  opt.grepprg = "rg --no-heading --vimgrep"
-  opt.grepformat = "%f:%l:%c:%m"
+if vim.fn.executable 'rg' == 1 then
+  opt.grepprg = 'rg --no-heading --vimgrep'
+  opt.grepformat = '%f:%l:%c:%m'
 end
 
 -- >> show hidden characters

@@ -1,4 +1,4 @@
-local parser_configs = require'nvim-treesitter.parsers'.get_parser_configs()
+local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 
 parser_configs.norg = {
   install_info = {
@@ -8,7 +8,7 @@ parser_configs.norg = {
   },
 }
 
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'bash',
     'c',
@@ -52,10 +52,10 @@ require'nvim-treesitter.configs'.setup {
       lookahead = true,
 
       keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
       },
     },
   },

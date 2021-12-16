@@ -82,8 +82,8 @@ local mode_color = { -- {{{
 } -- }}}
 
 -- NOTE: Set the status line background <kunzaatko> --
-local readonly_icon = " "
-local modified_icon = " "
+local readonly_icon = ' '
+local modified_icon = ' '
 
 ------------
 --  Left  --
@@ -92,9 +92,7 @@ local modified_icon = " "
 gls.left[1] = { -- ModeBlockLeft -- ▊   ⟫ {{{
   ModeBlockLeft = {
     provider = function()
-      vim.api.nvim_command(
-        'hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' .. colors.bg
-      )
+      vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' .. colors.bg)
       local provider = function()
         local icons = { dos = '', mac = '', unix = ' ' }
         -- auto change color according the vim mode
@@ -118,12 +116,10 @@ gls.left[2] = { -- FileInfo --  galaxyline.lua   {{{
   },
   FileName = {
     provider = function()
-      return providers.file_info.get_current_file_name(modified_icon, readonly_icon) ..
-               '⟩ '
+      return providers.file_info.get_current_file_name(modified_icon, readonly_icon) .. '⟩ '
     end,
     condition = condition.buffer_not_empty,
     highlight = { colors.darkblue, colors.bg, 'bold' },
-
   },
 } -- }}}
 gls.left[3] = { --   gls   left[3]   nvimGPS   provider {{{
@@ -279,7 +275,7 @@ gls.right[14] = { -- ModeSepRight {{{
 gls.right[15] = { -- RightPositionNumerical{{{
   RightPositionNumerical = {
     provider = function()
-      return string.format('%s:%s ', vim.fn.line('.'), vim.fn.col('.'))
+      return string.format('%s:%s ', vim.fn.line '.', vim.fn.col '.')
     end,
     separator = ' ',
     separator_highlight = { 'NONE', colors.bg },
@@ -312,10 +308,7 @@ gls.short_line_left = {
   { -- BlockLeft {{{
     BlockLeft = {
       provider = function()
-        vim.api.nvim_command(
-          'hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' ..
-            colors.bg
-        )
+        vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()] .. ' guibg=' .. colors.bg)
         return '▊ ' .. providers.buffer.get_buffer_filetype() .. ' ⟫'
       end,
       highlight = 'GalaxyViMode',
@@ -327,8 +320,7 @@ gls.short_line_right = {
   { -- SFileName {{{
     SFileName = {
       provider = function()
-        return '⟪ ' ..
-                 providers.file_info.get_current_file_name(modified_icon, readonly_icon)
+        return '⟪ ' .. providers.file_info.get_current_file_name(modified_icon, readonly_icon)
       end,
       condition = condition.buffer_not_empty,
       highlight = 'GalaxyViMode',

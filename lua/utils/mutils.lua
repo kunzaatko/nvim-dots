@@ -4,44 +4,41 @@ local cmd = vim.cmd
 _G.MUtils = {}
 
 MUtils.append_blank_lines = function()
-  vim.fn.append(
-    vim.api.nvim_win_get_cursor(0)[1],
-    vim.fn["repeat"]({ "" }, vim.api.nvim_get_vvar("count1"))
-  )
+  vim.fn.append(vim.api.nvim_win_get_cursor(0)[1], vim.fn['repeat']({ '' }, vim.api.nvim_get_vvar 'count1'))
 end
 
 -- FIX: Does not work <09-05-21, kunzaatko> --
 -- NOTE: It is maybe better to edit those files with sudoedit cli <kunzaatko> --
 MUtils.save_root = function()
-  vim.fn.execute("silent! write !sudo tee % >/dev/null | edit!<CR>")
+  vim.fn.execute 'silent! write !sudo tee % >/dev/null | edit!<CR>'
 end
 
-MUtils.packer_install = function( f_args )
+MUtils.packer_install = function(f_args)
   require 'pkg.install_packer'
   cmd 'packadd packer.nvim'
   if f_args then
-    require'packer'.install(f_args)
+    require('packer').install(f_args)
   else
-    require'pkg'.install()
+    require('pkg').install()
   end
 end
 
-MUtils.packer_update = function( f_args )
+MUtils.packer_update = function(f_args)
   require 'pkg.install_packer'
   cmd 'packadd packer.nvim'
   if f_args then
-    require'packer'.update(f_args)
+    require('packer').update(f_args)
   else
-    require'pkg'.update()
+    require('pkg').update()
   end
 end
 
-MUtils.packer_sync = function( f_args )
+MUtils.packer_sync = function(f_args)
   require 'pkg.install_packer'
   cmd 'packadd packer.nvim'
   if f_args then
-    require'packer'.sync(f_args)
+    require('packer').sync(f_args)
   else
-    require'pkg'.sync()
+    require('pkg').sync()
   end
 end

@@ -12,7 +12,7 @@ end
 local function clangformat()
   return {
     exe = 'clang-format',
-    args = { '-assume-filename=' .. vim.fn.expand('%:t') },
+    args = { '-assume-filename=' .. vim.fn.expand '%:t' },
     stdin = true,
   }
 end
@@ -49,26 +49,23 @@ local function yapf()
   return { exe = 'yapf', stdin = true }
 end -- google python formatter
 
-require'formatter'.setup(
-  {
-    logging = false,
-    filetype = {
-      yaml = { prettier },
-      css = { prettier },
-      markdown = { prettier },
-      toml = { prettier },
-      javascript = { prettier },
-      json = { prettier },
-      html = { prettier },
-      c = { clangformat },
-      cpp = { clangformat },
-      rust = { rustfmt },
-      python = { isort, yapf },
-      tex = { latexindent },
-      lua = { luaformat },
-      sh = { shfmt },
-      bash = { shfmt },
-    },
-  }
-)
-
+require('formatter').setup {
+  logging = false,
+  filetype = {
+    yaml = { prettier },
+    css = { prettier },
+    markdown = { prettier },
+    toml = { prettier },
+    javascript = { prettier },
+    json = { prettier },
+    html = { prettier },
+    c = { clangformat },
+    cpp = { clangformat },
+    rust = { rustfmt },
+    python = { isort, yapf },
+    tex = { latexindent },
+    lua = { luaformat },
+    sh = { shfmt },
+    bash = { shfmt },
+  },
+}

@@ -9,15 +9,18 @@ vim.g.vimtex_view_use_temp_files = 2 -- ensures, that the PDF does not update af
 vim.g.vimtex_view_automatic = 1 -- for mklatex it has to be set only if the use_temp_files is nonzero
 vim.g.vimtex_view_method = 'zathura'
 vim.g.vimtex_compiler_latexmk = {
-    build_dir = '',
-    callback = 1,
-    continuous = 1,
-    executable = 'latexmk',
-    hooks = {},
-    options = {
-        '-verbose', '-file-line-error', '-synctex=1',
-        '-interaction=nonstopmode', '-shell-escape' -- for running python for the minted package to work
-    }
+  build_dir = '',
+  callback = 1,
+  continuous = 1,
+  executable = 'latexmk',
+  hooks = {},
+  options = {
+    '-verbose',
+    '-file-line-error',
+    '-synctex=1',
+    '-interaction=nonstopmode',
+    '-shell-escape', -- for running python for the minted package to work
+  },
 }
 
-vim.g.vimtex_toc_config = {show_help = 0}
+vim.g.vimtex_toc_config = { show_help = 0 }
