@@ -240,7 +240,7 @@ gls.right[11] = { -- DiffRemove {{{
 gls.right[12] = { -- GitIcon {{{
   GitIcon = {
     provider = function()
-      return '  ' .. providers.vcs.get_git_branch()
+      return '  ' .. (providers.vcs.get_git_branch() or '')
     end,
     separator = ' ',
     condition = condition.check_git_workspace,
