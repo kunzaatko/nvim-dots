@@ -946,9 +946,6 @@ return packer.startup {
       'dstein64/vim-startuptime',
       cmd = 'StartupTime',
       setup = 'vim.g.startuptime_tries = 10',
-      config = function()
-        vim.cmd [[autocmd FileType startuptime lua vim.opt_local.spell = false]]
-      end,
     }
     -- }}}
 
