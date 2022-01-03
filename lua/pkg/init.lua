@@ -344,7 +344,8 @@ return packer.startup {
     -- AESTHETICS {{{
     -- 'glepnir/galaxyline.nvim' -- status line{{{
     use {
-      'glepnir/galaxyline.nvim',
+      'dsych/galaxyline.nvim',
+      branch = 'bugfix/diagnostics',
       config = function()
         require 'conf.pkgs.galaxyline'
       end,
