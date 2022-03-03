@@ -8,17 +8,17 @@ opt.number, opt.relativenumber = true, true
      do not ignore case for patterns with an upper-case letter ]]
 opt.ignorecase, opt.smartcase = true, true
 
--- >> when missing end of line at end of screen replace *whole* line with @@@
+-->> when missing end of line at end of screen replace *whole* line with @@@
 opt.display = 'truncate'
 
--- >> brief jump to matching delimiter when inserted
+-->> brief jump to matching delimiter when inserted
 opt.showmatch = true
 
--- >> use the mouse in visual and insert mode
+-->> use the mouse in visual and insert mode
 opt.mouse = 'a'
 
--- >> which shell to use in the terminal
 opt.shell = 'fish'
+-->> which shell to use in the terminal
 
 --[[ Ex command <tab>-completion succession: common match string with wildmenu
      open, then first full match with wildmenu]]
@@ -30,7 +30,8 @@ opt.wildmode = { longest = 'full', 'full' }
 opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 opt.shortmess:append 'c'
 
--- >> Do not show the mode in the command line
+-->> Maximum menu height
+-->> Do not show the mode in the command line
 opt.showmode = false
 
 --[[ scrolloff = minimum lines of context on the screen
@@ -38,7 +39,7 @@ opt.showmode = false
 opt.scrolloff = 3
 opt.sidescrolloff = 5
 
--- >> do not split words on wrapping
+-->> do not split words on wrapping
 opt.linebreak = true
 
 --[[ copy everything also to the system clipboard (not just while using "+ and
@@ -50,13 +51,14 @@ opt.clipboard:prepend 'unnamedplus'
 opt.undofile = true
 opt.swapfile = false
 
--- >> preferred directions on window splitting
+-->> Save window positions and terminal in shada file
+-->> preferred directions on window splitting
 opt.splitbelow, opt.splitright = true, true
 
--- >> remaps in normal mode (compensation for Czech keyboard locale)
+-->> remaps in normal mode (compensation for Czech keyboard locale)
 opt.langmap = { 'ě2', 'š3', 'č4', 'ř5', 'ž6', 'ý7', 'á8', 'í9' }
 
--- >> spelling languages and spell on. Camel indicates that in CamelCased  words,
+-->> spelling languages and spell off. Camel indicates that in CamelCased  words,
 -- the upper letter is used as space delimiter.
 opt.spell = true
 opt.spelllang = { 'cs', 'en_gb' }
@@ -70,33 +72,33 @@ local indent = 4
 opt.expandtab, opt.shiftround = true, true
 opt.tabstop, opt.shiftwidth = indent, indent
 
--- >> fold boundaries determined by markers {{{ and }}}
+-->> fold boundaries determined by markers {{{ and }}}
 opt.foldmethod = 'marker'
 
--- >> do not insert a comment string after hitting <CR> in insert mode
+-->> do not insert a comment string after hitting <CR> in insert mode
 opt.formatoptions:remove 'o'
 
--- >> maximum text width to adhere to
+-->> maximum text width to adhere to
 opt.textwidth = 100
 
--- >> use truecolours in colour-schemes (this can brake colour-schemes if they are not built for it)
+-->> use truecolours in colour-schemes (this can brake colour-schemes if they are not built for it)
 opt.termguicolors = true
 opt.guicursor = 'n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor'
 
--- >> use cursorline but only highlight the number
+-->> use cursorline but only highlight the number
 opt.cursorline = true
 opt.cursorlineopt = 'number'
 
--- >> see the number of folds in the columns to the left and + - signs
+-->> see the number of folds in the columns to the left and + - signs
 opt.foldcolumn = 'auto:4'
 
--- >> set rg as the back-end for :grep command
+-->> set rg as the back-end for :grep command
 if vim.fn.executable 'rg' == 1 then
   opt.grepprg = 'rg --no-heading --vimgrep'
   opt.grepformat = '%f:%l:%c:%m'
 end
 
--- >> show hidden characters
+-->> show hidden characters
 opt.list = true
 opt.listchars = { eol = '⏎', tab = '▸ ', trail = '·' }
 opt.fillchars = { diff = '░', fold = '┉' }
