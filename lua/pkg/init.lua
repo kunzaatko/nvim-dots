@@ -764,7 +764,7 @@ return packer.startup {
     -- TODO: Add repeat capability <16-01-22, kunzaatko> --
     -- 'blackCauldron7/surround.nvim' -- text objects and editing surrounding delimiters{{{
     use {
-      'blackCauldron7/surround.nvim',
+      'ur4ltz/surround.nvim',
       config = function()
         require('surround').setup { mappings_style = 'surround' }
       end,
