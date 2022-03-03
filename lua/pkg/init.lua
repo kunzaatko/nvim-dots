@@ -114,7 +114,7 @@ return packer.startup {
         vim.api.nvim_set_keymap(
           'n',
           '<Leader>tl',
-          '<Cmd>TroubleToggle lsp_document_diagnostics<CR>',
+          '<Cmd>TroubleToggle document_diagnostics<CR>',
           { noremap = true, silent = true }
         ) -- Trouble 'local' (only the current buffer)
         vim.api.nvim_set_keymap(
