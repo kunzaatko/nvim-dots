@@ -994,10 +994,10 @@ return packer.startup {
       config = function()
         require('gitsigns').setup {
           signs = {
-            add = { hl = 'GreenSign', text = '│', numhl = 'GitSignsAddNr' },
-            change = { hl = 'YellowSign', text = '│', numhl = 'GitSignsChangeNr' },
-            delete = { hl = 'RedSign', text = '│', numhl = 'GitSignsDeleteNr' },
-            topdelete = { hl = 'RedSign', text = '│', numhl = 'GitSignsDeleteNr' },
+            add = { hl = 'GreenSign', text = '┃', numhl = 'GitSignsAddNr' },
+            change = { hl = 'YellowSign', text = '┇', numhl = 'GitSignsChangeNr' },
+            delete = { hl = 'RedSign', text = '┻', numhl = 'GitSignsDeleteNr' },
+            topdelete = { hl = 'RedSign', text = '┳', numhl = 'GitSignsDeleteNr' },
             changedelete = {
               hl = 'PurpleSign',
               text = '│',
