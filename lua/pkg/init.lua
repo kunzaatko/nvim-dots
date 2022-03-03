@@ -451,6 +451,9 @@ return packer.startup {
       config = function()
         require('zen-mode').setup {
           -- TODO: configure https://github.com/folke/zen-mode.nvim <26-07-21, kunzaatko> --
+          window = {
+            width = 0.85,
+          },
         }
         vim.api.nvim_set_keymap('n', '<leader>z', '<Cmd>ZenMode<CR>', { noremap = true, silent = true })
       end,
