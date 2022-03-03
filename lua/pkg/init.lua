@@ -96,6 +96,18 @@ return packer.startup {
       requires = 'kyazdani42/nvim-web-devicons',
       cmd = { 'Trouble', 'TroubleToggle', 'TroubleClose', 'TroubleRefresh' },
       keys = { '<leader>tt', '<leader>tl', '<leader>tr', '<leader>td' },
+      setup = function()
+        local wk = require 'which-key'
+        wk.register({
+          t = {
+            name = 'Trouble',
+            t = { 'Toggle' },
+            l = { 'Lsp document diagnostics' },
+            r = { 'Lsp references' },
+            d = { 'Lsp definitions' },
+          },
+        }, { prefix = '<leader>' })
+      end,
       config = function()
         vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>', { noremap = true, silent = true }) -- Trouble 'global' (full workspace diagnostics)
         vim.api.nvim_set_keymap(
@@ -175,6 +187,10 @@ return packer.startup {
     -- 'nvim-treesitter/playground' -- see the treesitter tree live {{{
     use {
       'nvim-treesitter/playground',
+      setup = function()
+        local wk = require 'which-key'
+        wk.register({ C = { 'Highlight captures' } }, { prefix = '<leader>' })
+      end,
       config = function()
         vim.api.nvim_set_keymap(
           'n',
@@ -351,6 +367,10 @@ return packer.startup {
         vim.g.undotree_DiffAutoOpen = 0 -- it does not carry much info
         vim.g.undotree_SetFocusWhenToggle = 1 -- better for using it for complicated undo and not informative
         vim.g.undotree_HelpLine = 0 -- do not show the help line hint
+        local wk = require 'which-key'
+        wk.register({ u = {
+          'UndoTree toggle',
+        } }, { prefix = '<leader>' })
       end,
       config = function()
         vim.api.nvim_set_keymap('n', '<leader>u', '<Cmd>UndotreeToggle<CR>', { noremap = true, silent = true })
@@ -363,7 +383,11 @@ return packer.startup {
       'folke/which-key.nvim',
       config = function()
         -- TODO: configure https://github.com/folke/which-key.nvim <28-04-21, kunzaatko> --
-        require('which-key').setup { plugins = { spelling = { enabled = true } } }
+        require('which-key').setup {
+          plugins = { spelling = { enabled = true } },
+          window = { border = 'double', margin = { 0, 0, 0, 0 } },
+          ignore_missing = true,
+        }
       end,
     }
     -- }}}
@@ -417,6 +441,10 @@ return packer.startup {
       'folke/zen-mode.nvim',
       cmd = { 'ZenMode' },
       keys = '<leader>z',
+      setup = function()
+        local wk = require 'which-key'
+        wk.register({ z = { 'ZenMode' } }, { prefix = '<leader>' })
+      end,
       config = function()
         require('zen-mode').setup {
           -- TODO: configure https://github.com/folke/zen-mode.nvim <26-07-21, kunzaatko> --
@@ -607,6 +635,25 @@ return packer.startup {
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         'nvim-treesitter/nvim-treesitter',
       },
+      setup = function()
+        local wk = require 'which-key'
+        wk.register({
+          f = {
+            name = 'Telescope',
+            s = { 'Spelling' },
+            F = {
+              'Find files',
+            },
+            g = { 'Live grep' },
+            w = { 'Workspace files' },
+            b = { 'Buffers' },
+            h = { 'Help tags' },
+            f = { 'Pickers' },
+            k = { 'Keymaps' },
+            ['<leader>'] = { 'Fuzzy buffer' },
+          },
+        }, { prefix = '<leader>' })
+      end,
       config = function()
         vim.cmd [[packadd trouble.nvim]]
         local trouble = require 'trouble.providers.telescope'
@@ -762,6 +809,18 @@ return packer.startup {
     use {
       'danymat/neogen',
       keys = { '<leader>dd', '<leader>dc', '<leader>df', '<leader>dt' },
+      setup = function()
+        local wk = require 'which-key'
+        wk.register({
+          d = {
+            name = 'DocGen',
+            d = { 'Generate' },
+            c = { 'Class' },
+            f = { 'Function' },
+            t = { 'Type' },
+          },
+        }, { prefix = '<leader>' })
+      end,
       config = function()
         require('neogen').setup { enabled = true }
         vim.api.nvim_set_keymap(
@@ -808,6 +867,12 @@ return packer.startup {
       cmd = 'Neogit',
       keys = '<leader>g',
       requires = 'sindrets/diffview.nvim',
+      setup = function()
+        local wk = require 'which-key'
+        wk.register({ g = {
+          'NeoGit',
+        } }, { prefix = '<leader>' })
+      end,
       config = function()
         vim.cmd [[
         autocmd FileType NeogitStatus,NeogitPopup lua vim.opt_local.spell = false; vim.opt_local.list = false
@@ -900,6 +965,21 @@ return packer.startup {
       requires = 'nvim-lua/plenary.nvim',
       setup = function()
         vim.cmd 'packadd plenary.nvim'
+        local wk = require 'which-key'
+        wk.register({
+          h = {
+            name = 'Hunk',
+            b = { 'Blame line' },
+            p = { 'Preview hunk' },
+            R = { 'Reset buffer' },
+            r = { 'Reset hunk' },
+            s = { 'Stage hunk' },
+            S = { 'Stage buffer' },
+            u = { 'Undo stage hunk' },
+            U = { 'Reset buffer index' },
+          },
+        }, { prefix = '<leader>' })
+        wk.register { [']c'] = { 'Next hunk' }, ['[c'] = { 'Prev hunk' } }
       end,
       config = function()
         require('gitsigns').setup {
@@ -923,6 +1003,30 @@ return packer.startup {
     -- 'pwntester/octo.nvim' -- github nvim UI {{{
     use {
       'pwntester/octo.nvim',
+      setup = function()
+        local wk = require 'which-key'
+        wk.register({
+          o = {
+            name = 'Octo',
+            i = {
+              name = 'Issue',
+              l = { 'List' },
+              c = { 'Create' },
+            },
+            r = {
+              name = 'Repo',
+              l = {
+                'List',
+              },
+            },
+            p = {
+              name = 'PullRequest',
+              l = { 'List' },
+              c = { 'Create' },
+            },
+          },
+        }, { prefix = '<leader>' })
+      end,
       config = function()
         vim.cmd [[packadd telescope.nvim]]
         require('octo').setup {
@@ -950,6 +1054,11 @@ return packer.startup {
       'akinsho/toggleterm.nvim',
       keys = { '<C-p>' },
       config = function()
+        _G.MUtils = _G.MUtils or {}
+        local wk = require 'which-key'
+        wk.register({
+          ['<C-p>'] = { 'Toggle toggleterm' },
+        }, {})
         vim.cmd [[autocmd! TermOpen term://* lua vim.opt_local.spell = false]]
         require('toggleterm').setup {
           size = function(term)
