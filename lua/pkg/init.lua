@@ -799,7 +799,7 @@ return packer.startup {
         vim.g.snips_github = 'https://github.com/kunzaatko'
         -- UltiSnips
         vim.opt.runtimepath = vim.opt.runtimepath + { vim.fn.expand '$PWD' }
-        vim.g.UltiSnipsSnippetDirectories = { 'snips' } -- this ensures that snippets directories are not recursively searched
+        vim.g.UltiSnipsSnippetDirectories = { 'snips' } -- ensure that snippets directories are not recursively searched
         vim.g.UltiSnipsEnableSnipMate = 0 -- only look for UltiSnips snippets
         vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
         vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
