@@ -738,6 +738,14 @@ return packer.startup {
 
     -- }}}
 
+    -- 'luukvbaal/stabilize.nvim' -- stabilizes the widnows on split creation {{{
+    use {
+      'luukvbaal/stabilize.nvim',
+      config = function()
+        require('stabilize').setup()
+      end,
+    } --}}}
+
     -- }}}
 
     -- TEXT-EDITING FEATURES {{{
