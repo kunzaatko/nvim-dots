@@ -396,12 +396,13 @@ return packer.startup {
     -- }}}
 
     -- AESTHETICS {{{
-    -- 'glepnir/galaxyline.nvim' -- status line{{{
+
+    -- 'rebelot/heirline.nvim' -- status line {{{
     use {
-      'dsych/galaxyline.nvim',
-      branch = 'bugfix/diagnostics',
+      'rebelot/heirline.nvim',
       config = function()
-        require 'conf.pkgs.galaxyline'
+        local statusline = require 'conf.pkgs.heirline'
+        require('heirline').setup(statusline)
       end,
       requires = {
         { 'kyazdani42/nvim-web-devicons' },
