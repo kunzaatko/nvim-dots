@@ -54,6 +54,19 @@ map('v', '<leader>S', ':s/\\v', { noremap = true })
 map('c', 'w!!', 'lua MUtils.save_root()<CR>', { noremap = true }) -- writing read-only files
 map('c', 'vsb', 'vert sbuffer', { noremap = true }) -- vertical split buffer
 
+local wk = require 'which-key'
+wk.register {
+  ['<leader>w'] = { 'Write' },
+  ['<leader>q'] = { 'Quit' },
+  ['<leader>wq'] = { 'Xit' },
+  ['<leader>Q'] = { 'Quit all' },
+  ['<leader>wQ'] = { 'Xit all' },
+  ['<leader>s'] = { 'Substitute' },
+  ['<leader>S'] = { 'Substitute verymagic' },
+  ['<leader><leader>'] = { 'Search' },
+  [',,'] = { 'Command line' },
+}
+
 -- NOTE: Needed for managing packer as an opt plug-in <kunzaatko> --
 -- NOTE: Installing spec plug-ins without needing to have packer loaded <kunzaatko> --
 -- install plug-ins <f-args> or spec plug-ins for no <f-args>
