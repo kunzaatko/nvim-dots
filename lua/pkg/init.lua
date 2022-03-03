@@ -197,7 +197,7 @@ return packer.startup {
       config = function()
         vim.api.nvim_set_keymap(
           'n',
-          '<leader>CC',
+          '<leader>C',
           '<Cmd>TSHighlightCapturesUnderCursor<CR>',
           { silent = true, noremap = true }
         )
