@@ -150,6 +150,7 @@ return packer.startup {
               current_function = false,
               diagnostics = false,
               status_symbol = '',
+              spinner_frames = { '◓', '◑', '◒', '◐' },
             }
           end,
         },
