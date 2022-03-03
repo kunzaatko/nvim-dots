@@ -1,8 +1,8 @@
-_G.LSPUtils = LSPUtils or {}
+_G.LSPUtils = _G.LSPUtils or {}
 
 --- Sets mappings for LSP commands
 ---@param bufnr number
-LSPUtils.on_attach = function(_, bufnr)
+_G.LSPUtils.on_attach = function(_, bufnr)
   -- {{{
   local map_loc = vim.api.nvim_buf_set_keymap
 
@@ -29,5 +29,3 @@ LSPUtils.on_attach = function(_, bufnr)
   map_loc(bufnr, 'n', '<leader>f', '<Cmd> lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true })
   map_loc(bufnr, 'v', '<leader>f', '<Cmd> lua vim.lsp.buf.range_formatting()<CR>', { noremap = true, silent = true })
 end -- }}}
-
-return LSPUtils

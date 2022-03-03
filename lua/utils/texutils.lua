@@ -1,11 +1,11 @@
 local Job = require 'plenary.job'
 local path = require 'plenary.path'
-_G.MUtils = MUtils or {}
-_G.TEXUtils = TEXUtils or {}
+_G.MUtils = _G.MUtils or {}
+_G.TEXUtils = _G.TEXUtils or {}
 
 --- Get the PID of running `inkscape_figures watch` daemon
 ---@return number|nil
-TEXUtils.get_watch_daemon_pid = function()
+_G.TEXUtils.get_watch_daemon_pid = function()
   -- {{{
   -- NOTE: This relies on the shell being bash <kunzaatko> --
   -- PERF: This blocks nvim input --
@@ -17,28 +17,28 @@ TEXUtils.get_watch_daemon_pid = function()
 end -- }}}
 
 --- PID of the figure watch daemon
-TEXUtils.watch_daemon_pid = TEXUtils.get_watch_daemon_pid()
+_G.TEXUtils.watch_daemon_pid = _G.TEXUtils.get_watch_daemon_pid()
 
 --- Checks whether the process with given PID is running
 ---@param pid number
 ---@return boolean running
-TEXUtils.process_running = function(pid)
+_G.TEXUtils.process_running = function(pid)
   return io.popen('ps --no-headers -p ' .. tostring(pid)) and true or false
 end
 
 --- Ensure that the watch daemon is running by checking if it exists and starting it if doesn't
 --- @return boolean started_by_this_call
-TEXUtils.ensure_watch_daemon = function()
+_G.TEXUtils.ensure_watch_daemon = function()
   -- {{{
   -- PERF: closure because we want to run only when needed
   local start_daemon = function()
     Job:new({ command = 'inkscape-figures', args = { 'watch' }, cwd = vim.b.vimtex.root }):start()
-    TEXUtils.watch_daemon_pid = TEXUtils.get_watch_daemon_pid()
+    _G.TEXUtils.watch_daemon_pid = _G.TEXUtils.get_watch_daemon_pid()
     return true
   end
 
-  if TEXUtils.watch_daemon_pid then
-    if TEXUtils.process_running(TEXUtils.watch_daemon_pid) then
+  if _G.TEXUtils.watch_daemon_pid then
+    if _G.TEXUtils.process_running(_G.TEXUtils.watch_daemon_pid) then
       return false
     else
       start_daemon()
@@ -49,14 +49,14 @@ TEXUtils.ensure_watch_daemon = function()
 end -- }}}
 
 --- Send a sigterm signal to the watch daemon
-TEXUtils.kill_watch_daemon = function()
+_G.TEXUtils.kill_watch_daemon = function()
   -- {{{
-  Job:new({ command = 'kill', args = { '-15', tostring(TEXUtils.get_watch_daemon_pid()) } }):start()
+  Job:new({ command = 'kill', args = { '-15', tostring(_G.TEXUtils.get_watch_daemon_pid()) } }):start()
 end -- }}}
 
 --- Get the tex root of the current buffer
 ---@return table root (plenary path)
-TEXUtils.get_tex_root = function()
+_G.TEXUtils.get_tex_root = function()
   return path.new(vim.b.vimtex.root)
 end
 
@@ -64,9 +64,9 @@ end
 
 --- Run `inkscape-figures create` with the right tex root
 ---@param fig_name string
-MUtils.inkscape_figures_create = function(fig_name)
+_G.MUtils.inkscape_figures_create = function(fig_name)
   -- {{{
-  TEXUtils.ensure_watch_daemon()
+  _G.TEXUtils.ensure_watch_daemon()
   local figs_root = path.new(vim.b.vimtex.root):joinpath 'figures'
   local LaTeX_template = Job
     :new({
@@ -82,11 +82,11 @@ MUtils.inkscape_figures_create = function(fig_name)
 end -- }}}
 
 --- Run `inkscape-figures edit` with the right tex root
-MUtils.inkscape_figures_edit = function()
+_G.MUtils.inkscape_figures_edit = function()
   -- {{{
-  TEXUtils.ensure_watch_daemon()
+  _G.TEXUtils.ensure_watch_daemon()
   local figs_root = path.new(vim.b.vimtex.root):joinpath 'figures'
   Job:new({ command = 'inkscape-figures', args = { 'edit', figs_root.filename } }):start()
 end -- }}}
 
-return TEXUtils
+return _G.TEXUtils
