@@ -238,8 +238,8 @@ return packer.startup {
           status_text = { enabled = true, text = ' ', text_unavailable = '' },
         }
         vim.fn.sign_define('LightBulbSign', { text = ' ', texthl = 'DiagnosticInfo' }) -- 
-        vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
         --luacheck: no max line length
+        vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb({ignore = {"null-ls"}})]]
         --luacheck: max line length 120
       end,
     }
