@@ -892,7 +892,6 @@ return packer.startup {
           disable_hint = true,
           disable_builtin_notifications = true,
           disable_commit_confirmation = true,
-          -- TODO: float instead? <16-01-22, kunzaatko> --
           commit_popup = { kind = 'vsplit' },
           integrations = { diffview = true },
         }
