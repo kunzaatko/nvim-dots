@@ -404,6 +404,7 @@ return packer.startup {
         local statusline = require 'conf.pkgs.heirline'
         require('heirline').setup(statusline)
       end,
+      after = 'lush.nvim',
       requires = {
         { 'kyazdani42/nvim-web-devicons' },
         { 'rktjmp/lush.nvim' },
