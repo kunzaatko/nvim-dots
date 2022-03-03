@@ -17,8 +17,11 @@ opt.showmatch = true
 -->> use the mouse in visual and insert mode
 opt.mouse = 'a'
 
-opt.shell = 'fish'
 -->> which shell to use in the terminal
+-- PERF: Using fish may cause the plugins that execute shell commands act slower than with using `sh`
+-- or `dash` (which is even faster)--
+-- NOTE: some ENV variables will maybe have to be set in dash, which are now reliant on fish startup <kunzaatko> --
+opt.shell = 'dash'
 
 --[[ Ex command <tab>-completion succession: common match string with wildmenu
      open, then first full match with wildmenu]]
