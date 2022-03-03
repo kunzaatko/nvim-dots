@@ -883,17 +883,22 @@ return packer.startup {
     -- }}}
 
     -- GIT {{{
+    -- TODO: configure <03-03-22, kunzaatko> --
     -- 'TimUntersberger/neogit' -- magit for neovim {{{
     use {
       'TimUntersberger/neogit',
       cmd = 'Neogit',
-      keys = '<leader>g',
+      keys = { '<leader>gg', '<leader>gc' },
       requires = 'sindrets/diffview.nvim',
       setup = function()
         local wk = require 'which-key'
-        wk.register({ g = {
-          'NeoGit',
-        } }, { prefix = '<leader>' })
+        wk.register({
+          g = {
+            name = 'NeoGit',
+            g = { 'open' },
+            c = { 'commit pop-up' },
+          },
+        }, { prefix = '<leader>' })
       end,
       config = function()
         vim.cmd [[
@@ -906,10 +911,17 @@ return packer.startup {
           commit_popup = { kind = 'vsplit' },
           integrations = { diffview = true },
         }
+        -- TODO: Do this with which-key <03-03-22, kunzaatko> --
         vim.api.nvim_set_keymap(
           'n',
-          '<leader>g',
+          '<leader>gg',
           "<Cmd> lua require'neogit'.open()<CR>",
+          { noremap = true, silent = true }
+        )
+        vim.api.nvim_set_keymap(
+          'n',
+          '<leader>gc',
+          "<Cmd> lua require'neogit'.open({'commit'})<CR>",
           { noremap = true, silent = true }
         )
       end,
