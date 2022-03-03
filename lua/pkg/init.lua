@@ -109,7 +109,8 @@ return packer.startup {
         }, { prefix = '<leader>' })
       end,
       config = function()
-        vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>', { noremap = true, silent = true }) -- Trouble 'global' (full workspace diagnostics)
+        -- Trouble 'global' (full workspace diagnostics)
+        vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap(
           'n',
           '<Leader>tl',
@@ -179,6 +180,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- navigation objects from treesitter
     use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter' }
 
     -- colour paired delimiters
@@ -210,12 +212,14 @@ return packer.startup {
       ft = 'rust',
       config = function()
         require('lsp_extensions').inlay_hints()
+        --luacheck: no max line length
         vim.cmd [[
                 augroup RustTypeHints
                     autocmd!
                     autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
                 augroup END
         ]]
+        --luacheck: max line length 120
       end,
     }
     -- }}}
@@ -234,6 +238,8 @@ return packer.startup {
         }
         vim.fn.sign_define('LightBulbSign', { text = ' ', texthl = 'DiagnosticInfo' }) -- 
         vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+        --luacheck: no max line length
+        --luacheck: max line length 120
       end,
     }
     -- }}}
@@ -740,6 +746,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Add repeat capability <16-01-22, kunzaatko> --
     -- 'blackCauldron7/surround.nvim' -- text objects and editing surrounding delimiters{{{
     use {
       'blackCauldron7/surround.nvim',
