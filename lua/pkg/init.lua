@@ -262,6 +262,7 @@ return packer.startup {
       'jose-elias-alvarez/null-ls.nvim',
       config = function()
         local null_ls = require 'null-ls'
+        require 'utils.lsputils'
         require('null-ls').setup {
           on_attach = _G.LSPUtils.on_attach,
           sources = {
@@ -276,7 +277,11 @@ return packer.startup {
               extra_args = { '--config-path', vim.fn.expand '~/.config/stylua.toml' },
             },
             null_ls.builtins.formatting.taplo,
-            null_ls.builtins.formatting.codespell,
+            -- FIX: Messess up formatting because their is a conflict -- multiple
+            -- sources <19-02-22, kunzaatko> --
+            -- null_ls.builtins.formatting.codespell.with {
+            --   disabled_filetypes = { 'tex' },
+            -- },
             null_ls.builtins.formatting.reorder_python_imports,
             null_ls.builtins.diagnostics.mypy,
             null_ls.builtins.formatting.shellharden,
@@ -285,11 +290,11 @@ return packer.startup {
             null_ls.builtins.diagnostics.luacheck,
             null_ls.builtins.diagnostics.markdownlint,
             null_ls.builtins.diagnostics.misspell,
-            null_ls.builtins.diagnostics.proselint,
+            -- null_ls.builtins.diagnostics.proselint,
             null_ls.builtins.diagnostics.pylint,
             null_ls.builtins.diagnostics.shellcheck,
             null_ls.builtins.diagnostics.stylelint,
-            null_ls.builtins.diagnostics.write_good,
+            -- null_ls.builtins.diagnostics.write_good,
             null_ls.builtins.diagnostics.yamllint,
             null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.code_actions.proselint,
