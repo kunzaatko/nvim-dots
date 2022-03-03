@@ -4,6 +4,8 @@ _G.LSPUtils = _G.LSPUtils or {}
 ---@param bufnr number
 _G.LSPUtils.on_attach = function(_, bufnr)
   -- {{{
+  -- NOTE: Activate on debuging LSP behaviour <kunzaatko> --
+  -- vim.lsp.set_log_level 'debug'
   local map_loc = vim.api.nvim_buf_set_keymap
 
   map_loc(bufnr, 'n', '<c-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
@@ -26,6 +28,6 @@ _G.LSPUtils.on_attach = function(_, bufnr)
   -- Goto previous/next diagnostic warning/error
   map_loc(bufnr, 'n', 'g[', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
   map_loc(bufnr, 'n', 'g]', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', '<leader>f', '<Cmd> lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'v', '<leader>f', '<Cmd> lua vim.lsp.buf.range_formatting()<CR>', { noremap = true, silent = true })
+  map_loc(bufnr, 'n', '<leader>F', '<Cmd> lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true })
+  map_loc(bufnr, 'v', '<leader>F', '<Cmd> lua vim.lsp.buf.range_formatting()<CR>', { noremap = true, silent = true })
 end -- }}}
