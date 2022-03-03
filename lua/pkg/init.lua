@@ -302,7 +302,7 @@ return packer.startup {
         vim.cmd [[
             augroup FormatAutogroup
                 autocmd!
-                autocmd! BufWritePre *.rs,*.lua,*.py,*.toml,*.tex lua vim.lsp.buf.formatting_sync()
+                autocmd! BufWritePre *.rs,*.lua,*.py,*.toml,*.tex,*.fish lua vim.lsp.buf.formatting_sync()
             augroup END
                 ]]
       end,
