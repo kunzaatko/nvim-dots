@@ -313,19 +313,6 @@ return packer.startup {
 
     -- PRETTIFYING {{{
 
-    -- TODO: Do this using 'jose-elias-alvarez/null-ls.nvim' <17-11-21, kunzaatko> --
-    -- 'kdheepak/JuliaFormatter.vim' -- julia code formatting {{{
-    use {
-      'kdheepak/JuliaFormatter.vim',
-      ft = 'julia',
-      keys = '<leader>f',
-      config = function()
-        vim.g.JuliaFormatter_options = { ['style'] = 'blue' }
-        vim.api.nvim_set_keymap('n', '<leader>f', '<Cmd>JuliaFormatterFormat<CR>', { silent = true })
-      end,
-    }
-    -- }}}
-
     -- TODO: Highlight in popupdocs of LSP <16-01-22, kunzaatko> --
     -- 'norcalli/nvim-colorizer.lua' -- colours visualizer {{{
     use {
