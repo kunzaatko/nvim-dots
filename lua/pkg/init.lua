@@ -317,14 +317,16 @@ return packer.startup {
     -- 'norcalli/nvim-colorizer.lua' -- colours visualizer {{{
     use {
       'norcalli/nvim-colorizer.lua',
-      ft = { 'css', 'javascript', 'vim', 'html', 'lua', 'tex', 'cfg' },
+      ft = { 'css', 'javascript', 'vim', 'html', 'lua', 'tex', 'cfg', 'dosini', 'sh' },
       config = function()
         require('colorizer').setup({
           'css',
           'javascript',
           'html',
+          'dosini',
           'tex',
           'cfg',
+          'sh',
           vim = { names = false, hsl_fn = true },
           lua = { names = false, hsl_fn = true },
         }, { mode = 'foreground' })
