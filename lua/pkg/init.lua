@@ -121,6 +121,18 @@ return packer.startup {
       as = 'cmp',
       requires = {
         { 'hrsh7th/cmp-buffer' },
+        -- FIX: How to do this better? <16-01-22, kunzaatko> --
+        {
+          'nvim-lua/lsp-status.nvim',
+          config = function()
+            require('lsp-status').config {
+              show_filename = false,
+              current_function = false,
+              diagnostics = false,
+              status_symbol = '',
+            }
+          end,
+        },
         { 'hrsh7th/cmp-path' },
         { 'hrsh7th/cmp-cmdline' },
         { 'quangnguyen30192/cmp-nvim-ultisnips', after = 'cmp' },
