@@ -41,10 +41,12 @@ AUtils.trim_white_space = function()
   vim.cmd '%s/\\s\\+$//e'
 end
 
+-- FIX: Julia has to be here because of a bug in the language server julia-vscode/julia-vscode#2526, where this crashes
+-- the server <19-02-22, kunzaatko> --
 cmd [[
     augroup TrimWhiteSpace
         autocmd!
-        autocmd FileType snippet,matlab lua vim.b.noTrimWhiteSpace = true
+        autocmd FileType snippet,matlab,julia lua vim.b.noTrimWhiteSpace = true
         autocmd BufWritePre * call v:lua.AUtils.trim_white_space()
     augroup END
 ]]
