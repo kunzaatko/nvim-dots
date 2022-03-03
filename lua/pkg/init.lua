@@ -150,6 +150,9 @@ return packer.startup {
 
     use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter' }
 
+    -- colour paired delimiters
+    use { 'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter' }
+
     -- 'nvim-treesitter/playground' -- see the treesitter tree live {{{
     use {
       'nvim-treesitter/playground',

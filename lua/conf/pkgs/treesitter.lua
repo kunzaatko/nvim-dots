@@ -59,4 +59,17 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
+  rainbow = {
+    -- TODO: This plugin not functioning correctly at the moment. When fixed enable. <23-02-22, kunzaatko> --
+    enable = false,
+    extended_mode = false,
+    -- TODO: Edit colours. Use desaturated coulours from lush.nvim <20-02-22, kunzaatko> --
+    colors = {
+      '#bf616a',
+      '#d08770',
+      '#ebcb8b',
+      '#a3be8c',
+      '#b48ead',
+    },
+  },
 }
