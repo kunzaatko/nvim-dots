@@ -67,7 +67,7 @@ return packer.startup {
       ft = 'sxhkd',
       setup = function()
         -- NOTE: Fix the SXHKD filetype detection issue <kunzaatko> --
-        AUtils.check_ft_sxhkd = function()
+        _G.AUtils.check_ft_sxhkd = function()
           if packer_plugins['plenary.nvim'].loaded ~= true then
             vim.cmd [[packadd plenary.nvim]]
           end
@@ -240,7 +240,7 @@ return packer.startup {
       config = function()
         local null_ls = require 'null-ls'
         require('null-ls').setup {
-          on_attach = LSPUtils.on_attach,
+          on_attach = _G.LSPUtils.on_attach,
           sources = {
             null_ls.builtins.formatting.clang_format,
             null_ls.builtins.formatting.fish_indent,
@@ -739,7 +739,7 @@ return packer.startup {
       end,
       config = function()
         if vim.bo.filetype == 'tex' then
-          vim.g.UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = TEXUtils.get_tex_root():joinpath('snips').filename
+          vim.g.UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = _G.TEXUtils.get_tex_root():joinpath('snips').filename
         end
         vim.api.nvim_set_keymap(
           'x',
