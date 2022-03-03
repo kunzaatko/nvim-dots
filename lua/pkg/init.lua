@@ -1,3 +1,7 @@
+-- TODO: Add more mappings to '<leacer>' with which-key <16-01-22, kunzaatko> --
+-- TODO: Better way how to manage dependencies. Especially for lsp parts <16-01-22, kunzaatko> --
+-- TODO: Auto document into the README.file <16-01-22, kunzaatko> --
+-- TODO: More contrast color between windows (fillchars separators) <16-01-22, kunzaatko> --
 local packer = require 'packer'
 return packer.startup {
   function()
@@ -16,7 +20,8 @@ return packer.startup {
     }
 
     -- LANGUAGES {{{
-    -- FIX: There is a bug that causes this to give errors when it is an opt plug-in on several events <17-11-21, kunzaatko> --
+    -- FIX: There is a bug that causes this to give errors when it is an opt plug-in on several events
+    -- <17-11-21, kunzaatko> --
     -- use {'JuliaEditorSupport/julia-vim', as = 'julia'} -- mainly for LaTeX to Unicode support
 
     -- 'rust-lang/rust.vim' -- Playpen integration, :RunTest{{{
@@ -115,6 +120,8 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Show snippets first in sorted <16-01-22, kunzaatko> --
+    -- TODO: Better colours in menu <16-01-22, kunzaatko> --
     -- 'hrsh7th/nvim-cmp' -- completion engine {{{
     use {
       'hrsh7th/nvim-cmp',
@@ -180,6 +187,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Is this needed anymore? <16-01-22, kunzaatko> --
     -- 'nvim-lua/lsp_extensions' -- rust type annotations {{{
     use {
       'nvim-lua/lsp_extensions.nvim',
@@ -196,6 +204,8 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Do not show if it is only gitsigns code action (it is everywhere) (null-ls blame-line)
+    -- <16-01-22, kunzaatko> --
     -- 'kosayoda/nvim-lightbulb' -- code action discovery {{{
     use {
       'kosayoda/nvim-lightbulb',
@@ -264,6 +274,8 @@ return packer.startup {
             null_ls.builtins.hover.dictionary,
           },
         }
+        -- FIX: Julia bug julia-vscode/julia-vscode#2526 crashes the server -> Julia cannot be
+        -- autoformatted <19-02-22, kunzaatko> --
         vim.cmd [[
             augroup FormatAutogroup
                 autocmd!
@@ -291,6 +303,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Highlight in popupdocs of LSP <16-01-22, kunzaatko> --
     -- 'norcalli/nvim-colorizer.lua' -- colours visualizer {{{
     use {
       'norcalli/nvim-colorizer.lua',
@@ -313,6 +326,7 @@ return packer.startup {
     -- }}}
 
     -- SESSIONS AND CONVENIENCES {{{
+    -- TODO: Better with 'dashboard.nvim' plugin? <16-01-22, kunzaatko> --
     -- 'mhinz/vim-startify'-- launch page{{{
     use {
       'mhinz/vim-startify',
@@ -462,6 +476,8 @@ return packer.startup {
     -- }}}
 
     -- TODO: Change style of font in active tab <28-11-21, kunzaatko> --
+    -- TODO: Mappings to remove buffer also from bufferline <16-01-22, kunzaatko> --
+    -- TODO: Make this work with auto-session <16-01-22, kunzaatko> --
     -- 'akinsho/bufferline.nvim' -- buffer symbols and nicer UI {{{
     use {
       'akinsho/bufferline.nvim',
@@ -553,6 +569,7 @@ return packer.startup {
 
     -- MOVEMENT {{{
 
+    -- TODO: Setup highlights <16-01-22, kunzaatko> --
     -- 'ggandor/lightspeed.nvim' -- enhanced f,F,t,T and s,S for double letter searching {{{
     use {
       'ggandor/lightspeed.nvim',
@@ -570,6 +587,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Add transparency to default UI <16-01-22, kunzaatko> --
     -- 'nvim-telescope/telescope.nvim' -- file finder and list shower {{{
     use {
       'nvim-telescope/telescope.nvim',
@@ -664,6 +682,7 @@ return packer.startup {
 
     -- TEXT-EDITING FEATURES {{{
 
+    -- TODO: Configure <16-01-22, kunzaatko> --
     -- 'windwp/nvim-autopairs' -- automatically adding matching delimiters {{{
     use {
       'windwp/nvim-autopairs',
@@ -693,10 +712,13 @@ return packer.startup {
     -- }}}
 
     -- abbreviations
+    -- TODO: Do this in lua <16-01-22, kunzaatko> --
     use 'tpope/vim-abolish'
     -- }}}
 
     -- SNIPPETS {{{
+    -- TODO: Todo comment expand at beginning of line <16-01-22, kunzaatko> --
+    -- TODO: Add '<leader>' mappings for editing snippet files <16-01-22, kunzaatko> --
     -- 'sirver/ultisnips' -- snippets {{{
     use {
       'sirver/ultisnips',
@@ -735,6 +757,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Module documentation generation <16-01-22, kunzaatko> --
     -- 'danymat/neogen' -- generate documentation for functions based on treesitter {{{
     use {
       'danymat/neogen',
@@ -793,6 +816,7 @@ return packer.startup {
           disable_hint = true,
           disable_builtin_notifications = true,
           disable_commit_confirmation = true,
+          -- TODO: float instead? <16-01-22, kunzaatko> --
           commit_popup = { kind = 'vsplit' },
           integrations = { diffview = true },
         }
@@ -920,6 +944,7 @@ return packer.startup {
     -- }}}
 
     -- TERMINAL {{{
+    -- TODO: Make Julia persistent REPL implementation <16-01-22, kunzaatko> --
     -- akinsho/toggleterm.nvim -- toggle the terminal but persist the session{{{
     use {
       'akinsho/toggleterm.nvim',
@@ -957,6 +982,7 @@ return packer.startup {
     -- }}}
 
     -- OTHER {{{
+    -- TODO: Close with `q` <16-01-22, kunzaatko> --
     -- 'dstein64/vim-startuptime' -- profiling for start-up time and plug-in loading {{{
     use {
       'dstein64/vim-startuptime',
@@ -965,6 +991,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Setup <16-01-22, kunzaatko> --
     -- 'glacambre/firenvim' -- extension for browser insert boxes to use nvim {{{
     use {
       'glacambre/firenvim',
@@ -978,6 +1005,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- TODO: Is this fixed? <16-01-22, kunzaatko> --
     -- bug in neovim - https://github.com/neovim/neovim/issues/12587
     use 'antoinemadec/FixCursorHold.nvim'
 
@@ -986,6 +1014,7 @@ return packer.startup {
     -- }}}
 
     -- NEORG {{{
+    -- TODO: Setup <16-01-22, kunzaatko> --
     -- 'vhyrro/neorg' -- main package for norg format {{{
     use {
       'vhyrro/neorg',
