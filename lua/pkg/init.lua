@@ -1080,7 +1080,14 @@ return packer.startup {
         wk.register({
           ['<C-p>'] = { 'Toggle toggleterm' },
         }, {})
+
+        _G.MUtils.set_terminal_keymaps = function()
+          vim.api.nvim_buf_set_keymap(0, 't', '<C-w>', [[<C-\><C-n><C-W><C-W>]], { noremap = true })
+        end
+
         vim.cmd [[autocmd! TermOpen term://* lua vim.opt_local.spell = false]]
+        vim.cmd [[autocmd! TermOpen term://* lua _G.MUtils.set_terminal_keymaps()]]
+
         require('toggleterm').setup {
           size = function(term)
             if term.direction == 'horizontal' then
@@ -1093,13 +1100,13 @@ return packer.startup {
           hide_numbers = true, -- hide the number column in toggleterm buffers
           shade_filetypes = {},
           shade_terminals = true,
-          shading_factor = 1, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+          shading_factor = 1, -- darken terminal colour degree, default: 1 for dark backgrounds, 3 for light
           start_in_insert = true,
           insert_mappings = true, -- whether or not the open mapping applies in insert mode
           persist_size = true,
           direction = 'vertical',
           close_on_exit = true, -- close the terminal window when the process exits
-          shell = vim.o.shell, -- change the default shell
+          shell = 'fish',
         }
       end,
     }
