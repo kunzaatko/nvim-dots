@@ -630,6 +630,7 @@ return packer.startup {
         '<leader>fh',
         '<leader>ff',
         '<leader>fk',
+        '<leader><leader>',
       },
       cmd = 'Telescope',
       requires = {
@@ -720,6 +721,12 @@ return packer.startup {
           'n',
           '<leader>fk',
           "<Cmd>lua require'telescope.builtin'.keymaps()<CR>",
+          { noremap = true, silent = true }
+        )
+        vim.api.nvim_set_keymap(
+          'n',
+          '<leader><leader>',
+          "<Cmd>lua require'telescope.builtin'.current_buffer_fuzzy_find()<CR>",
           { noremap = true, silent = true }
         )
       end,
