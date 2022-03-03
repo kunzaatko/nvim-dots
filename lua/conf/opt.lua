@@ -34,6 +34,8 @@ opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
 opt.shortmess:append 'c'
 
 -->> Maximum menu height
+opt.pumheight = 15
+
 -->> Do not show the mode in the command line
 opt.showmode = false
 
@@ -55,6 +57,8 @@ opt.undofile = true
 opt.swapfile = false
 
 -->> Save window positions and terminal in shada file
+opt.sessionoptions:append 'winpos,terminal'
+
 -->> preferred directions on window splitting
 opt.splitbelow, opt.splitright = true, true
 
@@ -63,7 +67,7 @@ opt.langmap = { 'ě2', 'š3', 'č4', 'ř5', 'ž6', 'ý7', 'á8', 'í9' }
 
 -->> spelling languages and spell off. Camel indicates that in CamelCased  words,
 -- the upper letter is used as space delimiter.
-opt.spell = true
+opt.spell = false
 opt.spelllang = { 'cs', 'en_gb' }
 opt.spelloptions = 'camel'
 
@@ -104,4 +108,4 @@ end
 -->> show hidden characters
 opt.list = true
 opt.listchars = { eol = '⏎', tab = '▸ ', trail = '·' }
-opt.fillchars = { diff = '░', fold = '┉' }
+opt.fillchars = { diff = '░', fold = '┉', foldopen = '▾', foldsep = '│', foldclose = '▸', vert = '┃' }
