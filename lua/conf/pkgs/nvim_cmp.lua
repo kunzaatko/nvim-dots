@@ -34,7 +34,12 @@ if packer_plugins['lua-dev'].loaded == true then
       end,
       cmd = { 'lua-language-server' },
       settings = {
-        Lua = { diagnostics = { globals = { 'packer_plugins', 'LSPUtils', 'MUtils' } } },
+        Lua = {
+          diagnostics = { globals = { 'packer_plugins', 'LSPUtils', 'MUtils' } },
+          workspace = {
+            preloadFileSize = 1000,
+          },
+        },
       },
     },
   }
