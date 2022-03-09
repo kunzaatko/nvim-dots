@@ -753,7 +753,7 @@ return packer.startup {
       config = function()
         require('specs').setup {
           popup = {
-            winhl = 'WarningMsg',
+            winhl = 'Search',
           },
         }
       end,
