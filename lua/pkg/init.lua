@@ -232,7 +232,10 @@ return packer.startup {
     use {
       'kosayoda/nvim-lightbulb',
       config = function()
-        require('nvim-lightbulb').update_lightbulb {
+        require('nvim-lightbulb').setup {
+          -- FIX: Only want to ignore the `gitsigns` <02-03-22, kunzaatko> --
+          -- FIX: This is not working <02-03-22, kunzaatko> --
+          ignore = { 'null-ls' },
           sign = { enabled = true, priority = 10 },
           float = { enabled = true, text = ' ' },
           virtual_text = { enabled = true, text = ' ', hl_mode = 'replace' },
@@ -640,9 +643,9 @@ return packer.startup {
       },
       cmd = 'Telescope',
       requires = {
-        'nvim-lua/plenary.nvim',
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        'nvim-treesitter/nvim-treesitter',
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }, -- makes the search run faster
+        { 'nvim-treesitter/nvim-treesitter' }, -- highlighting in the preview buffer
       },
       setup = function()
         local wk = require 'which-key'
@@ -678,6 +681,9 @@ return packer.startup {
 
         if packer_plugins.notify.loaded == true then
           -- TODO: Defer the loading of this extension when notify is loaded <03-12-21, kunzaatko> --
+          -- FIX: This does not work if the notification plugin is not loaded before
+          -- telescope. It should therefore be loaded also in the notify config or one of
+          -- the plugins should be deferebly loaded <09-03-22, kunzaatko> --
           require('telescope').load_extension 'notify'
         end
 
@@ -1044,6 +1050,35 @@ return packer.startup {
               numhl = 'GitSignsChangeNr',
             },
           },
+          on_attach = function(bufnr)
+            local function map(mode, lhs, rhs, opts)
+              opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
+              vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+            end
+
+            -- Navigation
+            map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+            map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+
+            -- Actions
+            map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+            map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
+            map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+            map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+            map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
+            map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+            map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
+            map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+            map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+            map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+            map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
+            map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
+            map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+
+            -- Text object
+            map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+            map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          end,
         }
       end,
     }
