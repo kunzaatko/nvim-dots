@@ -99,6 +99,9 @@ opt.cursorlineopt = 'number'
 -->> see the number of folds in the columns to the left and + - signs
 opt.foldcolumn = 'auto:4'
 
+-->> see the signcolumn always and not just on diagnostics or when there is a gitsign
+opt.signcolumn = 'auto:1-9'
+
 -->> set rg as the back-end for :grep command
 if vim.fn.executable 'rg' == 1 then
   opt.grepprg = 'rg --no-heading --vimgrep'
