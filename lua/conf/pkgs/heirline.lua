@@ -287,7 +287,7 @@ components.FileFlags = { --{{{
   {
     provider = function()
       if not vim.bo.modifiable or vim.bo.readonly then
-        return '  ' --  ,
+        return '  ' --  ,,
       end
     end,
     hl = function(self)
