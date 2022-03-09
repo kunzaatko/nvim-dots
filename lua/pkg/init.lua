@@ -754,6 +754,7 @@ return packer.startup {
         require('specs').setup {
           popup = {
             winhl = 'Search',
+            fader = require('specs').exp_fader,
           },
         }
       end,
