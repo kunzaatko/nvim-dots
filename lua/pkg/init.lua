@@ -84,6 +84,7 @@ return packer.startup {
 
     -- TOML language support
     use { 'cespare/vim-toml', as = 'toml', ft = 'toml' }
+
     -- fish scripts support
     use { 'blankname/vim-fish', as = 'fish', ft = 'fish' }
 
@@ -339,6 +340,7 @@ return packer.startup {
     }
     -- }}}
 
+    -- formatting into a tabular layout using neovims search capabilities
     use { 'godlygeek/tabular', cmd = 'Tabularize' }
     -- }}}
 
@@ -745,6 +747,17 @@ return packer.startup {
         require('stabilize').setup()
       end,
     } --}}}
+
+    use {
+      'edluffy/specs.nvim',
+      config = function()
+        require('specs').setup {
+          popup = {
+            winhl = 'WarningMsg',
+          },
+        }
+      end,
+    }
 
     -- }}}
 
