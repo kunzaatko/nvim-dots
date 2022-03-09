@@ -748,6 +748,7 @@ return packer.startup {
       end,
     } --}}}
 
+    -- 'edluffy/specs.nvim' -- highlight the cursor location after jump {{{
     use {
       'edluffy/specs.nvim',
       config = function()
@@ -758,7 +759,7 @@ return packer.startup {
           },
         }
       end,
-    }
+    } -- }}}
 
     -- }}}
 
