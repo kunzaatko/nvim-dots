@@ -1160,6 +1160,9 @@ return packer.startup {
 
     -- speeds-up the start-up time by using a lua version of the filetype.vim script
     use 'nathom/filetype.nvim'
+
+    -- speed up on startuptime by compliling plugins into bytestrings
+    use 'lewis6991/impatient.nvim'
     -- }}}
 
     -- NEORG {{{

@@ -1,3 +1,5 @@
+-- NOTE: Compiles the plugins into byte stings to make startup faster <kunzaatko> --
+require('impatient').enable_profile()
 -- setting explicitly makes start-up faster
 vim.g.loaded_python_provider = 0
 vim.g.python3_host_prog = '/usr/bin/python3'
