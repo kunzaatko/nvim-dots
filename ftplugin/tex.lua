@@ -7,10 +7,10 @@ vim.g.tex_conceal = 'abdmg' -- no s... do not conceal sub/sup scripts
 map(
   'i',
   '<C-f>',
-  '<Cmd>lua _G.MUtils.inkscape_figures_create(vim.api.nvim_get_current_line()) <CR>',
-  { noremap = true, silent = true }
+  'v:lua.MUtils.inkscape_figures_create(vim.api.nvim_get_current_line())',
+  { expr = true, noremap = true, silent = true }
 )
-map('n', '<C-f>', '<Cmd>lua _G.MUtils.inkscape_figures_edit() <CR>', { noremap = true, silent = true })
+map('n', '<C-f>', 'v:lua.MUtils.inkscape_figures_edit()', { expr = true, noremap = true, silent = true })
 
 vim.cmd [[
 augroup KillFigureWatch
