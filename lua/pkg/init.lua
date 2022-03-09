@@ -914,9 +914,11 @@ return packer.startup {
         }, { prefix = '<leader>' })
       end,
       config = function()
+        --luacheck: no max line length
         vim.cmd [[
-        autocmd FileType NeogitStatus,NeogitPopup lua vim.opt_local.spell = false; vim.opt_local.list = false
+        autocmd FileType NeogitStatus,NeogitPopup lua vim.opt_local.spell = false; vim.opt_local.list = false; vim.opt_local.foldlevel = 1000
         ]]
+        --luacheck: max line length 120
         require('neogit').setup {
           disable_hint = true,
           disable_builtin_notifications = true,
