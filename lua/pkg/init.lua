@@ -693,10 +693,18 @@ return packer.startup {
           "<Cmd>lua require'telescope.builtin'.spell_suggest()<CR>",
           { noremap = true, silent = true }
         )
+
+        _G.MUtils.git_files_or_find_files = function(opts)
+          opts = opts or {}
+          local ok = pcall(require('telescope.builtin').git_files, opts)
+          if not ok then
+            require('telescope.builtin').find_files(opts)
+          end
+        end
         vim.api.nvim_set_keymap(
           'n',
           '<leader>fw',
-          "<Cmd>lua require'telescope.builtin'.git_files()<CR>",
+          '<Cmd>lua _G.MUtils.git_files_or_find_files({})<CR>',
           { noremap = true, silent = true }
         )
         vim.api.nvim_set_keymap(
@@ -1150,7 +1158,7 @@ return packer.startup {
         end
 
         vim.cmd [[autocmd! TermOpen term://* lua vim.opt_local.spell = false]]
-        vim.cmd [[autocmd! TermOpen term://* lua _G.MUtils.set_terminal_keymaps()]]
+        vim.cmd [[autocmd! TermOpen term://* call v:lua.MUtils.set_terminal_keymaps()]]
 
         require('toggleterm').setup {
           size = function(term)
