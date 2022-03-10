@@ -1,5 +1,3 @@
-local cmd = vim.cmd
-
 -- map utilities
 _G.MUtils = {}
 
@@ -11,34 +9,4 @@ end
 -- NOTE: It is maybe better to edit those files with sudoedit cli <kunzaatko> --
 _G.MUtils.save_root = function()
   vim.fn.execute 'silent! write !sudo tee % >/dev/null | edit!<CR>'
-end
-
-_G.MUtils.packer_install = function(f_args)
-  require 'pkg.install_packer'
-  cmd 'packadd packer.nvim'
-  if f_args then
-    require('packer').install(f_args)
-  else
-    require('pkg').install()
-  end
-end
-
-_G.MUtils.packer_update = function(f_args)
-  require 'pkg.install_packer'
-  cmd 'packadd packer.nvim'
-  if f_args then
-    require('packer').update(f_args)
-  else
-    require('pkg').update()
-  end
-end
-
-_G.MUtils.packer_sync = function(f_args)
-  require 'pkg.install_packer'
-  cmd 'packadd packer.nvim'
-  if f_args then
-    require('packer').sync(f_args)
-  else
-    require('pkg').sync()
-  end
 end

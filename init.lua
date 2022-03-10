@@ -1,3 +1,4 @@
+local cmd = vim.cmd
 -- NOTE: Compiles the plugins into byte stings to make startup faster <kunzaatko> --
 require('impatient').enable_profile()
 -- setting explicitly makes start-up faster
@@ -26,3 +27,7 @@ require 'conf'
 
 --  Mappings  --
 require 'map'
+
+cmd [[
+  command! Sync lua require('pkg.utils').packer_install()
+]]

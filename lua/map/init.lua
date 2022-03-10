@@ -2,7 +2,7 @@
 -- TODO: Add vsb command abbreviation for :vert sb <16-01-22, kunzaatko> --
 -- TODO: Command for buffer tab (does it exist?). Same as `:sb` but `:tb` for tabnew <16-01-22, kunzaatko> --
 local map = vim.api.nvim_set_keymap
-local cmd = vim.cmd
+-- local cmd = vim.cmd
 require 'utils.mutils'
 
 -- leaders --
@@ -66,36 +66,3 @@ wk.register {
   ['<leader><leader>'] = { 'Search' },
   [',,'] = { 'Command line' },
 }
-
--- NOTE: Needed for managing packer as an opt plug-in <kunzaatko> --
--- NOTE: Installing spec plug-ins without needing to have packer loaded <kunzaatko> --
--- install plug-ins <f-args> or spec plug-ins for no <f-args>
-cmd [[
-    command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete  PackerInstall lua MUtils.packer_install(<f-args>)
-]]
--- update plug-ins <f-args> or spec plug-ins for no <f-args>
-cmd [[
-    command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerUpdate lua MUtils.packer_update(<f-args>)
-]]
--- sync plug-ins <f-args> or spec plug-ins for no <f-args>
-cmd [[
-    command! -nargs=* -complete=customlist,v:lua.require'packer'.plugin_complete PackerSync lua MUtils.packer_sync(<f-args>)
-]]
--- clean configuration
-cmd [[
-  command! PackerClean packadd packer.nvim | lua require('pkg.install_packer');require('pkg').clean()
-]]
--- compile packer spec
-cmd [[
-  command! PackerCompile packadd packer.nvim | lua require('pkg.install_packer');require('pkg').compile()
-]]
--- load plug-ins
-cmd [[
-  command! -bang -nargs=+ -complete=customlist,v:lua.require'packer'.loader_complete PackerLoad lua require('pkg.install_packer');require('packer').loader(<f-args>, '<bang>')
-]]
-
--- FIX: Fix profiling issue (what does wbthomason have in his config?) <17-11-21, kunzaatko> --
--- profiling window
-cmd [[
-  command! PackerProfile packadd packer.nvim | lua require'packer'.profile_output()
-]]
