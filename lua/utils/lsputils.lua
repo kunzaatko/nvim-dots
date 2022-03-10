@@ -26,8 +26,8 @@ _G.LSPUtils.on_attach = function(_, bufnr)
   )
 
   -- Goto previous/next diagnostic warning/error
-  map_loc(bufnr, 'n', 'g[', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'g]', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
+  map_loc(bufnr, 'n', 'g[', '<Cmd>lua vim.diagnostics.goto_prev()<CR>', { noremap = true, silent = true })
+  map_loc(bufnr, 'n', 'g]', '<Cmd>lua vim.diagnostics.goto_next()<CR>', { noremap = true, silent = true })
   map_loc(bufnr, 'n', '<leader>F', '<Cmd> lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true })
   map_loc(bufnr, 'v', '<leader>F', '<Cmd> lua vim.lsp.buf.range_formatting()<CR>', { noremap = true, silent = true })
 end -- }}}
