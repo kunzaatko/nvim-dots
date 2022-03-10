@@ -1,5 +1,6 @@
 local cmd = vim.cmd
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- highlight yanked text
 --luacheck: no max line length
 cmd [[

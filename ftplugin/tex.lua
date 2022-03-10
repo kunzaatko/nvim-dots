@@ -12,6 +12,7 @@ map(
 )
 map('n', '<C-f>', 'v:lua.MUtils.inkscape_figures_edit()', { expr = true, noremap = true, silent = true })
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 vim.cmd [[
 augroup KillFigureWatch
     autocmd!

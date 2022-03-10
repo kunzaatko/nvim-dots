@@ -2,6 +2,7 @@ local cmd = vim.cmd
 _G.AUtils = {}
 local AUtils = _G.AUtils
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- restore cursor position (" -- mark of last cursor position)
 cmd [[
     augroup VimStartup
@@ -10,6 +11,7 @@ cmd [[
     augroup END
 ]]
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- setting the concealment of the foldmarker
 cmd [[
     augroup FoldMarker
@@ -23,6 +25,7 @@ cmd [[
     augroup END
 ]]
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- TODO: Fix to include better logic when available in neovim lua <24-02-21, kunzaatko> --
 -- turn off relative numbering when leaving the buffer
 cmd [[
@@ -41,6 +44,7 @@ AUtils.trim_white_space = function()
   vim.cmd '%s/\\s\\+$//e'
 end
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- FIX: Julia has to be here because of a bug in the language server julia-vscode/julia-vscode#2526, where this crashes
 -- the server <19-02-22, kunzaatko> --
 cmd [[
@@ -51,6 +55,7 @@ cmd [[
     augroup END
 ]]
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- does not use neovim inbuilt spell checker on these filetypes
 cmd [[
     augroup SetNoSpell
@@ -59,6 +64,7 @@ cmd [[
     augroup END
 ]]
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- formatting option for different filetypes
 cmd [[
     augroup FormatOptions

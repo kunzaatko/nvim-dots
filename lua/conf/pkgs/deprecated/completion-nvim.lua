@@ -2,6 +2,7 @@ local cmd = vim.cmd
 
 -- autocommands --
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- autocommands that need to be run for completion
 cmd [[
     augroup CompletionAttach
@@ -10,6 +11,7 @@ cmd [[
     augroup END
 ]]
 
+-- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- for method completions for different language syntax
 cmd [[
     augroup CompletionTriggerCharacter
