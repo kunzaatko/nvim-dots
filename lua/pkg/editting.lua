@@ -33,6 +33,9 @@ local M = {
 
   -- abbreviations
   -- TODO: Do this in lua <16-01-22, kunzaatko> --
-  'tpope/vim-abolish',
+  {
+    'tpope/vim-abolish',
+    event = 'InsertEnter',
+  },
 }
 return M
