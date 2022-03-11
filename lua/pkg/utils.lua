@@ -74,4 +74,16 @@ M.get_keys = function(modes, keys)
   return combinations
 end
 
+--- Gets the concatenation of the keys defined through get keys
+---@param specs table[table] to be used for into the getkeys
+M.get_multi_keys = function(specs)
+  local combinations = {}
+  for _, a in ipairs(specs) do
+    for _, i in ipairs(M.get_keys(a[1], a[2])) do
+      table.insert(combinations, i)
+    end
+  end
+  return combinations
+end
+
 return M
