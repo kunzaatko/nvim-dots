@@ -13,7 +13,7 @@ local M = {
   -- }}}
 
   -- TODO: Add repeat capability <16-01-22, kunzaatko> --
-  -- 'blackCauldron7/surround.nvim' -- text objects and editing surrounding delimiters{{{
+  -- 'ur4ltz/surround.nvim' -- text objects and editing surrounding delimiters{{{
   {
     'ur4ltz/surround.nvim',
     config = function()
