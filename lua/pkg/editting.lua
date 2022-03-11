@@ -8,7 +8,6 @@ local M = {
     event = 'InsertEnter',
     config = function()
       require('nvim-autopairs').setup()
-      vim.notify 'This is Loading'
     end,
   },
   -- }}}
