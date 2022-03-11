@@ -1,3 +1,5 @@
+local utils = require 'pkg.utils'
+
 local M = {
   { 'godlygeek/tabular', cmd = 'Tabularize' },
 
@@ -22,11 +24,17 @@ local M = {
   },
   -- }}}
 
-  -- 'b3nj5m1n/kommentary' -- commenting {{{
+  -- 'numToStr/Comment.nvim' -- commenting {{{
   {
-    'b3nj5m1n/kommentary',
+    'numToStr/Comment.nvim',
+    keys = utils.get_multi_keys {
+      { 'n', { { 'gc' }, { '', 'c', 'o', 'O', 'A' } } },
+      { 'n', { { 'gb' }, { '', 'c' } } },
+      { 'n', { { 'g' }, { '>', '<', '<c', '<b', '>c', '>b' } } },
+      { 'v', { { 'g' }, { '>', '<' } } },
+    },
     config = function()
-      require('kommentary.config').configure_language('default', { prefer_single_line_comments = true })
+      require('Comment').setup { mappings = { extended = true } }
     end,
   },
   -- }}}
