@@ -73,12 +73,22 @@ local M = {
     end,
     config = function()
       require('zen-mode').setup {
-        -- TODO: configure https://github.com/folke/zen-mode.nvim <26-07-21, kunzaatko> --
         window = {
           width = 0.85,
+          options = {
+            foldcolumn = '0',
+          },
+        },
+        plugins = {
+          gitsigns = { enabled = false },
         },
       }
-      vim.api.nvim_set_keymap('n', '<leader>z', '<Cmd>ZenMode<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap(
+        'n',
+        '<leader>z',
+        "<Cmd>lua require'zen-mode'.toggle()<Cr>",
+        { noremap = true, silent = true }
+      )
     end,
   },
   -- }}}
