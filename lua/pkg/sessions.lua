@@ -3,6 +3,7 @@ local M = {
   -- 'mhinz/vim-startify'-- launch page{{{
   {
     'mhinz/vim-startify',
+    as = 'startify',
     setup = function()
       vim.g.startify_fortune_use_unicode = 1
     end,
@@ -38,6 +39,7 @@ local M = {
   -- 'folke/which-key.nvim' -- echo keymappings {{{
   {
     'folke/which-key.nvim',
+    as = 'which_key',
     config = function()
       -- TODO: configure https://github.com/folke/which-key.nvim <28-04-21, kunzaatko> --
       require('which-key').setup {
@@ -56,12 +58,14 @@ local M = {
   -- 'rmagatti/auto-session' -- automatically store sessions for cwd {{{
   {
     'rmagatti/auto-session',
+    as = 'auto_session',
     config = function()
       require('auto-session').setup { auto_session_suppress_dirs = { '~/' } }
     end,
     requires = {
       {
         'rmagatti/session-lens',
+        as = 'session_lens',
         setup = function()
           local wk = require 'which-key'
           wk.register({ fl = { 'Load session' } }, { prefix = '<leader>' })

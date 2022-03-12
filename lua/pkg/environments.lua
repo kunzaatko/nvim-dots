@@ -3,6 +3,7 @@ local M = {
   -- 'dstein64/vim-startuptime' -- profiling for start-up time and plug-in loading {{{
   {
     'dstein64/vim-startuptime',
+    as = 'startuptime',
     cmd = 'StartupTime',
     setup = 'vim.g.startuptime_tries = 10',
   },

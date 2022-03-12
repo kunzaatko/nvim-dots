@@ -3,6 +3,7 @@ local M = {
   -- 'norcalli/nvim-colorizer.lua' -- colours visualizer {{{
   {
     'norcalli/nvim-colorizer.lua',
+    as = 'colorizer',
     ft = { 'css', 'javascript', 'vim', 'html', 'lua', 'tex', 'cfg', 'dosini', 'sh' },
     config = function()
       require('colorizer').setup({
@@ -23,6 +24,7 @@ local M = {
   -- 'rebelot/heirline.nvim' -- status line {{{
   {
     'rebelot/heirline.nvim',
+    as = 'heirline',
     config = function()
       local statusline = require 'conf.pkgs.heirline'
       require('heirline').setup(statusline)
@@ -65,6 +67,7 @@ local M = {
   -- 'folke/zen-mode.nvim' --  focus mode{{{
   {
     'folke/zen-mode.nvim',
+    as = 'zen_mode',
     cmd = { 'ZenMode' },
     keys = '<leader>z',
     setup = function()
@@ -96,6 +99,7 @@ local M = {
   -- 'lukas-reineke/indent-blankline.nvim' -- indentation guides {{{
   {
     'lukas-reineke/indent-blankline.nvim',
+    as = 'indent_blankline',
     config = function()
       require('indent_blankline').setup {
         char = '│',
@@ -114,6 +118,7 @@ local M = {
   -- 'folke/todo-comments.nvim' -- todo comments and todo quickfix-list {{{
   {
     'folke/todo-comments.nvim',
+    as = 'todo_comments',
     requires = 'nvim-lua/plenary.nvim',
     config = function()
       require('todo-comments').setup {
@@ -152,7 +157,8 @@ local M = {
   -- 'akinsho/bufferline.nvim' -- buffer symbols and nicer UI {{{
   {
     'akinsho/bufferline.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+    as = 'bufferline',
+    requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
       require('bufferline').setup {
         options = {
@@ -187,7 +193,7 @@ local M = {
 
   -- TODO: Loading time? Should it be implemented in lua?  https://github.com/romainl/vim-cool <12-03-22, kunzaatko> --
   -- disable search highlight when done with searching
-  { 'romainl/vim-cool' },
+  { 'romainl/vim-cool', as = 'cool' },
 
   ----------------------
   --  colour-schemes  --
@@ -195,6 +201,7 @@ local M = {
   -- 'npxbr/gruvbox.nvim' -- colour-scheme {{{
   {
     'npxbr/gruvbox.nvim',
+    as = 'gruvbox',
     requires = { 'rktjmp/lush.nvim' },
     config = function()
       vim.cmd 'colorscheme gruvbox'
@@ -206,7 +213,8 @@ local M = {
 
   -- 'kunzaatko/nord.nvim' -- colour-scheme {{{
   {
-    '~/.config/nvim/pack/opt/nord-vim',
+    '~/.config/nvim/pack/opt/nord.nvim',
+    as = 'nord',
     requires = { 'rktjmp/lush.nvim', opt = true },
     setup = function()
       vim.g.nord_italic = 1

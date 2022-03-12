@@ -4,14 +4,16 @@ local M = {
   -- 'ggandor/lightspeed.nvim' -- enhanced f,F,t,T and s,S for double letter searching {{{
   {
     'ggandor/lightspeed.nvim',
+    as = 'lightspeed',
     keys = utils.get_keys('n', { 's', 'S', 'f', 'F', 't', 'T' }),
-    requires = 'tpope/vim-repeat',
+    requires = { 'tpope/vim-repeat', as = 'repeat' },
   },
   -- }}}
 
   -- 'karb94/neoscroll.nvim' -- for smooth scrolling {{{
   {
     'karb94/neoscroll.nvim',
+    as = 'neoscroll',
     config = function()
       require('neoscroll').setup()
     end,
@@ -29,7 +31,7 @@ local M = {
     cmd = 'Telescope',
     requires = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }, -- makes the search run faster
+      { 'nvim-telescope/telescope-fzf-native.nvim', as = 'telescope_fzf_native', run = 'make' }, -- makes the search run faster
       { 'nvim-treesitter/nvim-treesitter' }, -- highlighting in the preview buffer
     },
     setup = function()
@@ -142,6 +144,7 @@ local M = {
   -- 'luukvbaal/stabilize.nvim' -- stabilizes the widnows on split creation {{{
   {
     'luukvbaal/stabilize.nvim',
+    as = 'stabilize',
     config = function()
       require('stabilize').setup()
     end,
@@ -151,6 +154,7 @@ local M = {
   -- 'edluffy/specs.nvim' -- highlight the cursor location after jump {{{
   {
     'edluffy/specs.nvim',
+    as = 'specs',
     config = function()
       require('specs').setup {
         popup = {

@@ -7,6 +7,7 @@ local M = {
   -- 'windwp/nvim-autopairs' -- automatically adding matching delimiters {{{
   {
     'windwp/nvim-autopairs',
+    as = 'autopairs',
     event = 'InsertEnter',
     config = function()
       require('nvim-autopairs').setup()
@@ -19,6 +20,7 @@ local M = {
   -- 'ur4ltz/surround.nvim' -- text objects and editing surrounding delimiters{{{
   {
     'ur4ltz/surround.nvim',
+    as = 'surround',
     config = function()
       require('surround').setup { mappings_style = 'surround' }
     end,
@@ -28,6 +30,7 @@ local M = {
   -- 'numToStr/Comment.nvim' -- commenting {{{
   {
     'numToStr/Comment.nvim',
+    as = 'Comment',
     keys = utils.get_multi_keys {
       { 'n', { { 'gc' }, { '', 'c', 'o', 'O', 'A' } } },
       { 'n', { { 'gb' }, { '', 'c' } } },
@@ -44,6 +47,7 @@ local M = {
   -- 'tpope/vim-abolish' -- abbreviations {{{
   {
     'tpope/vim-abolish',
+    as = 'abolish',
     event = 'InsertEnter',
   },
   -- }}}

@@ -17,6 +17,7 @@ local M = {
   -- 'simrat39/rust-tools.nvim' -- LSP rust specifics{{{
   {
     'simrat39/rust-tools.nvim',
+    as = 'rust_tools',
     ft = 'rust',
     config = function()
       require('rust-tools').setup()

@@ -116,6 +116,7 @@ local M = {
   -- 'lewis6991/gitsigns.nvim' -- signs of changes in sign column {{{
   {
     'lewis6991/gitsigns.nvim',
+    as = 'gitsigns',
     requires = 'nvim-lua/plenary.nvim',
     setup = function()
       vim.cmd 'packadd plenary.nvim'
@@ -220,6 +221,7 @@ local M = {
   -- 'pwntester/octo.nvim' -- github nvim UI {{{
   {
     'pwntester/octo.nvim',
+    as = 'octo',
     keys = utils.get_keys('n', { { '<leader>o' }, { 'il', 'ic', 'rl', 'pl', 'pc' } }),
     setup = function()
       local wk = require 'which-key'
