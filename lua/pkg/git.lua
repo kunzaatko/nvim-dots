@@ -215,6 +215,7 @@ local M = {
   -- 'pwntester/octo.nvim' -- github nvim UI {{{
   {
     'pwntester/octo.nvim',
+    keys = utils.get_keys('n', { { '<leader>o' }, { 'il', 'ic', 'rl', 'pl', 'pc' } }),
     setup = function()
       local wk = require 'which-key'
       wk.register({
@@ -247,6 +248,7 @@ local M = {
         user_icon = ' ',
         timeline_marker = ' ',
       }
+      -- TODO: Set through which-key <12-03-22, kunzaatko> --
       vim.api.nvim_set_keymap('n', '<leader>oil', '<Cmd>Octo issue list<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<leader>oic', '<Cmd>Octo issue create<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<leader>orl', '<Cmd>Octo repo list<CR>', { noremap = true, silent = true })
