@@ -7,11 +7,11 @@ local M = {
   -- 'windwp/nvim-autopairs' -- automatically adding matching delimiters {{{
   {
     'windwp/nvim-autopairs',
-    as = 'autopairs',
     event = 'InsertEnter',
     config = function()
       require('nvim-autopairs').setup()
     end,
+    after = 'cmp',
   },
   -- }}}
 

@@ -112,6 +112,7 @@ local M = {
   {
     'lewis6991/gitsigns.nvim',
     as = 'gitsigns',
+    event = 'BufRead',
     requires = 'nvim-lua/plenary.nvim',
     setup = function()
       vim.cmd 'packadd plenary.nvim'

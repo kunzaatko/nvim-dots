@@ -5,7 +5,7 @@ local M = {
   {
     'ggandor/lightspeed.nvim',
     as = 'lightspeed',
-    keys = utils.get_keys('n', { 's', 'S', 'f', 'F', 't', 'T' }),
+    keys = utils.get_keys({ 'n', 'v' }, { 's', 'S', 'f', 'F', 't', 'T' }),
     requires = { 'tpope/vim-repeat', as = 'repeat' },
   },
   -- }}}
@@ -13,7 +13,10 @@ local M = {
   -- 'karb94/neoscroll.nvim' -- for smooth scrolling {{{
   {
     'karb94/neoscroll.nvim',
-    as = 'neoscroll',
+    keys = utils.get_multi_keys {
+      { { 'n', 'x' }, { '<C-e>', '<C-y>', '<C-f>', '<C-d>', '<C-b>', '<C-u>' } },
+      { { 'n', 'x' }, { { 'z' }, { 'z', 't', 'b' } } },
+    },
     config = function()
       require('neoscroll').setup()
     end,
