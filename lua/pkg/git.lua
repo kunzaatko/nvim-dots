@@ -1,11 +1,77 @@
+local utils = require 'pkg.utils'
+
+-- 'sindrets/diffview.nvim' -- viewing diff of files in tree {{{
+local diffview_spec = {
+  'sindrets/diffview.nvim',
+  config = function()
+    local MUtils = _G.MUtils
+    local cb = require('diffview.config').diffview_callback
+    MUtils.close_diffview = function()
+      vim.cmd [[tabclose]]
+    end
+    require('diffview').setup {
+      key_bindings = {
+        disable_defaults = true,
+        view = {
+          ['q'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
+          ['<esc>'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
+          ['<leader><leader>'] = cb 'toggle_files',
+        },
+        file_panel = {
+          ['q'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
+          ['<esc>'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
+          ['j'] = cb 'next_entry',
+          ['<down>'] = cb 'next_entry',
+          ['k'] = cb 'prev_entry',
+          ['<up>'] = cb 'prev_entry',
+          ['<cr>'] = cb 'select_entry',
+          ['o'] = cb 'select_entry',
+          ['<2-LeftMouse>'] = cb 'select_entry',
+          ['<tab>'] = cb 'select_next_entry',
+          ['<s-tab>'] = cb 'select_prev_entry',
+          ['i'] = cb 'listing_style',
+          ['f'] = cb 'toggle_flatten_dirs',
+          ['<leader><leader>'] = cb 'toggle_files',
+        },
+        file_history_panel = {
+          ['q'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
+          ['<esc>'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
+          ['g!'] = cb 'options',
+          ['y'] = cb 'copy_hash',
+          ['zR'] = cb 'open_all_folds',
+          ['zM'] = cb 'close_all_folds',
+          ['j'] = cb 'next_entry',
+          ['<down>'] = cb 'next_entry',
+          ['k'] = cb 'prev_entry',
+          ['<up>'] = cb 'prev_entry',
+          ['<cr>'] = cb 'select_entry',
+          ['o'] = cb 'select_entry',
+          ['<2-LeftMouse>'] = cb 'select_entry',
+          ['<tab>'] = cb 'select_next_entry',
+          ['<s-tab>'] = cb 'select_prev_entry',
+          ['<leader><leader>'] = cb 'toggle_files',
+        },
+        option_panel = { ['<tab>'] = cb 'select', ['q'] = cb 'close' },
+      },
+      hooks = {
+        diff_buf_read = function()
+          vim.opt_local.spell = false
+          vim.opt_local.list = false
+        end,
+      },
+    }
+  end,
+}
+-- }}}
+
 local M = {
   -- TODO: configure <03-03-22, kunzaatko> --
   -- 'TimUntersberger/neogit' -- magit for neovim {{{
   {
     'TimUntersberger/neogit',
     cmd = 'Neogit',
-    keys = { '<leader>gg', '<leader>gc' },
-    requires = 'sindrets/diffview.nvim',
+    keys = utils.get_keys('n', { { '<leader>g' }, { 'g', 'c' } }),
+    requires = diffview_spec,
     setup = function()
       local wk = require 'which-key'
       wk.register({
@@ -46,69 +112,7 @@ local M = {
     end,
   },
   -- }}}
-  -- 'sindrets/diffview.nvim' -- viewing diff of files in tree {{{
-  {
-    'sindrets/diffview.nvim',
-    config = function()
-      local MUtils = _G.MUtils
-      local cb = require('diffview.config').diffview_callback
-      MUtils.close_diffview = function()
-        vim.cmd [[tabclose]]
-      end
-      require('diffview').setup {
-        key_bindings = {
-          disable_defaults = true,
-          view = {
-            ['q'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
-            ['<esc>'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
-            ['<leader><leader>'] = cb 'toggle_files',
-          },
-          file_panel = {
-            ['q'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
-            ['<esc>'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
-            ['j'] = cb 'next_entry',
-            ['<down>'] = cb 'next_entry',
-            ['k'] = cb 'prev_entry',
-            ['<up>'] = cb 'prev_entry',
-            ['<cr>'] = cb 'select_entry',
-            ['o'] = cb 'select_entry',
-            ['<2-LeftMouse>'] = cb 'select_entry',
-            ['<tab>'] = cb 'select_next_entry',
-            ['<s-tab>'] = cb 'select_prev_entry',
-            ['i'] = cb 'listing_style',
-            ['f'] = cb 'toggle_flatten_dirs',
-            ['<leader><leader>'] = cb 'toggle_files',
-          },
-          file_history_panel = {
-            ['q'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
-            ['<esc>'] = '<Cmd>lua _G.MUtils.close_diffview()<CR>',
-            ['g!'] = cb 'options',
-            ['y'] = cb 'copy_hash',
-            ['zR'] = cb 'open_all_folds',
-            ['zM'] = cb 'close_all_folds',
-            ['j'] = cb 'next_entry',
-            ['<down>'] = cb 'next_entry',
-            ['k'] = cb 'prev_entry',
-            ['<up>'] = cb 'prev_entry',
-            ['<cr>'] = cb 'select_entry',
-            ['o'] = cb 'select_entry',
-            ['<2-LeftMouse>'] = cb 'select_entry',
-            ['<tab>'] = cb 'select_next_entry',
-            ['<s-tab>'] = cb 'select_prev_entry',
-            ['<leader><leader>'] = cb 'toggle_files',
-          },
-          option_panel = { ['<tab>'] = cb 'select', ['q'] = cb 'close' },
-        },
-        hooks = {
-          diff_buf_read = function()
-            vim.opt_local.spell = false
-            vim.opt_local.list = false
-          end,
-        },
-      }
-    end,
-  },
-  -- }}}
+
   -- 'lewis6991/gitsigns.nvim' -- signs of changes in sign column {{{
   {
     'lewis6991/gitsigns.nvim',
@@ -211,6 +215,7 @@ local M = {
     end,
   },
   -- }}}
+
   -- FIX: Currently there is a missing font item in reactions on comments <12-12-21, kunzaatko> --
   -- 'pwntester/octo.nvim' -- github nvim UI {{{
   {
