@@ -184,8 +184,9 @@ local M = {
   },
   -- }}}
 
+  -- TODO: Loading time? Should it be implemented in lua?  https://github.com/romainl/vim-cool <12-03-22, kunzaatko> --
   -- disable search highlight when done with searching
-  'romainl/vim-cool',
+  { 'romainl/vim-cool' },
 
   ----------------------
   --  colour-schemes  --
