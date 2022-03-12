@@ -71,7 +71,7 @@ local M = {
           local wk = require 'which-key'
           wk.register({ fl = { 'Load session' } }, { prefix = '<leader>' })
         end,
-        keys = '<leader>fl',
+        keys = { 'n', '<leader>fl' },
         config = function()
           local map = vim.keymap.set
           require('session-lens').setup()
