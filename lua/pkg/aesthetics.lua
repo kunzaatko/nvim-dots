@@ -86,14 +86,17 @@ local M = {
   -- 'lukas-reineke/indent-blankline.nvim' -- indentation guides {{{
   {
     'lukas-reineke/indent-blankline.nvim',
-    setup = function()
-      vim.g.indent_blankline_char = '│'
-      vim.g.indent_blankline_use_treesitter = true
-      vim.g.indent_blankline_show_first_indent_level = false
-      vim.g.indent_blankline_filetype_exclude = { 'help', 'markdown', 'txt' }
-      vim.g.indent_blankline_buftype_exclude = { 'terminal' }
-      vim.g.indent_blankline_space_char = '·'
-      vim.opt.colorcolumn = '999999' -- fix: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+    config = function()
+      require('indent_blankline').setup {
+        char = '│',
+        show_current_context = true,
+        context_char = '┃',
+        use_treesitter = true,
+        show_first_indent_level = false,
+        filetype_exclude = { 'help', 'markdown', 'packer', 'lspinfo', 'checkhealth', 'txt' },
+        buftype_exclude = { 'terminal' },
+        space_char = '·',
+      }
     end,
   },
   -- }}}
