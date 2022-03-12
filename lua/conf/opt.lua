@@ -110,5 +110,5 @@ end
 
 -->> show hidden characters
 opt.list = true
-opt.listchars = { eol = '⏎', tab = '▸ ', trail = '·' }
+opt.listchars = { eol = '↩', tab = '▸ ', trail = '·' }
 opt.fillchars = { diff = '░', fold = '┉', foldopen = '▾', foldsep = '┊', foldclose = '▸', vert = '┃' }
