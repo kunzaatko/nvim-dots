@@ -5,19 +5,10 @@ require 'utils.lsputils'
 -- Generic configuration for LSP servers, that do not require special handling
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
--- lsp-status
-local lsp_status = require 'lsp-status'
-lsp_status.register_progress()
-capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
-
 local servers = { 'texlab', 'bashls', 'ccls', 'rust_analyzer', 'vimls', 'julials', 'pyright' }
 for _, server in pairs(servers) do
   lspconfig[server].setup {
-    on_attach = function(client, bufnr)
-      -- TODO: Add this to the LSPUtils default on_attach <03-03-22, kunzaatko> --
-      lsp_status.on_attach(client)
-      _G.LSPUtils.on_attach(client, bufnr)
-    end,
+    on_attach = _G.LSPUtils.on_attach,
     -- FIX: Remove after 0.7... becomes the default <19-02-22, kunzaatko> --
     flags = { debounce_text_changes = 150 },
     capabilities = capabilities,

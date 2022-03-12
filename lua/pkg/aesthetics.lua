@@ -149,6 +149,20 @@ local M = {
   },
   -- }}}
 
+  -- TODO: Set colours and configure <12-03-22, kunzaatko> --
+  -- 'j-hui/fidget.nvim' -- lspmessages in the right corner {{{
+  {
+    'j-hui/fidget.nvim',
+    after = 'nvim-lspconfig',
+    config = function()
+      require('fidget').setup {
+        text = {
+          spinner = 'circle_halves',
+        },
+      }
+    end,
+  },
+  -- }}}
   -- TODO: Change style of font in active tab <28-11-21, kunzaatko> --
   -- TODO: Mappings to remove buffer also from bufferline <16-01-22, kunzaatko> --
   -- TODO: Make this work with auto-session <16-01-22, kunzaatko> --

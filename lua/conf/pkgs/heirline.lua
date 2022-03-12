@@ -390,8 +390,6 @@ components.FileLastModified = {
   end,
 }
 
----
-
 -- TODO: Add better colors and put ',' between <16-01-22, kunzaatko> --
 -- TODO: Show specific parts of null-ls 'lsp-server' <16-01-22, kunzaatko> --
 components.LSPActive = { --{{{
@@ -421,19 +419,6 @@ components.LSPActive = { --{{{
   end,
 } --}}}
 
-components.LSPMessages = { --{{{
-  provider = function()
-    local status = require('lsp-status').status() or ''
-    local tail = #status > 1 and '⟨' or ''
-    return status .. tail
-  end,
-  condition = #vim.lsp.buf_get_clients() > 0,
-  hl = function(self)
-    return { fg = self.colors.gray }
-  end,
-} --}}}
-utils.make_flexible_component(2, components.LSPMessages, { provider = '' })
-
 components.Gps = { --{{{
   condition = require('nvim-gps').is_available,
   provider = function()
@@ -446,8 +431,6 @@ components.Gps = { --{{{
   end,
 } --}}}
 components.Gps = utils.make_flexible_component(3, components.Gps, { provider = '' })
-
----
 
 -- TODO: Make nicer and edit colours and icons <16-01-22, kunzaatko> --
 components.Diagnostics = { --{{{
@@ -508,8 +491,6 @@ components.Diagnostics = { --{{{
     provider = ']',
   },
 } --}}}
-
----
 
 --  , , , ,  - for file changes in Neogit and/or Octo
 components.Git = { --{{{
@@ -613,7 +594,6 @@ local StatusLineActive = { --{{{
   components.Gps,
   components.Align,
   -- FIX: This does not work <16-01-22, kunzaatko> --
-  components.LSPMessages,
   components.Space,
   components.Snippets,
   components.Space,
