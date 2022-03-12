@@ -117,8 +117,10 @@ local M = {
   {
     'folke/todo-comments.nvim',
     as = 'todo_comments',
+    keys = { 'n', '<leader>T' },
     requires = 'nvim-lua/plenary.nvim',
     config = function()
+      local map = vim.keymap.set
       require('todo-comments').setup {
         highlight = { keyword = 'fg', after = '' },
         keywords = {
@@ -134,6 +136,7 @@ local M = {
           NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },
         },
       }
+      map('n', '<leader>T', '<Cmd>TodoTrouble<CR>', { silent = true })
     end,
   },
   -- }}}
@@ -149,6 +152,7 @@ local M = {
   },
   -- }}}
 
+  -- TODO: Configure and set colours same as telescope <12-03-22, kunzaatko> --
   -- 'stevearc/dressing.nvim' -- UI component overrides for nvim {{{
   {
     'stevearc/dressing.nvim',
