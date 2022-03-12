@@ -15,6 +15,7 @@ local M = {
   -- }}}
 
   -- TODO: Add repeat capability <16-01-22, kunzaatko> --
+  -- TODO: Add mapping defered loading <12-03-22, kunzaatko> --
   -- 'ur4ltz/surround.nvim' -- text objects and editing surrounding delimiters{{{
   {
     'ur4ltz/surround.nvim',
@@ -39,11 +40,12 @@ local M = {
   },
   -- }}}
 
-  -- abbreviations
   -- TODO: Do this in lua <16-01-22, kunzaatko> --
+  -- 'tpope/vim-abolish' -- abbreviations {{{
   {
     'tpope/vim-abolish',
     event = 'InsertEnter',
   },
+  -- }}}
 }
 return M

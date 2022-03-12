@@ -1,10 +1,11 @@
+local utils = require 'pkg.utils'
 local M = {
   -- 'folke/trouble.nvim' -- diagnostics and quickfix-list {{{
   {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     cmd = { 'Trouble', 'TroubleToggle', 'TroubleClose', 'TroubleRefresh' },
-    keys = { '<leader>tt', '<leader>tl', '<leader>tr', '<leader>td' },
+    keys = utils.get_keys('n', { { '<leader>t' }, { 't', 'l', 'r', 'd' } }),
     setup = function()
       local wk = require 'which-key'
       wk.register({
@@ -180,22 +181,17 @@ local M = {
       require('null-ls').setup {
         on_attach = _G.LSPUtils.on_attach,
         sources = {
-          null_ls.builtins.formatting.clang_format,
+          null_ls.builtins.formatting.clang_format, -- C
           null_ls.builtins.formatting.fish_indent,
           null_ls.builtins.formatting.prettier,
           null_ls.builtins.diagnostics.chktex,
-          null_ls.builtins.formatting.yapf,
+          null_ls.builtins.formatting.yapf, -- Python
           null_ls.builtins.formatting.rustfmt,
           null_ls.builtins.diagnostics.vale,
           null_ls.builtins.formatting.stylua.with {
             extra_args = { '--config-path', vim.fn.expand '~/.config/stylua.toml' },
           },
-          null_ls.builtins.formatting.taplo,
-          -- FIX: Messess up formatting because their is a conflict -- multiple
-          -- sources <19-02-22, kunzaatko> --
-          -- null_ls.builtins.formatting.codespell.with {
-          --   disabled_filetypes = { 'tex' },
-          -- },
+          null_ls.builtins.formatting.taplo, -- TOML
           null_ls.builtins.formatting.reorder_python_imports,
           null_ls.builtins.diagnostics.mypy,
           null_ls.builtins.formatting.shellharden,

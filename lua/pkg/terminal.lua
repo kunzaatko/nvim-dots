@@ -3,7 +3,7 @@ local M = {
   -- akinsho/toggleterm.nvim -- toggle the terminal but persist the session{{{
   {
     'akinsho/toggleterm.nvim',
-    keys = { '<C-p>' },
+    keys = { 'n', '<C-p>' },
     config = function()
       _G.MUtils = _G.MUtils or {}
       local wk = require 'which-key'

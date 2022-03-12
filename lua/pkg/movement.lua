@@ -1,9 +1,10 @@
+local utils = require 'pkg.utils'
 local M = {
   -- TODO: Setup highlights <16-01-22, kunzaatko> --
   -- 'ggandor/lightspeed.nvim' -- enhanced f,F,t,T and s,S for double letter searching {{{
   {
     'ggandor/lightspeed.nvim',
-    keys = { 's', 'S', 'f', 'F', 't', 'T' },
+    keys = utils.get_keys('n', { 's', 'S', 'f', 'F', 't', 'T' }),
     requires = 'tpope/vim-repeat',
   },
   -- }}}
@@ -21,16 +22,9 @@ local M = {
   -- 'nvim-telescope/telescope.nvim' -- file finder and list shower {{{
   {
     'nvim-telescope/telescope.nvim',
-    keys = {
-      '<leader>fs',
-      '<leader>fw',
-      '<leader>fF',
-      '<leader>fg',
-      '<leader>fb',
-      '<leader>fh',
-      '<leader>ff',
-      '<leader>fk',
-      '<leader><leader>',
+    keys = utils.get_multi_keys {
+      { 'n', { { '<leader>f' }, { 's', 'w', 'F', 'g', 'b', 'h', 'f', 'k' } } },
+      { 'n', '<leader><leader>' },
     },
     cmd = 'Telescope',
     requires = {

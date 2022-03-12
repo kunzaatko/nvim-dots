@@ -13,7 +13,7 @@ local M = {
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
-    keys = '<leader>u',
+    keys = { 'n', '<leader>u' },
     setup = function()
       vim.g.undotree_WindowLayout = 2 -- layout with diff at the bottom
       vim.g.undotree_DiffpanelHeight = 7 -- most of the time only one line changes

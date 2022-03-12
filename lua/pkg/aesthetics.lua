@@ -140,6 +140,7 @@ local M = {
     'rcarriga/nvim-notify',
     as = 'notify',
     config = function()
+      -- NOTE: Use require'notify'.notify as the default notification UI. <kunzaatko> --
       vim.notify = require 'notify'
     end,
   },

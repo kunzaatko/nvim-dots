@@ -1,3 +1,4 @@
+local utils = require 'pkg.utils'
 local M = {
   -- TODO: Todo comment expand at beginning of line <16-01-22, kunzaatko> --
   -- TODO: Add '<leader>' mappings for editing snippet files <16-01-22, kunzaatko> --
@@ -43,7 +44,7 @@ local M = {
   -- 'danymat/neogen' -- generate documentation for functions based on treesitter {{{
   {
     'danymat/neogen',
-    keys = { '<leader>dd', '<leader>dc', '<leader>df', '<leader>dt' },
+    keys = utils.get_keys('n', { { '<leader>d' }, { 'd', 'c', 'f', 't' } }),
     setup = function()
       local wk = require 'which-key'
       wk.register({
