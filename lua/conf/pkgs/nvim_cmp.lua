@@ -158,8 +158,8 @@ cmp.setup {
     },
   },
   sources = cmp.config.sources {
-    { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
+    { name = 'nvim_lsp', priority = 9 },
+    { name = 'ultisnips', priority = 10 },
     { name = 'cmp_git' },
     { name = 'latex_symbols' },
     {
