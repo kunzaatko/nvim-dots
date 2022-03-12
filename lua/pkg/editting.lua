@@ -31,7 +31,7 @@ local M = {
       { 'n', { { 'gc' }, { '', 'c', 'o', 'O', 'A' } } },
       { 'n', { { 'gb' }, { '', 'c' } } },
       { 'n', { { 'g' }, { '>', '<', '<c', '<b', '>c', '>b' } } },
-      { 'v', { { 'g' }, { '>', '<' } } },
+      { 'v', { { 'g' }, { '>', '<', 'c', 'b' } } },
     },
     config = function()
       require('Comment').setup { mappings = { extended = true } }
