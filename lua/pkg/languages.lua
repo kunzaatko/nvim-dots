@@ -45,21 +45,6 @@ local M = {
     'kovetskiy/sxhkd-vim',
     as = 'sxhkd',
     ft = 'sxhkd',
-    setup = function()
-      -- NOTE: Fix the SXHKD filetype detection issue <kunzaatko> --
-      _G.AUtils.check_ft_sxhkd = function()
-        if packer_plugins['plenary.nvim'].loaded ~= true then
-          vim.cmd [[packadd plenary.nvim]]
-        end
-        local p = require('plenary').path.new(vim.api.nvim_buf_get_name(0))
-        if p:_split()[#p:_split()] == 'sxhkdrc' then
-          vim.opt.filetype = 'sxhkd'
-        end
-      end
-
-      -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
-      vim.cmd [[ autocmd BufRead * call v:lua.AUtils.check_ft_sxhkd() ]]
-    end,
   },
   -- }}}
 

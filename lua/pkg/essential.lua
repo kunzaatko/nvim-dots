@@ -3,7 +3,22 @@ local M = {
   -- bug in neovim - https://github.com/neovim/neovim/issues/12587
   { 'antoinemadec/FixCursorHold.nvim', as = 'FixCursorHold' },
   -- speeds-up the start-up time by using a lua version of the filetype.vim script
-  { 'nathom/filetype.nvim', as = 'filetype' },
+  {
+    'nathom/filetype.nvim',
+    as = 'filetype',
+    config = function()
+      require('filetype').setup {
+        overrides = {
+          literal = {
+            sxhkdrc = 'sxhkd',
+          },
+          shebang = {
+            dash = 'sh',
+          },
+        },
+      }
+    end,
+  },
   -- speed up on startuptime by compliling plugins into bytestrings
   { 'lewis6991/impatient.nvim', as = 'impatient' },
 }
