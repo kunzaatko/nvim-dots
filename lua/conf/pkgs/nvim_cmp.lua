@@ -3,17 +3,32 @@ local lspconfig = require 'lspconfig'
 require 'utils.lsputils'
 
 -- Generic configuration for LSP servers, that do not require special handling
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local status_ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+if not status_ok then
+  return
+end
 
-local servers = { 'texlab', 'bashls', 'ccls', 'rust_analyzer', 'vimls', 'julials', 'pyright' }
+local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+local servers = { 'texlab', 'bashls', 'ccls', 'rust_analyzer', 'vimls', 'julials' }
 for _, server in pairs(servers) do
   lspconfig[server].setup {
     on_attach = _G.LSPUtils.on_attach,
-    -- FIX: Remove after 0.7... becomes the default <19-02-22, kunzaatko> --
-    flags = { debounce_text_changes = 150 },
     capabilities = capabilities,
   }
 end
+
+lspconfig.pyright.setup {
+  on_attach = _G.LSPUtils.on_attach,
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = 'off',
+      },
+    },
+  },
+}
 
 if packer_plugins['lua-dev'].loaded == true then
   local luadev = require('lua-dev').setup {
