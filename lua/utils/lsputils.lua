@@ -6,28 +6,24 @@ _G.LSPUtils.on_attach = function(_, bufnr)
   -- {{{
   -- NOTE: Activate on debuging LSP behaviour <kunzaatko> --
   -- vim.lsp.set_log_level 'debug'
-  local map_loc = vim.api.nvim_buf_set_keymap
+  local map = vim.keymap.set
 
-  map_loc(bufnr, 'n', '<c-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', '<c-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', '1gD', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'g0', '<Cmd>lua vim.lsp.buf.document_symbol()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'gW', '<Cmd>lua vim.lsp.buf.workspace_symbol()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>', { noremap = true, silent = true })
-  map_loc(
-    bufnr,
-    'n',
-    'ga',
-    "<Cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>",
-    { noremap = true, silent = true }
-  )
+  map('n', '<c-]>', vim.lsp.buf.definition, { silent = true, buffer = bufnr })
+  map('n', 'K', vim.lsp.buf.hover, { silent = true, buffer = bufnr })
+  map('n', 'gD', vim.lsp.buf.implementation, { silent = true, buffer = bufnr })
+  map('n', '<c-k>', vim.lsp.buf.signature_help, { silent = true, buffer = bufnr })
+  map('n', '1gD', vim.lsp.buf.type_definition, { silent = true, buffer = bufnr })
+  map('n', 'gr', vim.lsp.buf.references, { silent = true, buffer = bufnr })
+  map('n', 'g0', vim.lsp.buf.document_symbol, { silent = true, buffer = bufnr })
+  map('n', 'gW', vim.lsp.buf.workspace_symbol, { silent = true, buffer = bufnr })
+  map('n', 'gd', vim.lsp.buf.declaration, { silent = true, buffer = bufnr })
+  map('n', 'ga', function()
+    return require('telescope.builtin').lsp_code_actions()
+  end, { silent = true, buffer = bufnr })
 
   -- Goto previous/next diagnostic warning/error
-  map_loc(bufnr, 'n', 'g[', '<Cmd>lua vim.diagnostics.goto_prev()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', 'g]', '<Cmd>lua vim.diagnostics.goto_next()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'n', '<leader>F', '<Cmd> lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true })
-  map_loc(bufnr, 'v', '<leader>F', '<Cmd> lua vim.lsp.buf.range_formatting()<CR>', { noremap = true, silent = true })
+  map('n', 'g[', vim.diagnostic.goto_prev, { silent = true, buffer = bufnr })
+  map('n', 'g]', vim.diagnostic.goto_next, { silent = true, buffer = bufnr })
+  map('n', '<leader>F', vim.lsp.buf.formatting, { silent = true, buffer = bufnr })
+  map('v', '<leader>F', vim.lsp.buf.range_formatting, { silent = true, buffer = bufnr })
 end -- }}}

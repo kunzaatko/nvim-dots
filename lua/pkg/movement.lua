@@ -54,6 +54,7 @@ local M = {
       }, { prefix = '<leader>' })
     end,
     config = function()
+      local map = vim.keymap.set
       vim.cmd [[packadd trouble.nvim]]
       local trouble = require 'trouble.providers.telescope'
       require('telescope').setup {
@@ -75,12 +76,7 @@ local M = {
         require('telescope').load_extension 'notify'
       end
 
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>fs',
-        "<Cmd>lua require'telescope.builtin'.spell_suggest()<CR>",
-        { noremap = true, silent = true }
-      )
+      map('n', '<leader>fs', require('telescope.builtin').spell_suggest, { silent = true })
 
       _G.MUtils.git_files_or_find_files = function(opts)
         opts = opts or {}
@@ -89,54 +85,28 @@ local M = {
           require('telescope.builtin').find_files(opts)
         end
       end
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>fw',
-        '<Cmd>lua _G.MUtils.git_files_or_find_files({})<CR>',
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>fF',
-        "<Cmd>lua require'telescope.builtin'.find_files()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>fg',
-        "<Cmd>lua require'telescope.builtin'.live_grep()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>fb',
-        "<Cmd>lua require'telescope.builtin'.buffers()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>fh',
-        "<Cmd>lua require'telescope.builtin'.help_tags()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>ff',
-        "<Cmd>lua require'telescope.builtin'.builtin()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>fk',
-        "<Cmd>lua require'telescope.builtin'.keymaps()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader><leader>',
-        "<Cmd>lua require'telescope.builtin'.current_buffer_fuzzy_find()<CR>",
-        { noremap = true, silent = true }
-      )
+      map('n', '<leader>fw', _G.MUtils.git_files_or_find_files, { silent = true })
+      map('n', '<leader>fF', function()
+        return require('telescope.builtin').find_files()
+      end, { silent = true })
+      map('n', '<leader>fg', function()
+        return require('telescope.builtin').live_grep()
+      end, { silent = true })
+      map('n', '<leader>fb', function()
+        return require('telescope.builtin').buffers()
+      end, { silent = true })
+      map('n', '<leader>fh', function()
+        return require('telescope.builtin').help_tags()
+      end, { silent = true })
+      map('n', '<leader>ff', function()
+        return require('telescope.builtin').builtin()
+      end, { silent = true })
+      map('n', '<leader>fk', function()
+        return require('telescope.builtin').keymaps()
+      end, { silent = true })
+      map('n', '<leader><leader>', function()
+        return require('telescope.builtin').current_buffer_fuzzy_find()
+      end, { silent = true })
     end,
   },
   -- }}}

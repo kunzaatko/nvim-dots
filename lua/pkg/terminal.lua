@@ -6,6 +6,7 @@ local M = {
     as = 'toggleterm',
     keys = { 'n', '<C-p>' },
     config = function()
+      local map = vim.keymap.set
       _G.MUtils = _G.MUtils or {}
       local wk = require 'which-key'
       wk.register({
@@ -13,12 +14,11 @@ local M = {
       }, {})
 
       _G.MUtils.set_terminal_keymaps = function()
-        vim.api.nvim_buf_set_keymap(0, 't', '<C-w>', [[<C-\><C-n><C-W><C-W>]], { noremap = true })
+        map('t', '<C-w>', [[<C-\><C-n><C-W><C-W>]], { buffer = 0 })
       end
 
       -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
       vim.cmd [[autocmd! TermOpen term://* lua vim.opt_local.spell = false]]
-      -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
       vim.cmd [[autocmd! TermOpen term://* call v:lua.MUtils.set_terminal_keymaps()]]
 
       require('toggleterm').setup {

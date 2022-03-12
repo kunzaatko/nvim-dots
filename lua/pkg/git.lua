@@ -83,6 +83,7 @@ local M = {
       }, { prefix = '<leader>' })
     end,
     config = function()
+      local map = vim.keymap.set
       -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
       --luacheck: no max line length
       vim.cmd [[
@@ -97,18 +98,12 @@ local M = {
         integrations = { diffview = true },
       }
       -- TODO: Do this with which-key <03-03-22, kunzaatko> --
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>gg',
-        "<Cmd> lua require'neogit'.open()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>gc',
-        "<Cmd> lua require'neogit'.open({'commit'})<CR>",
-        { noremap = true, silent = true }
-      )
+      map('n', '<leader>gg', function()
+        return require('neogit').open()
+      end, { silent = true })
+      map('n', '<leader>gc', function()
+        return require('neogit').open { 'commit' }
+      end, { silent = true })
     end,
   },
   -- }}}
@@ -143,6 +138,7 @@ local M = {
           change = { hl = 'YellowSign', text = '┇', numhl = 'GitSignsChangeNr' },
           delete = { hl = 'RedSign', text = '┻', numhl = 'GitSignsDeleteNr' },
           topdelete = { hl = 'RedSign', text = '┳', numhl = 'GitSignsDeleteNr' },
+          -- TODO: This should be probably deleted <12-03-22, kunzaatko> --
           changedelete = {
             hl = 'PurpleSign',
             text = '│',
@@ -150,9 +146,12 @@ local M = {
           },
         },
         on_attach = function(bufnr)
-          local function map(mode, lhs, rhs, opts)
-            opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
-            vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+          local gs = package.loaded.gitsigns
+
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
           end
 
           -- Navigation
@@ -160,58 +159,25 @@ local M = {
           map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
           -- Actions
-          map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-          map('v', '<leader>hs', ':Gitsigns stage_hunk<CR>')
-          map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          map('v', '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          map('n', '<leader>hS', '<cmd>Gitsigns stage_buffer<CR>')
-          map('n', '<leader>hu', '<cmd>Gitsigns undo_stage_hunk<CR>')
-          map('n', '<leader>hR', '<cmd>Gitsigns reset_buffer<CR>')
-          map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
-          map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-          map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-          map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
-          map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
-          map('n', '<leader>td', '<cmd>Gitsigns toggle_deleted<CR>')
+          map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+          map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+          map('n', '<leader>hS', gs.stage_buffer)
+          map('n', '<leader>hu', gs.undo_stage_hunk)
+          map('n', '<leader>hR', gs.reset_buffer)
+          map('n', '<leader>hp', gs.preview_hunk)
+          map('n', '<leader>hb', function()
+            gs.blame_line { full = true }
+          end)
+          map('n', '<leader>tb', gs.toggle_current_line_blame)
+          map('n', '<leader>hd', gs.diffthis)
+          map('n', '<leader>hD', function()
+            gs.diffthis '~'
+          end)
+          map('n', '<leader>td', gs.toggle_deleted)
 
           -- Text object
-          map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-          map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
         end,
-        -- TODO: Uncomment when vim.keymap.set is introduced with nvim v0.7 <03-03-22, kunzaatko> --
-        -- on_attach = function(bufnr)
-        --   local gs = package.loaded.gitsigns
-
-        --   local function map(mode, l, r, opts)
-        --     opts = opts or {}
-        --     opts.buffer = bufnr
-        --     vim.keymap.set(mode, l, r, opts)
-        --   end
-
-        --   -- Navigation
-        --   map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-        --   map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
-
-        --   -- Actions
-        --   map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-        --   map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-        --   map('n', '<leader>hS', gs.stage_buffer)
-        --   map('n', '<leader>hu', gs.undo_stage_hunk)
-        --   map('n', '<leader>hR', gs.reset_buffer)
-        --   map('n', '<leader>hp', gs.preview_hunk)
-        --   map('n', '<leader>hb', function()
-        --     gs.blame_line { full = true }
-        --   end)
-        --   map('n', '<leader>tb', gs.toggle_current_line_blame)
-        --   map('n', '<leader>hd', gs.diffthis)
-        --   map('n', '<leader>hD', function()
-        --     gs.diffthis '~'
-        --   end)
-        --   map('n', '<leader>td', gs.toggle_deleted)
-
-        --   -- Text object
-        --   map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-        -- end,
       }
     end,
   },
@@ -248,6 +214,7 @@ local M = {
       }, { prefix = '<leader>' })
     end,
     config = function()
+      local map = vim.keymap.set
       vim.cmd [[packadd telescope.nvim]]
       require('octo').setup {
         default_remote = { 'upstream', 'origin', 'github' },
@@ -256,11 +223,11 @@ local M = {
         timeline_marker = ' ',
       }
       -- TODO: Set through which-key <12-03-22, kunzaatko> --
-      vim.api.nvim_set_keymap('n', '<leader>oil', '<Cmd>Octo issue list<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>oic', '<Cmd>Octo issue create<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>orl', '<Cmd>Octo repo list<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>opl', '<Cmd>Octo pr list<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>opc', '<Cmd>Octo pr create<CR>', { noremap = true, silent = true })
+      map('n', '<leader>oil', '<Cmd>Octo issue list<CR>', { silent = true })
+      map('n', '<leader>oic', '<Cmd>Octo issue create<CR>', { silent = true })
+      map('n', '<leader>orl', '<Cmd>Octo repo list<CR>', { silent = true })
+      map('n', '<leader>opl', '<Cmd>Octo pr list<CR>', { silent = true })
+      map('n', '<leader>opc', '<Cmd>Octo pr create<CR>', { silent = true })
     end,
     requires = { 'nvim-telescope/telescope.nvim', 'kyazdani42/nvim-web-devicons' },
   },

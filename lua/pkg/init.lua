@@ -1,4 +1,4 @@
--- TODO: Add more mappings to '<leacer>' with which-key <16-01-22, kunzaatko> --
+-- TODO: Add more mappings to '<leader>' with which-key <16-01-22, kunzaatko> --
 -- TODO: Better way how to manage dependencies. Especially for lsp parts <16-01-22, kunzaatko> --
 -- TODO: Auto document into the README.file <16-01-22, kunzaatko> --
 -- TODO: More contrast color between windows (fillchars separators) <16-01-22, kunzaatko> --

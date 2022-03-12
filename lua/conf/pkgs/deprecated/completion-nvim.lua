@@ -78,10 +78,10 @@ vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
 
 --  mappings  --
 
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
-map('i', '<tab>', '<Plug>(completion_smart_tab)', {})
-map('i', '<s-tab>', '<Plug>(completion_smart_s_tab)', {})
+map('i', '<tab>', '<Plug>(completion_smart_tab)')
+map('i', '<s-tab>', '<Plug>(completion_smart_s_tab)')
 
 vim.g.completion_confirm_key = ''
 
@@ -100,7 +100,7 @@ _G.MUtils.completion_confirm = function()
     return npairs.check_break_line_char()
   end
 end
-map('i', '<CR>', 'v:lua.MUtils.completion_confirm()', { expr = true, noremap = true })
+map('i', '<CR>', _G.MUtils.completion_confirm(), { expr = true })
 
 _G.MUtils.smart_pum_snip_fwd = function()
   if vim.fn.pumvisible() ~= 0 then

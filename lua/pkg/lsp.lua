@@ -19,26 +19,12 @@ local M = {
       }, { prefix = '<leader>' })
     end,
     config = function()
+      local map = vim.keymap.set
       -- Trouble 'global' (full workspace diagnostics)
-      vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n',
-        '<Leader>tl',
-        '<Cmd>TroubleToggle document_diagnostics<CR>',
-        { noremap = true, silent = true }
-      ) -- Trouble 'local' (only the current buffer)
-      vim.api.nvim_set_keymap(
-        'n',
-        '<Leader>tr',
-        '<Cmd>TroubleToggle lsp_references<CR>',
-        { noremap = true, silent = true }
-      ) -- Trouble references
-      vim.api.nvim_set_keymap(
-        'n',
-        '<Leader>td',
-        '<Cmd>TroubleToggle lsp_definitions<CR>',
-        { noremap = true, silent = true }
-      ) -- Trouble definitions
+      map('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>', { silent = true })
+      map('n', '<Leader>tl', '<Cmd>TroubleToggle document_diagnostics<CR>', { silent = true }) -- Trouble 'local' (only the current buffer)
+      map('n', '<Leader>tr', '<Cmd>TroubleToggle lsp_references<CR>', { silent = true }) -- Trouble references
+      map('n', '<Leader>td', '<Cmd>TroubleToggle lsp_definitions<CR>', { silent = true }) -- Trouble definitions
     end,
   },
   -- }}}
@@ -105,12 +91,8 @@ local M = {
       wk.register({ C = { 'Highlight captures' } }, { prefix = '<leader>' })
     end,
     config = function()
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>C',
-        '<Cmd>TSHighlightCapturesUnderCursor<CR>',
-        { silent = true, noremap = true }
-      )
+      local map = vim.keymap.set
+      map('n', '<leader>C', '<Cmd>TSHighlightCapturesUnderCursor<CR>', { silent = true })
     end,
     requires = 'nvim-treesitter',
   },

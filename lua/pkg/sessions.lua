@@ -31,7 +31,8 @@ local M = {
       } }, { prefix = '<leader>' })
     end,
     config = function()
-      vim.api.nvim_set_keymap('n', '<leader>u', '<Cmd>UndotreeToggle<CR>', { noremap = true, silent = true })
+      local map = vim.keymap.set
+      map('n', '<leader>u', '<Cmd>UndotreeToggle<CR>', { silent = true })
     end,
   },
   -- }}}
@@ -72,13 +73,11 @@ local M = {
         end,
         keys = '<leader>fl',
         config = function()
+          local map = vim.keymap.set
           require('session-lens').setup()
-          vim.api.nvim_set_keymap(
-            'n',
-            '<leader>fl',
-            "<Cmd>lua require('session-lens').search_session()<CR>",
-            { noremap = true, silent = true }
-          )
+          map('n', '<leader>fl', function()
+            return require('session-lens').search_session()
+          end, { silent = true })
         end,
       },
     },

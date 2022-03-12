@@ -13,10 +13,10 @@ capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilitie
 local servers = { 'texlab', 'bashls', 'ccls', 'rust_analyzer', 'vimls', 'julials', 'pyright' }
 for _, server in pairs(servers) do
   lspconfig[server].setup {
-    on_attach = function(client)
+    on_attach = function(client, bufnr)
       -- TODO: Add this to the LSPUtils default on_attach <03-03-22, kunzaatko> --
       lsp_status.on_attach(client)
-      _G.LSPUtils.on_attach(client)
+      _G.LSPUtils.on_attach(client, bufnr)
     end,
     -- FIX: Remove after 0.7... becomes the default <19-02-22, kunzaatko> --
     flags = { debounce_text_changes = 150 },
@@ -27,10 +27,10 @@ end
 if packer_plugins['lua-dev'].loaded == true then
   local luadev = require('lua-dev').setup {
     lspconfig = {
-      on_attach = function(client)
+      on_attach = function(client, bufnr)
         client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
-        _G.LSPUtils.on_attach()
+        _G.LSPUtils.on_attach(client, bufnr)
       end,
       cmd = { 'lua-language-server' },
       settings = {

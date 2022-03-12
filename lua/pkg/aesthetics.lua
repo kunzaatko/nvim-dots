@@ -75,6 +75,7 @@ local M = {
       wk.register({ z = { 'ZenMode' } }, { prefix = '<leader>' })
     end,
     config = function()
+      local map = vim.keymap.set
       require('zen-mode').setup {
         window = {
           width = 0.85,
@@ -86,12 +87,9 @@ local M = {
           gitsigns = { enabled = false },
         },
       }
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>z',
-        "<Cmd>lua require'zen-mode'.toggle()<Cr>",
-        { noremap = true, silent = true }
-      )
+      map('n', '<leader>z', function()
+        return require('zen-mode').toggle()
+      end, { silent = true })
     end,
   },
   -- }}}
@@ -160,6 +158,7 @@ local M = {
     as = 'bufferline',
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
+      local map = vim.keymap.set
       require('bufferline').setup {
         options = {
           numbers = function(opts)
@@ -177,15 +176,10 @@ local M = {
           end,
         },
       }
-      vim.api.nvim_set_keymap('n', '<leader>b', '<Cmd>BufferLinePick<CR>', { noremap = true, silent = true })
+      map('n', '<leader>b', '<Cmd>BufferLinePick<CR>', { silent = true })
       local keys = { '+', 'ě', 'š', 'č', 'ř', 'ž', 'ý', 'á', 'í' }
       for i = 1, 9 do
-        vim.api.nvim_set_keymap(
-          'n',
-          '<leader>' .. keys[i],
-          '<Cmd>BufferLineGoToBuffer ' .. tostring(i) .. '<CR>',
-          { noremap = true, silent = true }
-        )
+        map('n', '<leader>' .. keys[i], '<Cmd>BufferLineGoToBuffer ' .. tostring(i) .. '<CR>', { silent = true })
       end
     end,
   },

@@ -21,21 +21,12 @@ local M = {
       vim.g.UltiSnipsRemoveSelectModeMappings = 0 -- for using tab in nvim-cmp
     end,
     config = function()
+      local map = vim.keymap.set
       if vim.bo.filetype == 'tex' then
         vim.g.UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = _G.TEXUtils.get_tex_root():joinpath('snips').filename
       end
-      vim.api.nvim_set_keymap(
-        'x',
-        '<C-l>',
-        ':lua vim.call("UltiSnips#SaveLastVisualSelection")<CR>gvs',
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        's',
-        '<C-l>',
-        ':lua vim.call("UltiSnips#ExpandSnippet")<CR>',
-        { noremap = true, silent = true }
-      )
+      map('x', '<C-l>', ':lua vim.call("UltiSnips#SaveLastVisualSelection")<CR>gvs', { silent = true })
+      map('s', '<C-l>', ':lua vim.call("UltiSnips#ExpandSnippet")<CR>', { silent = true })
     end,
   },
   -- }}}
@@ -58,37 +49,23 @@ local M = {
       }, { prefix = '<leader>' })
     end,
     config = function()
+      local map = vim.keymap.set
       require('neogen').setup { enabled = true }
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>dd',
-        "<Cmd>lua require'neogen'.generate()<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>dc',
-        "<Cmd>lua require'neogen'.generate({ type = 'class' })<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>df',
-        "<Cmd>lua require'neogen'.generate({ type = 'func' })<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<leader>dt',
-        "<Cmd>lua require'neogen'.generate({ type = 'type' })<CR>",
-        { noremap = true, silent = true }
-      )
-      vim.api.nvim_set_keymap(
-        'n',
-        '<C-l>',
-        "<Cmd>lua require'neogen'.jump_next()<CR>",
-        { noremap = true, silent = true }
-      )
+      map('n', '<leader>dd', function()
+        return require('neogen').generate()
+      end, { silent = true })
+      map('n', '<leader>dc', function()
+        return require('neogen').generate { type = 'class' }
+      end, { silent = true })
+      map('n', '<leader>df', function()
+        return require('neogen').generate { type = 'func' }
+      end, { silent = true })
+      map('n', '<leader>dt', function()
+        return require('neogen').generate { type = 'type' }
+      end, { silent = true })
+      map('n', '<C-l>', function()
+        return require('neogen').jump_next()
+      end, { silent = true })
     end,
     requires = 'nvim-treesitter/nvim-treesitter',
   },
