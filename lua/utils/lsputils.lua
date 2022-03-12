@@ -17,10 +17,7 @@ _G.LSPUtils.on_attach = function(_, bufnr)
   map('n', 'g0', vim.lsp.buf.document_symbol, { silent = true, buffer = bufnr })
   map('n', 'gW', vim.lsp.buf.workspace_symbol, { silent = true, buffer = bufnr })
   map('n', 'gd', vim.lsp.buf.declaration, { silent = true, buffer = bufnr })
-  map('n', 'ga', function()
-    return require('telescope.builtin').lsp_code_actions()
-  end, { silent = true, buffer = bufnr })
-
+  map('n', 'ga', vim.lsp.buf.code_action, { silent = true, buffer = bufnr })
   -- Goto previous/next diagnostic warning/error
   map('n', 'g[', vim.diagnostic.goto_prev, { silent = true, buffer = bufnr })
   map('n', 'g]', vim.diagnostic.goto_next, { silent = true, buffer = bufnr })

@@ -116,9 +116,6 @@ local M = {
         -- FIX: This is not working <02-03-22, kunzaatko> --
         ignore = { 'null-ls' },
         sign = { enabled = true, priority = 10 },
-        float = { enabled = true, text = ' ' },
-        virtual_text = { enabled = true, text = ' ', hl_mode = 'replace' },
-        status_text = { enabled = true, text = ' ', text_unavailable = '' },
       }
       vim.fn.sign_define('LightBulbSign', { text = ' ', texthl = 'DiagnosticInfo' }) -- 
       -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --

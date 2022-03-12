@@ -3,14 +3,30 @@ local cmd = vim.cmd
 -- Used for swapfiles and the CursorHold event (autocommands for the LSP)
 vim.opt.updatetime = 300
 
--- Enable diagnostics
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config {
   virtual_text = {
     prefix = '● ', -- '■', '▎', 'x'
   },
+  severity_sort = true,
   signs = true,
   underline = true,
   update_in_insert = false,
+  float = {
+    focusable = false,
+    style = 'minimal',
+    border = 'rounded',
+    source = 'always',
+    header = '',
+    prefix = '',
+  },
+}
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = 'rounded',
+})
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = 'rounded',
 })
 
 -- diagnostic signs in the sign column
