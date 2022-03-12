@@ -47,6 +47,9 @@ local t = function(str)
 end
 
 cmp.setup {
+  experimental = {
+    ghost_text = true,
+  },
   snippet = {
     expand = function(args)
       vim.fn['UltiSnips#Anon'](args.body)
