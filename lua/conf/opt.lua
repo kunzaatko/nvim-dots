@@ -100,7 +100,7 @@ opt.cursorlineopt = 'number'
 opt.foldcolumn = 'auto:4'
 
 -->> see the signcolumn always and not just on diagnostics or when there is a gitsign
-opt.signcolumn = 'auto:1-9'
+opt.signcolumn = 'auto:2-9'
 
 -->> set rg as the back-end for :grep command
 if vim.fn.executable 'rg' == 1 then
