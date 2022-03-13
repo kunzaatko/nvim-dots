@@ -1,3 +1,4 @@
+local utils = require 'pkg.utils'
 local M = {
   -- TODO: Better with 'dashboard.nvim' plugin? <16-01-22, kunzaatko> --
   -- 'mhinz/vim-startify'-- launch page{{{
@@ -14,7 +15,7 @@ local M = {
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
-    keys = { 'n', '<leader>u' },
+    keys = utils.get_keys('n', '<leader>u'),
     setup = function()
       vim.g.undotree_WindowLayout = 2 -- layout with diff at the bottom
       vim.g.undotree_DiffpanelHeight = 7 -- most of the time only one line changes
@@ -71,7 +72,7 @@ local M = {
           local wk = require 'which-key'
           wk.register({ fl = { 'Load session' } }, { prefix = '<leader>' })
         end,
-        keys = { 'n', '<leader>fl' },
+        keys = utils.get_keys('n', '<leader>fl'),
         config = function()
           local map = vim.keymap.set
           require('session-lens').setup()

@@ -1,10 +1,11 @@
+local utils = require 'pkg.utils'
 local M = {
   -- TODO: Make Julia persistent REPL implementation <16-01-22, kunzaatko> --
   -- akinsho/toggleterm.nvim -- toggle the terminal but persist the session{{{
   {
     'akinsho/toggleterm.nvim',
     as = 'toggleterm',
-    keys = { 'n', '<C-p>' },
+    keys = utils.get_keys('n', '<C-p>'),
     config = function()
       local map = vim.keymap.set
       _G.MUtils = _G.MUtils or {}

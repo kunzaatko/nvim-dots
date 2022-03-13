@@ -1,3 +1,4 @@
+local utils = require 'pkg.utils'
 local M = {
   -- TODO: Highlight in popupdocs of LSP <16-01-22, kunzaatko> --
   -- 'norcalli/nvim-colorizer.lua' -- colours visualizer {{{
@@ -69,7 +70,7 @@ local M = {
     'folke/zen-mode.nvim',
     as = 'zen_mode',
     cmd = { 'ZenMode' },
-    keys = '<leader>z',
+    keys = utils.get_keys('n', '<leader>z'),
     setup = function()
       local wk = require 'which-key'
       wk.register({ z = { 'ZenMode' } }, { prefix = '<leader>' })
@@ -117,7 +118,6 @@ local M = {
   {
     'folke/todo-comments.nvim',
     as = 'todo_comments',
-    keys = { 'n', '<leader>T' },
     requires = 'nvim-lua/plenary.nvim',
     config = function()
       local map = vim.keymap.set
