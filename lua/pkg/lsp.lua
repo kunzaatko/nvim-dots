@@ -21,14 +21,30 @@ local M = {
     config = function()
       local map = vim.keymap.set
       -- Trouble 'global' (full workspace diagnostics)
-      map('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>', { silent = true })
-      map('n', '<Leader>tl', '<Cmd>TroubleToggle document_diagnostics<CR>', { silent = true }) -- Trouble 'local' (only the current buffer)
-      map('n', '<Leader>tr', '<Cmd>TroubleToggle lsp_references<CR>', { silent = true }) -- Trouble references
-      map('n', '<Leader>td', '<Cmd>TroubleToggle lsp_definitions<CR>', { silent = true }) -- Trouble definitions
+      map('n', '<Leader>tt', '<Cmd>TroubleToggle<CR>', { silent = true, desc = 'toggle Trouble listing' })
+      map(
+        'n',
+        '<Leader>tl',
+        '<Cmd>TroubleToggle document_diagnostics<CR>',
+        { silent = true, desc = 'toggle Trouble diagnostics listing' }
+      ) -- Trouble 'local' (only the current buffer)
+      map(
+        'n',
+        '<Leader>tr',
+        '<Cmd>TroubleToggle lsp_references<CR>',
+        { silent = true, desc = 'toggle Trouble LSP-references listing' }
+      ) -- Trouble references
+      map(
+        'n',
+        '<Leader>td',
+        '<Cmd>TroubleToggle lsp_definitions<CR>',
+        { silent = true, desc = 'toggle Trouble LSP-definitions listing' }
+      ) -- Trouble definitions
     end,
   },
   -- }}}
 
+  -- TODO: Consider fuzzy-path source and add path source into normal insert mode <12-03-22, kunzaatko> --
   -- TODO: Show snippets first in sorted <16-01-22, kunzaatko> --
   -- TODO: Better colours in menu <16-01-22, kunzaatko> --
   -- 'hrsh7th/nvim-cmp' -- completion engine {{{
@@ -40,6 +56,7 @@ local M = {
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-cmdline' },
       { 'quangnguyen30192/cmp-nvim-ultisnips', after = 'cmp' },
+      { 'saadparwaiz1/cmp_luasnip' },
       { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
       { 'kdheepak/cmp-latex-symbols' },
       { 'lukas-reineke/cmp-rg' },
@@ -79,7 +96,12 @@ local M = {
     end,
     config = function()
       local map = vim.keymap.set
-      map('n', '<leader>C', '<Cmd>TSHighlightCapturesUnderCursor<CR>', { silent = true })
+      map(
+        'n',
+        '<leader>C',
+        '<Cmd>TSHighlightCapturesUnderCursor<CR>',
+        { silent = true, desc = 'show highlight capture under cursor' }
+      )
     end,
     requires = 'nvim-treesitter',
   },

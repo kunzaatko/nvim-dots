@@ -90,7 +90,7 @@ local M = {
       }
       map('n', '<leader>z', function()
         return require('zen-mode').toggle()
-      end, { silent = true })
+      end, { silent = true, desc = 'toggle Zen-mode' })
     end,
   },
   -- }}}
@@ -136,7 +136,7 @@ local M = {
           NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },
         },
       }
-      map('n', '<leader>T', '<Cmd>TodoTrouble<CR>', { silent = true })
+      map('n', '<leader>T', '<Cmd>TodoTrouble<CR>', { silent = true, desc = 'toggle Todo-comments listing' })
     end,
   },
   -- }}}
@@ -205,10 +205,15 @@ local M = {
           end,
         },
       }
-      map('n', '<leader>b', '<Cmd>BufferLinePick<CR>', { silent = true })
+      map('n', '<leader>b', '<Cmd>BufferLinePick<CR>', { silent = true, desc = 'pick a buffer' })
       local keys = { '+', 'ě', 'š', 'č', 'ř', 'ž', 'ý', 'á', 'í' }
-      for i = 1, 9 do
-        map('n', '<leader>' .. keys[i], '<Cmd>BufferLineGoToBuffer ' .. tostring(i) .. '<CR>', { silent = true })
+      for i, k in ipairs(keys) do
+        map(
+          'n',
+          '<leader>' .. k,
+          '<Cmd>BufferLineGoToBuffer ' .. tostring(i) .. '<CR>',
+          { silent = true, desc = 'go to buffer ' .. tostring(i) }
+        )
       end
     end,
   },

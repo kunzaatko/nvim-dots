@@ -15,7 +15,7 @@ local M = {
       }, {})
 
       _G.MUtils.set_terminal_keymaps = function()
-        map('t', '<C-w>', [[<C-\><C-n><C-W><C-W>]], { buffer = 0 })
+        map('t', '<C-w>', [[<C-\><C-n><C-W><C-W>]], { buffer = 0, desc = 'exit terminal window' })
       end
 
       -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --

@@ -53,19 +53,19 @@ local M = {
       require('neogen').setup { enabled = true }
       map('n', '<leader>dd', function()
         return require('neogen').generate()
-      end, { silent = true })
+      end, { silent = true, desc = 'generate doc' })
       map('n', '<leader>dc', function()
         return require('neogen').generate { type = 'class' }
-      end, { silent = true })
+      end, { silent = true, desc = 'generate class doc' })
       map('n', '<leader>df', function()
         return require('neogen').generate { type = 'func' }
-      end, { silent = true })
+      end, { silent = true, desc = 'generate function doc' })
       map('n', '<leader>dt', function()
         return require('neogen').generate { type = 'type' }
-      end, { silent = true })
+      end, { silent = true, desc = 'generate type doc' })
       map('n', '<C-l>', function()
         return require('neogen').jump_next()
-      end, { silent = true })
+      end, { silent = true, desc = 'jump to next documentation tabstop' })
     end,
     requires = 'nvim-treesitter/nvim-treesitter',
   },

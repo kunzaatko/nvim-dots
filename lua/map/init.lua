@@ -14,13 +14,13 @@ vim.g.maplocalleader = '-' -- leader for buffer local mapping
 
 -- leader mappings --
 
-map('n', '<leader>w', ':write<CR>', { silent = true })
-map('n', '<leader>q', ':quit<CR>', { silent = true })
-map('n', '<leader>wq', ':xit<CR>', { silent = true })
-map('n', '<leader>Q', ':qall<CR>', { silent = true })
-map('n', '<leader>wQ', ':xall<CR>', { silent = true })
-map('n', '<leader>s', ':%s/')
-map('n', '<leader>S', ':%s/\\v')
+map('n', '<leader>w', ':write<CR>', { silent = true, desc = 'write buffer' })
+map('n', '<leader>q', ':quit<CR>', { silent = true, desc = 'quit window' })
+map('n', '<leader>wq', ':xit<CR>', { silent = true, desc = 'write and quit' })
+map('n', '<leader>Q', ':qall<CR>', { silent = true, desc = 'exit' })
+map('n', '<leader>wQ', ':xall<CR>', { silent = true, desc = 'write all and exit' })
+map('n', '<leader>s', ':%s/', { desc = 'substitute' })
+map('n', '<leader>S', ':%s/\\v', { desc = 'substitute with verymagic' })
 -- map('n', '<leader><leader>', '/', { noremap = true })
 
 -- TODO: Make this a lua function when it is possible <20-02-22, kunzaatko> --
@@ -31,29 +31,29 @@ map('n', '<leader>S', ':%s/\\v')
 --   vim.notify(selection)
 --   vim.cmd('/' .. selection)
 -- end
-map('v', '<leader><leader>', '"by/<C-R>b')
-map('n', ',,', ':')
 
---  normal  --
+-- TODO: Do this using Telescope <13-03-22, kunzaatko> --
+map('v', '<leader><leader>', '"by/<C-R>b', { desc = 'search VISUAL selection' })
+map('n', ',,', ':', { desc = 'command line' })
 
-map('n', '<CR>', _G.MUtils.append_blank_lines, { silent = true }) -- N<CR> to append N blank lines below cursor
-map('n', 'Y', 'y$') -- Y to act as D and C
-map('n', 'p', 'p`]', { silent = true }) -- go to end of pasted text
+-- N<CR> to append N blank lines below cursor
+map('n', '<CR>', _G.MUtils.append_blank_lines, { silent = true, desc = 'append bland lines' })
+map('n', 'Y', 'y$', { desc = 'yank to <EOL>' }) -- Y to act as D and C
+map({ 'n', 'v' }, 'p', 'p`]', { silent = true, desc = 'paste and go to end of pasted' }) -- go to end of pasted text
 
--- visual --
-
-map('v', '>>', '>><Esc>gv') -- reselect after >>
-map('v', '<<', '<<<Esc>gv') -- reselect after <<
-map('v', 'y', 'y`]', { silent = true }) -- go to end of yanked text
-map('v', 'p', 'p`]', { silent = true }) -- go to end of pasted text
-map('v', '<leader>s', ':s/')
-map('v', '<leader>S', ':s/\\v')
+map('v', '>>', '>><Esc>gv', { desc = 'indent and reselect' }) -- reselect after >>
+map('v', '<<', '<<<Esc>gv', { desc = 'dedent and reselect' }) -- reselect after <<
+map('v', 'y', 'y`]', { silent = true, desc = 'yank and go to end of yanked' }) -- go to end of yanked text
+map('v', '<leader>s', ':s/', { desc = 'substitute in VISUAL' })
+map('v', '<leader>S', ':s/\\v', { desc = 'substitute in VISUAL with verymagic' })
 
 -- command --
 
-map('c', 'w!!', _G.MUtils.save_root) -- writing read-only files
-map('c', 'vsb', 'vert sbuffer') -- vertical split buffer
+-- ISSUE: This does not work. Look at tpopes plugin, how it is achieved. <13-03-22, kunzaatko> --
+map('c', 'w!!', _G.MUtils.save_root, { desc = 'write as root' }) -- writing read-only files
+map('c', 'vsb', 'vert sbuffer', { desc = 'vertical split buffer' }) -- vertical split buffer
 
+-- TODO: Add autoregister, when the autoregistering is possible with whichkey <13-03-22, kunzaatko> --
 local wk = require 'which-key'
 wk.register {
   ['<leader>w'] = { 'Write' },

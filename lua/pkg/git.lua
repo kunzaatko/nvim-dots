@@ -70,7 +70,7 @@ local M = {
   {
     'TimUntersberger/neogit',
     cmd = 'Neogit',
-    keys = utils.get_keys('n', { { '<leader>g' }, { 'g', 'c' } }),
+    keys = utils.get_multi_keys { { 'n', { { '<leader>g' }, { 'g', 'c' } } }, { 'n', '<leader>G' } },
     requires = diffview_spec,
     setup = function()
       local wk = require 'which-key'
@@ -100,10 +100,13 @@ local M = {
       -- TODO: Do this with which-key <03-03-22, kunzaatko> --
       map('n', '<leader>gg', function()
         return require('neogit').open()
-      end, { silent = true })
+      end, { silent = true, desc = 'open Neogit' })
+      map('n', '<leader>G', function()
+        return require('neogit').open()
+      end, { silent = true, desc = 'open Neogit' })
       map('n', '<leader>gc', function()
         return require('neogit').open { 'commit' }
-      end, { silent = true })
+      end, { silent = true, desc = 'open Neogit commit split' })
     end,
   },
   -- }}}
@@ -156,28 +159,28 @@ local M = {
           end
 
           -- Navigation
-          map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-          map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+          map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true, desc = 'go to next hunk' })
+          map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true, desc = 'go to prev hunk' })
 
           -- Actions
-          map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-          map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-          map('n', '<leader>hS', gs.stage_buffer)
-          map('n', '<leader>hu', gs.undo_stage_hunk)
-          map('n', '<leader>hR', gs.reset_buffer)
-          map('n', '<leader>hp', gs.preview_hunk)
+          map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>', { desc = 'stage hunk' })
+          map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>', { desc = 'reset hunk' })
+          map('n', '<leader>hS', gs.stage_buffer, { desc = 'stage buffer' })
+          map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'undo hunk staging' })
+          map('n', '<leader>hR', gs.reset_buffer, { desc = 'reset buffer' })
+          map('n', '<leader>hp', gs.preview_hunk, { desc = 'preview hunk' })
           map('n', '<leader>hb', function()
             gs.blame_line { full = true }
-          end)
-          map('n', '<leader>tb', gs.toggle_current_line_blame)
-          map('n', '<leader>hd', gs.diffthis)
+          end, { desc = 'blame line' })
+          map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle blame current line' })
+          map('n', '<leader>hd', gs.diffthis, { desc = 'diff of line' })
           map('n', '<leader>hD', function()
             gs.diffthis '~'
           end)
-          map('n', '<leader>td', gs.toggle_deleted)
+          map('n', '<leader>td', gs.toggle_deleted, { desc = 'toggle deleted' })
 
           -- Text object
-          map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'inside hunk' })
         end,
       }
     end,
@@ -224,11 +227,11 @@ local M = {
         timeline_marker = ' ',
       }
       -- TODO: Set through which-key <12-03-22, kunzaatko> --
-      map('n', '<leader>oil', '<Cmd>Octo issue list<CR>', { silent = true })
-      map('n', '<leader>oic', '<Cmd>Octo issue create<CR>', { silent = true })
-      map('n', '<leader>orl', '<Cmd>Octo repo list<CR>', { silent = true })
-      map('n', '<leader>opl', '<Cmd>Octo pr list<CR>', { silent = true })
-      map('n', '<leader>opc', '<Cmd>Octo pr create<CR>', { silent = true })
+      map('n', '<leader>oil', '<Cmd>Octo issue list<CR>', { silent = true, desc = 'list issues' })
+      map('n', '<leader>oic', '<Cmd>Octo issue create<CR>', { silent = true, desc = 'create issue' })
+      map('n', '<leader>orl', '<Cmd>Octo repo list<CR>', { silent = true, desc = 'list repositories' })
+      map('n', '<leader>opl', '<Cmd>Octo pr list<CR>', { silent = true, desc = 'list pull-requests' })
+      map('n', '<leader>opc', '<Cmd>Octo pr create<CR>', { silent = true, desc = 'create pull-request' })
     end,
     requires = { 'nvim-telescope/telescope.nvim', 'kyazdani42/nvim-web-devicons' },
   },

@@ -79,7 +79,7 @@ local M = {
         require('telescope').load_extension 'notify'
       end
 
-      map('n', '<leader>fs', require('telescope.builtin').spell_suggest, { silent = true })
+      map('n', '<leader>fs', require('telescope.builtin').spell_suggest, { silent = true, desc = 'suggest spelling' })
 
       _G.MUtils.git_files_or_find_files = function(opts)
         opts = opts or {}
@@ -88,28 +88,28 @@ local M = {
           require('telescope.builtin').find_files(opts)
         end
       end
-      map('n', '<leader>fw', _G.MUtils.git_files_or_find_files, { silent = true })
+      map('n', '<leader>fw', _G.MUtils.git_files_or_find_files, { silent = true, desc = 'workspace files' })
       map('n', '<leader>fF', function()
         return require('telescope.builtin').find_files()
-      end, { silent = true })
+      end, { silent = true, desc = 'find files' })
       map('n', '<leader>fg', function()
         return require('telescope.builtin').live_grep()
-      end, { silent = true })
+      end, { silent = true, desc = 'grep workspace lines' })
       map('n', '<leader>fb', function()
         return require('telescope.builtin').buffers()
-      end, { silent = true })
+      end, { silent = true, desc = 'select buffer' })
       map('n', '<leader>fh', function()
         return require('telescope.builtin').help_tags()
-      end, { silent = true })
+      end, { silent = true, desc = 'help tags' })
       map('n', '<leader>ff', function()
         return require('telescope.builtin').builtin()
-      end, { silent = true })
+      end, { silent = true, desc = 'select picker' })
       map('n', '<leader>fk', function()
         return require('telescope.builtin').keymaps()
-      end, { silent = true })
+      end, { silent = true, desc = 'list keymaps' })
       map('n', '<leader><leader>', function()
         return require('telescope.builtin').current_buffer_fuzzy_find()
-      end, { silent = true })
+      end, { silent = true, desc = 'fuzzy-find in buffer' })
     end,
   },
   -- }}}

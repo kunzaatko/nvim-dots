@@ -33,7 +33,7 @@ local M = {
     end,
     config = function()
       local map = vim.keymap.set
-      map('n', '<leader>u', '<Cmd>UndotreeToggle<CR>', { silent = true })
+      map('n', '<leader>u', '<Cmd>UndotreeToggle<CR>', { silent = true, desc = 'toggle UndoTree' })
     end,
   },
   -- }}}
@@ -78,7 +78,7 @@ local M = {
           require('session-lens').setup()
           map('n', '<leader>fl', function()
             return require('session-lens').search_session()
-          end, { silent = true })
+          end, { silent = true, desc = 'list sessions' })
         end,
       },
     },
