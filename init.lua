@@ -28,6 +28,9 @@ require 'conf'
 --  Mappings  --
 require 'map'
 
+-- Utils --
+require 'utils'
+
 cmd [[
   command! Sync lua require('pkg.utils').packer_install()
 ]]
