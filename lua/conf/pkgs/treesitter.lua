@@ -29,7 +29,7 @@ require('nvim-treesitter.configs').setup {
     'vim',
     'yaml',
   },
-  highlight = { enable = true, disable = { 'tex' } },
+  highlight = { enable = true, disable = { 'latex' } },
   indent = { enable = true },
   playground = {
     enable = true,
