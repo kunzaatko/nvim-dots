@@ -36,6 +36,22 @@ opt.shortmess:append 'c'
 -->> Maximum menu height
 opt.pumheight = 15
 
+-- TODO: Figure out how to change the height to 1 only when entering a command
+-- opt.cmdheight = 0
+-- vim.api.nvim_create_augroup('CmdlineHide', {})
+-- vim.api.nvim_create_autocmd('CmdlineEnter', {
+--   group = 'CmdlineHide',
+--   callback = function()
+--     opt.cmdheight = 1
+--   end,
+-- })
+-- vim.api.nvim_create_autocmd('CmdlineLeave', {
+--   group = 'CmdlineHide',
+--   callback = function()
+--     opt.cmdheight = 0
+--   end,
+-- })
+
 -->> Do not show the mode in the command line
 opt.showmode = false
 
@@ -61,13 +77,18 @@ opt.sessionoptions:append 'winpos,terminal'
 
 -->> preferred directions on window splitting
 opt.splitbelow, opt.splitright = true, true
+-- TODO: This could be removed when stabilized <kunzaatko>
+if vim.version().minor >= 9 then
+  opt.splitkeep = 'screen'
+end
 
 -->> remaps in normal mode (compensation for Czech keyboard locale)
 opt.langmap = { 'ě2', 'š3', 'č4', 'ř5', 'ž6', 'ý7', 'á8', 'í9' }
 
 -->> spelling languages and spell off. Camel indicates that in CamelCased  words,
 -- the upper letter is used as space delimiter.
-opt.spell = false
+opt.spell = true
+opt.runtimepath:append '/usr/share/vim/vimfiles/'
 opt.spelllang = { 'cs', 'en_gb' }
 opt.spelloptions = 'camel'
 

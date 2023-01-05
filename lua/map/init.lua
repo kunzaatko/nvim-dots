@@ -2,8 +2,7 @@
 -- TODO: Add vsb command abbreviation for :vert sb <16-01-22, kunzaatko> --
 -- TODO: Command for buffer tab (does it exist?). Same as `:sb` but `:tb` for tabnew <16-01-22, kunzaatko> --
 local map = vim.keymap.set
--- local cmd = vim.cmd
-require 'utils.mutils'
+local utils = require 'map.utils'
 
 -- leaders --
 
@@ -36,8 +35,17 @@ map('n', '<leader>S', ':%s/\\v', { desc = 'substitute with verymagic' })
 map('v', '<leader><leader>', '"by/<C-R>b', { desc = 'search VISUAL selection' })
 map('n', ',,', ':', { desc = 'command line' })
 
--- N<CR> to append N blank lines below cursor
-map('n', '<CR>', _G.MUtils.append_blank_lines, { silent = true, desc = 'append bland lines' })
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group = vim.api.nvim_create_augroup('BufferModifiableMappings', {}),
+  desc = 'Keymaps that are only applicable when the buffer is modifiable',
+  callback = function()
+    if vim.bo.modifiable == true then
+      -- N<CR> to append N blank lines below cursor
+      map('n', '<CR>', utils.append_blank_lines, { silent = true, desc = 'append bland lines', buffer = true })
+    end
+  end,
+})
+
 map('n', 'Y', 'y$', { desc = 'yank to <EOL>' }) -- Y to act as D and C
 map({ 'n', 'v' }, 'p', 'p`]', { silent = true, desc = 'paste and go to end of pasted' }) -- go to end of pasted text
 
@@ -50,7 +58,7 @@ map('v', '<leader>S', ':s/\\v', { desc = 'substitute in VISUAL with verymagic' }
 -- command --
 
 -- ISSUE: This does not work. Look at tpopes plugin, how it is achieved. <13-03-22, kunzaatko> --
-map('c', 'w!!', _G.MUtils.save_root, { desc = 'write as root' }) -- writing read-only files
+map('c', 'w!!', utils.save_root, { desc = 'write as root' }) -- writing read-only files
 map('c', 'vsb', 'vert sbuffer', { desc = 'vertical split buffer' }) -- vertical split buffer
 
 -- TODO: Add autoregister, when the autoregistering is possible with whichkey <13-03-22, kunzaatko> --

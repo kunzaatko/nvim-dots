@@ -1,5 +1,27 @@
 local utils = require 'pkg.utils'
 local M = {
+  -- TODO: Add `nvim-window-picker` and `nvim-navic` <26-10-22>
+
+  -- 'williamboman/mason.nvim' -- for installing LSPs, linters, formatters and other external
+  -- applications {{{
+  {
+    'williamboman/mason.nvim',
+    config = function()
+      require('mason').setup {}
+    end,
+  },
+  -- }}}
+
+  -- 'williamboman/mason.nvim' -- for bridges mason and lspconfig to make them work together
+  -- correctly {{{
+  {
+    'williamboman/mason-lspconfig.nvim',
+    config = function()
+      require('mason-lspconfig').setup {}
+    end,
+  },
+  -- }}}
+
   -- 'folke/trouble.nvim' -- diagnostics and quickfix-list {{{
   {
     'folke/trouble.nvim',
@@ -45,7 +67,6 @@ local M = {
   -- }}}
 
   -- TODO: Consider fuzzy-path source and add path source into normal insert mode <12-03-22, kunzaatko> --
-  -- TODO: Show snippets first in sorted <16-01-22, kunzaatko> --
   -- TODO: Better colours in menu <16-01-22, kunzaatko> --
   -- 'hrsh7th/nvim-cmp' -- completion engine {{{
   {
@@ -54,8 +75,9 @@ local M = {
     requires = {
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-path' },
+      { 'onsails/lspkind.nvim' },
       { 'hrsh7th/cmp-cmdline' },
-      { 'quangnguyen30192/cmp-nvim-ultisnips', after = 'cmp' },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
       { 'saadparwaiz1/cmp_luasnip' },
       { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
       { 'kdheepak/cmp-latex-symbols' },
@@ -75,15 +97,37 @@ local M = {
   {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    -- event = 'BufEnter',
+    module = 'nvim-treesitter',
+    -- cmd = {
+    --   'TSInstall',
+    --   'TSInstallInfo',
+    --   'TSInstallSync',
+    --   'TSUninstall',
+    --   'TSUpdate',
+    --   'TSUpdateSync',
+    --   'TSDisableAll',
+    --   'TSEnableAll',
+    -- },
     config = function()
-      require 'conf.pkgs.treesitter'
+      require 'configs.treesitter'
     end,
   },
+  -- }}}
+
+  -- TODO: Configure <kunzaatko martinkunz@email.cz>
+  -- 'mfussenegger/nvim-dap' -- debugger adapter protocol client {{{
+  { 'mfussenegger/nvim-dap' },
+  -- }}}
+
+  -- 'github/copilot.vim' -- AI for coding generation {{{
+  { 'github/copilot.vim' },
   -- }}}
 
   -- navigation objects from treesitter
   { 'nvim-treesitter/nvim-treesitter-textobjects', requires = 'nvim-treesitter' },
 
+  -- TODO: consider using this in other filetypes than LaTeX <15-03-22, kunzaatko> --
   -- colour paired delimiters
   { 'p00f/nvim-ts-rainbow', requires = 'nvim-treesitter' },
 
@@ -107,26 +151,6 @@ local M = {
   },
   -- }}}
 
-  -- TODO: Is this needed anymore? <16-01-22, kunzaatko> --
-  -- 'nvim-lua/lsp_extensions' -- rust type annotations {{{
-  {
-    'nvim-lua/lsp_extensions.nvim',
-    ft = 'rust',
-    config = function()
-      require('lsp_extensions').inlay_hints()
-      -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
-      --luacheck: no max line length
-      vim.cmd [[
-                augroup RustTypeHints
-                    autocmd!
-                    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
-                augroup END
-        ]]
-      --luacheck: max line length 120
-    end,
-  },
-  -- }}}
-
   -- TODO: Do not show if it is only gitsigns code action (it is everywhere) (null-ls blame-line)
   -- <16-01-22, kunzaatko> --
   -- 'kosayoda/nvim-lightbulb' -- code action discovery {{{
@@ -134,32 +158,33 @@ local M = {
     'kosayoda/nvim-lightbulb',
     config = function()
       require('nvim-lightbulb').setup {
-        -- FIX: Only want to ignore the `gitsigns` <02-03-22, kunzaatko> --
-        -- FIX: This is not working <02-03-22, kunzaatko> --
-        ignore = { 'null-ls' },
         sign = { enabled = true, priority = 10 },
       }
       vim.fn.sign_define('LightBulbSign', { text = ' ', texthl = 'DiagnosticInfo' }) -- 
-      -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
-      --luacheck: no max line length
-      vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb({ignore = {"null-ls"}})]]
-      --luacheck: max line length 120
+      vim.api.nvim_create_autocmd({ 'CursorHoldI', 'CursorHold' }, {
+        pattern = '*',
+        desc = 'Show lightbulb the line',
+        callback = function()
+          -- TODO: Only want to ignore the `gitsigns` <02-03-22, kunzaatko> --
+          require('nvim-lightbulb').update_lightbulb { ignore = { 'null-ls' } }
+        end,
+        group = vim.api.nvim_create_augroup('NvimLightbulb', {}),
+      })
     end,
   },
   -- }}}
+
+  { 'ray-x/lsp_signature.nvim' },
 
   -- development environment for lua and nvim
-  { 'folke/lua-dev.nvim', as = 'lua-dev' },
+  { 'folke/neodev.nvim', as = 'neodev' },
 
-  -- 'lewis6991/spellsitter.nvim' -- use the inbuilt neovim spellchecker with treesitter {{{
-  {
-    'lewis6991/spellsitter.nvim',
-    config = function()
-      require('spellsitter').setup { spellchecker = 'vimfn' }
-    end,
-  },
-  -- }}}
+  -- Scratchpad/REPL for lua in nvim
+  { 'rafcamlet/nvim-luapad', requires = 'antoinemadec/FixCursorHold.nvim' },
 
+  -- TODO: Use plugin lukas-reineke / lsp-format.nvim instead <kunzaatko martinkunz@email.cz>
+  -- TODO: Add configuration files for different sources, and disable the diagnostics and features
+  -- that are duplicated across many sources --
   -- 'jose-elias-alvarez/null-ls.nvim' -- for attaching command line utilities to nvim LSP client api {{{
   {
     'jose-elias-alvarez/null-ls.nvim',
@@ -172,23 +197,32 @@ local M = {
           null_ls.builtins.formatting.clang_format, -- C
           null_ls.builtins.formatting.fish_indent,
           null_ls.builtins.formatting.prettier,
-          null_ls.builtins.diagnostics.chktex,
+          -- null_ls.builtins.diagnostics.chktex,
           null_ls.builtins.formatting.yapf, -- Python
-          null_ls.builtins.formatting.rustfmt,
+          -- null_ls.builtins.formatting.rustfmt,
           null_ls.builtins.diagnostics.vale,
-          null_ls.builtins.formatting.stylua.with {
-            extra_args = { '--config-path', vim.fn.expand '~/.config/stylua.toml' },
-          },
+          null_ls.builtins.formatting.stylua,
+          -- null_ls.builtins.formatting.stylua.with {
+          --   extra_args = { '--config-path', vim.fn.expand '~/.config/stylua.toml' },
+          -- },
           null_ls.builtins.formatting.taplo, -- TOML
           null_ls.builtins.formatting.reorder_python_imports,
           null_ls.builtins.diagnostics.mypy,
           null_ls.builtins.formatting.shellharden,
           null_ls.builtins.formatting.shfmt,
           null_ls.builtins.diagnostics.cppcheck,
+          -- TODO: Add custom configuration file <22-08-22, kunzaatko>
+          -- null_ls.builtins.diagnostics.commitlint.with {
+          --   extra_args = { '--config', '~/.config/commitlint/config/index.js' },
+          -- },
           null_ls.builtins.diagnostics.luacheck,
-          null_ls.builtins.diagnostics.markdownlint,
+          null_ls.builtins.diagnostics.fish,
+          -- null_ls.builtins.diagnostics.markdownlint,
           null_ls.builtins.diagnostics.misspell,
-          -- null_ls.builtins.diagnostics.proselint,
+          -- TODO: Generate standard library for selene for neovim <22-08-22>
+          -- null_ls.builtins.diagnostics.selene,
+
+          null_ls.builtins.diagnostics.proselint,
           null_ls.builtins.diagnostics.pylint,
           null_ls.builtins.diagnostics.shellcheck,
           null_ls.builtins.diagnostics.stylelint,
@@ -203,12 +237,15 @@ local M = {
       -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
       -- FIX: Julia bug julia-vscode/julia-vscode#2526 crashes the server -> Julia cannot be
       -- autoformatted <19-02-22, kunzaatko> --
-      vim.cmd [[
-            augroup FormatAutogroup
-                autocmd!
-                autocmd! BufWritePre *.rs,*.lua,*.py,*.toml,*.tex,*.fish lua vim.lsp.buf.formatting_sync()
-            augroup END
-                ]]
+      vim.api.nvim_create_augroup('FormatOnSave', {})
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = { '*.lua', '*.py', '*.toml', '*.fish' },
+        desc = 'Format filetypes of save',
+        group = 'FormatOnSave',
+        callback = function()
+          vim.lsp.buf.format { async = false, name = 'null-ls' }
+        end,
+      })
     end,
     requires = { 'nvim-lua/plenary.nvim' },
   },

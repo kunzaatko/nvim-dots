@@ -1,4 +1,4 @@
-local utils = require 'pkg.utils'
+-- local utils = require 'pkg.utils'
 
 local M = {
   { 'godlygeek/tabular', cmd = 'Tabularize' },
@@ -31,19 +31,26 @@ local M = {
   {
     'numToStr/Comment.nvim',
     as = 'Comment',
-    keys = utils.get_multi_keys {
-      { 'n', { { 'gc' }, { '', 'c', 'o', 'O', 'A' } } },
-      { 'n', { { 'gb' }, { '', 'c' } } },
-      { 'n', { { 'g' }, { '>', '<', '<c', '<b', '>c', '>b' } } },
-      { 'v', { { 'g' }, { '>', '<', 'c', 'b' } } },
-    },
+    -- keys = utils.get_multi_keys {
+    --   { 'v', { { 'g' }, { 'b', 'c' } } },
+    --   { 'n', { { 'gc' }, { '', 'c', 'o', 'O', 'A' } } },
+    --   { 'n', { { 'gb' }, { '', 'c' } } },
+    -- },
     config = function()
-      require('Comment').setup { mappings = { extended = true } }
+      require('Comment').setup {}
     end,
   },
   -- }}}
 
-  -- TODO: Do this in lua <16-01-22, kunzaatko> --
+  -- TODO: Add conditional loading for the languages necessary with packer `ft` <kunzaatko>
+  -- 'eraserhd/parinfer-rust' - for indentation and brackets with LISPlike languages {{{
+  {
+    'eraserhd/parinfer-rust',
+    run = 'cargo build --release',
+  },
+  -- }}}
+
+  -- TODO: Do this using LuaSnips as abbreviations in the file of abbreviations <11-07-22, kunzaatko>
   -- 'tpope/vim-abolish' -- abbreviations {{{
   {
     'tpope/vim-abolish',

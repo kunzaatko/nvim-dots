@@ -25,13 +25,17 @@ local M = {
   -- }}}
 
   -- TODO: Setup <16-01-22, kunzaatko> --
-  -- 'vhyrro/neorg' -- main package for norg format {{{
+  -- 'nvim-neorg/neorg' -- main package for norg format {{{
   {
-    'vhyrro/neorg',
-    branch = 'main',
+    'nvim-neorg/neorg',
+    -- FIX: highlighting is changed to adhere to new version of treeesitter highlighting -> when
+    -- other plugins are updated, this can be updated and treesitter version can be unfixed too <kunzaatko>
+    -- tag = '*',
+    tag = '0.0.12',
     config = function()
       require 'conf.pkgs.neorg'
     end,
+    requires = 'nvim-lua/plenary.nvim',
   },
   -- }}}
 }

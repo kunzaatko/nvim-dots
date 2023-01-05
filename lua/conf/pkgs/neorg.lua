@@ -1,32 +1,37 @@
 require('neorg').setup {
   load = {
     ['core.defaults'] = {},
-    ['core.norg.concealer'] = {},
-    ['core.norg.dirman'] = {
+    ['core.norg.esupports.metagen'] = {
       config = {
-        workspaces = {
-          thesis = '~/University/ČVUT/Thesis/documents/notes/',
-          global = '~/notes/',
-          school = '~/University/ČVUT/notes/',
-        },
+        type = 'empty', -- generate metadata for new empty files or buffers
+      },
+    },
+    ['core.export'] = {},
+    ['core.gtd.base'] = {
+      config = {
+        workspace = 'gtd',
       },
     },
     ['core.norg.completion'] = { config = { engine = 'nvim-cmp' } },
-    ['core.gtd.base'] = {},
-  },
-
-  hook = function()
-    local neorg_callbacks = require 'neorg.callbacks'
-
-    neorg_callbacks.on_event('core.keybinds.events.enable_keybinds', function(_, keybinds)
-      keybinds.map_event_to_mode('norg', {
-        n = {
-          { '<leader>ntd', 'core.norg.qol.todo_items.todo.task_done' },
-          { '<leader>ntu', 'core.norg.qol.todo_items.todo.task_undone' },
-          { '<leader>ntp', 'core.norg.qol.todo_items.todo.task_pending' },
-          { '<C-Space>', 'core.norg.qol.todo_items.todo.task_cycle' },
+    ['core.norg.qol.toc'] = {},
+    ['core.norg.journal'] = {
+      config = {
+        workspace = 'index',
+      },
+    },
+    ['core.norg.dirman'] = {
+      config = {
+        workspaces = {
+          index = '~/Notes/',
+          personal = '~/Notes/personal',
+          work = '~/Notes/work/',
+          school = '~/Notes/school/',
+          blog = '~/Notes/blog',
+          gtd = '~/Notes/GTD',
         },
-      }, { silent = true, noremap = true })
-    end)
-  end,
+        default_workspace = 'index',
+      },
+    },
+    ['core.norg.concealer'] = {},
+  },
 }

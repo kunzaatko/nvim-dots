@@ -1,0 +1,29 @@
+@document.meta
+title: TODO
+description: What is there to complete and improve for the configuration
+authors: kunzaatko
+categories:
+created: 2022-10-28
+version: 0.0.12
+@end
+
+
+* TODO
+* General
+  - Logging where more appropriate than inner vim messaging
+
+** Snippets
+*** LaTeX
+    - Make snippets interact on selection in visual mode
+    - Snippet for `\underbrace`, `\overbrace`
+    - Split snippets for different purposes (words, Greek symbols, operators, environments)
+
+** Colours
+   - folded text title should be of the original colour (FoldHue - incorporate FoldHue into
+     better-fold)
+   - Spell colours for special
+   - rewrite nord in normal neovim and include only the main colours. Other colours can be added on
+     individual basis
+
+** Notifications
+   - Noice.nvim for LSP loading

@@ -1,74 +1,103 @@
-local cmd = vim.cmd
 _G.AUtils = {}
 local AUtils = _G.AUtils
+local api = vim.api
 
--- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
+api.nvim_create_augroup('TelescopeFolding', {})
+api.nvim_create_autocmd('FileType', {
+  pattern = { 'TelescopePrompt', 'TelescopeResults' },
+  group = 'TelescopeFolding',
+  desc = 'Do not fold in Telescope',
+  callback = function()
+    vim.opt_local.foldmethod = 'manual'
+  end,
+})
+
 -- restore cursor position (" -- mark of last cursor position)
-cmd [[
-    augroup VimStartup
-        autocmd!
-        autocmd BufReadPost * if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif
-    augroup END
-]]
+api.nvim_create_augroup('VimStartup', {})
+api.nvim_create_autocmd('BufReadPost', {
+  pattern = '*',
+  group = 'VimStartup',
+  desc = 'Restore position from the previous editing when entering reading buffer',
+  command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif]],
+})
 
--- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
--- setting the concealment of the foldmarker
-cmd [[
-    augroup FoldMarker
-        autocmd!
-        autocmd Syntax * syntax match FoldMarkerStart /\v(# ?|" ?|\/\* ?|\/\/ ?|; ?)?\{\{\{/ conceal cchar=⯈
-        autocmd Syntax * syntax match FoldMarkerStop  /\v(# ?|" ?|\/\/ ?|; ?)?\}\}\}( ?\*\/)?/ conceal cchar=$
-        autocmd Syntax * syntax cluster FoldMarker contains=FoldMarkerStart,FoldMarkerStop
-        autocmd Syntax * syntax cluster cCommentGroup add=@FoldMarker
-        autocmd Syntax * syntax cluster shCommentGroup add=@FoldMarker
-        autocmd Syntax * syntax cluster vimCommentGroup add=@FoldMarker
-    augroup END
-]]
+-- highlight yanked text
+api.nvim_create_augroup('HighlightYank', {})
+api.nvim_create_autocmd('TextYankPost', {
+  pattern = '*',
+  desc = 'Highlight yanked text',
+  group = 'HighlightYank',
+  callback = function()
+    vim.highlight.on_yank { higroup = 'Search', timeout = 300, on_visual = true, on_macro = false }
+  end,
+})
 
--- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
--- TODO: Fix to include better logic when available in neovim lua <24-02-21, kunzaatko> --
 -- turn off relative numbering when leaving the buffer
-cmd [[
-    augroup NumberToggle
-        autocmd!
-        autocmd WinEnter,FocusGained,InsertLeave * lua if vim.wo.number == true then vim.wo.relativenumber = true end
-        autocmd WinLeave,FocusLost,InsertEnter * lua if vim.wo.number == true then vim.wo.relativenumber = false end
-    augroup END
-]]
+api.nvim_create_augroup('NumberToggle', {})
+api.nvim_create_autocmd({ 'WinEnter', 'InsertLeave' }, {
+  pattern = '*',
+  desc = 'Enable `relativenumber` when focusing a buffer',
+  group = 'NumberToggle',
+  callback = function()
+    if vim.wo.number == true then
+      vim.wo.relativenumber = true
+    end
+  end,
+})
+api.nvim_create_autocmd({ 'WinLeave', 'InsertEnter' }, {
+  pattern = '*',
+  desc = 'Disable `relativenumber` when unfocusing a buffer',
+  group = 'NumberToggle',
+  callback = function()
+    if vim.wo.number == true then
+      vim.wo.relativenumber = false
+    end
+  end,
+})
 
 -- trim white-space after leaving the buffer
 AUtils.trim_white_space = function()
-  if vim.b.noTrimWhiteSpace then
+  if vim.b.noTrimWhiteSpace or not vim.o.modifiable then
     return
   end
   vim.cmd '%s/\\s\\+$//e'
 end
 
--- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- FIX: Julia has to be here because of a bug in the language server julia-vscode/julia-vscode#2526, where this crashes
 -- the server <19-02-22, kunzaatko> --
-cmd [[
-    augroup TrimWhiteSpace
-        autocmd!
-        autocmd FileType snippet,matlab,julia lua vim.b.noTrimWhiteSpace = true
-        autocmd BufWritePre * call v:lua.AUtils.trim_white_space()
-    augroup END
-]]
+api.nvim_create_augroup('TrimWhiteSpace', {})
+api.nvim_create_autocmd('FileType', {
+  pattern = { 'matlab', 'julia' },
+  desc = 'Disable trimming trailing whitespace in filetypes',
+  group = 'TrimWhiteSpace',
+  callback = function()
+    vim.b.noTrimWhiteSpace = true
+  end,
+})
+api.nvim_create_autocmd('FileType', {
+  desc = 'Trim trailing whitespace',
+  group = 'TrimWhiteSpace',
+  callback = _G.AUtils.trim_white_space,
+})
 
--- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- does not use neovim inbuilt spell checker on these filetypes
-cmd [[
-    augroup SetNoSpell
-        autocmd!
-        autocmd FileType man,gitrebase lua vim.opt_local.spell = false
-    augroup END
-]]
+api.nvim_create_augroup('SetNoSpell', {})
+api.nvim_create_autocmd('FileType', {
+  pattern = { 'man', 'gitrebase' },
+  desc = 'Do not spell in particular filetypes',
+  group = 'SetNoSpell',
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
 
--- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
 -- formatting option for different filetypes
-cmd [[
-    augroup FormatOptions
-        autocmd!
-        autocmd BufEnter *.lua lua vim.opt.formatoptions:remove('o')
-    augroup END
-]]
+api.nvim_create_augroup('FormatOptions', {})
+api.nvim_create_autocmd('FileType', {
+  pattern = 'lua',
+  desc = 'Do not preserve comment for Lua when `o` is pressed',
+  group = 'FormatOptions',
+  callback = function()
+    vim.opt_local.formatoptions:remove 'o'
+  end,
+})

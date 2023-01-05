@@ -1,32 +1,47 @@
 local utils = require 'pkg.utils'
 local M = {
-  -- TODO: Todo comment expand at beginning of line <16-01-22, kunzaatko> --
-  -- TODO: Add '<leader>' mappings for editing snippet files <16-01-22, kunzaatko> --
-  -- 'sirver/ultisnips' -- snippets {{{
+  -- TODO: add mappings <12-03-22, kunzaatko> --
+  -- TODO: change the cursor color on in snippet. Different for selectnodes and for insertnodes <13-03-22, kunzaatko> --
+  -- 'L3MON4D3/LuaSnip' -- snippets written in lua {{{
   {
-    'sirver/ultisnips',
-    event = 'InsertEnter',
-    setup = function()
-      -- Snippets variables
-      vim.g.snips_author = 'kunzaatko'
-      vim.g.snips_email = 'martinkunz@email.cz'
-      vim.g.snips_github = 'https://github.com/kunzaatko'
-      -- UltiSnips
-      vim.opt.runtimepath = vim.opt.runtimepath + { vim.fn.expand '$PWD' }
-      vim.g.UltiSnipsSnippetDirectories = { 'snips' } -- ensure that snippets directories are not recursively searched
-      vim.g.UltiSnipsEnableSnipMate = 0 -- only look for UltiSnips snippets
-      vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-      vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-      vim.g.UltiSnipsRemoveSelectModeMappings = 0 -- for using tab in nvim-cmp
-    end,
+    'L3MON4D3/LuaSnip',
+    -- event = 'InsertEnter',
+    -- keys = utils.get_keys('n', '<leader><leader>s'),
     config = function()
       local map = vim.keymap.set
-      if vim.bo.filetype == 'tex' then
-        vim.g.UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = _G.TEXUtils.get_tex_root():joinpath('snips').filename
-      end
-      map('x', '<C-l>', ':lua vim.call("UltiSnips#SaveLastVisualSelection")<CR>gvs', { silent = true })
-      map('s', '<C-l>', ':lua vim.call("UltiSnips#ExpandSnippet")<CR>', { silent = true })
+      local ls = require 'luasnip'
+      local ft_functions = require 'luasnip.extras.filetype_functions'
+      -- local types = require 'luasnip.util.types'
+      ls.config.setup {
+        history = false,
+        updateevents = 'TextChanged,TextChangedI',
+        enable_autosnippets = true,
+        store_selection_keys = '<Tab>',
+        ft_func = ft_functions.from_filetype,
+      }
+      require 'snippets'
+
+      map({ 'i', 's' }, '<C-l>', function()
+        if ls.expand_or_locally_jumpable() then
+          ls.expand_or_jump()
+        end
+      end, { silent = true, desc = 'jump forward or expand snippet' })
+      map({ 'i', 's' }, '<C-h>', function()
+        if ls.jumpable(-1) then
+          ls.jump(-1)
+        end
+      end, { silent = true, desc = 'jump backward in snippet' })
+      -- FIX: Only local choice (on the current snippet) should be considered <13-03-22, kunzaatko> --
+      map({ 'i', 's' }, '<C-k>', function()
+        if ls.choice_active() then
+          ls.change_choice(1)
+        end
+      end, { silent = true, desc = 'choose next ChoiceNode' })
+      map({ 'i', 's' }, '<C-j>', function()
+        if ls.choice_active() then
+          ls.change_choice(-1)
+        end
+      end, { silent = true, desc = 'choose prev ChoiceNode' })
     end,
   },
   -- }}}
@@ -50,9 +65,12 @@ local M = {
     end,
     config = function()
       local map = vim.keymap.set
-      require('neogen').setup { enabled = true }
+      require('neogen').setup { snippet_engine = 'luasnip' }
+      -- TODO: Generate the adequate type of documentation based on the type in TS that the cursor
+      -- is on <28-08-22, kunzaatko>
+      -- NOTE: The `{ type = 'func' }` is a placeholder for above todo <28-08-22, kunzaatko>
       map('n', '<leader>dd', function()
-        return require('neogen').generate()
+        return require('neogen').generate { type = 'func' }
       end, { silent = true, desc = 'generate doc' })
       map('n', '<leader>dc', function()
         return require('neogen').generate { type = 'class' }

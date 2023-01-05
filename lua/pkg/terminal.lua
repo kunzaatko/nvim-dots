@@ -1,26 +1,24 @@
-local utils = require 'pkg.utils'
 local M = {
   -- TODO: Make Julia persistent REPL implementation <16-01-22, kunzaatko> --
   -- akinsho/toggleterm.nvim -- toggle the terminal but persist the session{{{
   {
     'akinsho/toggleterm.nvim',
     as = 'toggleterm',
-    keys = utils.get_keys('n', '<C-p>'),
     config = function()
-      local map = vim.keymap.set
-      _G.MUtils = _G.MUtils or {}
       local wk = require 'which-key'
       wk.register({
         ['<C-p>'] = { 'Toggle toggleterm' },
       }, {})
 
-      _G.MUtils.set_terminal_keymaps = function()
-        map('t', '<C-w>', [[<C-\><C-n><C-W><C-W>]], { buffer = 0, desc = 'exit terminal window' })
-      end
-
-      -- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
-      vim.cmd [[autocmd! TermOpen term://* lua vim.opt_local.spell = false]]
-      vim.cmd [[autocmd! TermOpen term://* call v:lua.MUtils.set_terminal_keymaps()]]
+      vim.api.nvim_create_autocmd('TermOpen', {
+        pattern = 'term://*',
+        group = vim.api.nvim_create_augroup('ToggleTerm', {}),
+        desc = 'Terminal environment setup',
+        callback = function()
+          vim.opt_local.spell = false
+          vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-W><C-W>]], { buffer = 0, desc = 'exit terminal window' })
+        end,
+      })
 
       require('toggleterm').setup {
         size = function(term)

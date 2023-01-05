@@ -8,6 +8,16 @@ _G.LSPUtils.on_attach = function(_, bufnr)
   -- vim.lsp.set_log_level 'debug'
   local map = vim.keymap.set
 
+  require('lsp_signature').on_attach({
+    bind = true,
+    handler_opts = {
+      border = 'rounded',
+    },
+    hint_enable = false,
+    hint_prefix = '',
+    transparency = 10,
+  }, bufnr)
+
   map('n', '<c-]>', vim.lsp.buf.definition, { silent = true, buffer = bufnr, desc = 'LSP definition' })
   map('n', 'K', vim.lsp.buf.hover, { silent = true, buffer = bufnr, desc = 'LSP hover' })
   map('n', 'gD', vim.lsp.buf.implementation, { silent = true, buffer = bufnr, desc = 'LSP implementation' })
@@ -21,6 +31,6 @@ _G.LSPUtils.on_attach = function(_, bufnr)
   -- Goto previous/next diagnostic warning/error
   map('n', 'g[', vim.diagnostic.goto_prev, { silent = true, buffer = bufnr, desc = 'go to prev LSP diagnostic' })
   map('n', 'g]', vim.diagnostic.goto_next, { silent = true, buffer = bufnr, desc = 'go to next LSP diagnostic' })
-  map('n', '<leader>F', vim.lsp.buf.formatting, { silent = true, buffer = bufnr, desc = 'LSP format' })
-  map('v', '<leader>F', vim.lsp.buf.range_formatting, { silent = true, buffer = bufnr, desc = 'LSP format in range' })
+  map('n', '<leader>F', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = 'LSP format' })
+  map('v', '<leader>F', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = 'LSP format in range' })
 end -- }}}

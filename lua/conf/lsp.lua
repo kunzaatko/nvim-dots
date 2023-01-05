@@ -1,5 +1,3 @@
-local cmd = vim.cmd
-
 -- Used for swapfiles and the CursorHold event (autocommands for the LSP)
 vim.opt.updatetime = 300
 
@@ -9,6 +7,7 @@ vim.diagnostic.config {
   },
   severity_sort = true,
   signs = true,
+  -- NOTE:  Consider making this false
   underline = true,
   update_in_insert = false,
   float = {
@@ -36,6 +35,3 @@ for type, icon in pairs(signs) do
   local col = 'Diagnostic' .. type
   vim.fn.sign_define(hl, { text = icon, texthl = col })
 end
-
--- TODO: On v0.7 change to lua API autocommand <10-03-22, kunzaatko> --
-cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float({focusable=false})]]

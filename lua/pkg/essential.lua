@@ -1,25 +1,38 @@
 local M = {
-  -- TODO: Is this fixed? <16-01-22, kunzaatko> --
-  -- bug in neovim - https://github.com/neovim/neovim/issues/12587
-  { 'antoinemadec/FixCursorHold.nvim', as = 'FixCursorHold' },
-  -- speeds-up the start-up time by using a lua version of the filetype.vim script
+  -- TODO: Add `bufdelete.nvim`  and `neo-tree.nvim` <kunzaatko>
+  -- TODO: consider better-escape.nvim <kunzaatko>
+
+  -- FIX: Does not work with VimTex <23-10-22>
+  -- Highlight in fold text {{{
   {
-    'nathom/filetype.nvim',
-    as = 'filetype',
+    'milisims/foldhue.nvim',
     config = function()
-      require('filetype').setup {
-        overrides = {
-          literal = {
-            sxhkdrc = 'sxhkd',
-          },
-          shebang = {
-            dash = 'sh',
-          },
-        },
-      }
+      require('foldhue').enable()
     end,
-  },
-  -- speed up on startuptime by compliling plugins into bytestrings
+  }, -- }}}
+
+  -- -- speeds-up the start-up time by using a lua version of the filetype.vim script {{{
+  -- {
+  --   'nathom/filetype.nvim',
+  --   as = 'filetype',
+  --   config = function()
+  --     require('filetype').setup {
+  --       overrides = {
+  --         literal = {
+  --           sxhkdrc = 'sxhkd',
+  --         },
+  --         complex = {
+  --           ['.*/papis/config'] = 'toml',
+  --         },
+  --         shebang = {
+  --           dash = 'sh',
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- }, -- }}}
+
+  -- speed up on start-up time by compiling plug-ins into byte strings
   { 'lewis6991/impatient.nvim', as = 'impatient' },
 }
 

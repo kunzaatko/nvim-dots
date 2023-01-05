@@ -1,13 +1,3 @@
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-
-parser_configs.norg = {
-  install_info = {
-    url = 'https://github.com/nvim-neorg/tree-sitter-norg',
-    files = { 'src/parser.c', 'src/scanner.cc' },
-    branch = 'main',
-  },
-}
-
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'bash',
@@ -29,7 +19,7 @@ require('nvim-treesitter.configs').setup {
     'vim',
     'yaml',
   },
-  highlight = { enable = true, disable = { 'latex' } },
+  highlight = { enable = true, disable = { 'latex', 'vim' } },
   indent = { enable = true },
   playground = {
     enable = true,
@@ -61,7 +51,8 @@ require('nvim-treesitter.configs').setup {
   },
   rainbow = {
     -- TODO: This plugin not functioning correctly at the moment. When fixed enable. <23-02-22, kunzaatko> --
-    enable = false,
+    enable = true,
+    disable = { 'lua', 'rust' },
     extended_mode = false,
     -- TODO: Edit colours. Use desaturated coulours from lush.nvim <20-02-22, kunzaatko> --
     colors = {
