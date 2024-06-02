@@ -660,3 +660,5 @@ lnum
 linewise
 startline
 endline
+ENV
+autocommand
