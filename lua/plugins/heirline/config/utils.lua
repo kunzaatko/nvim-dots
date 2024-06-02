@@ -75,7 +75,7 @@ utils.setup_colors = function()
   --- Mode colour specification
   utils.mode_colors = {
     n = utils.color_spec.base.red,
-    i = utils.color_spec.base.green,
+    i = utils.color_spec.base.yellow,
     v = utils.color_spec.base.blue,
     [''] = utils.color_spec.base.blue,
     V = utils.color_spec.base.blue,

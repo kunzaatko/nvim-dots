@@ -194,6 +194,25 @@ return {
     end,
   },
 
+  {
+    'mawkler/modicator.nvim',
+    event = 'VeryLazy',
+    config = function(_, opts)
+      local set = vim.api.nvim_set_hl
+      local get = vim.api.nvim_get_hl
+      -- NOTE: Chosen to match the colours in heirline config <kunzaatko>
+      set(0, 'NormalMode', { fg = '#BE6069', bg = 'bg' })
+      set(0, 'InsertMode', { fg = '#EBCA89', bg = 'bg' })
+      set(0, 'VisualMode', { fg = '#81A1C1', bg = 'bg' })
+      set(0, 'CommandMode', { fg = '#B48EAD', bg = 'bg' })
+      set(0, 'ReplaceMode', { fg = '#A77B9F', bg = 'bg' })
+      set(0, 'SelectMode', { fg = '#D18771', bg = 'bg' })
+      set(0, 'TerminalMode', { fg = 'fg', bg = 'bg' })
+      set(0, 'TerminalNormalMode', { fg = 'fg', bg = 'bg' })
+      require('modicator').setup(opts)
+    end,
+  },
+
   -- COLOUR SCHEMES --
   {
     dir = '~/.config/nvim/dev/nord.nvim',
