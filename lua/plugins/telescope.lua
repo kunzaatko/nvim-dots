@@ -53,13 +53,11 @@ return {
           },
         },
       },
-      -- FIX: At the current moment, this does not work because of heirline. It is a cool features and should be enabled
-      -- when the heirline is fixed <26-04-24>
-      -- pickers = {
-      --   colorscheme = {
-      --     enable_preview = true,
-      --   },
-      -- },
+      pickers = {
+        colorscheme = {
+          enable_preview = true,
+        },
+      },
     }
   end,
   cmd = 'Telescope',

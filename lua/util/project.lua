@@ -2,6 +2,7 @@ local M = {}
 local Path = require 'plenary.path'
 local scandir = require 'plenary.scandir'
 
+-- TODO: Use `fs.root` for this <kunzaatko martinkunz@email.cz>
 --- Find the root of the project
 ---@param markerfiles string|string[] A list of files that mark a root folder for the current project
 ---@param opts table|nil options for the root finding

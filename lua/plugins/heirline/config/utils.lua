@@ -35,19 +35,19 @@ end
 
 utils.setup_colors = function()
   local colors = {
-    fg = hsl(utils.get_highlight_hex('Normal', 'fg')), -- #D8DEE9
-    bg = hsl(utils.get_highlight_hex('Normal', 'bg')).da(50), -- #181B21
+    fg = hsl(or_backup(utils.get_highlight_hex('Normal', 'fg'), '#D8DEE9')), -- #D8DEE9
+    bg = hsl(or_backup(utils.get_highlight_hex('Normal', 'bg'), '#181B21')).da(50), -- #181B21
 
     red = hsl(or_backup(utils.get_highlight_hex('SpellBad', 'fg'), '#BE6069')), -- #BE6069
-    magenta = hsl(utils.get_highlight_hex('Float', 'fg')), -- #B48EAD
-    green = hsl(utils.get_highlight_hex('Character', 'fg')), -- #A4BF8D
-    blue = hsl(utils.get_highlight_hex('Conditional', 'fg')), -- #81A1C1
-    darkblue = hsl(utils.get_highlight_hex('DiagnosticHint', 'fg')), -- #5D81AC
+    magenta = hsl(or_backup(utils.get_highlight_hex('Float', 'fg'), '#B48EAD')), -- #B48EAD
+    green = hsl(or_backup(utils.get_highlight_hex('Character', 'fg'), '#A4BF8D')), -- #A4BF8D
+    blue = hsl(or_backup(utils.get_highlight_hex('Conditional', 'fg'), '#81A1C1')), -- #81A1C1
+    darkblue = hsl(or_backup(utils.get_highlight_hex('DiagnosticHint', 'fg'), '#5D81AC')), -- #5D81AC
     yellow = hsl(40, 71, 73), -- #EBCA89
     orange = hsl(14, 51, 63), -- #D18771
     gray = hsl(utils.get_highlight_hex('NonText', 'fg')),
-    purple = hsl(utils.get_highlight_hex('Float', 'fg')).da(10), -- #A77B9F
-    cyan = hsl(utils.get_highlight_hex('Function', 'fg')), -- #87BFCF
+    purple = hsl(or_backup(utils.get_highlight_hex('Float', 'fg'), '#A77B9F')).da(10), -- #A77B9F
+    cyan = hsl(or_backup(utils.get_highlight_hex('Function', 'fg'), '#87BFCF')), -- #87BFCF
   }
   require('heirline').load_colors(utils.hexify_color_spec(colors))
 

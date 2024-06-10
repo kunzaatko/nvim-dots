@@ -1,4 +1,5 @@
--- TODO: Plugins to add: 'hydra.nvim','neotest', 'paint.nvim', 'modicator.nvim', 'instant.nvim', 'nvim-bqf'
+-- TODO: Every command for a specific language should be as a duplicate prepended with the language name for ease of remembrance. That way if I want to execute a command that I know I have for a given language, I only need to write the language and do not need to remember what it was. Also if I want to explore, which commands I have available. <03-06-24, kunzaatko>
+-- TODO: Plugins to add: 'hydra.nvim','neotest', 'instant.nvim', 'nvim-bqf'
 -- TODO: Should use some option or plugin to make the insertmode respect the `linelength` even when something else is
 -- behind the cursor... <18-04-23>
 -- TODO: Add a README and start versioning the configuration <19-04-23>
