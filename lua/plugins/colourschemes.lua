@@ -3,6 +3,7 @@ return {
     dir = '~/.config/nvim/dev/nord.nvim',
     dependencies = { { 'rktjmp/lush.nvim', name = 'lush' } },
     name = 'nord',
+    event = 'VeryLazy',
     priority = 1000,
     config = function()
       vim.g.nord_italic = 1
@@ -39,22 +40,25 @@ return {
   {
     'npxbr/gruvbox.nvim',
     name = 'gruvbox',
+    event = 'VeryLazy',
     priority = 1000,
     dependencies = { { 'rktjmp/lush.nvim', name = 'lush' } },
   },
   {
     'folke/tokyonight.nvim',
     name = 'tokyonight',
+    event = 'VeryLazy',
     priority = 1000,
     config = function()
       vim.g.tokyonight_style = 'night'
       vim.g.tokyonight_italic_functions = 1
     end,
   },
-  { 'EdenEast/nightfox.nvim', name = 'nightfox', priority = 1000 },
+  { 'EdenEast/nightfox.nvim', name = 'nightfox', event = 'VeryLazy', priority = 1000 },
   {
     'catppuccin/nvim',
     name = 'catppuccin',
+    event = 'VeryLazy',
     priority = 1000,
     opts = {
 
@@ -114,5 +118,5 @@ return {
       vim.g.catppuccin_flavour = 'macchiato' -- latte, frappe, macchiato, mocha
     end,
   },
-  { 'rebelot/kanagawa.nvim', name = 'kanagawa', priority = 1000 },
+  { 'rebelot/kanagawa.nvim', name = 'kanagawa', event = 'VeryLazy', priority = 1000 },
 }
