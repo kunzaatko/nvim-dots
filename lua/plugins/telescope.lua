@@ -37,6 +37,12 @@ return {
           height = 0.80,
           preview_cutoff = 120,
         },
+        preview = {
+          treesitter = {
+            enable = true,
+            disable = { 'tex' }, -- NOTE: https://github.com/nvim-telescope/telescope.nvim/issues/3150 <17-06-24>
+          },
+        },
         mappings = {
           i = {
             ['<C-n>'] = actions.cycle_history_next,
