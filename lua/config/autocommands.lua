@@ -87,3 +87,22 @@ vim.api.nvim_create_autocmd('BufWinLeave', {
     end
   end,
 })
+
+_G.root_patterns = {
+  all = { '.git', 'Makefile', 'src' },
+  julia = { 'Project.toml', 'Manifest.toml' },
+  tex = { 'Tectonic.toml', 'build' },
+  rust = { 'build' },
+  html = { 'static' },
+  css = { 'static' },
+}
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = vim.api.nvim_create_augroup('AutoRoot', {}),
+  callback = function(ctx)
+    local patterns = vim.tbl_extend('keep', _G.root_patterns['all'], _G.root_patterns[vim.o.filetype] or {})
+    local root = vim.fs.root(ctx.buf, patterns)
+    if root then
+      vim.uv.chdir(root)
+    end
+  end,
+})
