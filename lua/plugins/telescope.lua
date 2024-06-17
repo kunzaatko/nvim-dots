@@ -75,7 +75,9 @@ return {
     },
     {
       '//',
-      require('telescope.builtin').current_buffer_fuzzy_find,
+      function()
+        require('telescope.builtin').current_buffer_fuzzy_find { results_ts_highlight = vim.o.filetype ~= 'tex' }
+      end,
       desc = 'fuzzy-find in buffer',
     },
     {
