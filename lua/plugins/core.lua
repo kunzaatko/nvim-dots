@@ -143,7 +143,7 @@ return {
   {
     'kylechui/nvim-surround',
     name = 'surround',
-    keys = { 'ys', 'ds', 'cs' },
+    keys = { 'ys', 'ds', 'cs', { 'S', mode = 'v' } },
     config = function()
       require('nvim-surround').setup { mappings_style = 'surround' }
     end,
