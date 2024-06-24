@@ -7,12 +7,13 @@ return {
     event = 'BufReadPre',
     enabled = vim.fn.executable 'git' == 1,
     opts = {
+      -- FIX: Defining the correct highlights such as `GitSignsChange` to yellow does not work?! What is the problem? <24-06-24>
       signs = {
-        add = { hl = 'GreenSign', text = '┃', numhl = 'GitSignsAddNr' },
-        change = { hl = 'YellowSign', text = '┇', numhl = 'GitSignsChangeNr' },
-        delete = { hl = 'RedSign', text = '┻', numhl = 'GitSignsDeleteNr' },
-        topdelete = { hl = 'RedSign', text = '┳', numhl = 'GitSignsDeleteNr' },
-        changedelete = { hl = 'PurpleSign', text = '▎', numhl = 'GitSignsChangeNr' },
+        add = { text = '┃' },
+        change = { text = '┇' },
+        delete = { text = '┻' },
+        topdelete = { text = '┳' },
+        changedelete = { text = '▎' },
       },
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
