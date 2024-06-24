@@ -662,3 +662,6 @@ startline
 endline
 ENV
 autocommand
+mixin
+parens
+shortcode
