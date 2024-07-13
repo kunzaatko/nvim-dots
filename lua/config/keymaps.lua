@@ -2,18 +2,14 @@ local wk = require 'which-key'
 
 -- TODO: Add other groups <03-05-23>
 -- TODO: Do not list window mappings after leader <20-05-23>
-wk.register({
-  f = { name = string.format('%s %s', static.icons.find, 'Find') },
-  a = { name = string.format('%s %s', static.icons.ai, 'AI') },
-  -- p = { name = '󰏖 Packages' },
-  u = { name = ' UI' },
-  -- b = { name = '󰓩 Buffers' },
-  -- bs = { name = '󰒺 Sort Buffers' },
-  -- d = { name = ' Debugger' },
-  g = { name = string.format('%s %s', static.icons.git.git, 'Git') },
-  s = { name = string.format('%s %s', static.icons.snippets, 'Snippets') },
-  t = { name = string.format('%s %s', static.icons.terminal, 'Terminal') },
-}, { prefix = '<leader>' })
+wk.add {
+  { '<leader>a', group = string.format('%s %s', static.icons.ai, 'AI') },
+  { '<leader>f', group = string.format('%s %s', static.icons.find, 'Find') },
+  { '<leader>g', group = string.format('%s %s', static.icons.git.git, 'Git') },
+  { '<leader>s', group = string.format('%s %s', static.icons.snippets, 'Snippets') },
+  { '<leader>t', group = string.format('%s %s', static.icons.terminal, 'Terminal') },
+  { '<leader>u', group = ' UI' },
+}
 
 -- Command line shortcuts
 vim.keymap.set('n', ',w', vim.cmd.write, { silent = false, desc = 'write buffer' })

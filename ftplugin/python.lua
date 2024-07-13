@@ -19,8 +19,8 @@ local global_term = util.terminal.unique('global', {
   autoclose = true,
 }, { location = _G.python.terminals })
 
-wk.register({
-  r = { name = string.format('%s %s', static.icons.terminal, 'REPL') },
+wk.add({
+  r = { group = string.format('%s %s', static.icons.terminal, 'REPL') },
 }, { prefix = '<localleader>', buffer = 0 })
 
 vim.api.nvim_buf_create_user_command(0, 'REPL', function()

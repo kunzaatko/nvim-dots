@@ -1,3 +1,6 @@
+-- FIX: Probably duplicate mapping for `S` in visual. I would like to have it surround but instead it triggers
+-- `flash.nvim` <13-07-24>
+-- TODO: `which-key` now supports icons. I should use them on in the mappings instead of using my own `string.format` <13-07-24>
 -- TODO: Every command for a specific language should be as a duplicate prepended with the language name for ease of remembrance. That way if I want to execute a command that I know I have for a given language, I only need to write the language and do not need to remember what it was. Also if I want to explore, which commands I have available. <03-06-24, kunzaatko>
 -- TODO: Plugins to add: 'hydra.nvim','neotest', 'instant.nvim', 'nvim-bqf'
 -- TODO: Should use some option or plugin to make the insertmode respect the `linelength` even when something else is

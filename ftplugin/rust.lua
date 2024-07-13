@@ -3,7 +3,7 @@ local wk = require 'which-key'
 local term = require 'terminal'
 local util = require 'util'
 
-wk.register({
+wk.add({
   c = { name = string.format('%s %s', static.icons.ActiveLSP, 'Cargo') },
 }, { prefix = '<localleader>', buffer = 0 })
 

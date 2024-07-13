@@ -183,15 +183,16 @@ return {
         callback = function()
           local wk = require 'which-key'
           -- TODO: Add icons through icon util <04-05-23>
-          wk.register({
-            a = { name = 'Assignee' },
-            c = { name = 'Comment' },
-            r = { name = 'Reaction' },
-            v = { name = 'Reviewer' },
-            i = { name = 'Issues/Close' },
-            l = { name = 'Label' },
-            p = { name = 'PR actions' },
-          }, { buffer = 0, prefix = '<leader>' })
+          wk.add({
+
+            { '<leader>a', name = 'Assignee' },
+            { '<leader>c', name = 'Comment' },
+            { '<leader>r', name = 'Reaction' },
+            { '<leader>v', name = 'Reviewer' },
+            { '<leader>i', name = 'Issues/Close' },
+            { '<leader>l', name = 'Label' },
+            { '<leader>p', name = 'PR actions' },
+          }, { buffer = 0 })
         end,
       })
       require('octo').setup(opts)
