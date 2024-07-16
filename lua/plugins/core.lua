@@ -72,8 +72,22 @@ return {
     'folke/which-key.nvim',
     -- commit = '8649bf5c66b8fa1fa6ee879b9af78e89f886d13c',
     opts = {
+      preset = 'helix',
       icons = { group = '', separator = '' },
-      disable = { filetypes = { 'TelescopePrompt' } },
+      disable = { ft = { 'TelescopePrompt' } },
+      spelling = {
+        enabled = true,
+        suggestions = 10,
+      },
+    },
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show { global = false }
+        end,
+        desc = 'Buffer Local Keymaps (which-key)',
+      },
     },
     config = function(_, opts)
       vim.opt.timeout = true
