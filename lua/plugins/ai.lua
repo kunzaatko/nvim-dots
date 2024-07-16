@@ -40,44 +40,99 @@ local M = {
       },
     },
     opts = {
-      openai_api_key = os.getenv 'OPENAI_API_KEY',
-      -- chat_model = { model = 'gpt-3.5-turbo-1106', temperature = 1.1, top_p = 1 },
-      -- command_model = { model = 'gpt-3.5-turbo-1106', temperature = 1.1, top_p = 1 },
+      providers = {
+        openai = {
+          secret = { 'pass', 'openai/API_key_neovim' },
+        },
+        copilot = {
+          secret = { 'pass', 'github.com/oauth_token_copilot_kunzaatko' },
+        },
+        anthropic = {
+          secret = { 'pass', 'anthropic.com/API_key_neovim' },
+        },
+      },
       hooks = {
-        InspectPlugin = function(plugin, params)
-          print(string.format('Plugin structure:\n%s', vim.inspect(plugin)))
-          print(string.format('Command params:\n%s', vim.inspect(params)))
+        -- GpUnitTests: Writes unit tests for the selected code
+        UnitTests = function(gp, params)
+          local agent = gp.get_command_agent()
+          local template = 'I have the following code from {{filename}}:\n\n'
+            .. '```{{filetype}}\n{{selection}}\n```\n\n'
+            .. 'Please respond by writing table driven unit tests for the code above.'
+          gp.Prompt(params, gp.Target.enew, nil, agent.model, template, agent.system_prompt)
         end,
-
-        -- GpImplement rewrites the provided selection/range based on comments in the code
+        -- GpImplement: Rewrites the provided selection/range based on comments in the code
         Implement = function(gp, params)
+          local agent = gp.get_command_agent()
           local template = 'Having following from {{filename}}:\n\n'
             .. '```{{filetype}}\n{{selection}}\n```\n\n'
             .. 'Please rewrite this code according to the comment instructions.'
             .. '\n\nRespond only with the snippet of finalized code:'
-
-          gp.Prompt(
-            params,
-            gp.Target.rewrite,
-            nil, -- command will run directly without any prompting for user input
-            gp.config.command_model,
-            template,
-            gp.config.command_system_prompt
-          )
+          gp.Prompt(params, gp.Target.rewrite, nil, agent.model, template, agent.system_prompt)
         end,
-        vim.api.nvim_create_autocmd('BufRead', {
-          group = vim.api.nvim_create_augroup('GpChat', {}),
-          pattern = vim.fn.stdpath('data'):gsub('/$', '') .. '/gp/chats/*.md',
-          callback = function()
-            vim.opt_local.number = false
-            vim.opt_local.textwidth = 80
-          end,
-        }),
-        -- your own functions can go here, see README for more examples like
-        -- :GpExplain, :GpUnitTests.., :GpBetterChatNew, ..
+        -- FIX: https://github.com/Robitx/gp.nvim/issues/154 <16-07-24, kunzaatko>
+        -- GpExplain: Explains the provided selection/range
+        Explain = function(gp, params)
+          local agent = gp.get_chat_agent()
+          local template = 'I have the following code from {{filename}}:\n\n'
+            .. '```{{filetype}}\n{{selection}}\n```\n\n'
+            .. 'Please respond by explaining the code above.'
+          gp.Prompt(params, gp.Target.popup, nil, agent.model, template, agent.system_prompt)
+        end,
+        -- FIX: https://github.com/Robitx/gp.nvim/issues/154 <16-07-24, kunzaatko>
+        -- GpCodeReview: Review the provided selection/range
+        CodeReview = function(gp, params)
+          local agent = gp.get_chat_agent()
+          local template = 'I have the following code from {{filename}}:\n\n'
+            .. '```{{filetype}}\n{{selection}}\n```\n\n'
+            .. 'Please analyze for code smells and suggest improvements.'
+          gp.Prompt(params, gp.Target.enew 'markdown', nil, agent.model, template, agent.system_prompt)
+        end,
+        -- FIX: Look to suggest synonyms... This has the same problem often. <16-07-24>
+        -- GpTranslator: Translates the provided selection/range
+        Translator = function(gp, params)
+          local agent = gp.get_command_agent()
+          local chat_system_prompt = 'You are a Translator, please translate between the detected language of the input I am giving you and '
+            .. (params.args[1] or 'Czech')
+            .. '.\n Respond only with the translated text.\n'
+          gp.Prompt(params, gp.Target.popup, nil, agent.model, '{{selection}}', chat_system_prompt)
+        end,
+        -- GpDocumentation: Generate documentation for the provided function
+        Documentation = function(gp, params)
+          local agent = gp.get_command_agent()
+          local template = 'I have the following function:\n\n'
+            .. '```{{filetype}}\n{{selection}}\n```\n\n'
+            .. 'Please generate comprehensive documentation for this function, including:'
+            .. '\n- A brief description of what the function does'
+            .. '\n- Parameters and their types'
+            .. '\n- Return value and its type'
+            .. '\n- Any side effects or important notes'
+            .. '\n\nRespond with the correctly quoted documentation in the standard format for the `{{filetype}}` language.'
+          gp.Prompt(params, gp.Target.prepend, nil, agent.model, template, agent.system_prompt)
+        end,
+        -- FIX: This does not work because the visual markers are for full lines and not for ranges that include only
+        -- some words for the line... It could be solved perhaps by calling some function that gets the content of the
+        -- last visual selection. <16-07-24>
+        -- SuggestSynonyms: Suggest synonyms for the provided word
+        SuggestSynonyms = function(gp, params)
+          local agent = gp.get_command_agent()
+          local template = 'I have the following phrase:\n\n'
+            .. '{{selection}}'
+            .. 'Please suggest synonyms or alternate phases for this phrase.'
+          gp.Prompt(params, gp.Target.popup, nil, agent.model, template, agent.system_prompt)
+        end,
+        -- TODO: I would like to have a hook for _rephrasing_ and good writing suggestions <16-07-24>
       },
     },
     config = function(_, opts)
+      vim.api.nvim_create_autocmd('BufRead', {
+        group = vim.api.nvim_create_augroup('GpChat', {}),
+        pattern = vim.fn.stdpath('data'):gsub('/$', '') .. '/gp/chats/*.md',
+        callback = function()
+          vim.opt_local.number = false
+          vim.opt_local.textwidth = 80
+        end,
+      })
+
       require('gp').setup(opts)
       require('which-key').add {
         -- ...
@@ -116,34 +171,11 @@ local M = {
         },
       }
 
-      -- NORMAL mode mappings
-      require('which-key').add {
-        {
-          { '<C-g><C-t>', '<cmd>GpChatNew tabnew<cr>', desc = 'New Chat tabnew', nowait = true, remap = false },
-          { '<C-g><C-v>', '<cmd>GpChatNew vsplit<cr>', desc = 'New Chat vsplit', nowait = true, remap = false },
-          { '<C-g><C-x>', '<cmd>GpChatNew split<cr>', desc = 'New Chat split', nowait = true, remap = false },
-          { '<C-g>A', '<cmd>GpWhisperAppend<cr>', desc = 'Whisper Append', nowait = true, remap = false },
-          { '<C-g>B', '<cmd>GpWhisperPrepend<cr>', desc = 'Whisper Prepend', nowait = true, remap = false },
-          { '<C-g>E', '<cmd>GpWhisperEnew<cr>', desc = 'Whisper Enew', nowait = true, remap = false },
-          { '<C-g>P', '<cmd>GpWhisperPopup<cr>', desc = 'Whisper Popup', nowait = true, remap = false },
-          { '<C-g>R', '<cmd>GpWhisperRewrite<cr>', desc = 'Whisper Inline Rewrite', nowait = true, remap = false },
-          { '<C-g>a', '<cmd>GpAppend<cr>', desc = 'Append', nowait = true, remap = false },
-          { '<C-g>b', '<cmd>GpPrepend<cr>', desc = 'Prepend', nowait = true, remap = false },
-          { '<C-g>c', '<cmd>GpChatNew<cr>', desc = 'New Chat', nowait = true, remap = false },
-          { '<C-g>e', '<cmd>GpEnew<cr>', desc = 'Enew', nowait = true, remap = false },
-          { '<C-g>f', '<cmd>GpChatFinder<cr>', desc = 'Chat Finder', nowait = true, remap = false },
-          { '<C-g>p', '<cmd>GpPopup<cr>', desc = 'Popup', nowait = true, remap = false },
-          { '<C-g>r', '<cmd>GpRewrite<cr>', desc = 'Inline Rewrite', nowait = true, remap = false },
-          { '<C-g>s', '<cmd>GpStop<cr>', desc = 'Stop', nowait = true, remap = false },
-          { '<C-g>t', '<cmd>GpChatToggle<cr>', desc = 'Toggle Popup Chat', nowait = true, remap = false },
-          { '<C-g>w', '<cmd>GpWhisper<cr>', desc = 'Whisper', nowait = true, remap = false },
-        },
-      }
-      -- INSERT mode mappings
+      -- NORMAL & INSERT mode mappings
       require('which-key').add {
         -- ...
         {
-          mode = { 'i' },
+          mode = { 'i', 'n' },
           { '<C-g><C-t>', '<cmd>GpChatNew tabnew<cr>', desc = 'New Chat tabnew', nowait = true, remap = false },
           { '<C-g><C-v>', '<cmd>GpChatNew vsplit<cr>', desc = 'New Chat vsplit', nowait = true, remap = false },
           { '<C-g><C-x>', '<cmd>GpChatNew split<cr>', desc = 'New Chat split', nowait = true, remap = false },
