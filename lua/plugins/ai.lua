@@ -50,6 +50,9 @@ local M = {
         anthropic = {
           secret = { 'pass', 'anthropic.com/API_key_neovim' },
         },
+        pplx = {
+          secret = { 'pass', 'perplexity.ai/API_key_neovim' },
+        },
       },
       hooks = {
         -- GpUnitTests: Writes unit tests for the selected code
