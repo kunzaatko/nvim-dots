@@ -15,7 +15,7 @@ local has_root, root =
 local root_or_file = has_root and root.filename or vim.api.nvim_buf_get_name(0)
 
 local project_term = util.terminal.unique(root_or_file, {
-  cmd = 'fish -c "julia --project"',
+  cmd = 'fish -c "julia --threads 5 --project"',
   autoclose = true,
 }, { location = _G.julia.terminals })
 
