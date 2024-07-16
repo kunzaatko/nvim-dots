@@ -42,6 +42,7 @@ require('lazy').setup({
   { import = 'plugins.languages' },
   { import = 'plugins.fun' },
 }, {
+  rocks = { hererocks = true },
   checker = {
     enabled = true,
   },
