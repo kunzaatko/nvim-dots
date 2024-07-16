@@ -112,15 +112,20 @@ end, { desc = 'Toggle spell' })
 
 -- changing default behaviour
 vim.keymap.set('n', 'Y', 'y$', { desc = 'yank to eol' }) -- Y to act as D and C
-
 -- workaround for spellcheck
-vim.keymap.set('n', 'z=+', 'z=1', {})
-vim.keymap.set('n', 'z=ě', 'z=2', {})
-vim.keymap.set('n', 'z=š', 'z=3', {})
-vim.keymap.set('n', 'z=č', 'z=4', {})
-vim.keymap.set('n', 'z=ř', 'z=5', {})
-vim.keymap.set('n', 'z=ž', 'z=6', {})
-vim.keymap.set('n', 'z=ý', 'z=7', {})
-vim.keymap.set('n', 'z=á', 'z=8', {})
-vim.keymap.set('n', 'z=í', 'z=9', {})
-vim.keymap.set('n', 'z=é', 'z=0', {})
+-- wk.add {
+--   {
+--     desc = 'Spelling',
+--     hidden = true,
+--     { 'z=+', 'z=1' },
+--     { 'z=ě', 'z=2' },
+--     { 'z=š', 'z=3' },
+--     { 'z=č', 'z=4' },
+--     { 'z=ř', 'z=5' },
+--     { 'z=ž', 'z=6' },
+--     { 'z=ý', 'z=7' },
+--     { 'z=á', 'z=8' },
+--     { 'z=í', 'z=9' },
+--     { 'z=é', 'z=0' },
+--   },
+-- }
