@@ -213,7 +213,7 @@ local M = {
     'Exafunction/codeium.vim',
     event = { 'InsertEnter', 'VeryLazy' },
     enabled = true,
-    cmd = { 'Codeium', 'CodeiumAuto', 'CodeiumEnable', 'CodeiumDisable', 'CodeiumManual' },
+    cmd = { 'Codeium', 'CodeiumAuto', 'CodeiumEnable', 'CodeiumDisable', 'CodeiumManual', 'CodeiumChat' },
     config = function()
       vim.g.codeium_enabled = true
       vim.keymap.set('i', '<c-f>', vim.fn['codeium#Accept'], { expr = true })
@@ -225,6 +225,10 @@ local M = {
       end, { expr = true })
       vim.keymap.set('n', '<c-g><c-g>', vim.fn['codeium#Chat'], { expr = true, desc = 'Open Codeium Chat' })
       vim.keymap.set('i', '<c-x>', vim.fn['codeium#Clear'], { expr = true })
+
+      vim.api.nvim_create_user_command('CodeiumChat', function()
+        vim.call 'codeium#Chat'
+      end, {})
     end,
   },
 }
