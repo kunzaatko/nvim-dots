@@ -665,3 +665,6 @@ autocommand
 mixin
 parens
 shortcode
+autosnippet
+figcaption
+Wezterm

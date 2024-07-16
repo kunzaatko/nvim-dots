@@ -6,6 +6,9 @@
 -- TODO: save the terminal numbers to enable toggling them <12-05-23>
 -- TODO: when terminal exits, set autocommand to close on some keymap (once) <12-05-23>
 -- TODO: Which-Key register keymaps (!!!) <20-05-23>
+-- TODO: LaTeX snippets for label to add the context to the label beginning such as "eq:", "fig:", etc. <17-06-24>
+-- TODO: Build in terminal that autocloses on success <kunzaatko>
+-- FIX: Background highlight of conceal is not changed on TransparentEnable <18-06-24, kunzaatko>
 
 -- FIX: Scrolling in normal mode is very laggy <18-01-24>
 
