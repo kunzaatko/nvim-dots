@@ -7,9 +7,9 @@ function M.on_attach(client, buffer)
   local wk = require 'which-key'
 
   -- TODO: Add icons through icon util <04-05-23>
-  wk.register({
-    l = { name = string.format('%s %s', static.icons.lsp.lsp, 'LSP') },
-  }, { prefix = '<leader>', buffer = 0 })
+  wk.add({
+    { '<leader>l', group = string.format('%s %s', static.icons.lsp.lsp, 'LSP') },
+  }, { buffer = 0 })
 
   -- TODO: These mappings should be mapped to the lsp group <03-05-23>
   self:map('gl', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
