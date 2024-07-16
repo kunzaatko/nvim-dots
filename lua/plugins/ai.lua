@@ -31,12 +31,17 @@ local M = {
       {
         '€',
         '<cmd>GpChatToggle<CR>',
-        desc = 'GPT Toggle',
+        desc = 'GPT Chat Toggle',
+      },
+      {
+        '<leader>€',
+        '<cmd>GpChatNew vsplit<CR>',
+        desc = 'GPT Chat New',
       },
       {
         '<leader>ac',
         '<cmd>GpChatFinder<CR>',
-        desc = 'GPT Finder',
+        desc = 'GPT Chats Finder',
       },
     },
     opts = {
