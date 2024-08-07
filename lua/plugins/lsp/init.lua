@@ -188,6 +188,17 @@ local M = {
   -- TODO: Use the noice.nvim interface for renaming <11-05-23>
   { 'smjonas/inc-rename.nvim', opts = { input_buffer_type = 'dressing' }, event = 'VeryLazy', cmd = 'IncRename' },
   {
+    'aznhe21/actions-preview.nvim',
+    event = 'VeryLazy',
+    opts = {
+      diff = {
+        algorithm = 'patience',
+        ignore_whitespace = true,
+      },
+      telescope = require('telescope.themes').get_dropdown { winblend = 10 },
+    },
+  },
+  {
     'ray-x/lsp_signature.nvim',
     name = 'lsp-signature',
     event = 'InsertEnter',

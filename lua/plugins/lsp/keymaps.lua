@@ -47,7 +47,14 @@ function M.on_attach(client, buffer)
   self:map(']w', M.diagnostic_goto(true, 'WARNING'), { desc = 'Next Warning' })
   self:map('[w', M.diagnostic_goto(false, 'WARNING'), { desc = 'Prev Warning' })
 
-  self:map('<leader>la', vim.lsp.buf.code_action, { desc = 'Code Action', mode = { 'n', 'v' }, has = 'codeAction' })
+  self:map('<leader>la', function()
+    local actions_preview_exists, _ = pcall(require, 'actions-preview')
+    if actions_preview_exists then
+      require('actions-preview').code_actions()
+    else
+      vim.lsp.buf.code_action()
+    end
+  end, { desc = 'Code Action', mode = { 'n', 'v' }, has = 'codeAction' })
 
   -- TODO: Add symbols outline plug-in <12-05-23>
   local format = require('plugins.lsp.format').format
