@@ -115,6 +115,16 @@ local M = {
             },
           },
         },
+        harper_ls = {
+          settings = {
+            ['harper-ls'] = {
+              linters = {
+                spell_check = false,
+                wrong_quotes = true,
+              },
+            },
+          },
+        },
         tinymist = {
           --- todo: these configuration from lspconfig maybe broken
           single_file_support = true,

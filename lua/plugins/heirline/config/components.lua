@@ -257,6 +257,7 @@ components.LSPActive = { --{{{
         ['null-ls'] = 'null',
         ['rust_analyzer-standalone'] = 'analyzer-standalone',
         ['rust_analyzer'] = 'analyzer',
+        ['harper_ls'] = 'harper',
       },
     },
     init = function(self)
