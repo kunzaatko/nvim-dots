@@ -116,6 +116,7 @@ local M = {
           },
         },
         harper_ls = {
+          filetypes = { 'markdown', 'latex', 'txt', 'html' },
           settings = {
             ['harper-ls'] = {
               linters = {
