@@ -234,7 +234,7 @@ components.FileLastModified = {
 
 components.Codeium = {
   condition = function(self)
-    local mode = self.mode:sub(1, 1) -- get only the first mode character
+    local mode = self.mode:sub(1, 1) -- Get only the first mode character
     return mode == 'i' and vim.g.codeium_enabled ~= nil
   end,
   utils.surround({ static.icons.ai .. '[', ']' }, nil, {
@@ -254,7 +254,7 @@ components.LSPActive = { --{{{
       preferred_names = {
         lua_ls = 'lua',
         sumneko_lua = 'sumneko',
-        ['null-ls'] = 'null',
+        ['null-ls'] = 'none',
         ['rust_analyzer-standalone'] = 'analyzer-standalone',
         ['rust_analyzer'] = 'analyzer',
         ['harper_ls'] = 'harper',
