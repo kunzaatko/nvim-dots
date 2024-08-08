@@ -218,24 +218,6 @@ local M = {
       transparency = 10,
     },
   },
-  --[[ {
-    'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('lsp_lines').setup()
-      vim.diagnostic.config { virtual_lines = { only_current_line = true } }
-      vim.keymap.set('', '<Leader>ud', function()
-        if not vim.diagnostic.config().virtual_text then
-          vim.diagnostic.config { virtual_text = { spacing = 4, prefix = '●' } }
-        else
-          vim.diagnostic.config { virtual_text = false }
-        end
-        vim.diagnostic.config { virtual_lines = { only_current_line = true } }
-        require('lsp_lines').toggle()
-      end, { desc = 'Toggle lsp_lines' })
-    end,
-  }, ]]
-  { 'simrat39/symbols-outline.nvim', event = 'VeryLazy', config = true },
 }
 
 return M
