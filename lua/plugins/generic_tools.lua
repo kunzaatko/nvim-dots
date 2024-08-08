@@ -14,8 +14,9 @@ return {
     lazy = true,
     cmd = { 'TimerStart', 'TimerStop', 'TimerRepeat' },
     dependencies = {
-      'rcarriga/nvim-notify',
+      'notify',
     },
+    after = 'notify',
     opts = {
       notifiers = {
         {
