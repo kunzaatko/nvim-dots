@@ -46,12 +46,19 @@ return {
     event = { 'BufReadPre Cargo.toml' },
     dependencies = {
       'plenary',
-      { 'jose-elias-alvarez/null-ls.nvim', name = 'null-ls' },
     },
     opts = {
-      null_ls = {
+      lsp = {
         enabled = true,
         name = 'crates',
+        actions = true,
+        completion = true,
+        hover = true,
+      },
+      completion = {
+        crates = {
+          enabled = true,
+        },
       },
     },
     config = function(_, opts)
