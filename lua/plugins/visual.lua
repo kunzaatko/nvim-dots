@@ -20,7 +20,11 @@ return {
           alt = { 'WARNING', 'XXX', 'QUESTION', 'POLICY' },
         },
         PERF = { icon = static.icons.comments.performance .. ' ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
-        NOTE = { icon = static.icons.comments.note .. ' ', color = 'hint', alt = { 'INFO', 'IDEA', 'IDEA!' } },
+        NOTE = {
+          icon = static.icons.comments.note .. ' ',
+          color = 'hint',
+          alt = { 'INFO', 'IDEA', 'IDEA!', 'RESEARCH' },
+        },
       },
     },
   },
