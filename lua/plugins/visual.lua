@@ -215,4 +215,49 @@ return {
       require('modicator').setup(opts)
     end,
   },
+  {
+    'Isrothy/neominimap.nvim',
+    enabled = true,
+    lazy = false, -- NOTE: It lazy-loads itself <17-08-24>
+    keys = {
+      { '<leader>m', '<cmd>Neominimap bufToggle<cr>', desc = 'Toggle minimap for current buffer' },
+    },
+    init = function()
+      -- vim.opt.wrap = false -- Recommended
+      -- vim.opt.sidescrolloff = 36 -- It's recommended to set a large value
+      vim.g.neominimap = {
+        auto_enable = true,
+        win_filter = function(bufnr)
+          return vim.g.neominimap_is_in_search
+        end,
+        exclude_buftypes = {
+          'nofile',
+          'nowrite',
+          'quickfix',
+          'terminal',
+          'prompt',
+        },
+        buf_filter = function()
+          return true
+        end,
+        -- TODO: Highlight for cursor position should be different than the search to distinguish them <17-08-24>
+        search = {
+          enabled = true,
+          mode = 'line',
+        },
+      }
+      vim.on_key(function(char)
+        if vim.fn.mode() == 'n' then
+          local is_search_nav_key = vim.tbl_contains({ '<CR>', 'n', 'N', '*', '#', '?', '/' }, vim.fn.keytrans(char))
+          if is_search_nav_key then
+            vim.g.neominimap_is_in_search = true
+            require('neominimap').winRefresh({}, {})
+          else
+            vim.g.neominimap_is_in_search = false
+            require('neominimap').winRefresh({}, {})
+          end
+        end
+      end, vim.api.nvim_create_namespace 'auto_search_nav')
+    end,
+  },
 }
