@@ -49,6 +49,7 @@ local M = {
             },
           },
         },
+        -- FIX: Java environment is not compatible with `ltex` <08-08-24>
         -- ltex = {
         --   settings = {
         --     ltex = {
@@ -121,18 +122,18 @@ local M = {
             ['harper-ls'] = {
               linters = {
                 spell_check = false,
-                wrong_quotes = true,
+                -- wrong_quotes = true,
               },
             },
           },
         },
         tinymist = {
-          --- todo: these configuration from lspconfig maybe broken
+          -- TODO: these configuration from lspconfig maybe broken
           single_file_support = true,
           root_dir = function()
             return vim.fn.getcwd()
           end,
-          --- See [Tinymist Server Configuration](https://github.com/Myriad-Dreamin/tinymist/blob/main/Configuration.md) for references.
+          -- See [Tinymist Server Configuration](https://github.com/Myriad-Dreamin/tinymist/blob/main/Configuration.md) for references.
           settings = {
             exportPdf = 'onType',
             formatterMode = 'typstyle',
@@ -163,6 +164,7 @@ local M = {
       }
       opts.servers.texlab.capabilities = capabilities
       require('lspconfig').texlab.setup(opts.servers.texlab)
+      -- require('lspconfig').ltex.setup(opts.servers.ltex) -- FIX: not working with current Java installation
       -- FIX: For some reason this server is not configured. My hypothesis is that it does not get configured due to it
       -- not being installed by Mason... This explicit setting up solves it <25-04-24>
       require('lspconfig').ccls.setup(opts.servers.ccls)
