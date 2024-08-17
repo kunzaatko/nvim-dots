@@ -12,7 +12,8 @@ return {
   },
 
   -- TODO: Do not select the ones that are loaded first <02-05-23>
-  -- FIX: Does not load before saving (maybe on new files). There should be an event that will load it before saving <11-01-23>
+  -- FIX: Does not load before saving (maybe on new files). There should be an event that will load it before saving
+  -- <11-01-23>
   {
     'nvimtools/none-ls.nvim',
     name = 'none-ls',

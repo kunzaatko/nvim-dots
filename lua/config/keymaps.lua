@@ -25,7 +25,6 @@ vim.keymap.set('n', '[t', vim.cmd.tabprevious, { desc = 'previous tab' })
 
 -- Text Objects
 vim.keymap.set({ 'o', 'x' }, 'ae', require('util').entire_buffer, { desc = 'entire buffer textobj' })
-
 vim.keymap.set({ 'o', 'x' }, 'ie', require('util').entire_buffer, { desc = 'entire buffer textobj' })
 
 local append_blank_lines = function()
@@ -128,21 +127,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end
   end,
 })
-
--- workaround for spellcheck
--- wk.add {
---   {
---     desc = 'Spelling',
---     hidden = true,
---     { 'z=+', 'z=1' },
---     { 'z=ě', 'z=2' },
---     { 'z=š', 'z=3' },
---     { 'z=č', 'z=4' },
---     { 'z=ř', 'z=5' },
---     { 'z=ž', 'z=6' },
---     { 'z=ý', 'z=7' },
---     { 'z=á', 'z=8' },
---     { 'z=í', 'z=9' },
---     { 'z=é', 'z=0' },
---   },
--- }

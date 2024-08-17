@@ -7,7 +7,8 @@ return {
     event = 'BufReadPre',
     enabled = vim.fn.executable 'git' == 1,
     opts = {
-      -- FIX: Defining the correct highlights such as `GitSignsChange` to yellow does not work?! What is the problem? <24-06-24>
+      -- FIX: Defining the correct highlights such as `GitSignsChange` to yellow does not work?! What is the problem?
+      -- <24-06-24>
       signs = {
         add = { text = '┃' },
         change = { text = '┇' },

@@ -27,7 +27,7 @@ else
   vim.api.nvim_create_autocmd('BufWritePre', {
     callback = function()
       vim.notify(
-        '`$XDG_STATE_HOME` is not set. The backup will be written in `' .. vim.api.nvim_get_option 'backupdir' .. '`',
+        '`$XDG_STATE_HOME` is not set. The backup will be written in `' .. vim.opt.backupdir:get()[1] .. '`',
         vim.log.levels.WARN,
         { title = '`backupdir`' }
       )
