@@ -10,6 +10,8 @@
 -- TODO: Build in terminal that autocloses on success <kunzaatko>
 -- FIX: Background highlight of conceal is not changed on TransparentEnable <18-06-24, kunzaatko>
 
+-- FIX: The commands can be run better with the `vim.system` command instead of using plenary <11-08-24>
+
 -- FIX: Scrolling in normal mode is very laggy <18-01-24>
 
 ---@diagnostic disable: undefined-field
