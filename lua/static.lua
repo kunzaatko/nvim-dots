@@ -38,6 +38,7 @@ icons.fold = {
 icons.explorer = {
   folder_closed = '',
   folder_empty = '',
+  folder_move = '',
   folder_open = '',
 }
 
