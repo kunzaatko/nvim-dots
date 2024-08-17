@@ -15,6 +15,7 @@ return {
       ['core.defaults'] = {},
       ['core.concealer'] = {},
       ['core.integrations.treesitter'] = {},
+      ['core.export'] = {},
       ['core.completion'] = {
         config = {
           engine = 'nvim-cmp',
