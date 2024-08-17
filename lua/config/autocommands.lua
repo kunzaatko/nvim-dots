@@ -89,9 +89,10 @@ vim.api.nvim_create_autocmd('BufWinLeave', {
 })
 
 _G.root_patterns = {
-  all = { '.git', 'Makefile', 'src' },
+  all = { '.git', 'Makefile', 'Justfile', 'src' },
   julia = { 'Project.toml', 'Manifest.toml' },
   tex = { 'Tectonic.toml', 'build' },
+  lua = 'lazy-lock.json',
   rust = { 'build' },
   html = { 'static' },
   css = { 'static' },
