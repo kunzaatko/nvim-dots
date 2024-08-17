@@ -84,7 +84,7 @@ local todo_snippet_specs = {
   { { trig = 'hack' }, 'HACK' },
   { { trig = 'warn' }, { 'WARN', 'QUESTION', 'WARNING', 'XXX' } },
   { { trig = 'perf' }, { 'PERF', 'PERFORMANCE', 'OPTIM', 'OPTIMIZE' } },
-  { { trig = 'note' }, { 'NOTE', 'INFO', 'IDEA', 'IDEA!' } },
+  { { trig = 'note' }, { 'NOTE', 'INFO', 'IDEA', 'IDEA!', 'RESEARCH' } },
   -- NOTE: Block commented todo-comments <kunzaatko>
   { { trig = 'todob' }, 'TODO', { ctype = 2 } },
   { { trig = 'fixb' }, { 'FIX', 'BUG', 'ISSUE', 'FIXIT' }, { ctype = 2 } },
