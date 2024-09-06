@@ -4,6 +4,7 @@ return {
     'folke/trouble.nvim',
     name = 'trouble',
     event = 'VeryLazy',
+    config = true,
     dependencies = { { 'kyazdani42/nvim-web-devicons', name = 'devicons' } },
     cmd = { 'Trouble', 'TroubleToggle', 'TroubleClose', 'TroubleRefresh' },
   },
