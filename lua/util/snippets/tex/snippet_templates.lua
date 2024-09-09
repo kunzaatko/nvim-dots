@@ -15,6 +15,7 @@ local f = ls.function_node
 local i = ls.insert_node
 local t = ls.text_node
 local c = ls.choice_node
+local d = ls.dynamic_node
 local fmta = require('luasnip.extras.fmt').fmta
 
 --- Generate nodes for a simple environment
@@ -81,6 +82,7 @@ function M.capture_wrap_snippet(context, command, opts)
   if not context.trig then
     error("context doesn't include a `trig` key which is mandatory", 2)
   end
+
   local context_default = {
     regTrig = true,
     snippetType = 'autosnippet',
@@ -89,25 +91,45 @@ function M.capture_wrap_snippet(context, command, opts)
     docstring = command .. [[{]] .. [[{capture}]] .. [[}]] .. [[{0}]],
   }
   context = vim.tbl_extend('keep', context, context_default)
-  s(
-    context,
-    f(function(_, snip)
-      return command .. [[{]] .. snip.captures[1] .. [[}]]
-    end),
-    opts
-  )
+
+  local body = f(function(_, snip)
+    return command .. [[{]] .. snip.captures[1] .. [[}]]
+  end)
+
+  s(context, body, opts)
 end
 
--- TODO: Automatic VISUAL mode snippets <19-03-22> --
+--- Creates a function that returns `snippet_node`s based on whether the VISUAL mode was used for filling in or not. The
+--- result must be wrapped in a `dynamic_node` in the final VISUAL enabled snippet. For a use case see
+--- `simple_command_snippet` in this file.
+---@param alternative table Snippet body if we didn't come from VISUAL mode
+---@param transform function Takes the VISUAL selection and transforms it into a snippet body
+function M.get_visual(alternative, transform)
+  local transform_function = transform or function(visual)
+    return i(1, visual)
+  end
+  return function(_, parent)
+    pprint(parent.snippet.env)
+    if #parent.snippet.env.LS_SELECT_RAW > 0 then
+      return sn(nil, transform_function(parent.snippet.env.LS_SELECT_RAW[1]))
+    else
+      return sn(nil, alternative)
+    end
+  end
+end
+
 -- TODO: Automatically add space after if no space inserted <19-03-22> --
 --- Generate a snippet with simple LaTeX command with one parameter
 ---@param context table merged with the generated context table `trig` must be specified
 ---@param command string LaTeX symbol command
 ---@param opts nil|table merged with the snippet opts table
-function M.simple_command_snippet(context, command, opts)
+---@param tmpl_opts nil|table
+--- - @field visual boolean Whether to define the visual snippet as well
+function M.simple_command_snippet(context, command, opts, tmpl_opts)
   if not context.trig then
     error("context doesn't include a `trig` key which is mandatory", 2)
   end
+
   local context_default = {
     dscr = command,
     name = context.dscr,
@@ -115,7 +137,19 @@ function M.simple_command_snippet(context, command, opts)
     snippetType = 'autosnippet',
   }
   context = vim.tbl_extend('keep', context, context_default)
-  s(context, fmta(command .. [[{<>}]], i(1)), opts)
+
+  local body = fmta(command .. [[{<>}]], i(1))
+  local tmlp_opts = tmpl_opts or {}
+  body = tmlp_opts.visual
+      and d(
+        1,
+        M.get_visual(body, function(selection)
+          return t(command .. [[{]] .. selection .. [[}]])
+        end)
+      )
+    or body
+
+  s(context, body, opts)
 end
 
 local no_backslash = require('luasnip.extras.conditions').make_condition(function(line, trig, _)
