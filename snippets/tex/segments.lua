@@ -3,7 +3,7 @@
 local in_document = utils.tex.conditions.in_document
 
 -- TODO: Add support for visual selection the title <18-03-22> --
--- TODO: Generate these using a function. They are prettymuch the same <17-03-22> --
+-- TODO: Generate these using a function. They are pretty much the same <17-03-22> --
 s(
   {
     trig = 'sec',
@@ -21,7 +21,7 @@ s(
       \label{sec:<>}
       <>
       ]],
-    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '_'), 1), i(0) }
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
   )
 )
 
@@ -41,7 +41,7 @@ s(
       \label{sec:<>}
       <>
       ]],
-    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '_'), 1), i(0) }
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
   )
 )
 
@@ -61,7 +61,7 @@ s(
       \label{sub:<>}
       <>
       ]],
-    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '_'), 1), i(0) }
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
   )
 )
 
@@ -81,7 +81,7 @@ s(
       \label{sub:<>}
       <>
       ]],
-    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '_'), 1), i(0) }
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
   )
 )
 
@@ -101,7 +101,7 @@ s(
       \label{ssub:<>}
       <>
       ]],
-    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '_'), 1), i(0) }
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
   )
 )
 
@@ -121,7 +121,7 @@ s(
       \label{ssub:<>}
       <>
       ]],
-    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '_'), 1), i(0) }
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
   )
 )
 
@@ -141,7 +141,7 @@ s(
       \label{par:<>}
       <>
       ]],
-    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '_'), 1), i(0) }
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
   )
 )
 
@@ -162,7 +162,7 @@ s(
       ]],
     {
       i(1, 'Title'),
-      dl(2, l._1:lower():gsub(' ', '_'), 1),
+      dl(2, l._1:lower():gsub(' ', '-'), 1),
     }
   )
 )
