@@ -35,7 +35,7 @@ local auto_capture_specs = {
 }
 
 for k, v in pairs(auto_capture_specs) do
-  capture_wrap_snippet(vim.tbl_deep_extend('keep', { trig = k }, v.context), v.command, { condition = in_mathzone })
+  capture_wrap_snippet(vim.tbl_deep_extend('keep', { trig = k, condition = in_mathzone }, v.context), v.command)
 end
 
 local simple_command_snippet = utils.tex.snippet_templates.simple_command_snippet
@@ -65,5 +65,10 @@ local simple_command_specs = {
 }
 
 for k, v in pairs(simple_command_specs) do
-  simple_command_snippet(vim.tbl_deep_extend('error', { trig = k, condition = in_mathzone }, v.context), v.command)
+  simple_command_snippet(
+    vim.tbl_deep_extend('error', { trig = k, condition = in_mathzone }, v.context),
+    v.command,
+    {},
+    { visual = true }
+  )
 end
