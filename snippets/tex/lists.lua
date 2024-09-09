@@ -2,28 +2,6 @@
 local in_normalzone = utils.tex.conditions.in_normalzone
 local in_list = utils.tex.conditions.in_list
 
--- FIX: this does not work currently --
--- 'recursive' dynamic snippet. Expands to some text followed by itself.
-local rec_ls
-rec_ls = function()
-  return sn(
-    nil,
-    c(1, {
-      -- Order is important, sn(...) first would cause infinite loop of expansion.
-      t '',
-      sn(nil, { t { '', '\t\\item ' }, i(1), d(2, rec_ls, {}) }),
-    })
-  )
-end
-
-s({ trig = 'item', name = 'Itemize', condition = in_normalzone * conds.line_begin }, {
-  t { '\\begin{itemize}', '\t\\item ' },
-  i(1),
-  d(2, rec_ls, {}),
-  t { '', '\\end{itemize}' },
-  i(0),
-})
-
 s({ trig = 'desc', name = 'Description', condition = in_normalzone * conds.line_begin }, {
   t { '\\begin{description}', '\t\\item[' },
   i(1),
