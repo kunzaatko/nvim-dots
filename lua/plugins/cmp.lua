@@ -1,5 +1,8 @@
+-- NOTE: https://www.reddit.com/r/neovim/comments/1f1rxtx/share_a_tip_to_improve_your_experience_in_nvimcmp/ <27-08-24>
 local M = {
-  'hrsh7th/nvim-cmp',
+  -- 'hrsh7th/nvim-cmp',
+  'yioneko/nvim-cmp',
+  branch = 'perf',
   name = 'cmp',
   event = { 'InsertEnter', 'VeryLazy' },
   dependencies = {
@@ -30,7 +33,12 @@ function M.config()
     return vim.api.nvim_replace_termcodes(str, true, true, true)
   end
 
+  -- NOTE: https://www.reddit.com/r/neovim/comments/1f1rxtx/share_a_tip_to_improve_your_experience_in_nvimcmp/ <27-08-24>
   cmp.setup {
+    preformance = {
+      debounce = 0, -- default is 60ms
+      throttle = 0, -- default is 30ms
+    },
     preselect = cmp.PreselectMode.None,
     experimental = {
       ghost_text = true,
