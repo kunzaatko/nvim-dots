@@ -127,6 +127,26 @@ s(
 
 s(
   {
+    trig = 'ch',
+    name = 'Chapter',
+    dscr = 'Chapter command with a label',
+    docstring = [[
+\chapter{{1:chapter title}}%
+\label{ch:{2:chapter}}
+]],
+  },
+  fmta(
+    [[
+      \chapter{<>}%
+      \label{ch:<>}
+      <>
+      ]],
+    { i(1, 'Title'), dl(2, l._1:lower():gsub(' ', '-'), 1), i(0) }
+  )
+)
+
+s(
+  {
     trig = 'par',
     name = 'Paragraph',
     dscr = 'Paragraph command with a title and label',
