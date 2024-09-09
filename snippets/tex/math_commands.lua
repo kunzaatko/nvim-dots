@@ -10,6 +10,13 @@ local auto_capture_specs = {
     },
     command = [[\hat]],
   },
+  [ [[([a-zA-Z])tld]] ] = {
+    context = {
+      name = 'tilde',
+      dscr = 'automatic tilde command',
+    },
+    command = [[\tilde]],
+  },
   [ [[([a-zA-Z])vec]] ] = {
     context = {
       name = 'vec',
@@ -40,6 +47,13 @@ local simple_command_specs = {
     },
     command = [[\hat]],
   },
+  tld = {
+    context = {
+      name = 'tilde',
+      dscr = 'tilde command',
+    },
+    command = [[\tilde]],
+  },
   vec = {
     context = {
       name = 'vec',
@@ -67,6 +81,22 @@ local simple_command_specs = {
       dscr = 'square root of argument',
     },
     command = [[\sqrt]],
+  },
+  under = {
+    context = {
+      name = [[underbrace]],
+      dscr = 'underbraced expression',
+      snippetType = 'snippet',
+    },
+    command = [[\underbrace]],
+  },
+  over = {
+    context = {
+      name = [[overbrace]],
+      dscr = 'overbraced expression',
+      snippetType = 'snippet',
+    },
+    command = [[\overbrace]],
   },
 }
 
