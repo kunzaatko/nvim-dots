@@ -81,7 +81,7 @@ return {
       desc = 'fuzzy-find in buffer',
     },
     {
-      '<leader>w',
+      'Đ',
       function()
         require('telescope.builtin').find_files { hidden = true }
       end,
@@ -92,12 +92,6 @@ return {
       require('telescope.builtin').live_grep,
       desc = 'grep workspace files',
     },
-    -- TODO: Decide whether to use which-key spelling UI, other should be remapped to something else.
-    -- {
-    --   'z=',
-    --   require('telescope.builtin').spell_suggest,
-    --   desc = 'suggest spelling',
-    -- },
   },
   config = function(_, opts)
     local telescope = require 'telescope'
