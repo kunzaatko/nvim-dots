@@ -101,7 +101,12 @@ local simple_command_specs = {
 }
 
 for k, v in pairs(simple_command_specs) do
-  simple_command_snippet(vim.tbl_deep_extend('keep', { trig = k, condition = in_mathzone }, v.context or {}), v.command)
+  simple_command_snippet(
+    vim.tbl_deep_extend('keep', { trig = k, condition = in_mathzone }, v.context or {}),
+    v.command,
+    {},
+    { visual = true }
+  )
 end
 
 local indexing_command_snippet = utils.tex.snippet_templates.indexing_command_snippet
