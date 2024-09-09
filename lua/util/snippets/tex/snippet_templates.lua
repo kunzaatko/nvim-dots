@@ -73,7 +73,6 @@ function M.named_env_nodes(envname, restore)
   )
 end
 
--- TODO: Automatic VISUAL mode snippets <19-03-22> --
 --- Generate a snippet that wraps a capture by a command
 ---@param context table merged with the generated context table `trig` must be specified
 ---@param command string LaTeX symbol command
