@@ -49,6 +49,7 @@ require('lazy').setup({
   rocks = { hererocks = true },
   checker = {
     enabled = true,
+    frequency = 3600 * 24, -- NOTE: Check once per day <03-09-24>
   },
   performance = {
     rtp = {
