@@ -153,6 +153,7 @@ local auto_backslash_specs = {
   'ls',
   'log',
   'exp',
+  'ln',
   'star',
   'perp',
 }
