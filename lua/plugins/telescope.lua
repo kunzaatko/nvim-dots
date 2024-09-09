@@ -40,7 +40,6 @@ return {
         preview = {
           treesitter = {
             enable = true,
-            disable = { 'tex' }, -- NOTE: https://github.com/nvim-telescope/telescope.nvim/issues/3150 <17-06-24>
           },
         },
         mappings = {
@@ -75,9 +74,7 @@ return {
     },
     {
       '//',
-      function()
-        require('telescope.builtin').current_buffer_fuzzy_find { results_ts_highlight = vim.o.filetype ~= 'tex' }
-      end,
+      require('telescope.builtin').current_buffer_fuzzy_find,
       desc = 'fuzzy-find in buffer',
     },
     {
