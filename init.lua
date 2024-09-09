@@ -26,7 +26,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 require 'static'
 
-vim.g.mapleader = ' '
+vim.g.mapleader = ','
 vim.g.maplocalleader = '-'
 
 require('lazy').setup({
