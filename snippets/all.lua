@@ -1,6 +1,8 @@
 ---@diagnostic disable: undefined-global
 local get_cstring = utils.get_cstring
 
+-- NOTE: They are functions that generate the nodes instead of the nodes themselves because of a reference issue in
+-- LuaSnip that causes a stackoverflow if multiple snippets use the same nodes as options for a choice node <09-09-24>
 -- TODO: Check whether the cursor is already in comment using tree-sitter and add comment delims only when not in
 -- comment <12-05-23>
 -- TODO: These should be be made more modular. I can create the nodes of the snippets like "date_nodes",
