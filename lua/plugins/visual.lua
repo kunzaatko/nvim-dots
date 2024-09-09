@@ -260,4 +260,9 @@ return {
       end, vim.api.nvim_create_namespace 'auto_search_nav')
     end,
   },
+  -- TODO: Setup should be called in ftplugin settings. Add for julia documentation comments  <03-06-24>
+  {
+    'folke/paint.nvim',
+    module = 'paint',
+  },
 }
