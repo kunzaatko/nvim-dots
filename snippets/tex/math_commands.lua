@@ -129,6 +129,13 @@ s(
   {}
 )
 
+simple_command_snippet(
+  { trig = 'lbl', dscr = 'Add label', condition = in_mathzone, snippetType = 'snippet' },
+  '\\label',
+  {},
+  {}
+)
+
 -- TODO: add quad text snippet as in physics package
 s({
   trig = 'qq',
