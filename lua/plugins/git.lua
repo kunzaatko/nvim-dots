@@ -78,6 +78,7 @@ return {
         callback = function()
           vim.opt_local.list = false
           vim.opt_local.foldlevel = 1000
+          vim.opt_local.colorcolumn = { 0 }
         end,
       })
       vim.keymap.set('n', '<leader>gg', require('neogit').open, { desc = 'open Neogit' })

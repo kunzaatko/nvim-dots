@@ -32,6 +32,13 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function(_, opts)
       vim.keymap.set('n', '_', require('oil').open, { desc = 'Open parent directory' })
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('OilOptions', { clear = true }),
+        pattern = 'oil',
+        callback = function()
+          vim.opt_local.colorcolumn = { 0 }
+        end,
+      })
       require('oil').setup(opts)
     end,
   },

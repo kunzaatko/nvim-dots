@@ -16,6 +16,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('Filetype', {
+  group = vim.api.nvim_create_augroup('HelpOptions', {}),
+  pattern = 'help',
+  callback = function()
+    vim.opt_local.colorcolumn = { 0 }
+  end,
+})
+
 -- TODO: Add foldlevel, when leaving a window? <17-04-23>
 vim.api.nvim_create_augroup('NumberToggle', {})
 vim.api.nvim_create_autocmd({ 'WinEnter', 'InsertLeave' }, {
