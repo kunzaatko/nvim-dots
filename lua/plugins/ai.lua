@@ -140,6 +140,13 @@ local M = {
           vim.opt_local.textwidth = 80
         end,
       })
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile' }, {
+        group = vim.api.nvim_create_augroup('GpChatLspDisable', { clear = true }),
+        pattern = vim.fn.stdpath('data'):gsub('/$', '') .. '/gp/chats/*.md',
+        callback = function()
+          vim.diagnostic.enable(false, { bufnr = 0 })
+        end,
+      })
 
       require('gp').setup(opts)
       require('which-key').add {
