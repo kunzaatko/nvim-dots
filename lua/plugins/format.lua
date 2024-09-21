@@ -28,6 +28,7 @@ return {
           ['end'] = { args.line2, end_line:len() },
         }
       end
+      -- TODO: Test whether this works and does not stall the further writing <09-09-24>
       require('conform').format { async = true, lsp_fallback = true, range = range }
     end, { range = true })
   end,

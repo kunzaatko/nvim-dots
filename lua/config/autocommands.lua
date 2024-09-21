@@ -61,6 +61,7 @@ local fold_ignored_fts = {
   'qf',
 }
 
+-- FIX: Does not work for `:InspectTree` even though the `buftype` is `nofile`  <15-09-24>
 vim.api.nvim_create_autocmd('BufWinEnter', {
   desc = 'Close filetypes with `q`',
   group = vim.api.nvim_create_augroup('q_close_windows', { clear = true }),

@@ -58,6 +58,7 @@ return {
       end,
     },
   },
+  -- TODO: Open neogit in a floating window instead of new buffer. <21-09-24>
   {
     'NeogitOrg/neogit',
     cmd = 'Neogit',
@@ -159,6 +160,7 @@ return {
       }
     end,
   },
+  -- TODO: Open new issue in a floating window instead of new buffer. <21-09-24>
   {
     'pwntester/octo.nvim',
     name = 'octo',
