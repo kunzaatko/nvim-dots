@@ -187,14 +187,14 @@ return {
     'tzachar/highlight-undo.nvim',
     event = 'VeryLazy',
     config = function()
-      require('highlight-undo').setup {
-        hlgroup = 'Search',
-        duration = 300,
-        keymaps = {
-          { 'n', 'u', 'undo', {} },
-          { 'n', '<C-r>', 'redo', {} },
-        },
-      }
+      -- TODO: Consider using background or different colour or italic flash <08-10-24>
+      vim.api.nvim_set_hl(
+        0,
+        'HighlightUndo',
+        { fg = vim.api.nvim_get_hl(0, { name = '@diff.minus', link = false }).fg }
+      )
+      vim.api.nvim_set_hl(0, 'HighlightRedo', { fg = vim.api.nvim_get_hl(0, { name = '@diff.plus', link = false }).fg })
+      require('highlight-undo').setup()
     end,
   },
   {
