@@ -275,14 +275,14 @@ vim.keymap.set(
   'n',
   '<localleader>w',
   utils.COMPILERS.tectonic.watch,
-  { desc = 'watch for changes and compile on write' }
+  { desc = 'watch for changes and compile on write', buffer = true }
 )
 
-vim.keymap.set('n', '<localleader>b', utils.COMPILERS.tectonic.build, { desc = 'build document' })
+vim.keymap.set('n', '<localleader>b', utils.COMPILERS.tectonic.build, { desc = 'build document', buffer = true })
 
 vim.keymap.set('n', '<localleader>o', function()
   utils.openpdf('zathura', utils.COMPILERS.tectonic.output())
-end, { desc = 'open output with viewer' })
+end, { desc = 'open output with viewer', buffer = true })
 
 -- FIX: Synctex does not work with tectonic <25-11-23>
 vim.keymap.set('n', '<localleader>v', function()
@@ -292,10 +292,15 @@ vim.keymap.set('n', '<localleader>v', function()
     utils.COMPILERS.tectonic.output(),
     { '--synctex-forward ' .. cursor_pos[1] .. ':' .. cursor_pos[2] .. ':' .. vim.api.nvim_buf_get_name(0) }
   )
-end, { desc = 'view current position in the PDF' })
+end, { desc = 'view current position in the PDF', buffer = true })
 
-vim.keymap.set('n', '<localleader>iw', utils.inkscape_figures_watch, { desc = 'start the watch daemon' })
-vim.keymap.set('n', '<localleader>is', utils.inkscape_shortcut_manager, { desc = 'start the shortcut manager' })
+vim.keymap.set('n', '<localleader>iw', utils.inkscape_figures_watch, { desc = 'start the watch daemon', buffer = true })
+vim.keymap.set(
+  'n',
+  '<localleader>is',
+  utils.inkscape_shortcut_manager,
+  { desc = 'start the shortcut manager', buffer = true }
+)
 
 -- Abbreviations
 
@@ -305,6 +310,7 @@ local abbreviations = scrap.expand_many({
   { 'fc{e,í,i}', 'funkc{e,í,i}' },
 }, { capitalized = true })
 
+-- FIX: This is builtin in neovim with abbreviations. Should be adapted to the builtin method <13-10-24>
 -- NOTE: This is a solution, for nvim version 9 and lower, since there was no way to set the abbreviations from lua
 -- before <18-01-24>
 for _, value in pairs(abbreviations) do

@@ -25,7 +25,7 @@ local global_term = util.terminal.unique('global', {
 }, { location = _G.julia.terminals })
 
 wk.add {
-  { '<localleader>r', group = string.format('%s %s', static.icons.terminal, 'REPL'), buffer = 0 },
+  { '<localleader>r', group = string.format('%s %s', static.icons.terminal, 'REPL'), buffer = true },
 }
 
 vim.api.nvim_buf_create_user_command(0, 'REPL', function()
@@ -35,12 +35,12 @@ end, { nargs = '?' })
 -- NOTE: <RightAlt + r>
 vim.keymap.set('n', '¶', function()
   project_term:toggle(nil, false)
-end, { desc = 'Julia REPL for project', buffer = 0 })
+end, { desc = 'Julia REPL for project', buffer = true })
 
 -- NOTE: <leader><RightAlt + r>
 vim.keymap.set('n', '<localleader>¶', function()
   global_term:toggle(nil, false)
-end, { desc = 'Julia REPL toggle', buffer = 0 })
+end, { desc = 'Julia REPL toggle', buffer = true })
 
 -- FIX: Test terminal should be vertical on the right side <13-05-23, kunzaatko>
 vim.keymap.set('n', '<localleader>t', function()
@@ -49,7 +49,7 @@ vim.keymap.set('n', '<localleader>t', function()
     autoclose = false,
     layout = { open_cmd = 'enew' },
   }
-end, { desc = 'Run tests', buffer = 0 })
+end, { desc = 'Run tests', buffer = true })
 
 -- TODO: text motion enable (!!!) <kunzaatko>
 -- BUG: Sometimes errors with invalid argument to chansend()... Either a problem with the plugin or with my
@@ -64,7 +64,7 @@ vim.keymap.set('v', '¶', function()
   table.insert(vsel, #vsel + 1, '')
   project_term:send(vsel)
   require('util').exit_vmode()
-end, { desc = 'Send to REPL', buffer = 0 })
+end, { desc = 'Send to REPL', buffer = true })
 
 vim.keymap.set('v', '<localleader>?', function()
   local vsel = require('util').get_vsel_text()
@@ -76,12 +76,12 @@ vim.keymap.set('v', '<localleader>?', function()
 
   -- TODO: Open with no focus <18-05-23>
   project_term:open()
-end, { desc = 'Send to REPL', buffer = 0 })
+end, { desc = 'Send to REPL', buffer = true })
 
 -- FIX: This will work only when one REPL terminal at a time is defined... That is if I have python and julia active
 -- this will fail... Should be set by autocommand and only with some pattern that determines if the REPL is a julia
 -- REPL or a python REPL etc. <kunzaatko>
-vim.keymap.set('t', '¶', require('terminal.mappings').toggle, { desc = 'Julia REPL for project' })
+vim.keymap.set('t', '¶', require('terminal.mappings').toggle, { desc = 'Julia REPL for project', buffer = true })
 vim.keymap.set('n', '<localleader>rm', function()
   vim.ui.input({ prompt = 'Which module to activate?' }, function(module)
     if not module then
@@ -89,4 +89,4 @@ vim.keymap.set('n', '<localleader>rm', function()
     end
     project_term:send('using REPL;REPL.activate(' .. module .. ')')
   end)
-end, { desc = 'Activate the current project module', buffer = 0 })
+end, { desc = 'Activate the current project module', buffer = true })

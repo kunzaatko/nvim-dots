@@ -5,7 +5,7 @@ local util = require 'util'
 
 wk.add({
   c = { name = string.format('%s %s', static.icons.ActiveLSP, 'Cargo') },
-}, { prefix = '<localleader>', buffer = 0 })
+}, { prefix = '<localleader>', buffer = true })
 
 vim.keymap.set('n', '<localleader>cc', function()
   vim.ui.select({ 'clippy', 'check' }, { prompt = 'Check with:' }, function(option)
@@ -15,7 +15,7 @@ vim.keymap.set('n', '<localleader>cc', function()
       layout = { open_cmd = 'botright vertical new' },
     }
   end)
-end, { buffer = 0, desc = 'Cargo clippy' })
+end, { buffer = true, desc = 'Cargo clippy' })
 
 vim.keymap.set('n', '<localleader>cb', function()
   util.terminal.oneshot {
@@ -23,7 +23,7 @@ vim.keymap.set('n', '<localleader>cb', function()
     autoclose = false,
     layout = { open_cmd = 'botright vertical new' },
   }
-end, { buffer = 0, desc = 'Cargo build' })
+end, { buffer = true, desc = 'Cargo build' })
 
 vim.keymap.set('n', '<localleader>cr', function()
   util.terminal.oneshot {
@@ -31,7 +31,7 @@ vim.keymap.set('n', '<localleader>cr', function()
     autoclose = false,
     layout = { open_cmd = 'botright vertical new' },
   }
-end, { buffer = 0, desc = 'Cargo run' })
+end, { buffer = true, desc = 'Cargo run' })
 
 vim.keymap.set('n', '<localleader>cd', function()
   util.terminal.oneshot {
@@ -39,7 +39,7 @@ vim.keymap.set('n', '<localleader>cd', function()
     autoclose = false,
     layout = { open_cmd = 'botright new' },
   }
-end, { buffer = 0, desc = 'Cargo doc' })
+end, { buffer = true, desc = 'Cargo doc' })
 
 vim.keymap.set('n', '<localleader>t', function()
   util.terminal.oneshot {
@@ -47,4 +47,4 @@ vim.keymap.set('n', '<localleader>t', function()
     autoclose = false,
     layout = { open_cmd = 'botright vertical new' },
   }
-end, { buffer = 0, desc = 'Cargo test' })
+end, { buffer = true, desc = 'Cargo test' })
