@@ -39,7 +39,7 @@ return {
         },
         preview = {
           treesitter = {
-            enable = true,
+            disable = { 'text' },
           },
         },
         mappings = {
