@@ -21,8 +21,7 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter', name = 'treesitter' },
     opts = {},
     config = function()
-      -- FIX: Does not work right now. There is a post on Reddit that talks about it not working for him too... Should
-      -- check that our <18-04-23>
+      require('headlines').setup()
       -- TODO: Change the highlights <18-04-23>
       vim.cmd [[highlight Headline1 guibg=#1e2718]]
       vim.cmd [[highlight Headline2 guibg=#21262d]]

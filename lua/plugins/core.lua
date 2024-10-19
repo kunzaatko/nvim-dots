@@ -197,8 +197,8 @@ return {
           enable = true,
           -- FIX: Disabled at the moment due to some issue with patterns "Impossible Pattern". On markdown treesitter
           -- parser update it can be enabled again <30-04-24>
-          disable = { 'latex', 'tex', 'vim', 'markdown' },
-          additional_vim_regex_highlighting = { 'markdown' },
+          disable = { 'latex', 'tex' }, -- , 'vim', 'markdown' },
+          -- additional_vim_regex_highlighting = { 'markdown' },
         },
         indent = { enable = true },
         textobjects = {
