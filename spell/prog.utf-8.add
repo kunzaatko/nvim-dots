@@ -694,3 +694,13 @@ org
 buftype
 nofile
 cloudflare
+backend
+dict
+kwargs
+colormap
+viridis
+undercurl
+dir
+savefig
+subfigures
+accessor
