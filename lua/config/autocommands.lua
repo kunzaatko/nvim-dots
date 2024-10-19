@@ -24,6 +24,9 @@ vim.api.nvim_create_autocmd('Filetype', {
   end,
 })
 
+-- FIX: This does not work when entering a new buffer. Currently it does not work when opening the `oil.nvim` buffer,
+-- but it is possible that it does not work for more buffer types and scenarios. It uses nonrelative numbering when the
+-- buffer is entered and it is in normal mode <19-10-24>
 -- TODO: Add foldlevel, when leaving a window? <17-04-23>
 vim.api.nvim_create_augroup('NumberToggle', {})
 vim.api.nvim_create_autocmd({ 'WinEnter', 'InsertLeave' }, {

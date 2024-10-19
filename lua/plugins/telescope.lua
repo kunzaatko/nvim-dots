@@ -74,7 +74,10 @@ return {
     },
     {
       '//',
-      require('telescope.builtin').current_buffer_fuzzy_find,
+      function()
+        -- FIX: tree-sitter highlighting does not work here... <19-10-24>
+        require('telescope.builtin').current_buffer_fuzzy_find { results_ts_highlight = true }
+      end,
       desc = 'fuzzy-find in buffer',
     },
     {
