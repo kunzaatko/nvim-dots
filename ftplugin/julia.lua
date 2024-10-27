@@ -1,3 +1,5 @@
+-- FIX: Toggling the repl using ¶ does not work when I am in the repl itself. This may be caused by `VimKeymaps.jl` or
+-- perhaps a local mapping does not get set for the terminal... <19-10-24>
 -- TODO: Add autopairs `endwise` rules for "begin end" groups and for "do end" https://github.com/windwp/nvim-autopairs/wiki/Endwise#list-rule-predefined-by-user <11-05-23>
 
 -- FIX: The terminal should be only allowed to launch from a julia file and if I open different files from different
