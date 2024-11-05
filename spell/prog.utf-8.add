@@ -707,3 +707,5 @@ accessor
 IFFT
 Makie
 eduroam
+Jupyter
+jupyter
