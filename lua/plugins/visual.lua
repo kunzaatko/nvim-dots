@@ -145,6 +145,8 @@ return {
   -- TODO: Configure colours <05-10-23>
   {
     'lukas-reineke/indent-blankline.nvim',
+    -- TODO: A probable typing error in the commit d343409a. Should report. <05-11-24>
+    commit = 'e7a4442e055ec953311e77791546238d1eaae507',
     name = 'indent-blankline',
     event = 'BufReadPost',
     main = 'ibl',
