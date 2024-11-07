@@ -29,19 +29,11 @@ return {
     },
   },
   {
-    'rcarriga/nvim-notify',
-    name = 'notify',
-    event = 'UIEnter',
-    config = function()
-      vim.notify = require 'notify'
-    end,
-  },
-  {
     'norcalli/nvim-colorizer.lua',
     event = 'VeryLazy',
     config = true,
   },
-
+  -- TODO: Is this needed if with `snacks.nvim`? <07-11-24>
   -- TODO: Configure <17-04-23>
   {
     'kevinhwang91/nvim-ufo',
