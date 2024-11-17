@@ -709,3 +709,5 @@ Makie
 eduroam
 Jupyter
 jupyter
+padarray
+FFTW
