@@ -37,6 +37,7 @@ local auto_backslash_argument_command_snippet = utils.tex.snippet_templates.auto
 
 local auto_backslash_specs = {
   'ref',
+  'cref',
   'include',
   'tiny',
   'scriptsize',
