@@ -33,10 +33,15 @@ utils.COMPILERS = {
         cwd = utils.tex.get_root():absolute(),
         -- TODO: on_stderror <kunzaatko>
       }
-      vim.notify 'Building(tectonic): started'
+      local filename = vim.api.nvim_buf_get_name(0)
+      local filename_shortended = vim.fn.pathshorten(filename)
+      local extension = vim.fn.fnamemodify(filename, ':e')
+      -- TODO: Notification highlight with `icon_color` colour <17-11-24>
+      local icon, icon_color = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+      vim.notify('Building(' .. filename_shortended .. '): started', 'info', { title = '`tectonic`', icon = icon })
       buildjob:start()
       buildjob:after(function()
-        vim.notify 'Building(tectonic): finished'
+        vim.notify('Building(' .. filename_shortended .. '): finished', 'info', { title = '`tectonic`', icon = icon })
       end)
       return buildjob
     end,
@@ -48,7 +53,14 @@ utils.COMPILERS = {
         cwd = utils.tex.get_root():absolute(),
         -- TODO: on_stderror <kunzaatko>
       }
-      vim.notify 'Watch(tectonic): started'
+      local filename = vim.api.nvim_buf_get_name(0)
+      local extension = vim.fn.fnamemodify(filename, ':e')
+      local icon, _ = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
+      vim.notify(
+        'Watch(' .. vim.fn.pathshorten(filename) .. '): started',
+        'info',
+        { title = '`tectonic`', icon = icon }
+      )
       watchjob:start()
       return watchjob
     end,
