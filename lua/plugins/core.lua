@@ -245,6 +245,66 @@ return {
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },
       words = { enabled = true },
+      -- TODO: Colours so that the headers have a better contrast colour <19-11-24>
+      -- FIX: Projects do not work with persistence. Giving an error. <19-11-24>
+      dashboard = {
+        enabled = true,
+        height = 0.9,
+        width = 80,
+        preset = {
+          header = [[
+      ████ ██████           █████      ██                    
+     ███████████             █████                            
+     █████████ ███████████████████ ███   ███████████  
+    █████████  ███    █████████████ █████ ██████████████  
+   █████████ ██████████ █████████ █████ █████ ████ █████  
+ ███████████ ███    ███ █████████ █████ █████ ████ █████ 
+██████  █████████████████████ ████ █████ █████ ████ ██████]],
+        },
+        formats = {
+          key = function(item)
+            return { { '[', hl = 'special' }, { item.key, hl = 'key' }, { ']', hl = 'special' } }
+          end,
+        },
+        sections = {
+          { section = 'header' },
+          { pane = 2, title = 'MRU', file = vim.fn.fnamemodify('.', ':~'), padding = 1 },
+          { pane = 2, section = 'recent_files', cwd = true, limit = 8, padding = 1 },
+          { pane = 2, title = 'MRU', padding = 1 },
+          { pane = 2, section = 'recent_files', limit = 8, padding = 1 },
+          {
+            pane = 2,
+            icon = static.icons.folder_open,
+            title = 'Projects',
+            section = 'projects',
+            indent = 2,
+            padding = 2,
+          },
+          {
+            pane = 2,
+            icon = static.icons.git.branch,
+            title = 'Git Status',
+            section = 'terminal',
+            enabled = vim.fn.isdirectory '.git' == 1,
+            cmd = 'git status --short --branch --renames',
+            height = 5,
+            padding = 1,
+            ttl = 5 * 60,
+            indent = 3,
+          },
+          { section = 'startup' },
+          {
+            section = 'terminal',
+            cmd = 'fortune -s | cowsay -w -T U',
+            hl = 'header',
+            padding = 1,
+            indent = 20,
+            width = 60,
+            height = 20,
+            random = 10,
+          },
+        },
+      },
     },
   },
   {
