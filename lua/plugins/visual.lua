@@ -46,9 +46,37 @@ return {
           local builtin = require 'statuscol.builtin'
           require('statuscol').setup {
             relculright = true,
+            ft_ignore = { 'NeogitStatus' },
             segments = {
+              {
+                sign = {
+                  name = { 'GitSigns' },
+                  namespace = { 'gitsigns' },
+                  maxwidth = 1,
+                  colwidth = 1,
+                  auto = false,
+                  fillchar = ' ',
+                  fillcharhl = 'StatusColumnSeparator',
+                },
+                click = 'v:lua.ScSa',
+              },
               { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
-              { text = { '%s' }, click = 'v:lua.ScSa' },
+              {
+                sign = {
+                  name = {
+                    'LightBulbSign',
+                    'Dap',
+                    'neotest',
+                    'Diagnostic',
+                    'todo',
+                  },
+                  maxwidth = 1,
+                  colwidth = 2,
+                  auto = false,
+                },
+                click = 'v:lua.ScSa',
+              },
+              -- { text = { '%s' }, click = 'v:lua.ScSa' },
               { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
             },
           }
@@ -72,7 +100,9 @@ return {
     },
     config = function(_, opts)
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+      vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+      vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith)
       vim.keymap.set('n', 'K', function()
         local winid = require('ufo').peekFoldedLinesUnderCursor()
         if not winid then
