@@ -38,7 +38,6 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     name = 'ufo',
-    enabled = false,
     dependencies = {
       'kevinhwang91/promise-async',
       {
@@ -66,35 +65,55 @@ return {
           scrollD = '<C-d>',
         },
       },
-      provider_selector = function(_, filetype, buftype)
-        local function handleFallbackException(bufnr, err, providerName)
-          if type(err) == 'string' and err:match 'UfoFallbackException' then
-            return require('ufo').getFolds(bufnr, providerName)
-          else
-            return require('promise').reject(err)
-          end
-        end
-
-        return (filetype == '' or buftype == 'nofile') and 'indent' -- only use indent until a file is opened
-          or function(bufnr)
-            return require('ufo')
-              .getFolds(bufnr, 'lsp')
-              :catch(function(err)
-                return handleFallbackException(bufnr, err, 'treesitter')
-              end)
-              :catch(function(err)
-                return handleFallbackException(bufnr, err, 'indent')
-              end)
-          end
+      -- TODO: For julia, this should also include documentation comments <21-11-24>
+      provider_selector = function(bufnr, filetype, buftype)
+        return { 'treesitter', 'indent' }
       end,
     },
     config = function(_, opts)
-      -- TODO: Test... Does it work. Design a system that registers capabilities before the configuration of
-      -- servers <10-06-23>
+      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+      vim.keymap.set('n', 'K', function()
+        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end)
+
+      -- TODO: Test... Does it work. Design a system that registers capabilities before the configuration of servers <10-06-23>
       require('util').lsp.capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
         lineFoldingOnly = true,
       }
+      local handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, 'MoreMsg' })
+        return newVirtText
+      end
+
+      opts.fold_virt_text_handler = handler
       require('ufo').setup(opts)
     end,
   },
@@ -179,7 +198,7 @@ return {
   { 'Bekaboo/deadcolumn.nvim', event = 'VeryLazy', enabled = false },
   {
     'tzachar/highlight-undo.nvim',
-    event = 'VeryLazy',
+    keys = { 'u', '<C-r>' },
     config = function()
       -- TODO: Consider using background or different colour or italic flash <08-10-24>
       vim.api.nvim_set_hl(
