@@ -251,7 +251,24 @@ return {
         enabled = true,
         height = 0.9,
         width = 80,
+        autokeys = 'asdfgweruiovncmpzxASDFGWERUIOVNCMPZX23457891',
         preset = {
+          pick = 'telescope.nvim',
+          keys = {
+            { icon = ' ', key = 'f', desc = 'Find File', action = ":lua Snacks.dashboard.pick('files')" },
+            --   { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
+            { icon = ' ', key = 'g', desc = 'Find Text', action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = ' ', key = 'r', desc = 'Recent Files', action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            {
+              icon = ' ',
+              key = 'c',
+              desc = 'Config',
+              action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+            },
+            { icon = ' ', key = 's', desc = 'Restore Session', section = 'session' },
+            { icon = '󰒲 ', key = 'L', desc = 'Lazy', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+            { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
+          },
           header = [[
       ████ ██████           █████      ██                    
      ███████████             █████                            
@@ -268,6 +285,8 @@ return {
         },
         sections = {
           { section = 'header' },
+          { section = 'startup', padding = 1 },
+          { section = 'keys', gap = 0, padding = 1 },
           {
             pane = 2,
             icon = static.icons.snippets,
@@ -298,7 +317,6 @@ return {
             ttl = 5 * 60,
             indent = 3,
           },
-          { section = 'startup' },
           {
             section = 'terminal',
             cmd = 'fortune -s | cowsay -w -T U',
