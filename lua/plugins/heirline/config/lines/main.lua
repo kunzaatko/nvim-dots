@@ -22,6 +22,7 @@ local StatusLineActive = { --{{{
   components.FileNameBlock,
   components.Space,
   components.Codeium,
+  components.CodeCompanion,
   -- components.Space,
   components.Align,
   components.Timer,
