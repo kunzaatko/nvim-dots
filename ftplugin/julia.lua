@@ -84,6 +84,8 @@ end, { desc = 'Send to REPL', buffer = true })
 -- this will fail... Should be set by autocommand and only with some pattern that determines if the REPL is a julia
 -- REPL or a python REPL etc. <kunzaatko>
 vim.keymap.set('t', '¶', require('terminal.mappings').toggle, { desc = 'Julia REPL for project', buffer = true })
+-- FIX: When inside a package directory, pre-fill the module name of the package and maybe the module that the current
+-- cursor is in. <25-11-24>
 vim.keymap.set('n', '<localleader>rm', function()
   vim.ui.input({ prompt = 'Which module to activate?' }, function(module)
     if not module then
