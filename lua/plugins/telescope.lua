@@ -14,7 +14,7 @@ return {
       build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
     },
     { 'benfowler/telescope-luasnip.nvim', name = 'telescope-luasnip' },
-    { 'nvim-lua/plenary.nvim', name = 'plenary' },
+    'nvim-lua/plenary.nvim',
   },
   opts = function()
     local actions = require 'telescope.actions'
