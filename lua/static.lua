@@ -5,6 +5,7 @@ _G.static = {}
 local icons = {}
 icons = {
   find = '',
+  projects = '',
   terminal = '',
   macro_recording = '',
   spellcheck = '',
@@ -13,6 +14,7 @@ icons = {
   ellipsis = '…',
   ai = '',
   snippets = '',
+  sessions = '󰒲',
 }
 
 icons.arrow = {
@@ -97,14 +99,17 @@ icons.statusline = {
 }
 
 icons.cmp = {
-  buffer = icons.find,
-  lsp = icons.lsp.lsp,
-  luasnip = icons.snippets,
+  Buffer = icons.find,
+  LSP = icons.lsp.lsp,
+  Luasnip = icons.snippets,
   git = icons.git.github,
-  latex = '',
+  latex_symbols = '',
   ripgrep = '',
   spell = icons.spellcheck,
   ai = icons.ai,
+  CodeCompanion = icons.ai,
+  path = icons.explorer.folder_open,
+  digraphs = '§',
 }
 icons.undotree = {
   node = '',
