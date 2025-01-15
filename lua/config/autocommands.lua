@@ -114,28 +114,31 @@ _G.root_patterns = {
 -- a problem when trying to save the file. This could be probably handled by some signal to the LSP, but more probably,
 -- I should only use this for the filetypes for which the LSP is working correctly after the change of root. This only
 -- affects LSPs that format, but probably the LSP does not report anything more if the root changes. <15-08-24>
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'VimEnter' }, {
-  group = vim.api.nvim_create_augroup('AutoRoot', {}),
-  callback = function(ctx)
-    if
-      vim.tbl_contains({ 'prompt', 'terminal' }, vim.o.buftype)
-      -- FIX: 'tex' and 'latex' formatting (or it may be the LSP) is not compatible with root changing  <08-08-24> 
-      or vim.tbl_contains({ 'TelescopePrompt', 'latex', 'tex', 'julia', 'oil' }, vim.o.filetype)
-    then
-      return
-    end
-    local patterns = vim.tbl_extend('keep', _G.root_patterns['all'], _G.root_patterns[vim.o.filetype] or {})
-    local root = vim.fs.root(ctx.buf, patterns)
-    if root then
-      vim.notify_once(
-        root,
-        vim.log.levels.INFO,
-        { timeout = 20, title = 'AutoRoot', icon = static.icons.explorer.folder_move }
-      )
-      vim.uv.chdir(root)
-    end
-  end,
-})
+local fixed = false
+if fixed then
+  vim.api.nvim_create_autocmd({ 'BufReadPost', 'VimEnter' }, {
+    group = vim.api.nvim_create_augroup('AutoRoot', {}),
+    callback = function(ctx)
+      if
+        vim.tbl_contains({ 'prompt', 'terminal' }, vim.o.buftype)
+        -- FIX: 'tex' and 'latex' formatting (or it may be the LSP) is not compatible with root changing  <08-08-24> 
+        or vim.tbl_contains({ 'TelescopePrompt', 'latex', 'tex', 'julia', 'oil' }, vim.o.filetype)
+      then
+        return
+      end
+      local patterns = vim.tbl_extend('keep', _G.root_patterns['all'], _G.root_patterns[vim.o.filetype] or {})
+      local root = vim.fs.root(ctx.buf, patterns)
+      if root then
+        vim.notify_once(
+          root,
+          vim.log.levels.INFO,
+          { timeout = 20, title = 'AutoRoot', icon = static.icons.explorer.folder_move }
+        )
+        vim.uv.chdir(root)
+      end
+    end,
+  })
+end
 
 -- Change the background colour of the terminal to match Neovim
 local bg_terminal_sync = function()
