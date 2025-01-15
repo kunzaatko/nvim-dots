@@ -248,16 +248,19 @@ return {
     lazy = false,
     opts = {
       bigfile = { enabled = true },
-      notifier = { enabled = true },
       quickfile = { enabled = true },
+      notifier = { enabled = true },
       statuscolumn = { enabled = true },
+      indent = { enabled = true },
+      scroll = { enabled = true },
       words = { enabled = true },
       -- TODO: Colours so that the headers have a better contrast colour <19-11-24>
       -- FIX: Projects do not work with persistence. Giving an error. <19-11-24>
+      -- TODO: A dashboard shortcut for entering the `GpChat` <06-12-24>
       dashboard = {
         enabled = true,
         height = 0.9,
-        width = 80,
+        width = 90,
         autokeys = 'asdfgweruiovncmpzxASDFGWERUIOVNCMPZX23457891',
         preset = {
           pick = 'telescope.nvim',
@@ -306,7 +309,7 @@ return {
           { pane = 2, section = 'recent_files', limit = 8, padding = 1, indent = 2 },
           {
             pane = 2,
-            icon = static.icons.explorer.folder_open,
+            icon = static.icons.projects,
             title = 'Projects',
             section = 'projects',
             indent = 2,
