@@ -37,7 +37,7 @@ return {
       font = 'Fira Code',
       theme = 'Nord',
       output = {
-        path = '/home/krivah/Pictures/Screenshots',
+        path = '/home/kunzaatko/Pictures/Screenshots',
       },
       shadow = {
         blur_radius = 15.0,
