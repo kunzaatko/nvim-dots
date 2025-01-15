@@ -11,6 +11,8 @@ return {
       },
       formatters_by_ft = {
         typst = { 'typstyle' },
+        python = { 'isort', 'black' },
+        rust = { 'rustfmt', lsp_format = 'fallback' },
         -- TODO: Setup more formatters <12-05-24>
       },
       format_on_save = {
