@@ -201,4 +201,12 @@ return {
       require('octo').setup(opts)
     end,
   },
+  {
+    'ruifm/gitlinker.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim', name = 'plenary' },
+    },
+    config = true,
+  },
 }
