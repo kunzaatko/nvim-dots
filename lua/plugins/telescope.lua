@@ -103,6 +103,11 @@ return {
       telescope.load_extension 'notify'
     end
 
+    local persisted_exists, _ = pcall(require, 'persisted')
+    if persisted_exists then
+      telescope.load_extension 'persisted'
+    end
+
     local aerial_exists, _ = pcall(require, 'aerial')
     if aerial_exists then
       telescope.load_extension 'aerial'
