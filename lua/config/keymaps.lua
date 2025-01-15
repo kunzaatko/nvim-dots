@@ -14,7 +14,7 @@ wk.add {
 -- Command line shortcuts
 vim.keymap.set('n', ',w', vim.cmd.update, { silent = false, desc = 'write buffer if modified' })
 vim.keymap.set('n', ',q', vim.cmd.quit, { silent = false, desc = 'quit window' })
-vim.keymap.set('n', ',wq', vim.cmd.xit, { silent = false, desc = 'write and quit' })
+vim.keymap.set('n', ',Q', vim.cmd.xit, { silent = false, desc = 'write and quit' })
 vim.keymap.set({ 'n', 'v' }, '<Space>', ':', { desc = 'command line' })
 
 -- View manipulation
