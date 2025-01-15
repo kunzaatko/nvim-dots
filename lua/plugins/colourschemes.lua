@@ -30,6 +30,7 @@ return {
       vim.g.nord_pkgs = {
         'luasnips',
         'cmp_vscode',
+        'blink_cmp',
         'gitsigns',
         'nvim-telescope',
         'vim-startify',
@@ -91,7 +92,7 @@ return {
           },
         },
         lsp_trouble = true,
-        cmp = true,
+        cmp = false,
         gitsigns = true,
         telescope = true,
         dap = {

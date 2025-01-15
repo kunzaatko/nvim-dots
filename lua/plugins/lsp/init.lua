@@ -7,7 +7,8 @@ local M = {
       { 'folke/neodev.nvim', config = true, name = 'neodev' },
       'mason',
       { 'williamboman/mason-lspconfig.nvim', name = 'mason-lspconfig' },
-      'hrsh7th/cmp-nvim-lsp',
+      { 'saghen/blink.cmp' },
+      -- 'hrsh7th/cmp-nvim-lsp',
     },
     opts = {
       servers = {
@@ -154,19 +155,21 @@ local M = {
         require('plugins.lsp.keymaps').on_attach(client, buffer)
       end)
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(require('util.lsp').capabilities)
       require('mason-lspconfig').setup_handlers {
         function(server)
           local server_opts = opts.servers[server] or {}
-          server_opts.capabilities = capabilities
+          server_opts.capabilities = require('blink.cmp').get_lsp_capabilities(server_opts.capabilities)
           require('lspconfig')[server].setup(server_opts)
         end,
       }
-      opts.servers.texlab.capabilities = capabilities
-      require('lspconfig').texlab.setup(opts.servers.texlab)
+      -- opts.servers.texlab.capabilities =
+      --   require('blink.cmp').get_lsp_capabilities(opts.servers.texlab.capabilities or {})
+      -- require('lspconfig').texlab.setup(opts.servers.texlab)
+
       -- require('lspconfig').ltex.setup(opts.servers.ltex) -- FIX: not working with current Java installation
       -- FIX: For some reason this server is not configured. My hypothesis is that it does not get configured due to it
       -- not being installed by Mason... This explicit setting up solves it <25-04-24>
+      opts.servers.ccls.capabilities = require('blink.cmp').get_lsp_capabilities(opts.servers.ccls.capabilities or {})
       require('lspconfig').ccls.setup(opts.servers.ccls)
     end,
   },

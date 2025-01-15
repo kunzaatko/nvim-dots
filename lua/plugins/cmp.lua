@@ -3,20 +3,22 @@ local M = {
   -- 'hrsh7th/nvim-cmp',
   'yioneko/nvim-cmp',
   branch = 'perf',
+  enabled = false,
   name = 'cmp',
   event = { 'InsertEnter', 'VeryLazy' },
   dependencies = {
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'onsails/lspkind.nvim',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    'saadparwaiz1/cmp_luasnip',
-    { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' } },
-    'kdheepak/cmp-latex-symbols',
-    'lukas-reineke/cmp-rg',
-    'f3fora/cmp-spell',
-    'hrsh7th/cmp-nvim-lsp',
+    { 'hrsh7th/cmp-buffer', enbaled = false },
+    { 'hrsh7th/cmp-path', enbaled = false },
+    { 'onsails/lspkind.nvim', enbaled = false },
+    { 'hrsh7th/cmp-cmdline', enbaled = false },
+    { 'hrsh7th/cmp-nvim-lsp-signature-help', enbaled = false },
+    { 'saadparwaiz1/cmp_luasnip', enbaled = false },
+    { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' }, enabled = false },
+    { 'kdheepak/cmp-latex-symbols', enbaled = false },
+    { 'lukas-reineke/cmp-rg', enabled = false },
+    { 'f3fora/cmp-spell', enbaled = false },
+
+    { 'hrsh7th/cmp-nvim-lsp', enabled = false },
   },
 }
 
@@ -212,11 +214,11 @@ function M.config()
 
   -- TODO: Change the colour for enum and keyword <kunzaatko>
   local source_icons = { -- source icons in the menu {{{
-    buffer = string.format('[%s]', static.icons.cmp.buffer),
-    nvim_lsp = string.format('[%s]', static.icons.cmp.lsp),
+    buffer = string.format('[%s]', static.icons.cmp.Buffer),
+    nvim_lsp = string.format('[%s]', static.icons.cmp.LSP),
     luasnip = string.format('[%s]', static.icons.cmp.luasnip),
     git = string.format('[%s]', static.icons.cmp.git),
-    latex_symbols = string.format('[%s]', static.icons.cmp.latex),
+    latex_symbols = string.format('[%s]', static.icons.cmp.latex_symbols),
     rg = string.format('[%s]', static.icons.cmp.ripgrep),
     spell = string.format('[%s]', static.icons.cmp.spell),
     -- cmp_tabnine = '[ ]',
@@ -253,4 +255,5 @@ function M.config()
   }
 end
 
-return M
+-- return M
+return {}
