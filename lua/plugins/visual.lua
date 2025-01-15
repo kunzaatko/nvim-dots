@@ -46,7 +46,8 @@ return {
           local builtin = require 'statuscol.builtin'
           require('statuscol').setup {
             relculright = true,
-            ft_ignore = { 'NeogitStatus' },
+            ft_ignore = { 'NeogitStatus', 'query', 'snacks_dashboard' },
+            bt_ignore = { 'terminal' },
             segments = {
               {
                 sign = {
