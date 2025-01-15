@@ -38,7 +38,7 @@ return {
           null_ls.builtins.formatting.yapf, -- Python
           -- null_ls.builtins.formatting.taplo, -- TOML -- FIX: Add though conform <08-08-24>
           -- null_ls.builtins.diagnostics.flake8, -- Python
-          null_ls.builtins.formatting.blackd,
+          null_ls.builtins.formatting.black,
         },
       }
       -- FIXIT: Being moved to LSP and a global call setup can then be moved to `opts` <10-01-23>
