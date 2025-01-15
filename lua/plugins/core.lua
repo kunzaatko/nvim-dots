@@ -77,7 +77,6 @@ return {
   },
   {
     'folke/which-key.nvim',
-    -- commit = '8649bf5c66b8fa1fa6ee879b9af78e89f886d13c',
     opts = {
       preset = 'helix',
       icons = { group = '', separator = '' },
