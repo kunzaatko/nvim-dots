@@ -66,7 +66,7 @@ local M = {
           local template = 'I have the following code from {{filename}}:\n\n'
             .. '```{{filetype}}\n{{selection}}\n```\n\n'
             .. 'Please respond by writing table driven unit tests for the code above.'
-          gp.Prompt(params, gp.Target.enew, nil, agent.model, template, agent.system_prompt)
+          gp.Prompt(params, gp.Target.enew, agent, template)
         end,
         -- GpImplement: Rewrites the provided selection/range based on comments in the code
         Implement = function(gp, params)
@@ -75,16 +75,16 @@ local M = {
             .. '```{{filetype}}\n{{selection}}\n```\n\n'
             .. 'Please rewrite this code according to the comment instructions.'
             .. '\n\nRespond only with the snippet of finalized code:'
-          gp.Prompt(params, gp.Target.rewrite, nil, agent.model, template, agent.system_prompt)
+          gp.Prompt(params, gp.Target.rewrite, agent, template)
         end,
-        -- FIX: https://github.com/Robitx/gp.nvim/issues/154 <16-07-24, kunzaatko>
+        -- FIX: https://github.com/Robitx/gp.nvim/issues/154 <17-07-24, kunzaatko>
         -- GpExplain: Explains the provided selection/range
         Explain = function(gp, params)
           local agent = gp.get_chat_agent()
           local template = 'I have the following code from {{filename}}:\n\n'
             .. '```{{filetype}}\n{{selection}}\n```\n\n'
             .. 'Please respond by explaining the code above.'
-          gp.Prompt(params, gp.Target.popup, nil, agent.model, template, agent.system_prompt)
+          gp.Prompt(params, gp.Target.popup, agent, template)
         end,
         -- FIX: https://github.com/Robitx/gp.nvim/issues/154 <16-07-24, kunzaatko>
         -- GpCodeReview: Review the provided selection/range
@@ -93,7 +93,7 @@ local M = {
           local template = 'I have the following code from {{filename}}:\n\n'
             .. '```{{filetype}}\n{{selection}}\n```\n\n'
             .. 'Please analyze for code smells and suggest improvements.'
-          gp.Prompt(params, gp.Target.enew 'markdown', nil, agent.model, template, agent.system_prompt)
+          gp.Prompt(params, gp.Target.enew 'markdown', agent, template)
         end,
         -- FIX: Look to suggest synonyms... This has the same problem often. <16-07-24>
         -- GpTranslator: Translates the provided selection/range
@@ -102,7 +102,7 @@ local M = {
           local chat_system_prompt = 'You are a Translator, please translate between the detected language of the input I am giving you and '
             .. (params.args[1] or 'Czech')
             .. '.\n Respond only with the translated text.\n'
-          gp.Prompt(params, gp.Target.popup, nil, agent.model, '{{selection}}', chat_system_prompt)
+          gp.Prompt(params, gp.Target.popup, agent, '{{selection}}', chat_system_prompt)
         end,
         -- GpDocumentation: Generate documentation for the provided function
         Documentation = function(gp, params)
@@ -115,7 +115,7 @@ local M = {
             .. '\n- Return value and its type'
             .. '\n- Any side effects or important notes'
             .. '\n\nRespond with the correctly quoted documentation in the standard format for the `{{filetype}}` language.'
-          gp.Prompt(params, gp.Target.prepend, nil, agent.model, template, agent.system_prompt)
+          gp.Prompt(params, gp.Target.prepend, agent, template)
         end,
         -- FIX: This does not work because the visual markers are for full lines and not for ranges that include only
         -- some words for the line... It could be solved perhaps by calling some function that gets the content of the
@@ -126,10 +126,12 @@ local M = {
           local template = 'I have the following phrase:\n\n'
             .. '{{selection}}'
             .. 'Please suggest synonyms or alternate phases for this phrase.'
-          gp.Prompt(params, gp.Target.popup, nil, agent.model, template, agent.system_prompt)
+          gp.Prompt(params, gp.Target.popup, agent, template)
         end,
         -- TODO: I would like to have a hook for _rephrasing_ and good writing suggestions <16-07-24>
       },
+
+      chat_shortcut_respond = { modes = { 'n', 'i', 'v', 'x' }, shortcut = '<C-j>' },
     },
     config = function(_, opts)
       vim.api.nvim_create_autocmd('BufRead', {
