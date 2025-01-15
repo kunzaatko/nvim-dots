@@ -1,5 +1,53 @@
 local M = {
   {
+    'olimorris/codecompanion.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        ft = { 'markdown', 'codecompanion' },
+        opts = { file_types = { 'markdown', 'codecompanion' } },
+      },
+    },
+    opts = {
+      adapters = {
+        anthropic = function()
+          return require('codecompanion.adapters').extend('anthropic', {
+            env = {
+              api_key = 'cmd:pass anthropic.com/API_key_neovim',
+            },
+          })
+        end,
+        openai = function()
+          return require('codecompanion.adapters').extend('openai', {
+            env = {
+              api_key = 'cmd:pass openai.com/API_key_neovim',
+            },
+          })
+        end,
+        copilot = function()
+          return require('codecompanion.adapters').extend('copilot', {
+            env = {
+              api_key = 'cmd:pass github.com/oauth_token_copilot_kunzaatko',
+            },
+          })
+        end,
+      },
+      strategies = {
+        chat = {
+          adapter = 'anthropic',
+        },
+        inline = {
+          adapter = 'anthropic',
+        },
+        cmd = {
+          adapter = 'anthropic',
+        },
+      },
+    },
+  },
+  {
     'jackMort/ChatGPT.nvim',
     dependencies = {
       { 'MunifTanjim/nui.nvim', name = 'nui' },
