@@ -204,7 +204,8 @@ return {
         indent = { enable = true },
         textobjects = {
           select = {
-            disable = { 'tex', 'latex' },
+            -- BUG: error no "function_expression" in julia parser <17-11-24>
+            disable = { 'tex', 'latex', 'julia' },
             enable = true,
             lookahead = true,
             keymaps = {
