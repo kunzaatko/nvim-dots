@@ -225,7 +225,13 @@ return {
     end,
   },
   {
+    'olimorris/persisted.nvim',
+    lazy = false,
+    config = true,
+  },
+  {
     'folke/persistence.nvim',
+    enabled = false,
     event = 'BufReadPre',
     cmd = 'SessionLoad',
     opts = {

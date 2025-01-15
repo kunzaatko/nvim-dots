@@ -186,6 +186,7 @@ return {
   -- TODO: Configure colours <05-10-23>
   {
     'lukas-reineke/indent-blankline.nvim',
+    enabled = false,
     -- TODO: A probable typing error in the commit d343409a. Should report. <05-11-24>
     commit = 'e7a4442e055ec953311e77791546238d1eaae507',
     name = 'indent-blankline',
@@ -228,6 +229,7 @@ return {
   { 'Bekaboo/deadcolumn.nvim', event = 'VeryLazy', enabled = false },
   {
     'tzachar/highlight-undo.nvim',
+    enabled = false,
     keys = { 'u', '<C-r>' },
     config = function()
       -- TODO: Consider using background or different colour or italic flash <08-10-24>
@@ -260,7 +262,7 @@ return {
   },
   {
     'Isrothy/neominimap.nvim',
-    enabled = true,
+    enabled = false,
     lazy = false, -- NOTE: It lazy-loads itself <17-08-24>
     keys = {
       { '<leader>m', '<cmd>Neominimap bufToggle<cr>', desc = 'Toggle minimap for current buffer' },

@@ -1,6 +1,7 @@
 -- TODO: Configure <13-09-23>
 return {
   'epwalsh/obsidian.nvim',
+  enabled = false,
   lazy = true,
   event = {
     'BufReadPre ' .. vim.fn.expand '~' .. '/Obsidian/**.md',

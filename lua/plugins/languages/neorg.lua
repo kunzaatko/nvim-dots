@@ -1,5 +1,6 @@
 return {
   'nvim-neorg/neorg',
+  enabled = false, -- FIX: Disabled for using cmp <13-12-24>
   dependencies = {
     {
       'vhyrro/luarocks.nvim',

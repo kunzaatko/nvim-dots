@@ -31,6 +31,7 @@ return {
   -- TODO: configure <20-05-23>
   {
     'nvimdev/dashboard-nvim',
+    enabled = false,
     event = 'VimEnter',
     config = function()
       require('dashboard').setup {
