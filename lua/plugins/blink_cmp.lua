@@ -1,11 +1,11 @@
 return {
   'saghen/blink.cmp',
   dependencies = {
-    { 'L3MON4D3/LuaSnip', version = 'v2.*' },
-    { 'saghen/blink.compat', lazy = true, config = true },
+    { 'L3MON4D3/LuaSnip',    version = 'v2.*' },
+    { 'saghen/blink.compat', lazy = true,     config = true },
     'f3fora/cmp-spell',
     'dmitmel/cmp-digraphs',
-    { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' } },
+    { 'petertriho/cmp-git',        dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' } },
     { 'kdheepak/cmp-latex-symbols' },
   },
   lazy = false,
@@ -61,9 +61,11 @@ return {
         'digraphs',
         'buffer',
         'spell',
-        'codecompanion',
         'markdown',
         'latex_symbols',
+      },
+      per_filetype = {
+        'codecompanion',
       },
 
       min_keyword_length = 1,
@@ -106,11 +108,6 @@ return {
           name = 'spell',
           score_offset = -2,
           module = 'blink.compat.source',
-        },
-        codecompanion = {
-          name = 'CodeCompanion',
-          module = 'codecompanion.providers.completion.blink',
-          enabled = true,
         },
         markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink' },
       },
