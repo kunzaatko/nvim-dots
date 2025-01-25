@@ -750,3 +750,6 @@ buftypes
 foldsigns
 autorooting
 codecompanion
+yaml
+CI
+compat
