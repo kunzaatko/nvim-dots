@@ -4,7 +4,6 @@ return {
     dependencies = { { 'rktjmp/lush.nvim', name = 'lush' } },
     name = 'nord',
     event = 'VeryLazy',
-    priority = 1000,
     config = function()
       vim.g.nord_italic = 1
       vim.g.nord_italic_comments = 1
@@ -119,5 +118,5 @@ return {
       vim.g.catppuccin_flavour = 'macchiato' -- latte, frappe, macchiato, mocha
     end,
   },
-  { 'rebelot/kanagawa.nvim', name = 'kanagawa', event = 'VeryLazy', priority = 1000 },
+  { 'rebelot/kanagawa.nvim',  name = 'kanagawa', event = 'VeryLazy', priority = 1000 },
 }

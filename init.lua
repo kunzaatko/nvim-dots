@@ -78,4 +78,4 @@ require('lazy').setup({
 -- NOTE: Config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'
 
-vim.cmd [[colorscheme nord]]
+vim.cmd [[colorscheme duskfox]]
