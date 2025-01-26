@@ -54,7 +54,100 @@ return {
       vim.g.tokyonight_italic_functions = 1
     end,
   },
-  { 'EdenEast/nightfox.nvim', name = 'nightfox', event = 'VeryLazy', priority = 1000 },
+  {
+    'EdenEast/nightfox.nvim',
+    name = 'nightfox',
+    event = 'VeryLazy',
+    priority = 1000,
+    opts = {},
+    config = function(_, opts)
+      opts.groups = opts.groups or {}
+
+      local blink_groups = {
+        all = {
+          BlinkCmpMenuSelection = { bg = 'bg2', style = 'bold' }, -- The completion menu window selected item
+          BlinkCmpScrollBarThumb = { fg = 'palette.red.dim', style = 'bold' }, -- The scrollbar thumb
+          BlinkCmpScrollBarGutter = { fg = 'bg2' }, -- The scrollbar gutter
+          BlinkCmpLabel = { fg = 'fg2' }, -- Label of the completion item
+          BlinkCmpLabelDeprecated = { style = 'strikethrough', fg = 'bg4' }, -- Deprecated label of the completion item
+          BlinkCmpLabelMatch = { fg = 'fg0', style = 'bold' }, -- Label of the completion item when it matches the query
+          BlinkCmpLabelDetail = { fg = 'palette.blue.bright' }, -- FIX: I am not sure what this is -- Label description of the completion item
+          BlinkCmpKind = { fg = 'palette.green.bright', bg = 'palette.green.dim' }, -- Kind icon/text of the completion item
+
+          BlinkCmpKindText = { fg = 'palette.green.dim' },
+          BlinkCmpKindEnum = { link = 'BlinkCmpKindText' },
+          BlinkCmpKindKeyword = { link = 'BlinkCmpKindText' },
+
+          BlinkCmpKindIconText = { fg = 'palette.green' },
+          BlinkCmpKindIconEnum = { link = 'BlinkCmpKindIconText' },
+          BlinkCmpKindIconKeyword = { link = 'BlinkCmpKindIconText' },
+
+          BlinkCmpKindConstant = { fg = 'palette.yellow.dim' },
+          BlinkCmpKindConstructor = { link = 'BlinkCmpKindConstant' },
+          BlinkCmpKindReference = { link = 'BlinkCmpKindConstant' },
+
+          BlinkCmpKindIconConstant = { fg = 'palette.yellow.dim' },
+          BlinkCmpKindIconConstructor = { link = 'BlinkCmpKindIconConstant' },
+          BlinkCmpKindIconReference = { link = 'BlinkCmpKindIconConstant' },
+
+          BlinkCmpKindField = { fg = 'palette.green.dim' },
+
+          BlinkCmpKindIconField = { fg = 'palette.green' },
+
+          BlinkCmpKindProperty = { fg = 'palette.cyan.dim' },
+
+          BlinkCmpKindIconProperty = { fg = 'palette.cyan' },
+
+          BlinkCmpKindFunction = { fg = 'palette.magenta.dim' },
+          BlinkCmpKindModule = { link = 'BlinkCmpKindFunction' },
+          BlinkCmpKindOperator = { link = 'BlinkCmpKindFunction' },
+          BlinkCmpKindStruct = { link = 'BlinkCmpKindFunction' },
+          BlinkCmpKindClass = { link = 'BlinkCmpKindFunction' },
+
+          BlinkCmpKindIconFunction = { fg = 'palette.magenta' },
+          BlinkCmpKindIconModule = { link = 'BlinkCmpKindIconFunction' },
+          BlinkCmpKindIconOperator = { link = 'BlinkCmpKindIconFunction' },
+          BlinkCmpKindIconStruct = { link = 'BlinkCmpKindIconFunction' },
+          BlinkCmpKindIconClass = { link = 'BlinkCmpKindIconFunction' },
+
+          BlinkCmpKindVariable = { fg = 'fg2' },
+          BlinkCmpKindFile = { link = 'BlinkCmpKindVariable' },
+
+          BlinkCmpKindIconVariable = { fg = 'fg3' },
+          BlinkCmpKindIconFile = { link = 'BlinkCmpKindIconFile' },
+
+          BlinkCmpKindUnit = { fg = 'palette.yellow.dim' },
+          BlinkCmpKindSnippet = { link = 'BlinkCmpKindUnit' },
+          BlinkCmpKindFolder = { link = 'BlinkCmpKindUnit' },
+
+          BlinkCmpKindIconUnit = { fg = 'palette.yellow.dim' },
+          BlinkCmpKindIconSnippet = { link = 'BlinkCmpKindIconUnit' },
+          BlinkCmpKindIconFolder = { link = 'BlinkCmpKindIconUnit' },
+
+          BlinkCmpKindMethod = { fg = 'palette.blue' },
+          BlinkCmpKindValue = { link = 'BlinkCmpKindMethod' },
+          BlinkCmpKindEnumMember = { link = 'BlinkCmpKindMethod' },
+
+          BlinkCmpKindIconMethod = { fg = 'palette.blue.bright' },
+          BlinkCmpKindIconValue = { link = 'BlinkCmpKindIconMethod' },
+          BlinkCmpKindIconEnumMember = { link = 'BlinkCmpKindIconMethod' },
+
+          BlinkCmpKindInterface = { fg = 'palette.green' },
+          BlinkCmpKindColor = { link = 'BlinkCmpKindInterface' },
+          BlinkCmpKindTypeParameter = { link = 'BlinkCmpKindInterface' },
+
+          BlinkCmpKindIconInterface = { fg = 'palette.green.bright' },
+          BlinkCmpKindIconColor = { link = 'BlinkCmpKindIconInterface' },
+          BlinkCmpKindIconTypeParameter = { link = 'BlinkCmpKindIconInterface' },
+
+          BlinkCmpSource = { fg = 'palette.magenta.dim' }, -- Source of the completion item
+        },
+      }
+      opts.groups = vim.tbl_deep_extend('error', opts.groups, blink_groups)
+
+      require('nightfox').setup(opts)
+    end,
+  },
   {
     'catppuccin/nvim',
     name = 'catppuccin',
@@ -118,5 +211,5 @@ return {
       vim.g.catppuccin_flavour = 'macchiato' -- latte, frappe, macchiato, mocha
     end,
   },
-  { 'rebelot/kanagawa.nvim',  name = 'kanagawa', event = 'VeryLazy', priority = 1000 },
+  { 'rebelot/kanagawa.nvim', name = 'kanagawa', event = 'VeryLazy', priority = 1000 },
 }
