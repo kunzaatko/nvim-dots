@@ -753,3 +753,5 @@ codecompanion
 yaml
 CI
 compat
+inv
+makie
