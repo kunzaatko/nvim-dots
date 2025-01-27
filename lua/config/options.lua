@@ -14,7 +14,7 @@ vim.opt.shortmess:append { c = true, I = true } -- do not show ins-completion-me
 -- vim.opt.virtualedit = 'block' -- allow going past end of line in visual block mode
 vim.opt.pumheight = 15 -- max number of popup menu items
 vim.opt.showmode = false -- do not show mode on last line
-vim.opt.scrolloff = 2 -- leave 2 lines above/below while vertical scrolling
+vim.opt.scrolloff = 1 -- leave 1 line above/below while vertical scrolling
 vim.opt.sidescrolloff = 4 -- leave 4 chars after/before while horizontal scrolling
 vim.opt.clipboard:prepend 'unnamedplus' -- use system clipboard
 vim.opt.undofile = true -- persistent undo history
