@@ -54,6 +54,8 @@ return {
       vim.g.tokyonight_italic_functions = 1
     end,
   },
+  -- TODO: In LaTeX the conceal should not be so dim. In fact maybe it would be best if conceal didn't have any
+  -- highlight. <26-01-25>
   {
     'EdenEast/nightfox.nvim',
     name = 'nightfox',
