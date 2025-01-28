@@ -23,7 +23,7 @@ return {
         NOTE = {
           icon = static.icons.comments.note .. ' ',
           color = 'hint',
-          alt = { 'INFO', 'IDEA', 'IDEA!', 'RESEARCH' },
+          alt = { 'INFO', 'IDEA', 'IDEA!', 'RESEARCH', 'note' },
         },
       },
     },

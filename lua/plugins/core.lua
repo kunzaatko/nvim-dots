@@ -242,6 +242,7 @@ return {
       vim.api.nvim_create_user_command('SessionLoad', require('persistence').load, { nargs = 0 })
     end,
   },
+  -- TODO: Replace telescope picking with snacks <28-01-25>
   {
     'folke/snacks.nvim',
     priority = 1000,
