@@ -230,7 +230,6 @@ return {
   { 'Bekaboo/deadcolumn.nvim', event = 'VeryLazy', enabled = false },
   {
     'tzachar/highlight-undo.nvim',
-    enabled = false,
     keys = { 'u', '<C-r>' },
     config = function()
       -- TODO: Consider using background or different colour or italic flash <08-10-24>
