@@ -1,4 +1,5 @@
 vim.opt.number = true -- line numbers
+vim.opt.relativenumber = true -- relative numbers when entering nvim in normal mode
 vim.opt.infercase = true -- infer the case for insert mode completion
 vim.opt.ignorecase, vim.opt.smartcase = true, true -- case insensitive for searching
 vim.opt.showmatch = true -- matching delimiter jump
