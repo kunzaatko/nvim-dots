@@ -1,11 +1,11 @@
 return {
   'saghen/blink.cmp',
   dependencies = {
-    { 'L3MON4D3/LuaSnip',    version = 'v2.*' },
-    { 'saghen/blink.compat', lazy = true,     config = true },
+    { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+    { 'saghen/blink.compat', lazy = true, config = true },
     'f3fora/cmp-spell',
     'dmitmel/cmp-digraphs',
-    { 'petertriho/cmp-git',        dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' } },
+    { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' } },
     { 'kdheepak/cmp-latex-symbols' },
   },
   lazy = false,
@@ -18,7 +18,9 @@ return {
       preset = 'enter',
       ['<Tab>'] = { 'select_next', 'fallback' },
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
-      cmdline = {
+    },
+    cmdline = {
+      keymap = {
         preset = 'super-tab',
         ['<C-j>'] = { 'select_next', 'fallback' },
         ['<C-k>'] = { 'select_prev', 'fallback' },
