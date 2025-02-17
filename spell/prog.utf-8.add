@@ -756,3 +756,8 @@ compat
 inv
 makie
 GTK
+Vararg
+const
+structs
+docstrings
+tmp
