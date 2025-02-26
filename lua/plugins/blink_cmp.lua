@@ -1,3 +1,4 @@
+-- TODO: Add https://github.com/disrupted/blink-cmp-conventional-commits as a source <21-02-25>
 return {
   'saghen/blink.cmp',
   dependencies = {
@@ -153,22 +154,13 @@ return {
   config = function(_, opts)
     opts.completion.menu.draw.components = {
       kind_icon = {
-        ellipsis = false,
         text = function(ctx)
           return ' ' .. ctx.kind_icon .. ctx.icon_gap .. ' '
         end,
-        highlight = function(ctx)
-          return require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or ('BlinkCmpKindIcon' .. ctx.kind)
-        end,
       },
       kind = {
-        ellipsis = false,
-        width = { fill = true },
         text = function(ctx)
           return '(' .. ctx.kind .. ')'
-        end,
-        highlight = function(ctx)
-          return require('blink.cmp.completion.windows.render.tailwind').get_hl(ctx) or ('BlinkCmpKind' .. ctx.kind)
         end,
       },
       source_name = {
