@@ -99,12 +99,13 @@ icons.statusline = {
 }
 
 icons.cmp = {
+  Env = ' ',
   Buffer = icons.find,
   LSP = icons.lsp.lsp,
   Luasnip = icons.snippets,
   git = icons.git.github,
   latex_symbols = '',
-  ripgrep = '',
+  Ripgrep = '',
   spell = icons.spellcheck,
   ai = icons.ai,
   CodeCompanion = icons.ai,

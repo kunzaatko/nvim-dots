@@ -1,13 +1,19 @@
--- TODO: Add https://github.com/disrupted/blink-cmp-conventional-commits as a source <21-02-25>
 return {
   'saghen/blink.cmp',
   dependencies = {
     { 'L3MON4D3/LuaSnip', version = 'v2.*' },
     { 'saghen/blink.compat', lazy = true, config = true },
-    'f3fora/cmp-spell',
+    'mikavilpas/blink-ripgrep.nvim',
+    'moyiz/blink-emoji.nvim',
+    'bydlw98/blink-cmp-env',
+    'ribru17/blink-cmp-spell',
     'dmitmel/cmp-digraphs',
-    { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' } },
-    { 'kdheepak/cmp-latex-symbols' },
+    {
+      'Kaiser-Yang/blink-cmp-git',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    'kdheepak/cmp-latex-symbols',
+    'disrupted/blink-cmp-conventional-commits',
   },
   lazy = false,
   build = 'cargo build --release',
@@ -21,23 +27,24 @@ return {
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
     },
     cmdline = {
-      keymap = {
-        preset = 'super-tab',
-        ['<C-j>'] = { 'select_next', 'fallback' },
-        ['<C-k>'] = { 'select_prev', 'fallback' },
-        ['<CR>'] = {
-          function(cmp)
-            if cmp.is_visible() then
-              cmp.select_and_accept()
-              cmp.hide()
-              return true
-            else
-              return false
-            end
-          end,
-          'fallback',
-        },
-      },
+      -- menu = { auto_show = true },
+      -- keymap = {
+      --   preset = 'super-tab',
+      --   ['<C-j>'] = { 'select_next', 'fallback' },
+      --   ['<C-k>'] = { 'select_prev', 'fallback' },
+      --   ['<CR>'] = {
+      --     function(cmp)
+      --       if cmp.is_visible() then
+      --         cmp.select_and_accept()
+      --         cmp.hide()
+      --         return true
+      --       else
+      --         return false
+      --       end
+      --     end,
+      --     'fallback',
+      --   },
+      -- },
     },
 
     snippets = {
@@ -57,20 +64,24 @@ return {
     },
     sources = {
       default = {
+        'lazydev',
         'lsp',
         'path',
         'snippets',
+        'emoji',
         'git',
         'digraphs',
         'buffer',
+        'ripgrep',
         'spell',
         'markdown',
+        'env',
         'latex_symbols',
+        'conventional_commits',
       },
       per_filetype = {
         'codecompanion',
       },
-
       min_keyword_length = 1,
       providers = {
         lsp = {
@@ -91,17 +102,18 @@ return {
             cache_digraphs_on_start = true,
           },
         },
-
         buffer = {
           score_offset = -2,
         },
         git = {
           name = 'git',
-          module = 'blink.compat.source',
-          opts = {
-            filetypes = { 'gitcommit', 'NeogitCommitMessage', 'octo', 'gitrebase' },
-            remotes = { 'upstream', 'origin', 'github' },
-          },
+          module = 'blink-cmp-git',
+          enabled = function()
+            return vim.tbl_contains(
+              { 'octo', 'gitcommit', 'markdown', 'NeogitCommitMessage', 'gitrebase' },
+              vim.bo.filetype
+            )
+          end,
         },
         latex_symbols = {
           name = 'latex_symbols',
@@ -110,9 +122,49 @@ return {
         spell = {
           name = 'spell',
           score_offset = -2,
-          module = 'blink.compat.source',
+          module = 'blink-cmp-spell',
+          opts = {
+            enable_in_context = function()
+              local curpos = vim.api.nvim_win_get_cursor(0)
+              local captures = vim.treesitter.get_captures_at_pos(0, curpos[1] - 1, curpos[2] - 1)
+              local in_spell_capture = false
+              for _, cap in ipairs(captures) do
+                if cap.capture == 'spell' then
+                  in_spell_capture = true
+                elseif cap.capture == 'nospell' then
+                  return false
+                end
+              end
+              return in_spell_capture
+            end,
+          },
         },
         markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink' },
+        env = { name = 'Env', module = 'blink-cmp-env' },
+        lazydev = {
+          name = 'LazyDev',
+          module = 'lazydev.integrations.blink',
+          score_offset = 100,
+        },
+        ripgrep = {
+          name = 'Ripgrep',
+          module = 'blink-ripgrep',
+        },
+        emoji = {
+          name = 'Emoji',
+          module = 'blink-emoji',
+          score_offset = 15,
+          should_show_items = function()
+            return vim.tbl_contains({ 'gitcommit', 'markdown' }, vim.o.filetype)
+          end,
+        },
+        conventional_commits = {
+          name = 'Conventional Commits',
+          module = 'blink-cmp-conventional-commits',
+          enabled = function()
+            return vim.bo.filetype == 'gitcommit'
+          end,
+        },
       },
     },
 
@@ -145,7 +197,18 @@ return {
 
     fuzzy = {
       prebuilt_binaries = {
-        download = false, -- NOTE: We are compiling them ourselves <13-12-24>
+        download = false, -- NOTE: We are compiling them ourselves
+      },
+      sorts = {
+        function(a, b) -- NOTE: Sort by label if we have two spell entries
+          local sort = require 'blink.cmp.fuzzy.sort'
+          if a.source_id == 'spell' and b.source_id == 'spell' then
+            return sort.label(a, b)
+          end
+        end,
+        'score',
+        'kind',
+        'label',
       },
     },
 
