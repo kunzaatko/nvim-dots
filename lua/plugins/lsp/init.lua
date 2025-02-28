@@ -4,11 +4,9 @@ local M = {
     name = 'lspconfig',
     event = 'BufReadPre',
     dependencies = {
-      { 'folke/neodev.nvim', config = true, name = 'neodev' },
       'mason',
       { 'williamboman/mason-lspconfig.nvim', name = 'mason-lspconfig' },
-      { 'saghen/blink.cmp' },
-      -- 'hrsh7th/cmp-nvim-lsp',
+      'saghen/blink.cmp',
     },
     opts = {
       servers = {
