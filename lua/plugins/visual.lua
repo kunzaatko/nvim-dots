@@ -12,7 +12,7 @@ return {
           color = 'error',
           alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'CHECK' },
         },
-        TODO = { icon = static.icons.comments.todo .. ' ', color = 'info' },
+        TODO = { icon = static.icons.comments.todo .. ' ', color = 'info', alt = { 'TODO!' } },
         HACK = { icon = static.icons.comments.hack .. ' ', color = 'warning' },
         WARN = {
           icon = static.icons.diagnostics.Warn .. ' ',

@@ -89,7 +89,7 @@ end
 local todo_snippet_specs = {
   {
     { trig = 'todo' },
-    { 'TODO' },
+    { 'TODO', 'TODO!' },
     {},
     { 'date', 'empty', 'date_signature', 'signature_with_email', 'date_signature_with_email', 'signature' },
   },
@@ -126,7 +126,7 @@ local todo_snippet_specs = {
   -- NOTE: Block commented todo-comments <kunzaatko>
   {
     { trig = 'todob' },
-    { 'TODO' },
+    { 'TODO', 'TODO!' },
     { ctype = 2 },
     { 'date', 'empty', 'date_signature', 'signature_with_email', 'date_signature_with_email', 'signature' },
   },
