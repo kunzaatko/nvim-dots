@@ -29,7 +29,7 @@ return {
     },
     lazy = false,
     keys = '_',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { { 'nvim-tree/nvim-web-devicons', name = 'devicons' } },
     config = function(_, opts)
       vim.keymap.set('n', '_', require('oil').open, { desc = 'Open parent directory' })
       vim.api.nvim_create_autocmd('FileType', {

@@ -5,7 +5,7 @@ return {
     name = 'trouble',
     event = 'VeryLazy',
     config = true,
-    dependencies = { { 'kyazdani42/nvim-web-devicons', name = 'devicons' } },
+    dependencies = { { 'nvim-tree/nvim-web-devicons', name = 'devicons' } },
     cmd = { 'Trouble', 'TroubleToggle', 'TroubleClose', 'TroubleRefresh' },
   },
   {
@@ -66,7 +66,7 @@ return {
         },
       }
     end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+    dependencies = { { 'nvim-tree/nvim-web-devicons', name = 'devicons' } },
   },
   -- TODO: Configure colours to be foreground <23-06-23>
   {

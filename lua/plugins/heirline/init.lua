@@ -12,7 +12,7 @@ return {
   'rebelot/heirline.nvim',
   name = 'heirline',
   event = 'UIEnter',
-  dependencies = { { 'kyazdani42/nvim-web-devicons', name = 'devicons' }, { 'rktjmp/lush.nvim', name = 'lush' } },
+  dependencies = { { 'nvim-tree/nvim-web-devicons', name = 'devicons' }, { 'rktjmp/lush.nvim', name = 'lush' } },
   config = function()
     local statusline = require(HEIRLINE_CONFIG_HOME)
     require('heirline').setup { statusline = statusline }

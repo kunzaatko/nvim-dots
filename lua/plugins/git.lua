@@ -167,7 +167,7 @@ return {
     name = 'octo',
     dependencies = {
       { 'nvim-telescope/telescope.nvim', name = 'telescope' },
-      { 'kyazdani42/nvim-web-devicons', name = 'devicons' },
+      { 'nvim-tree/nvim-web-devicons', name = 'devicons' },
     },
     cmd = 'Octo',
     event = 'VeryLazy',
