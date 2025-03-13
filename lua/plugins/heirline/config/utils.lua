@@ -36,7 +36,7 @@ end
 utils.setup_colors = function()
   local colors = {
     fg = hsl(or_backup(utils.get_highlight_hex('Normal', 'fg'), '#D8DEE9')), -- #D8DEE9
-    bg = hsl(or_backup(utils.get_highlight_hex('Normal', 'bg'), '#181B21')).da(50), -- #181B21
+    bg = hsl(or_backup(utils.get_highlight_hex('ColorColumn', 'bg'), '#171523')), -- #171523 #181B21
 
     red = hsl(or_backup(utils.get_highlight_hex('SpellBad', 'fg'), '#BE6069')), -- #BE6069
     magenta = hsl(or_backup(utils.get_highlight_hex('Float', 'fg'), '#B48EAD')), -- #B48EAD
