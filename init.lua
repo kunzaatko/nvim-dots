@@ -78,4 +78,8 @@ require('lazy').setup({
 -- NOTE: Config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'
 
-vim.cmd [[colorscheme duskfox]]
+if vim.env['THEME_COLOUR'] == "'prefer-light'" then
+  vim.cmd [[colorscheme dayfox]]
+else
+  vim.cmd [[colorscheme duskfox]]
+end
