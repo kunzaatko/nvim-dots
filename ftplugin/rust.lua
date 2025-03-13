@@ -4,8 +4,8 @@ local term = require 'terminal'
 local util = require 'util'
 
 wk.add({
-  c = { name = string.format('%s %s', static.icons.ActiveLSP, 'Cargo') },
-}, { prefix = '<localleader>', buffer = true })
+  { '<localleader>c', group = string.format('%s %s', static.icons.ActiveLSP, 'Cargo') },
+}, { buffer = true })
 
 vim.keymap.set('n', '<localleader>cc', function()
   vim.ui.select({ 'clippy', 'check' }, { prompt = 'Check with:' }, function(option)
