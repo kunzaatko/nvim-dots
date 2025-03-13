@@ -25,26 +25,8 @@ return {
       preset = 'enter',
       ['<Tab>'] = { 'select_next', 'fallback' },
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
-    },
-    cmdline = {
-      -- menu = { auto_show = true },
-      -- keymap = {
-      --   preset = 'super-tab',
-      --   ['<C-j>'] = { 'select_next', 'fallback' },
-      --   ['<C-k>'] = { 'select_prev', 'fallback' },
-      --   ['<CR>'] = {
-      --     function(cmp)
-      --       if cmp.is_visible() then
-      --         cmp.select_and_accept()
-      --         cmp.hide()
-      --         return true
-      --       else
-      --         return false
-      --       end
-      --     end,
-      --     'fallback',
-      --   },
-      -- },
+      -- NOTE: Removes the default keymap (show signature_help). Mapped to move up or jump in snippet in LuaSnips.
+      ['<C-K>'] = { 'fallback' },
     },
 
     snippets = {
@@ -70,7 +52,6 @@ return {
         'snippets',
         'emoji',
         'git',
-        'digraphs',
         'buffer',
         'ripgrep',
         'spell',
@@ -81,12 +62,15 @@ return {
       },
       per_filetype = {
         'codecompanion',
+        rust = { 'lsp', 'path', 'snippets', 'ripgrep' },
       },
-      min_keyword_length = 1,
+      min_keyword_length = function()
+        return vim.bo.filetype == 'rust' and 0 or 1
+      end,
       providers = {
         lsp = {
-          -- async = true,
-          score_offset = 2,
+          async = true,
+          score_offset = 5,
         },
         snippets = {
           score_offset = 3,
@@ -104,6 +88,7 @@ return {
         },
         buffer = {
           score_offset = -2,
+          min_keyword_length = 3,
         },
         git = {
           name = 'git',
