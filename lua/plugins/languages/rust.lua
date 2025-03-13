@@ -1,45 +1,34 @@
 return {
   {
-    'simrat39/rust-tools.nvim',
-    name = 'rust-tools',
+    'mrcjkb/rustaceanvim',
     ft = 'rust',
-    dependencies = {
-      'plenary',
-      { 'nvim-telescope/telescope.nvim', name = 'telescope' },
-      { 'neovim/nvim-lspconfig', name = 'lspconfig' },
-    },
-    opts = {
-      server = {
-        on_attach = function()
-          local rt = require 'rust-tools'
-          vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = true, desc = 'Hover actions' })
-          vim.keymap.set(
-            'n',
-            '<localleader>a',
-            rt.code_action_group.code_action_group,
-            { buffer = true, desc = 'Code action' }
-          )
-          vim.keymap.set('n', '<localleader>r', rt.runnables.runnables, { buffer = true, desc = 'Rust runnables' })
-          vim.keymap.set(
-            'n',
-            '<localleader>ct',
-            rt.open_cargo_toml.open_cargo_toml,
-            { buffer = true, desc = 'Open cargo.toml' }
-          )
-          vim.keymap.set(
-            'n',
-            '<localleader>g',
-            rt.crate_graph.view_crate_graph,
-            { buffer = true, desc = 'Crate graph' }
-          )
-        end,
-        ['rust-analyzer'] = {
-          checkOnSave = {
-            command = 'clippy',
+    dependencies = { 'saghen/blink.cmp' },
+    init = function()
+      vim.g.rustaceanvim = {
+        tools = {},
+        -- LSP configuration
+        server = {
+          on_attach = function(client, bufnr)
+            require('plugins.lsp.keymaps').on_attach(client, bufnr)
+            vim.keymap.set('n', '<C-space>', '<Plug>RustHoverAction', { buffer = true, desc = 'Hover actions' })
+            vim.keymap.set('n', '<localleader>r', function()
+              vim.cmd.RustLsp 'runnables'
+            end, { buffer = true, desc = 'Cargo runnables' })
+            vim.keymap.set('n', '<localleader>R', function()
+              vim.cmd.RustLsp 'run'
+            end, { buffer = true, desc = 'Cargo run' })
+          end,
+          default_settings = {
+            ['rust-analyzer'] = {
+              checkOnSave = {
+                command = 'clippy',
+              },
+            },
           },
+          capabilities = require('blink.cmp').get_lsp_capabilities(),
         },
-      },
-    },
+      }
+    end,
   },
   {
     'saecki/crates.nvim',
