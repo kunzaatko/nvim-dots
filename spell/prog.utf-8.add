@@ -777,3 +777,8 @@ lhs
 enums
 perf
 rustaceanvim
+MNIST
+lsqnonlin
+inline
+doinline
+lexer
