@@ -3,6 +3,8 @@ local wk = require 'which-key'
 local term = require 'terminal'
 local util = require 'util'
 
+vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+
 wk.add({
   { '<localleader>c', group = string.format('%s %s', static.icons.ActiveLSP, 'Cargo') },
 }, { buffer = true })
