@@ -27,7 +27,8 @@ local M = {
       require('mason-lspconfig').setup_handlers {
         function(server)
           local server_opts = opts.servers[server] or {}
-          server_opts.capabilities = require('blink.cmp').get_lsp_capabilities(server_opts.capabilities)
+          server_opts.capabilities =
+            require('util').lsp.add_capabilities(require('blink.cmp').get_lsp_capabilities(server_opts.capabilities))
           require('lspconfig')[server].setup(server_opts)
         end,
       }

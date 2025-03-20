@@ -34,7 +34,8 @@ return {
     config = true,
   },
   -- TODO: Is this needed if with `snacks.nvim`? <07-11-24>
-  -- TODO: Configure <17-04-23>
+  -- FIX: I want to use `zm` and `zr`, `zR` and `zM` as in original nvim. Should override nvim-ufo commands and have it
+  -- work as indented. <20-03-25>
   {
     'kevinhwang91/nvim-ufo',
     name = 'ufo',
@@ -94,12 +95,11 @@ return {
           scrollD = '<C-d>',
         },
       },
-      -- TODO: For julia, this should also include documentation comments <21-11-24>
-      provider_selector = function(bufnr, filetype, buftype)
-        return { 'treesitter', 'indent' }
-      end,
     },
     config = function(_, opts)
+      -- NOTE: Necessary to override for nvim-ufo to work <20-03-25>
+      vim.opt.foldlevel = 99
+      vim.opt.foldlevelstart = 99
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
       vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
@@ -111,10 +111,13 @@ return {
         end
       end)
 
-      -- TODO: Test... Does it work. Design a system that registers capabilities before the configuration of servers <10-06-23>
-      require('util').lsp.capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
+      require('util').lsp.add_capabilities {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
       }
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}

@@ -16,6 +16,14 @@ function M.on_attach(on_attach, opts)
   })
 end
 
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
+_G.lsp_client_capabilities = lsp_client_capabilities or vim.lsp.protocol.make_client_capabilities()
+
+--- Adds additional capabilities to the global LSP client capabilities.
+--- @param capabilities table Table containing LSP capabilities to be added
+--- @return table The updated LSP client capabilities
+M.add_capabilities = function(capabilities)
+  _G.lsp_client_capabilities = vim.tbl_deep_extend('force', _G.lsp_client_capabilities, capabilities)
+  return _G.lsp_client_capabilities
+end
 
 return M

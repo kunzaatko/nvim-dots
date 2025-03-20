@@ -76,9 +76,7 @@ vim.opt.guicursor = {
 
 vim.opt.cursorline, vim.opt.cursorlineopt = true, 'number' -- highlight cursorline
 vim.opt.foldcolumn = '1' -- style of fold column
--- vim.opt.foldlevel = 6 -- show six levels when opening a file
-vim.opt.foldlevel = 99 -- NOTE: For nvim-ufo to work <21-11-24>
-vim.opt.foldlevelstart = 10
+vim.opt.foldlevel = 6 -- show six levels when opening a file
 vim.opt.foldmethod = 'manual'
 -- TODO: Test only showing sign column on active window <05-01-23>
 vim.opt.signcolumn = 'auto:4' -- style of sign column
