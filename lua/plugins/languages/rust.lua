@@ -1,4 +1,5 @@
 return {
+  -- FIX: Cargo test in workspaces not working correctly when in a member crate <14-03-25>
   {
     'mrcjkb/rustaceanvim',
     ft = 'rust',
