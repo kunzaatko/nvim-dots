@@ -3,7 +3,15 @@ local wk = require 'which-key'
 local term = require 'terminal'
 local util = require 'util'
 
-vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
+vim.keymap.set('n', '<leader>lH', function()
+  vim.notify(
+    'Inlay hints ' .. (vim.lsp.inlay_hint.is_enabled { bufnr = 0 } and 'disabled' or 'enabled'),
+    vim.log.levels.INFO,
+    { icon = static.icons.ActiveLSP }
+  )
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 }, { bufnr = 0 })
+end, { desc = 'Toggle inlay hints', buffer = true })
 
 wk.add({
   { '<localleader>c', group = string.format('%s %s', static.icons.ActiveLSP, 'Cargo') },
