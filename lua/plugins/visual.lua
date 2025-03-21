@@ -10,7 +10,7 @@ return {
         FIX = {
           icon = static.icons.comments.bug .. ' ',
           color = 'error',
-          alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'CHECK' },
+          alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'CHECK', 'PERF!' },
         },
         TODO = { icon = static.icons.comments.todo .. ' ', color = 'info', alt = { 'TODO!' } },
         HACK = { icon = static.icons.comments.hack .. ' ', color = 'warning' },
