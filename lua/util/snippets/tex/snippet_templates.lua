@@ -108,7 +108,6 @@ function M.get_visual(alternative, transform)
     return i(1, visual)
   end
   return function(_, parent)
-    pprint(parent.snippet.env)
     if #parent.snippet.env.LS_SELECT_RAW > 0 then
       return sn(nil, transform_function(parent.snippet.env.LS_SELECT_RAW[1]))
     else
