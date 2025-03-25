@@ -2,6 +2,32 @@ local M = {
   {
     'olimorris/codecompanion.nvim',
     event = 'VeryLazy',
+    keys = {
+      {
+        '€',
+        function()
+          require('codecompanion').toggle()
+        end,
+        mode = { 'n', 'v' },
+        noremap = true,
+        silent = true,
+        desc = 'LLM Chat Toggle',
+      },
+      -- FIX: I would like to specify the use of gemini-2.0-flash for git commits but use something other by default.
+      -- I could not find a way to do this with the `codecompanion` API at the moment so I use gemini-2.0-flash by
+      -- default for every chat invocation. <25-03-25>
+      {
+        '<localleader>a',
+        function()
+          require('codecompanion').prompt 'commit'
+        end,
+        mode = { 'n', 'v' },
+        ft = 'gitcommit',
+        noremap = true,
+        silent = true,
+        desc = 'LLM Chat Toggle',
+      },
+    },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
@@ -41,6 +67,18 @@ local M = {
             },
           })
         end,
+        ['gemini-1.5-flash'] = function()
+          return require('codecompanion.adapters').extend('gemini', {
+            env = {
+              api_key = 'cmd:pass google.com/API_key_nevypustsupyven_aistudio_neovim',
+            },
+            schema = {
+              model = {
+                default = 'gemini-1.5-flash',
+              },
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
@@ -53,6 +91,7 @@ local M = {
           adapter = 'anthropic',
         },
       },
+      display = { chat = { show_settings = true } }, -- NOTE: When this is set, the adapter cannot be modified <25-03-25>
     },
   },
   {
