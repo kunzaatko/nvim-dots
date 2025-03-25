@@ -27,3 +27,4 @@ tags
 .luarc.json
 spell/*.spl
 dev/
+lua/plugins/ai_deprecated.lua
