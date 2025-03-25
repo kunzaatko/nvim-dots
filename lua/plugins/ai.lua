@@ -25,7 +25,7 @@ local M = {
         ft = 'gitcommit',
         noremap = true,
         silent = true,
-        desc = 'LLM Chat Toggle',
+        desc = 'LLM generate commit message',
       },
     },
     dependencies = {
