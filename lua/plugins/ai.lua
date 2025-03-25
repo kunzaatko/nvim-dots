@@ -34,6 +34,13 @@ local M = {
             },
           })
         end,
+        gemini = function()
+          return require('codecompanion.adapters').extend('gemini', {
+            env = {
+              api_key = 'cmd:pass google.com/API_key_nevypustsupyven_aistudio_neovim',
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
