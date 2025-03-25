@@ -79,6 +79,13 @@ local M = {
             },
           })
         end,
+        deepseek = function()
+          return require('codecompanion.adapters').extend('deepseek', {
+            env = {
+              api_key = 'cmd:pass deepseek.com/API_key_neovim',
+            },
+          })
+        end,
       },
       strategies = {
         chat = {
