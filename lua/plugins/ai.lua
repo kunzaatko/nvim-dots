@@ -104,70 +104,50 @@ local M = {
       display = { chat = { show_settings = true } }, -- NOTE: When this is set, the adapter cannot be modified <25-03-25>
     },
     config = function(_, opts)
+      local codecompanion_group = vim.api.nvim_create_augroup('CodeCompanionAutoSave', { clear = true })
 
-      require('gp').setup(opts)
-      require('which-key').add {
-        -- ...
-        {
-          mode = { 'v' }, -- VISUAL mode
-          { '<C-g><C-t>', ":'<,'>GpChatNew tabnew<CR>", desc = 'Visual Chat New tabnew', nowait = true, remap = false },
-          { '<C-g><C-v>', ":'<,'>GpChatNew vsplit<CR>", desc = 'Visual Chat New vsplit', nowait = true, remap = false },
-          { '<C-g><C-x>', ":'<,'>GpChatNew split<CR>", desc = 'Visual Chat New split', nowait = true, remap = false },
-          { '<C-g>A', ":<C-u>'<,'>GpWhisperAppend<cr>", desc = 'Whisper Visual Append', nowait = true, remap = false },
-          {
-            '<C-g>B',
-            ":<C-u>'<,'>GpWhisperPrepend<cr>",
-            desc = 'Whisper Visual Prepend',
-            nowait = true,
-            remap = false,
-          },
-          { '<C-g>E', ":<C-u>'<,'>GpWhisperEnew<cr>", desc = 'Whisper Visual Enew', nowait = true, remap = false },
-          { '<C-g>P', ":<C-u>'<,'>GpWhisperPopup<cr>", desc = 'Whisper Visual Popup', nowait = true, remap = false },
-          {
-            '<C-g>R',
-            ":<C-u>'<,'>GpWhisperRewrite<cr>",
-            desc = 'Whisper Visual Rewrite',
-            nowait = true,
-            remap = false,
-          },
-          { '<C-g>a', ":<C-u>'<,'>GpAppend<cr>", desc = 'Visual Append', nowait = true, remap = false },
-          { '<C-g>b', ":<C-u>'<,'>GpPrepend<cr>", desc = 'Visual Prepend', nowait = true, remap = false },
-          { '<C-g>c', ":<C-u>'<,'>GpChatNew<cr>", desc = 'Visual Chat New', nowait = true, remap = false },
-          { '<C-g>e', ":<C-u>'<,'>GpEnew<cr>", desc = 'Visual Enew', nowait = true, remap = false },
-          { '<C-g>p', ":<C-u>'<,'>GpPopup<cr>", desc = 'Visual Popup', nowait = true, remap = false },
-          { '<C-g>r', ":<C-u>'<,'>GpRewrite<cr>", desc = 'Visual Rewrite', nowait = true, remap = false },
-          { '<C-g>s', '<cmd>GpStop<cr>', desc = 'Stop', nowait = true, remap = false },
-          { '<C-g>t', ":<C-u>'<,'>GpChatToggle<cr>", desc = 'Visual Popup Chat', nowait = true, remap = false },
-          { '<C-g>v', ":<C-u>'<,'>GpChatPaste<cr>", desc = 'Visual Chat Paste', nowait = true, remap = false },
-          { '<C-g>w', ":<C-u>'<,'>GpWhisper<cr>", desc = 'Whisper', nowait = true, remap = false },
-        },
-      }
+      local function save_codecompanion_buffer(bufnr)
+        local save_dir = vim.fn.stdpath('data'):gsub('/$', '') .. '/codecompanion/chats/'
+        if not vim.api.nvim_buf_is_valid(bufnr) then
+          return
+        end
 
-      -- NORMAL & INSERT mode mappings
-      require('which-key').add {
-        -- ...
-        {
-          mode = { 'i', 'n' },
-          { '<C-g><C-t>', '<cmd>GpChatNew tabnew<cr>', desc = 'New Chat tabnew', nowait = true, remap = false },
-          { '<C-g><C-v>', '<cmd>GpChatNew vsplit<cr>', desc = 'New Chat vsplit', nowait = true, remap = false },
-          { '<C-g><C-x>', '<cmd>GpChatNew split<cr>', desc = 'New Chat split', nowait = true, remap = false },
-          { '<C-g>A', '<cmd>GpWhisperAppend<cr>', desc = 'Whisper Append', nowait = true, remap = false },
-          { '<C-g>B', '<cmd>GpWhisperPrepend<cr>', desc = 'Whisper Prepend', nowait = true, remap = false },
-          { '<C-g>E', '<cmd>GpWhisperEnew<cr>', desc = 'Whisper Enew', nowait = true, remap = false },
-          { '<C-g>P', '<cmd>GpWhisperPopup<cr>', desc = 'Whisper Popup', nowait = true, remap = false },
-          { '<C-g>R', '<cmd>GpWhisperRewrite<cr>', desc = 'Whisper Inline Rewrite', nowait = true, remap = false },
-          { '<C-g>a', '<cmd>GpAppend<cr>', desc = 'Append', nowait = true, remap = false },
-          { '<C-g>b', '<cmd>GpPrepend<cr>', desc = 'Prepend', nowait = true, remap = false },
-          { '<C-g>c', '<cmd>GpChatNew<cr>', desc = 'New Chat', nowait = true, remap = false },
-          { '<C-g>e', '<cmd>GpEnew<cr>', desc = 'Enew', nowait = true, remap = false },
-          { '<C-g>f', '<cmd>GpChatFinder<cr>', desc = 'Chat Finder', nowait = true, remap = false },
-          { '<C-g>p', '<cmd>GpPopup<cr>', desc = 'Popup', nowait = true, remap = false },
-          { '<C-g>r', '<cmd>GpRewrite<cr>', desc = 'Inline Rewrite', nowait = true, remap = false },
-          { '<C-g>s', '<cmd>GpStop<cr>', desc = 'Stop', nowait = true, remap = false },
-          { '<C-g>t', '<cmd>GpChatToggle<cr>', desc = 'Toggle Popup Chat', nowait = true, remap = false },
-          { '<C-g>w', '<cmd>GpWhisper<cr>', desc = 'Whisper', nowait = true, remap = false },
-        },
-      }
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+        -- Extract the unique ID from the buffer name
+        local id = bufname:match '%[CodeCompanion%] (%d+)'
+        local date = os.date '%Y-%m-%d'
+        local save_path
+
+        if id then
+          -- Use date plus ID to ensure uniqueness
+          save_path = save_dir .. date .. '_codecompanion_' .. id .. '.md'
+        else
+          -- Fallback with timestamp to ensure uniqueness if no ID
+          save_path = save_dir .. date .. '_codecompanion_' .. os.date '%H%M%S' .. '.md'
+        end
+
+        -- Write buffer content to file
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+        local file = io.open(save_path, 'w')
+        if file then
+          file:write(table.concat(lines, '\n'))
+          file:close()
+        end
+      end
+
+      vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged', 'BufLeave', 'FocusLost' }, {
+        group = codecompanion_group,
+        callback = function(args)
+          local bufnr = args.buf
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+          if bufname:match '%[CodeCompanion%]' then
+            save_codecompanion_buffer(bufnr)
+          end
+        end,
+      })
+      require('codecompanion').setup(opts)
     end,
   },
   {
