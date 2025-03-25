@@ -89,13 +89,16 @@ local M = {
       },
       strategies = {
         chat = {
-          adapter = 'anthropic',
+          adapter = 'gemini',
         },
         inline = {
-          adapter = 'anthropic',
+          -- NOTE: Currently Google gemini-2.0-flash model is free of charge with limited per minute tokens, which is
+          -- quite generous <25-03-25>
+          -- adapter = 'gemini',
+          adapter = 'gemini',
         },
         cmd = {
-          adapter = 'anthropic',
+          adapter = 'gemini',
         },
       },
       display = { chat = { show_settings = true } }, -- NOTE: When this is set, the adapter cannot be modified <25-03-25>
