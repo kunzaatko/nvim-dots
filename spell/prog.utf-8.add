@@ -783,3 +783,6 @@ inline
 doinline
 lexer
 ufo
+pprint
+gemini
+stdpath
