@@ -1,6 +1,5 @@
 -- TODO: Terminal to spawn in a vert split and windowbar to set depending whether the command finished or not  <12-05-23>
 local wk = require 'which-key'
-local term = require 'terminal'
 local util = require 'util'
 
 vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
