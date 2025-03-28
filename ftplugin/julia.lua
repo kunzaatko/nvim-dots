@@ -8,6 +8,7 @@
 local wk = require 'which-key'
 local util = require 'util'
 
+vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 _G.julia = _G.julia or {
   terminals = {},
 }
@@ -29,6 +30,15 @@ local global_term = util.terminal.unique('global', {
 wk.add {
   { '<localleader>r', group = string.format('%s %s', static.icons.terminal, 'REPL'), buffer = true },
 }
+
+vim.keymap.set('n', '<leader>lH', function()
+  vim.notify(
+    'Inlay hints ' .. (vim.lsp.inlay_hint.is_enabled { bufnr = 0 } and 'disabled' or 'enabled'),
+    vim.log.levels.INFO,
+    { icon = static.icons.ActiveLSP }
+  )
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 }, { bufnr = 0 })
+end, { desc = 'Toggle inlay hints', buffer = true })
 
 vim.api.nvim_buf_create_user_command(0, 'REPL', function()
   project_term:toggle(nil, true)
