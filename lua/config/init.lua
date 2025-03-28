@@ -2,6 +2,7 @@ require 'config.options'
 require 'config.keymaps'
 require 'config.autocommands'
 require 'config.diagnostics'
+require 'config.lsp'
 
 --- Pretty print table with all its shallow items
 ---@param it table|string
