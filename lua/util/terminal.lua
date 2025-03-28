@@ -3,7 +3,7 @@ local M = {}
 local term = require 'terminal'
 
 --- Launch a oneshot terminal
----@param opts options: passed to the terminal (see `terminal:new` from 'rebelot/terminal.nvim')
+---@param opts table: passed to the terminal (see `terminal:new` from 'rebelot/terminal.nvim')
 function M.oneshot(opts)
   term.terminal:new(opts):open()
 end
@@ -14,8 +14,8 @@ _G.terminals = {}
 --- Launch a terminal that is unique to the given key.
 --- (Can be useful for project terminals unique to the project root)
 ---@param key function|string: function to generate the key based on the context or string
----@param term_opts options: passed to the terminal (see `terminal:new` from 'rebelot/terminal.nvim')
----@param opts options
+---@param term_opts table: passed to the terminal (see `terminal:new` from 'rebelot/terminal.nvim')
+---@param opts table
 --- autostart boolean: whether to start the terminal automatically
 --- location unknown: where the terminal is stored (default: `_G.terminals`)
 ---@return unknown: terminal handle
