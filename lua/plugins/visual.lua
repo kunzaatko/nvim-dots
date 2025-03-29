@@ -62,7 +62,7 @@ return {
                 },
                 click = 'v:lua.ScSa',
               },
-              { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
+              { text = { builtin.foldfunc },      click = 'v:lua.ScFa' },
               {
                 sign = {
                   name = {
@@ -111,7 +111,7 @@ return {
         end
       end)
 
-      require('util').lsp.add_capabilities {
+      require('util.lsp').add_capabilities {
         textDocument = {
           foldingRange = {
             dynamicRegistration = false,
