@@ -202,11 +202,28 @@ return {
     end,
   },
   {
-    'ruifm/gitlinker.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim', name = 'plenary' },
+    'linrongbin16/gitlinker.nvim',
+    cmd = 'GitLink',
+    keys = {
+      {
+        '<leader>gy',
+        function()
+          require('gitlinker').link()
+        end,
+        mode = { 'v', 'n' },
+        silent = true,
+        noremap = true,
+        desc = 'Yank git permlink',
+      },
     },
-    config = true,
+    config = function()
+      local which_key_exists, _ = pcall(require, 'which-key')
+      if which_key_exists then
+        local wk = require 'which-key'
+        -- FIX: Setting the icon here in which key does not work <29-03-25>
+        wk.add { '<leader>gy', icon = static.icons.link }
+      end
+      require('gitlinker').setup()
+    end,
   },
 }
