@@ -20,7 +20,6 @@ local M = {
       })
 
       require('util').lsp.on_attach(function(client, buffer)
-        require('plugins.lsp.format').on_attach(client, buffer)
         require('plugins.lsp.keymaps').on_attach(client, buffer)
       end)
 

@@ -64,10 +64,6 @@ function M.on_attach(client, buffer)
     end
   end, { desc = 'Code Action', mode = { 'n', 'v' }, has = 'codeAction' })
 
-  -- TODO: Add symbols outline plug-in <12-05-23>
-  local format = require('plugins.lsp.format').format
-  self:map('<leader>lf', format, { desc = 'Format Document', has = 'documentFormatting' })
-  self:map('<leader>lf', format, { desc = 'Format Range', mode = 'v', has = 'documentRangeFormatting' })
   self:map('<leader>lr', function()
     return ':IncRename ' .. vim.fn.expand '<cword>'
   end, { expr = true, desc = 'Rename', has = 'rename' })

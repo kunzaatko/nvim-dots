@@ -1,25 +1,57 @@
 return {
   'stevearc/conform.nvim',
-  event = 'VeryLazy',
-  config = function()
-    local opts = {
-      formatters = {
-        typstyle = {
-          command = 'typstyle',
-          args = { '-c' .. vim.opt.textwidth:get() },
-        },
+  event = { 'BufWritePre' },
+  cmd = { 'ConformInfo', 'FormatDisable', 'FormatEnable', 'Format' },
+  opts = {
+    formatters = {
+      typstyle = {
+        command = 'typstyle',
+        args = { '-c' .. vim.opt.textwidth:get() },
       },
-      formatters_by_ft = {
-        typst = { 'typstyle' },
-        python = { 'isort', 'black' },
-        rust = { 'rustfmt', lsp_format = 'fallback' },
-        -- TODO: Setup more formatters <12-05-24>
-      },
-      format_on_save = {
-        timeout_ms = 500,
-      },
-    }
+    },
+    formatters_by_ft = {
+      typst = { 'typstyle' },
+      python = { 'isort', 'black' },
+      rust = { 'rustfmt', lsp_format = 'fallback' },
+      -- TODO: Setup more formatters <12-05-24>
+    },
+    format_on_save = function(bufnr)
+      -- Disable with a global or buffer-local variable
+      if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+        return
+      end
+      return { timeout_ms = 500, lsp_format = 'fallback' }
+    end,
+  },
+  init = function()
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+  end,
+  config = function(_, opts)
     require('conform').setup(opts)
+
+    vim.api.nvim_create_user_command('FormatDisable', function(args)
+      if args.bang then
+        -- FormatDisable! will disable formatting just for this buffer
+        vim.b.disable_autoformat = true
+      else
+        vim.g.disable_autoformat = true
+      end
+      vim.notify(
+        'Autoformat-on-save OFF' .. (vim.g.disable_autoformat and ' (global)' or ''),
+        vim.log.levels.INFO,
+        { title = 'Format', icon = static.icons.quote }
+      )
+    end, {
+      desc = 'Disable autoformat-on-save',
+      bang = true,
+    })
+    vim.api.nvim_create_user_command('FormatEnable', function()
+      vim.b.disable_autoformat = false
+      vim.g.disable_autoformat = false
+      vim.notify('Autoformat-on-save ON', vim.log.levels.INFO, { title = 'Format', icon = static.icons.quote })
+    end, {
+      desc = 'Re-enable autoformat-on-save',
+    })
 
     vim.api.nvim_create_user_command('Format', function(args)
       local range = nil
@@ -30,7 +62,6 @@ return {
           ['end'] = { args.line2, end_line:len() },
         }
       end
-      -- TODO: Test whether this works and does not stall the further writing <09-09-24>
       require('conform').format { async = true, lsp_fallback = true, range = range }
     end, { range = true })
   end,
