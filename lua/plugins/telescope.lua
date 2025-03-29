@@ -25,19 +25,6 @@ return {
         selection_caret = ' ',
         multi_icon = '● ',
         path_display = { 'truncate' },
-        sorting_strategy = 'ascending',
-        layout_config = {
-          horizontal = {
-            prompt_position = 'top',
-            preview_width = 0.55,
-          },
-          vertical = {
-            mirror = false,
-          },
-          width = 0.87,
-          height = 0.80,
-          preview_cutoff = 120,
-        },
         preview = {
           treesitter = {
             disable = { 'text', 'pdf' },
@@ -69,20 +56,28 @@ return {
   cmd = 'Telescope',
   keys = {
     {
-      '<leader>f',
-      require('telescope.builtin').builtin,
-      desc = 'find',
-    },
-    {
       '//',
       function()
-        -- FIX: tree-sitter highlighting does not work here... <19-10-24>
-        require('telescope.builtin').current_buffer_fuzzy_find { results_ts_highlight = true }
+        -- NOTE: Customised to add the fuzzy search into the search history <29-03-25>
+        require('telescope.builtin').current_buffer_fuzzy_find(
+          {
+            attach_mappings = function(_, _)
+              require 'telescope.actions'.select_default:replace(
+                function(bufnr)
+                  local searched_for = require("telescope.actions.state").get_current_line()
+                  vim.call("histadd", "search", searched_for)
+                  require "telescope.actions.set".select(bufnr, "default")
+                end)
+              return true
+            end
+          },
+          { results_ts_highlight = true }
+        )
       end,
       desc = 'fuzzy-find in buffer',
     },
     {
-      'Đ',
+      'gđ',
       function()
         require('telescope.builtin').find_files { hidden = true }
       end,
@@ -90,30 +85,42 @@ return {
     },
     {
       'đ', -- Alt+s
-      require('telescope.builtin').live_grep,
+      function()
+        require('telescope.builtin').live_grep(
+          {
+            attach_mappings = function(_, _)
+              require 'telescope.actions'.select_default:replace(
+                function(bufnr)
+                  local searched_for = require("telescope.actions.state").get_current_line()
+                  vim.call("histadd", "search", searched_for)
+                  require "telescope.actions.set".select(bufnr, "default")
+                end)
+              return true
+            end
+          },
+          {}
+        )
+      end,
       desc = 'grep workspace files',
     },
   },
   config = function(_, opts)
     local telescope = require 'telescope'
     telescope.setup(opts)
-    telescope.load_extension 'luasnip'
 
-    local notify_exists, _ = pcall(require, 'notify')
-    if notify_exists then
-      telescope.load_extension 'notify'
+    ---@param mod table|string Modules to load conditionally
+    local load_if_exists = function(mod)
+      if type(mod) == 'string' then
+        mod = { mod }
+      end
+      vim.iter(mod):map(function(mod)
+        local exists, _ = pcall(require, mod)
+        if exists then
+          telescope.load_extension(mod)
+        end
+      end)
     end
-
-    local persisted_exists, _ = pcall(require, 'persisted')
-    if persisted_exists then
-      telescope.load_extension 'persisted'
-    end
-
-    local aerial_exists, _ = pcall(require, 'aerial')
-    if aerial_exists then
-      telescope.load_extension 'aerial'
-    end
-
+    load_if_exists { 'luasnip', 'notify', 'persisted', 'aerial' }
     telescope.load_extension 'fzf'
   end,
 }
