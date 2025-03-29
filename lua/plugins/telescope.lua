@@ -21,7 +21,7 @@ return {
     local actions = require 'telescope.actions'
     return {
       defaults = {
-        prompt_prefix = ' ⟩ ',
+        prompt_prefix = static.icons.telescope .. ' ⟩ ',
         selection_caret = ' ',
         multi_icon = '● ',
         path_display = { 'truncate' },

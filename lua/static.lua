@@ -1,9 +1,11 @@
 _G.static = {}
 -- TODO: Consider adding through neovim sign interface <11-05-23>
 -- FIX: Make these from codicon <11-05-23>
--- FIX: CamelCase because of signs in  diagnostics config
-local icons = {}
-icons = {
+_G.static.icons = {
+  telescope = '',
+  link = '',
+  rocket = '',
+  quote = '',
   find = '',
   projects = '',
   terminal = '',
@@ -15,108 +17,100 @@ icons = {
   ai = '',
   snippets = '',
   sessions = '󰒲',
-}
-
-icons.arrow = {
-  left = '',
-  right = '',
-}
-
-icons.dap = {
-  --     
-  breakpoint = '',
-  breakpoint_condition = '',
-  breakpoint_rejected = '',
-  log_point = '.>',
-  stopped = '',
-}
-
-icons.fold = {
-  closed = '',
-  opened = '',
-  separator = ' ',
-}
-
-icons.explorer = {
-  folder_closed = '',
-  folder_empty = '',
-  folder_move = '',
-  folder_open = '',
-}
-
-icons.comments = {
-  todo = '',
-  note = '',
-  hack = '',
-  performance = '',
-  bug = '',
-}
-
-icons.diagnostics = {
-  diagnostics = '', -- ''
-  Error = '',
-  Warn = '',
-  Info = '',
-  Hint = '',
-}
-
-icons.lsp = { lsp = '', loading_1 = '', loading_2 = '', loading_3 = '', loaded = '' }
-
-icons.git = {
-  --  ,  
-  fork = '',
-  git = '',
-  add = '',
-  branch = '',
-  change = '',
-  conflict = '',
-  delete = '',
-  -- ignored = '◌',
-  pull_request = '',
-  merge = '',
-  renamed = '',
-  staged = '✓',
-  unstaged = '✗',
-  github = '',
-  -- untracked = '★',
-}
-
-icons.fileformat = {
-  dos = '',
-  mac = '',
-  unix = '',
-  unknown = '',
-}
-
-icons.statusline = {
-  separators = {
-    rangle = '⟩',
-    langle = '⟨',
+  arrow = {
+    left = '',
+    right = '',
   },
-  linenumber = '',
-  modified = '', -- ,פֿ
-  readonly = '', -- ,,,
+  dap = {
+    --     
+    breakpoint = '',
+    breakpoint_condition = '',
+    breakpoint_rejected = '',
+    log_point = '.>',
+    stopped = '',
+  },
+  fold = {
+    closed = '',
+    opened = '',
+    separator = ' ',
+  },
+  explorer = {
+    folder_closed = '',
+    folder_empty = '',
+    folder_move = '',
+    folder_open = '',
+  },
+  comments = {
+    todo = '',
+    note = '',
+    hack = '',
+    performance = '',
+    bug = '',
+  },
+  diagnostics = {
+    diagnostics = '', -- ''
+    Error = '',
+    Warn = '',
+    Info = '',
+    Hint = '',
+  },
+  lsp = { lsp = '', loading_1 = '', loading_2 = '', loading_3 = '', loaded = '' },
+  git = {
+    --  ,  
+    label = '',
+    issue = '',
+    review = '',
+    user = '',
+    fork = '',
+    git = '',
+    add = '',
+    branch = '',
+    change = '',
+    conflict = '',
+    delete = '',
+    -- ignored = '◌',
+    pull_request = '',
+    merge = '',
+    renamed = '',
+    staged = '✓',
+    unstaged = '✗',
+    github = '',
+    -- untracked = '★',
+  },
+  fileformat = {
+    dos = '',
+    mac = '',
+    unix = '',
+    unknown = '',
+  },
+  statusline = {
+    separators = {
+      rangle = '⟩',
+      langle = '⟨',
+    },
+    linenumber = '',
+    modified = '', -- ,פֿ
+    readonly = '', -- ,,,
+  },
+  undotree = {
+    node = '',
+  },
 }
 
-icons.cmp = {
+static.icons.cmp = {
   Env = ' ',
-  Buffer = icons.find,
-  LSP = icons.lsp.lsp,
-  Luasnip = icons.snippets,
-  git = icons.git.github,
+  Buffer = static.icons.find,
+  LSP = static.icons.lsp.lsp,
+  Luasnip = static.icons.snippets,
+  git = static.icons.git.github,
   latex_symbols = '',
   Ripgrep = '',
-  spell = icons.spellcheck,
-  ai = icons.ai,
-  CodeCompanion = icons.ai,
-  path = icons.explorer.folder_open,
+  spell = static.icons.spellcheck,
+  ai = static.icons.ai,
+  CodeCompanion = static.icons.ai,
+  path = static.icons.explorer.folder_open,
   digraphs = '§',
 }
-icons.undotree = {
-  node = '',
-}
-
-_G.static.icons = icons
 
 --                                                                
 --                                                                          

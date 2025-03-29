@@ -173,9 +173,9 @@ return {
     event = 'VeryLazy',
     opts = {
       default_remote = { 'upstream', 'origin', 'github' },
-      reaction_viewer_hint_icon = '',
-      user_icon = ' ',
-      timeline_marker = ' ',
+      reaction_viewer_hint_icon = static.icons.diagnostics.Hint,
+      user_icon = static.icons.git.user,
+      timeline_marker = static.icons.undotree.node,
     },
     config = function(_, opts)
       vim.api.nvim_create_augroup('octo_settings', {})
@@ -185,16 +185,16 @@ return {
         group = 'octo_settings',
         callback = function()
           local wk = require 'which-key'
-          -- TODO: Add icons through icon util <04-05-23>
+          -- FIX: Does not show the keymaps... Some problem with the registering with which-key which in v3 disabled the
+          -- prefix mappings from v2 <29-03-25>
           wk.add({
-
-            { '<leader>a', name = 'Assignee' },
-            { '<leader>c', name = 'Comment' },
-            { '<leader>r', name = 'Reaction' },
-            { '<leader>v', name = 'Reviewer' },
-            { '<leader>i', name = 'Issues/Close' },
-            { '<leader>l', name = 'Label' },
-            { '<leader>p', name = 'PR actions' },
+            { '<leader>a', name = 'Assignee', icon = static.icons.git.user },
+            { '<leader>c', name = 'Comment', icon = static.icons.git.github },
+            { '<leader>r', name = 'Reaction', icon = static.icons.rocket },
+            { '<leader>v', name = 'Reviewer', icon = static.icons.git.review },
+            { '<leader>i', name = 'Issues/Close', icon = static.icons.git.issue },
+            { '<leader>l', name = 'Label', icon = static.icons.label },
+            { '<leader>p', name = 'PR actions', icon = static.icons.snippets },
           }, { buffer = 0 })
         end,
       })
