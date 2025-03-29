@@ -48,8 +48,7 @@ local M = {
       end
     end,
   },
-  -- TODO: Use the noice.nvim interface for renaming <11-05-23>
-  { 'smjonas/inc-rename.nvim', opts = { input_buffer_type = 'dressing' }, event = 'VeryLazy', cmd = 'IncRename' },
+  { 'smjonas/inc-rename.nvim', event = 'LspAttach', cmd = 'IncRename' },
   {
     'aznhe21/actions-preview.nvim',
     event = 'VeryLazy',
