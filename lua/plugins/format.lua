@@ -11,9 +11,15 @@ return {
     },
     formatters_by_ft = {
       typst = { 'typstyle' },
+      fish = { 'fish_indent' },
+      just = { 'just' },
+      json = { 'jq' },
+      sh = { 'shfmt' },
+      latex = { 'latexindent' },
       python = { 'isort', 'black' },
       rust = { 'rustfmt', lsp_format = 'fallback' },
-      -- TODO: Setup more formatters <12-05-24>
+      lua = { 'stylua' },
+      toml = { 'taplo' },
     },
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable

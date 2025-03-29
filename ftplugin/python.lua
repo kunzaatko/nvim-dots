@@ -19,11 +19,6 @@ local global_term = util.terminal.unique('global', {
   autoclose = true,
 }, { location = _G.python.terminals })
 
--- FIX: Currently unused <25-10-24>
--- wk.add({
---   r = { group = string.format('%s %s', static.icons.terminal, 'REPL') },
--- }, { prefix = '<localleader>', buffer = 0 })
-
 vim.api.nvim_buf_create_user_command(0, 'REPL', function()
   project_term:toggle(nil, true)
 end, { nargs = '?' })

@@ -26,17 +26,14 @@ local M = {
     cmd = 'Mason',
     opts = {
       ensure_installed = {
-        'stylua',
         'yapf',
         'shellcheck',
-        'shfmt',
         'flake8',
         'clang-format',
         'proselint',
         'misspell',
       },
     },
-    ---@param opts MasonSettings | {ensure_installed: string[]}
     config = function(_, opts)
       require('mason').setup(opts)
       local mr = require 'mason-registry'

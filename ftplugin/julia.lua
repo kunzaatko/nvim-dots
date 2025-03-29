@@ -64,13 +64,6 @@ vim.keymap.set('n', '<localleader>t', function()
 end, { desc = 'Run tests', buffer = true })
 
 -- TODO: text motion enable (!!!) <kunzaatko>
--- BUG: Sometimes errors with invalid argument to chansend()... Either a problem with the plugin or with my
--- definition of the terminal <14-05-23, kunzaatko>
--- FIX: The problem is that the terminal variable is changed and so is not running. The solution is to make a function
--- for creating terminals that checks whether the terminal is running and starts is for different sessions automatically
--- if it is not. We need to store the terminal for the current session by the creation function and send the data to the
--- relevant terminal.
--- FIX: Does not work when the terminal is not launched before the sending <13-05-23>
 vim.keymap.set('v', '¶', function()
   local vsel = require('util').get_vsel_text()
   table.insert(vsel, #vsel + 1, '')

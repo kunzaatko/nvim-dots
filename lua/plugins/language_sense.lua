@@ -29,13 +29,7 @@ return {
         sources = {
           -- NOTE: Tools from sources can be added to lua/plugins/lsp/init.lua to applications that are ensured to be
           -- installed by mason.nvim <11-01-23>
-          null_ls.builtins.formatting.clang_format, -- C
-          null_ls.builtins.formatting.fish_indent,
           null_ls.builtins.diagnostics.fish,
-          null_ls.builtins.formatting.yapf, -- Python
-          -- null_ls.builtins.formatting.taplo, -- TOML -- FIX: Add though conform <08-08-24>
-          -- null_ls.builtins.diagnostics.flake8, -- Python
-          null_ls.builtins.formatting.black,
           null_ls.builtins.hover.dictionary,
         },
       }
