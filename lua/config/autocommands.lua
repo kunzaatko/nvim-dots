@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight yanked text',
   group = vim.api.nvim_create_augroup('HighlightYank', {}),
   callback = function()
-    vim.highlight.on_yank { higroup = 'Search', timeout = 300, on_visual = true, on_macro = false }
+    vim.hl.on_yank { higroup = 'Search', timeout = 300, on_visual = true, on_macro = false }
   end,
 })
 
