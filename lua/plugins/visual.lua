@@ -87,6 +87,9 @@ return {
     },
     event = 'BufReadPost',
     opts = {
+      provider_selector = function(_, ftype, _)
+        return ftype == 'julia' and { 'lsp', 'treesitter' } or { 'lsp', 'indent' }
+      end,
       preview = {
         mappings = {
           scrollB = '<C-b>',

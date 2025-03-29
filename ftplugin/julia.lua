@@ -13,6 +13,8 @@ _G.julia = _G.julia or {
   terminals = {},
 }
 
+-- TODO: This should be called using the same internal method that is used for determining the root for the language
+-- server by the `root_markers` parameters <29-03-25>
 local has_root, root =
   pcall(util.project.project_root, { 'Project.toml', 'Manifest.toml', '.git', 'README.md', 'readme.md' })
 local root_or_file = has_root and root.filename or vim.api.nvim_buf_get_name(0)
