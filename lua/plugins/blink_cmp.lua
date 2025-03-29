@@ -1,8 +1,8 @@
 return {
   'saghen/blink.cmp',
   dependencies = {
-    { 'L3MON4D3/LuaSnip', version = 'v2.*' },
-    { 'saghen/blink.compat', lazy = true, config = true },
+    { 'L3MON4D3/LuaSnip',    version = 'v2.*' },
+    { 'saghen/blink.compat', lazy = true,     config = true },
     'mikavilpas/blink-ripgrep.nvim',
     'moyiz/blink-emoji.nvim',
     'bydlw98/blink-cmp-env',
@@ -64,9 +64,9 @@ return {
         'codecompanion',
         rust = { 'lsp', 'path', 'snippets', 'ripgrep' },
       },
-      min_keyword_length = function()
-        return vim.tbl_contains({ 'codecompanion', 'rust' }, vim.bo.filetype) and 0 or 1
-      end,
+      -- min_keyword_length = function()
+      --   return vim.tbl_contains({ 'codecompanion', 'rust' }, vim.bo.filetype) and 0 or 1
+      -- end,
       providers = {
         lsp = {
           async = true,
@@ -124,6 +124,7 @@ return {
             end,
           },
         },
+
         markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink' },
         env = { name = 'Env', module = 'blink-cmp-env' },
         lazydev = {
