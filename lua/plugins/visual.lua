@@ -62,7 +62,7 @@ return {
                 },
                 click = 'v:lua.ScSa',
               },
-              { text = { builtin.foldfunc },      click = 'v:lua.ScFa' },
+              { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
               {
                 sign = {
                   name = {

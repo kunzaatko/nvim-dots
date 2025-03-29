@@ -11,8 +11,7 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
       name = 'telescope-fzf',
       enabled = vim.fn.executable 'cmake' ~= 0,
-      build =
-      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
     },
     { 'benfowler/telescope-luasnip.nvim', name = 'telescope-luasnip' },
     'nvim-lua/plenary.nvim',
@@ -59,20 +58,16 @@ return {
       '//',
       function()
         -- NOTE: Customised to add the fuzzy search into the search history <29-03-25>
-        require('telescope.builtin').current_buffer_fuzzy_find(
-          {
-            attach_mappings = function(_, _)
-              require 'telescope.actions'.select_default:replace(
-                function(bufnr)
-                  local searched_for = require("telescope.actions.state").get_current_line()
-                  vim.call("histadd", "search", searched_for)
-                  require "telescope.actions.set".select(bufnr, "default")
-                end)
-              return true
-            end
-          },
-          { results_ts_highlight = true }
-        )
+        require('telescope.builtin').current_buffer_fuzzy_find({
+          attach_mappings = function(_, _)
+            require('telescope.actions').select_default:replace(function(bufnr)
+              local searched_for = require('telescope.actions.state').get_current_line()
+              vim.call('histadd', 'search', searched_for)
+              require('telescope.actions.set').select(bufnr, 'default')
+            end)
+            return true
+          end,
+        }, { results_ts_highlight = true })
       end,
       desc = 'fuzzy-find in buffer',
     },
@@ -86,20 +81,16 @@ return {
     {
       'đ', -- Alt+s
       function()
-        require('telescope.builtin').live_grep(
-          {
-            attach_mappings = function(_, _)
-              require 'telescope.actions'.select_default:replace(
-                function(bufnr)
-                  local searched_for = require("telescope.actions.state").get_current_line()
-                  vim.call("histadd", "search", searched_for)
-                  require "telescope.actions.set".select(bufnr, "default")
-                end)
-              return true
-            end
-          },
-          {}
-        )
+        require('telescope.builtin').live_grep({
+          attach_mappings = function(_, _)
+            require('telescope.actions').select_default:replace(function(bufnr)
+              local searched_for = require('telescope.actions.state').get_current_line()
+              vim.call('histadd', 'search', searched_for)
+              require('telescope.actions.set').select(bufnr, 'default')
+            end)
+            return true
+          end,
+        }, {})
       end,
       desc = 'grep workspace files',
     },

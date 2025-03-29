@@ -6,7 +6,11 @@ function M.on_attach(client, buffer)
 
   -- FIX: Add icons through icon util <04-05-23>
   wk.add({
-    { '<leader>l', group = string.format('%s %s', static.icons.lsp.lsp, 'LSP'), icon = { icon = static.icons.lsp.lsp, color = "blue" } },
+    {
+      '<leader>l',
+      group = string.format('%s %s', static.icons.lsp.lsp, 'LSP'),
+      icon = { icon = static.icons.lsp.lsp, color = 'blue' },
+    },
   }, { buffer = 0 })
 
   -- TODO: These mappings should be mapped to the lsp group <03-05-23>

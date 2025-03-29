@@ -26,7 +26,7 @@ return {
               },
             },
           },
-          capabilities = require 'util.lsp'.get_capabilities()
+          capabilities = require('util.lsp').get_capabilities(),
         },
       }
     end,

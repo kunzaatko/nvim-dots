@@ -23,6 +23,6 @@ local opts = {
     },
   },
 }
-opts.capabilities = require 'util.lsp'.get_capabilities()
+opts.capabilities = require('util.lsp').get_capabilities()
 
 return opts

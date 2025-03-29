@@ -297,7 +297,7 @@ return {
         sections = {
           { section = 'header' },
           { section = 'startup', padding = 1 },
-          { section = 'keys',    gap = 0,    padding = 1 },
+          { section = 'keys', gap = 0, padding = 1 },
           {
             pane = 2,
             icon = static.icons.snippets,
@@ -305,9 +305,9 @@ return {
             file = vim.fn.fnamemodify('.', ':~'),
             padding = 0,
           },
-          { pane = 2, section = 'recent_files',     cwd = true,    limit = 8,   padding = 1, indent = 2 },
+          { pane = 2, section = 'recent_files', cwd = true, limit = 8, padding = 1, indent = 2 },
           { pane = 2, icon = static.icons.snippets, title = 'MRU', padding = 0 },
-          { pane = 2, section = 'recent_files',     limit = 8,     padding = 1, indent = 2 },
+          { pane = 2, section = 'recent_files', limit = 8, padding = 1, indent = 2 },
           {
             pane = 2,
             icon = static.icons.projects,

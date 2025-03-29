@@ -58,6 +58,6 @@ local opts = {
     language_server_jl,
   },
 }
-opts.capabilities = require 'util.lsp'.get_capabilities()
+opts.capabilities = require('util.lsp').get_capabilities()
 
 return opts

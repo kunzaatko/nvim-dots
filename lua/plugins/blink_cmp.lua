@@ -1,8 +1,8 @@
 return {
   'saghen/blink.cmp',
   dependencies = {
-    { 'L3MON4D3/LuaSnip',    version = 'v2.*' },
-    { 'saghen/blink.compat', lazy = true,     config = true },
+    { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+    { 'saghen/blink.compat', lazy = true, config = true },
     'mikavilpas/blink-ripgrep.nvim',
     'moyiz/blink-emoji.nvim',
     'bydlw98/blink-cmp-env',
@@ -219,7 +219,7 @@ return {
         end,
       },
     }
-    require("util.lsp").add_capabilities(require('blink.cmp').get_lsp_capabilities())
+    require('util.lsp').add_capabilities(require('blink.cmp').get_lsp_capabilities())
     require('blink.cmp').setup(opts)
   end,
 }
