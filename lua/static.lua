@@ -110,6 +110,7 @@ static.icons.cmp = {
   CodeCompanion = static.icons.ai,
   path = static.icons.explorer.folder_open,
   digraphs = '§',
+  ["Conventional Commits"] = static.icons.git.github
 }
 
 --                                                                

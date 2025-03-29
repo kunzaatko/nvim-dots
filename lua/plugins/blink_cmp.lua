@@ -147,6 +147,7 @@ return {
         conventional_commits = {
           name = 'Conventional Commits',
           module = 'blink-cmp-conventional-commits',
+          score_offset = 15,
           enabled = function()
             return vim.bo.filetype == 'gitcommit'
           end,
