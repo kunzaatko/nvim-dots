@@ -11,13 +11,6 @@ local M = {
       servers = require 'plugins.lsp.servers',
     },
     config = function(_, opts)
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = 'rounded',
-      })
-      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = 'rounded',
-      })
-
       require('mason-lspconfig').setup_handlers {
         function(server)
           local server_opts = opts.servers[server] or {}
