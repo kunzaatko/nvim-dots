@@ -27,20 +27,10 @@ local M = {
       require('mason-lspconfig').setup_handlers {
         function(server)
           local server_opts = opts.servers[server] or {}
-          server_opts.capabilities =
-            require('util').lsp.add_capabilities(require('blink.cmp').get_lsp_capabilities(server_opts.capabilities))
+          server_opts.capabilities = require('util.lsp').get_capabilities()
           require('lspconfig')[server].setup(server_opts)
         end,
       }
-      -- opts.servers.texlab.capabilities =
-      --   require('blink.cmp').get_lsp_capabilities(opts.servers.texlab.capabilities or {})
-      -- require('lspconfig').texlab.setup(opts.servers.texlab)
-
-      -- require('lspconfig').ltex.setup(opts.servers.ltex) -- FIX: not working with current Java installation
-      -- FIX: For some reason this server is not configured. My hypothesis is that it does not get configured due to it
-      -- not being installed by Mason... This explicit setting up solves it <25-04-24>
-      opts.servers.ccls.capabilities = require('blink.cmp').get_lsp_capabilities(opts.servers.ccls.capabilities or {})
-      require('lspconfig').ccls.setup(opts.servers.ccls)
     end,
   },
   {

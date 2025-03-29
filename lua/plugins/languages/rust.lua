@@ -26,7 +26,7 @@ return {
               },
             },
           },
-          capabilities = require('blink.cmp').get_lsp_capabilities(),
+          capabilities = require 'util.lsp'.get_capabilities()
         },
       }
     end,
