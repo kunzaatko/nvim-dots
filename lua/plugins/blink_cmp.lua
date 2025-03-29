@@ -217,6 +217,7 @@ return {
         end,
       },
     }
+    require("util.lsp").add_capabilities(require('blink.cmp').get_lsp_capabilities())
     require('blink.cmp').setup(opts)
   end,
 }

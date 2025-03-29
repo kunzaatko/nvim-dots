@@ -1,3 +1,7 @@
+require('util').lsp.on_attach(function(client, buffer)
+  require('config.lsp.keymaps').on_attach(client, buffer)
+end)
+
 -- NOTE: Closes the LSP connection with when last buffer detaches from the server <28-03-25>
 vim.api.nvim_create_autocmd({ 'LspDetach' }, {
   group = vim.api.nvim_create_augroup('LspStopWithLastClient', {}),

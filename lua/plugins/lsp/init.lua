@@ -2,7 +2,6 @@ local M = {
   {
     'neovim/nvim-lspconfig',
     name = 'lspconfig',
-    event = 'BufReadPre',
     dependencies = {
       'mason',
       { 'williamboman/mason-lspconfig.nvim', name = 'mason-lspconfig' },
@@ -18,10 +17,6 @@ local M = {
       vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
         border = 'rounded',
       })
-
-      require('util').lsp.on_attach(function(client, buffer)
-        require('plugins.lsp.keymaps').on_attach(client, buffer)
-      end)
 
       require('mason-lspconfig').setup_handlers {
         function(server)

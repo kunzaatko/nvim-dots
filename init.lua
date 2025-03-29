@@ -78,6 +78,8 @@ require('lazy').setup({
 -- NOTE: Config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'
 
+vim.lsp.enable { 'julials', 'texlab', 'tinymist', 'lua_ls' }
+
 if vim.env['THEME_COLOUR'] == "'prefer-light'" then
   vim.cmd [[colorscheme dayfox]]
 else

@@ -1,14 +1,12 @@
--- TODO: Create system that couples with the plugins that require the on_attach callback and joins these requirements
--- into one function <09-01-23>
 local M = {}
 
 function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
   local wk = require 'which-key'
 
-  -- TODO: Add icons through icon util <04-05-23>
+  -- FIX: Add icons through icon util <04-05-23>
   wk.add({
-    { '<leader>l', group = string.format('%s %s', static.icons.lsp.lsp, 'LSP') },
+    { '<leader>l', group = string.format('%s %s', static.icons.lsp.lsp, 'LSP'), icon = { icon = static.icons.lsp.lsp, color = "blue" } },
   }, { buffer = 0 })
 
   -- TODO: These mappings should be mapped to the lsp group <03-05-23>
