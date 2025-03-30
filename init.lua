@@ -76,8 +76,9 @@ require('lazy').setup({
 -- NOTE: Config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'
 
--- NOTE: Use `.git` as a marker for every LS <30-03-25>
+-- NOTE: Use `.git` as a marker for every LS
 vim.lsp.config('*', { root_markers = { '.git' }, capabilities = require('util.lsp').get_capabilities() })
+-- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
 vim.lsp.enable { 'julials', 'texlab', 'tinymist', 'lua_ls' }
 
 if vim.env['THEME_COLOUR'] == "'prefer-light'" then

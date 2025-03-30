@@ -382,7 +382,7 @@ components.Diagnostics = { --{{{
   end,
 
   {
-    provider = static.icons.diagnostics.diagnostics .. '[',
+    provider = static.icons.diagnostics.diagnostics .. ' [',
   },
   {
     provider = function(self)
@@ -466,7 +466,7 @@ components.Git = { --{{{
   { -- git branch name
     provider = function(self)
       -- FIX: Git branch does not work <12-05-23>
-      return string.format('%s%s', static.icons.git.branch, self.status_dict.head)
+      return string.format('%s %s', static.icons.git.branch, self.status_dict.head)
     end,
     hl = { bold = true },
   },
