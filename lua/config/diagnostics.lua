@@ -14,12 +14,18 @@ for name, sname in pairs(severity_names) do
   sign_opts.text[sname] = static.icons.diagnostics[name]
 end
 
+---@type vim.diagnostic.Opts
 vim.diagnostic.config {
   signs = sign_opts,
   underline = true,
   update_in_insert = false,
-  virtual_text = false, -- set in lua/plugins/lsp/init.lua with lsp_lines
-  -- virtual_text = { spacing = 4, prefix = '●' }, -- '■', '▎', 'x'
+  ---@type vim.diagnostic.Opts.VirtualText
+  virtual_text = {
+    current_line = true,
+    spacing = 4,
+    prefix = '●',
+    -- TODO: Use different prefixes for different severities using the format function <30-03-25>
+  },
   severity_sort = true,
   float = {
     focusable = false,
