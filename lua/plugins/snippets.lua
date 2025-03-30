@@ -63,6 +63,8 @@ function M.config()
     end
   end, { silent = true, desc = 'jump forward or expand snippet' })
 
+  -- FIX: Consider mapping ALT instead of CTRL modifier same a Neocodeium. It is more ergonomic and closer for the
+  -- fingers. <30-03-25>
   vim.keymap.set({ 'i', 's' }, '<C-h>', function()
     if ls.locally_jumpable(-1) then
       ls.jump(-1)

@@ -23,6 +23,7 @@ return {
   opts = {
     keymap = {
       preset = 'enter',
+      ['<A-i>'] = { 'show', 'hide', 'fallback' }, -- NOTE: Toggle
       ['<Tab>'] = { 'select_next', 'fallback' },
       ['<S-Tab>'] = { 'select_prev', 'fallback' },
       -- NOTE: Removes the default keymap (show signature_help). Mapped to move up or jump in snippet in LuaSnips.
