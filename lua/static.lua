@@ -99,18 +99,19 @@ _G.static.icons = {
 
 static.icons.cmp = {
   Env = ' ',
-  Buffer = static.icons.find,
-  LSP = static.icons.lsp.lsp,
-  Snippets = static.icons.snippets,
-  git = static.icons.git.github,
-  latex_symbols = '',
-  Ripgrep = '',
-  spell = static.icons.spellcheck,
-  ai = static.icons.ai,
-  CodeCompanion = static.icons.ai,
-  path = static.icons.explorer.folder_open,
+  LazyDev = '󰒲 ',
+  Buffer = static.icons.find .. ' ',
+  LSP = static.icons.lsp.lsp .. ' ',
+  Snippets = static.icons.snippets .. ' ',
+  git = static.icons.git.github .. ' ',
+  latex_symbols = ' ',
+  Ripgrep = ' ',
+  spell = static.icons.spellcheck .. ' ',
+  ai = static.icons.ai .. ' ',
+  CodeCompanion = static.icons.ai .. ' ',
+  path = static.icons.explorer.folder_open .. ' ',
   digraphs = '§',
-  ['Conventional Commits'] = static.icons.git.github,
+  ['Conventional Commits'] = static.icons.git.github .. ' ',
 }
 
 --                                                                

@@ -164,6 +164,7 @@ return {
   {
     'kylechui/nvim-surround',
     name = 'surround',
+    -- TODO: Add keymap for surrounding in visual mode. The current `S` does not work... <30-03-25>
     keys = { 'ys', 'ds', 'cs', { 'S', mode = 'v' } },
     config = function()
       require('nvim-surround').setup { mappings_style = 'surround' }
@@ -243,6 +244,7 @@ return {
     end,
   },
   -- TODO: Replace telescope picking with snacks <28-01-25>
+  -- TODO: Use the `icon` utils for setting icons <30-03-25>
   {
     'folke/snacks.nvim',
     priority = 1000,
