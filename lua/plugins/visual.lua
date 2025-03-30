@@ -33,9 +33,9 @@ return {
     event = 'VeryLazy',
     config = true,
   },
-  -- TODO: Is this needed if with `snacks.nvim`? <07-11-24>
   -- FIX: I want to use `zm` and `zr`, `zR` and `zM` as in original nvim. Should override nvim-ufo commands and have it
   -- work as indented. <20-03-25>
+  -- TODO: Fold documentation strings by default when opened. This can be set through the options <30-03-25>
   {
     'kevinhwang91/nvim-ufo',
     name = 'ufo',
@@ -86,6 +86,7 @@ return {
       },
     },
     event = 'BufReadPost',
+    ---@type UfoConfig
     opts = {
       provider_selector = function(_, ftype, _)
         return ftype == 'julia' and { 'lsp', 'treesitter' } or { 'lsp', 'indent' }
@@ -107,12 +108,7 @@ return {
       vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
       vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith)
-      vim.keymap.set('n', 'K', function()
-        local winid = require('ufo').peekFoldedLinesUnderCursor()
-        if not winid then
-          vim.lsp.buf.hover()
-        end
-      end)
+      vim.keymap.set('n', 'zK', require('ufo').peekFoldedLinesUnderCursor, { desc = 'Peek folded lines' })
 
       require('util.lsp').add_capabilities {
         textDocument = {

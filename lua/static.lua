@@ -1,3 +1,5 @@
+-- FIX: Consider changing this to a normal module instead of a static. This is unnecessarily complicated for the LSP
+-- which does not give satisfactory results because of this. How would it affect the performance? <30-03-25>
 _G.static = {}
 -- TODO: Consider adding through neovim sign interface <11-05-23>
 -- FIX: Make these from codicon <11-05-23>

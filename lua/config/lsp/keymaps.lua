@@ -27,23 +27,15 @@ function M.on_attach(client, buffer)
   self:map('gI', 'Telescope lsp_implementations', { desc = 'Goto Implementation' })
 
   local function show_documentation()
-    local ufo_loaded, _ = pcall(require, 'ufo')
-
     local filetype = vim.bo.filetype
-    local ufo_preview
-    if ufo_loaded then
-      ufo_preview = require('ufo').peekFoldedLinesUnderCursor()
-    end
-    if not ufo_preview then
-      if vim.tbl_contains({ 'vim', 'help' }, filetype) then
-        vim.cmd('h ' .. vim.fn.expand '<cword>')
-      elseif vim.tbl_contains({ 'man' }, filetype) then
-        vim.cmd('Man ' .. vim.fn.expand '<cword>')
-      elseif vim.fn.expand '%:t' == 'Cargo.toml' and require('crates').popup_available() then
-        require('crates').show_popup()
-      else
-        vim.lsp.buf.hover()
-      end
+    if vim.tbl_contains({ 'vim', 'help' }, filetype) then
+      vim.cmd('h ' .. vim.fn.expand '<cword>')
+    elseif vim.tbl_contains({ 'man' }, filetype) then
+      vim.cmd('Man ' .. vim.fn.expand '<cword>')
+    elseif vim.fn.expand '%:t' == 'Cargo.toml' and require('crates').popup_available() then
+      require('crates').show_popup()
+    else
+      vim.lsp.buf.hover()
     end
   end
 
