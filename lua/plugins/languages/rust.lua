@@ -5,20 +5,20 @@ return {
     ft = 'rust',
     dependencies = { 'saghen/blink.cmp' },
     init = function()
+      require('util.lsp').on_attach(function(client, buffer)
+        vim.keymap.set('n', '<C-space>', '<Plug>RustHoverAction', { buffer = true, desc = 'Hover actions' })
+        vim.keymap.set('n', '<localleader>r', function()
+          vim.cmd.RustLsp 'runnables'
+        end, { buffer = true, desc = 'Cargo runnables' })
+        vim.keymap.set('n', '<localleader>R', function()
+          vim.cmd.RustLsp 'run'
+        end, { buffer = true, desc = 'Cargo run' })
+      end, { server_name = 'rust-analyzer' })
+
       vim.g.rustaceanvim = {
         tools = {},
         -- LSP configuration
         server = {
-          on_attach = function(client, bufnr)
-            require('plugins.lsp.keymaps').on_attach(client, bufnr)
-            vim.keymap.set('n', '<C-space>', '<Plug>RustHoverAction', { buffer = true, desc = 'Hover actions' })
-            vim.keymap.set('n', '<localleader>r', function()
-              vim.cmd.RustLsp 'runnables'
-            end, { buffer = true, desc = 'Cargo runnables' })
-            vim.keymap.set('n', '<localleader>R', function()
-              vim.cmd.RustLsp 'run'
-            end, { buffer = true, desc = 'Cargo run' })
-          end,
           default_settings = {
             ['rust-analyzer'] = {
               checkOnSave = {
