@@ -3,7 +3,7 @@ local opts = {
   cmd = { 'texlab' },
   filetypes = { 'tex', 'plaintex', 'bib' },
   single_file_support = 'true',
-  root_markers = { '.git', '.latexmkrc', '.texlabroot', 'texlabroot', 'Tectonic.toml' },
+  root_markers = { '.latexmkrc', '.texlabroot', 'texlabroot', 'Tectonic.toml' },
   settings = {
     texlab = {
       formatterLineLength = 120,
@@ -23,6 +23,5 @@ local opts = {
     },
   },
 }
-opts.capabilities = require('util.lsp').get_capabilities()
 
 return opts

@@ -47,7 +47,7 @@ run(server)
 
 local opts = {
   filetypes = { 'julia' },
-  root_markers = { '.git', 'Project.toml', 'JuliaProject.toml' },
+  root_markers = { 'Project.toml', 'JuliaProject.toml' },
   cmd = {
     'env',
     'LD_LIBRARY_PATH=/usr/lib/julia',
@@ -58,6 +58,5 @@ local opts = {
     language_server_jl,
   },
 }
-opts.capabilities = require('util.lsp').get_capabilities()
 
 return opts

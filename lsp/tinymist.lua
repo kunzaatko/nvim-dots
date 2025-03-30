@@ -2,7 +2,6 @@
 local opts = {
   cmd = { 'tinymist' },
   filetypes = { 'typst' },
-  root_markers = { '.git' },
   single_file_support = true,
   settings = {
     formatterMode = 'typstyle',
@@ -10,6 +9,5 @@ local opts = {
     semanticTokens = 'disable',
   },
 }
-opts.capabilities = require('util.lsp').get_capabilities()
 
 return opts
