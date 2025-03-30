@@ -344,18 +344,6 @@ components.LSPActive = { --{{{
   hl = function(self)
     return { fg = self.colors.base.yellow }
   end,
-components.LSPMessages = { --{{{
-  flexible = 2,
-  provider = function()
-    local status = require('lsp-status').status() or ''
-    local tail = #status > 1 and '⟨' or ''
-    return status .. tail
-  end,
-  condition = #vim.lsp.get_clients { bufnr = 0 } > 0,
-  hl = function(self)
-    return { fg = self.colors.base.gray }
-  end,
-} --}}}
 }
 
 -- components.Gps = { --{{{

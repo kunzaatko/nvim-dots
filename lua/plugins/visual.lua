@@ -248,6 +248,7 @@ return {
       require('highlight-undo').setup()
     end,
   },
+  -- TODO: Test whether this overwrites the number that is given by `neocodeium` <30-03-25>
   {
     'mawkler/modicator.nvim',
     event = 'VeryLazy',

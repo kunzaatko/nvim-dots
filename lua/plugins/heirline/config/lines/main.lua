@@ -26,8 +26,6 @@ local StatusLineActive = { --{{{
   components.Timer,
   -- components.Gps,
   components.Align,
-  -- FIX: This does not work <16-01-22, kunzaatko> --
-  -- components.LSPMessages,
   -- components.Space,
   -- components.Snippets,
   -- components.Space,
