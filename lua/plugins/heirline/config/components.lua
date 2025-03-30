@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- TODO: Separate the components into a file and mark the components that are deprecated <15-03-22, kunzaatko> --
 -- TODO: Document function and components <16-01-22, kunzaatko> --
 local conditions = require 'heirline.conditions'
@@ -232,24 +233,91 @@ components.FileLastModified = {
   end,
 }
 
-components.Codeium = {
-  condition = function(self)
-    local mode = self.mode:sub(1, 1) -- Get only the first mode character
-    return mode == 'i' and vim.g.codeium_enabled ~= nil
-  end,
-  utils.surround({ static.icons.ai .. '[', ']' }, nil, {
-    provider = function()
-      local status_string = vim.api.nvim_call_function('codeium#GetStatusString', {})
-      return status_string:gsub('%s+', '')
+components.NeoCodeium = {
+  static = {
+    -- TODO: Add these icons to `static` module in the icons instead and source them here <30-03-25>
+    symbols = {
+      status = {
+        [0] = '󰚩 ', -- Enabled
+        [1] = '󱚧 ', -- Disabled Globally
+        [2] = '󱙻 ', -- Disabled for Buffer
+        [3] = '󱙺 ', -- Disabled for Buffer filetype
+        [4] = '󱙺 ', -- Disabled for Buffer with enabled function
+        [5] = '󱚠 ', -- Disabled for Buffer encoding
+      },
+      server_status = {
+        [0] = '󰣺 ', -- Connected
+        [1] = '󰣻 ', -- Connecting
+        [2] = '󰣽 ', -- Disconnected
+      },
+    },
+  },
+  update = {
+    'User',
+    pattern = { 'NeoCodeiumServer*', 'NeoCodeium*{En,Dis}abled' },
+    callback = function()
+      vim.cmd.redrawstatus()
     end,
-  }),
+  },
+  provider = function(self)
+    local symbols = self.symbols
+    local status, server_status = require('neocodeium').get_status()
+    return symbols.status[status] .. symbols.server_status[server_status]
+  end,
+
+  condition = function()
+    local filetype = vim.api.nvim_get_option_value('filetype', {})
+    if vim.tbl_contains({ 'TelescopePrompt' }, filetype) then
+      return false
+    end
+    local exists, _ = pcall(require, 'neocodeium')
+    return exists
+  end,
+  hl = { fg = 'yellow' },
 }
 
--- TODO: Add better colors and put ',' or '|' between <16-01-22, kunzaatko> --
+-- TODO: Add a rotating loading animation with the CodeCompanion component
+components.CodeCompanion = {
+  static = {
+    processing = false,
+  },
+  update = {
+    'User',
+    pattern = 'CodeCompanionRequest*',
+    callback = function(self, args)
+      if args.match == 'CodeCompanionRequestStarted' then
+        self.processing = true
+      elseif args.match == 'CodeCompanionRequestFinished' then
+        self.processing = false
+      end
+      vim.cmd 'redrawstatus'
+    end,
+  },
+  {
+    condition = function(self)
+      return self.processing
+    end,
+    provider = ' ',
+    hl = { fg = 'yellow' },
+  },
+}
+
+components.AI = {
+  utils.surround({ static.icons.ai .. ' [', ']' }, nil, {
+    components.NeoCodeium,
+    components.CodeCompanion,
+  }),
+  hl = { fg = 'orange' },
+  condition = function(self)
+    return components.NeoCodeium.condition() or components.CodeCompanion[1].condition(self)
+  end,
+}
+
+-- TODO: Add better colours and icons and put ',' or '|' between <16-01-22, kunzaatko> --
 -- TODO: Show specific parts of null-ls 'lsp-server' <16-01-22, kunzaatko> --
 components.LSPActive = { --{{{
   condition = conditions.lsp_attached,
-  utils.surround({ static.icons.lsp.lsp .. '[', ']' }, nil, {
+  utils.surround({ static.icons.lsp.lsp .. ' [', ']' }, nil, {
     static = {
       preferred_names = {
         lua_ls = 'lua',
@@ -276,8 +344,6 @@ components.LSPActive = { --{{{
   hl = function(self)
     return { fg = self.colors.base.yellow }
   end,
-} --}}}
-
 components.LSPMessages = { --{{{
   flexible = 2,
   provider = function()
@@ -290,6 +356,7 @@ components.LSPMessages = { --{{{
     return { fg = self.colors.base.gray }
   end,
 } --}}}
+}
 
 -- components.Gps = { --{{{
 --   condition = require('nvim-gps').is_available,
@@ -456,31 +523,6 @@ components.Git = { --{{{
     provider = ')',
   },
 } --}}}
-
-components.CodeCompanion = {
-  static = {
-    processing = false,
-  },
-  update = {
-    'User',
-    pattern = 'CodeCompanionRequest*',
-    callback = function(self, args)
-      if args.match == 'CodeCompanionRequestStarted' then
-        self.processing = true
-      elseif args.match == 'CodeCompanionRequestFinished' then
-        self.processing = false
-      end
-      vim.cmd 'redrawstatus'
-    end,
-  },
-  {
-    condition = function(self)
-      return self.processing
-    end,
-    provider = ' ',
-    hl = { fg = 'yellow' },
-  },
-}
 
 -- TODO: Add more aligning components. <16-01-22, kunzaatko> --
 components.Align = { provider = '%=' }

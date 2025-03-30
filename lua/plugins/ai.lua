@@ -151,26 +151,37 @@ local M = {
     end,
   },
   {
-    'Exafunction/codeium.vim',
-    event = { 'InsertEnter', 'VeryLazy' },
-    enabled = true,
-    cmd = { 'Codeium', 'CodeiumAuto', 'CodeiumEnable', 'CodeiumDisable', 'CodeiumManual', 'CodeiumChat' },
-    config = function()
-      vim.g.codeium_enabled = true
-      vim.keymap.set('i', '<c-f>', vim.fn['codeium#Accept'], { expr = true })
-      vim.keymap.set('i', '<c-,>', function()
-        return vim.fn['codeium#CycleCompletions'](1)
-      end, { expr = true })
-      vim.keymap.set('i', '<c-.>', function()
-        return vim.fn['codeium#CycleCompletions'](-1)
-      end, { expr = true })
-      vim.keymap.set('n', '<c-g><c-g>', vim.fn['codeium#Chat'], { expr = true, desc = 'Open Codeium Chat' })
-      vim.keymap.set('i', '<c-x>', vim.fn['codeium#Clear'], { expr = true })
+    'monkoose/neocodeium',
+    event = 'VeryLazy',
+    cmd = 'NeoCodeium',
+    keys = {
+      {
+        '<A-f>',
+        function()
+          require('neocodeium').accept()
+        end,
+        mode = 'i',
+        desc = 'Accept Codeium completion',
+      },
 
-      vim.api.nvim_create_user_command('CodeiumChat', function()
-        vim.call 'codeium#Chat'
-      end, {})
-    end,
+      {
+        '<A-d>',
+        function()
+          require('neocodeium').cycle_or_complete()
+        end,
+        mode = 'i',
+        desc = 'Cycle Codeium completion',
+      },
+      {
+        '<A-s>',
+        function()
+          require('neocodeium').cycle_or_complete(-1)
+        end,
+        mode = 'i',
+        desc = 'Cycle Codeium completion reverse',
+      },
+    },
+    opts = {},
   },
 }
 
