@@ -480,7 +480,7 @@ components.Git = { --{{{
   {
     provider = function(self)
       local count = self.status_dict.added or 0
-      return count > 0 and (count .. static.icons.git.add)
+      return count > 0 and (count .. static.icons.git.add .. ' ')
     end,
     hl = function(self)
       return { fg = self.colors.git.add }
@@ -489,7 +489,7 @@ components.Git = { --{{{
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
-      return count > 0 and (count .. static.icons.git.delete)
+      return count > 0 and (count .. static.icons.git.delete .. ' ')
     end,
     hl = function(self)
       return { fg = self.colors.git.del }
@@ -498,7 +498,7 @@ components.Git = { --{{{
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
-      return count > 0 and (count .. static.icons.git.change)
+      return count > 0 and (count .. static.icons.git.change .. ' ')
     end,
     hl = function(self)
       return { fg = self.colors.git.change }
