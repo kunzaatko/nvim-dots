@@ -10,11 +10,12 @@ local M = {}
 function M.on_attach(on_attach, opts)
   local server_name = (opts and opts.server_name) or '*'
   vim.api.nvim_create_autocmd('LspAttach', {
-    pattern = server_name,
     callback = function(args)
       local buffer = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, buffer)
+      if server_name == '*' or client.name == server_name then
+        on_attach(client, buffer)
+      end
     end,
   })
 end
