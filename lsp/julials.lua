@@ -45,6 +45,7 @@ server.runlinter = true
 run(server)
 ]]
 
+---@type  vim.lsp.Config
 local opts = {
   filetypes = { 'julia' },
   root_markers = { 'Project.toml', 'JuliaProject.toml' },

@@ -1,3 +1,4 @@
+---@type  vim.lsp.Config
 local opts = {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
@@ -20,15 +21,30 @@ local opts = {
       runtime = {
         version = 'LuaJIT',
       },
+
+      codeLens = {
+        enable = true,
+      },
+      completion = {
+        callSnippet = 'Replace',
+      },
+      doc = {
+        privateName = { '^_' },
+      },
+      hint = {
+        enable = true,
+        setType = false,
+        paramType = true,
+        paramName = 'Disable',
+        semicolon = 'Disable',
+        arrayIndex = 'Disable',
+      },
       diagnostics = {
         globals = { 'vim' },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true),
         checkThirdParty = false,
-      },
-      completion = {
-        callSnippet = 'Replace',
       },
     },
   },

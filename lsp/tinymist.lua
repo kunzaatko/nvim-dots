@@ -1,4 +1,5 @@
 -- https://github.com/Myriad-Dreamin/tinymist/blob/main/editors/neovim/Configuration.md
+---@type  vim.lsp.Config
 local opts = {
   cmd = { 'tinymist' },
   filetypes = { 'typst' },

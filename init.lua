@@ -79,7 +79,7 @@ require 'config'
 -- NOTE: Use `.git` as a marker for every LS
 vim.lsp.config('*', { root_markers = { '.git' }, capabilities = require('util.lsp').get_capabilities() })
 -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
-vim.lsp.enable { 'julials', 'texlab', 'tinymist', 'lua_ls' }
+vim.lsp.enable { 'julials', 'texlab', 'tinymist', 'lua_ls', 'taplo', 'pyright' }
 
 if vim.env['THEME_COLOUR'] == "'prefer-light'" then
   vim.cmd [[colorscheme dayfox]]
