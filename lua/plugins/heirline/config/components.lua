@@ -411,7 +411,7 @@ components.Diagnostics = { --{{{
   },
   {
     provider = function(self)
-      return self.hints > 0 and (self.hints .. self.hint_icon)
+      return self.hints > 0 and (self.hints .. self.hint_icon .. ' ')
     end,
     hl = function(self)
       return { fg = self.colors.diag.hint }
