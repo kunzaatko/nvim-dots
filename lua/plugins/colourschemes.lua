@@ -59,6 +59,21 @@ return {
     name = 'clr-nordic',
     event = 'VeryLazy',
     priority = 1000,
+    opts = {
+      integrations = {
+        blink_cmp = true,
+        gitsigns = true,
+        indent_blankline = true,
+        which_key = true,
+        trouble = true,
+        vimtex = true,
+        treesitter = true,
+        telescope = true,
+      },
+    },
+    config = function(_, opts)
+      require('nordic').setup(opts)
+    end,
   },
   -- TODO: In LaTeX the conceal should not be so dim. In fact maybe it would be best if conceal didn't have any
   -- highlight. <26-01-25>
