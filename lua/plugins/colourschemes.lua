@@ -2,7 +2,7 @@ return {
   {
     dir = '~/.config/nvim/dev/nord.nvim',
     dependencies = { { 'rktjmp/lush.nvim', name = 'lush' } },
-    name = 'nord',
+    name = 'clr-nord',
     event = 'VeryLazy',
     config = function()
       vim.g.nord_italic = 1
@@ -39,14 +39,14 @@ return {
   },
   {
     'npxbr/gruvbox.nvim',
-    name = 'gruvbox',
+    name = 'clr-gruvbox',
     event = 'VeryLazy',
     priority = 1000,
     dependencies = { { 'rktjmp/lush.nvim', name = 'lush' } },
   },
   {
     'folke/tokyonight.nvim',
-    name = 'tokyonight',
+    name = 'clr-tokyonight',
     event = 'VeryLazy',
     priority = 1000,
     config = function()
@@ -58,7 +58,7 @@ return {
   -- highlight. <26-01-25>
   {
     'EdenEast/nightfox.nvim',
-    name = 'nightfox',
+    name = 'clr-nightfox',
     event = 'VeryLazy',
     priority = 1000,
     opts = {},
@@ -152,7 +152,7 @@ return {
   },
   {
     'catppuccin/nvim',
-    name = 'catppuccin',
+    name = 'clr-catppuccin',
     event = 'VeryLazy',
     priority = 1000,
     opts = {
