@@ -86,12 +86,16 @@ function M:map(lhs, rhs, opts)
 end
 
 function M.diagnostic_goto(next, severity)
-  local go = next and vim.diagnostic.jump { count = 1, float = true }
-    or vim.diagnostic.jump { count = -1, float = true }
-  severity = severity and vim.diagnostic.severity[severity] or nil
+  local go = function()
+    vim.diagnostic.jump {
+      count = next and 1 or -1,
+      float = true,
+      severity = severity and vim.diagnostic.severity[severity] or nil,
+    }
+  end
   return function()
     ---@diagnostic disable-next-line: need-check-nil
-    go { severity = severity }
+    go()
   end
 end
 
