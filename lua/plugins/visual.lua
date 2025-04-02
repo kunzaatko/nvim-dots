@@ -86,10 +86,10 @@ return {
       },
     },
     event = 'BufReadPost',
-    ---@type UfoConfig
+    -- ---@type UfoConfig
     opts = {
       provider_selector = function(_, ftype, _)
-        return ftype == 'julia' and { 'lsp', 'treesitter' } or { 'lsp', 'indent' }
+        return ftype == 'julia' and { 'treesitter', 'indent' } or { 'lsp', 'indent' }
       end,
       preview = {
         mappings = {
