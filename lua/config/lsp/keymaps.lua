@@ -2,16 +2,20 @@ local M = {}
 
 function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
-  local wk = require 'which-key'
+  local which_key_exists, wk = pcall(require, 'which-key')
 
-  -- FIX: Add icons through icon util <04-05-23>
-  wk.add({
-    {
-      '<leader>l',
-      group = string.format('%s %s', static.icons.lsp.lsp, 'LSP'),
-      icon = { icon = static.icons.lsp.lsp, color = 'blue' },
-    },
-  }, { buffer = 0 })
+  if which_key_exists then
+    -- FIX: Add icons through icon util <04-05-23>
+    -- TODO: Add other groups <03-05-23>
+    -- TODO: Do not list window mappings after leader <20-05-23>
+    wk.add({
+      {
+        '<leader>l',
+        group = string.format('%s %s', static.icons.lsp.lsp, 'LSP'),
+        icon = { icon = static.icons.lsp.lsp, color = 'blue' },
+      },
+    }, { buffer = 0 })
+  end
 
   -- TODO: These mappings should be mapped to the lsp group <03-05-23>
   self:map('gl', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })

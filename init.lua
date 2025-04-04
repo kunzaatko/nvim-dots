@@ -81,8 +81,14 @@ vim.lsp.config('*', { root_markers = { '.git' }, capabilities = require('util.ls
 -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
 vim.lsp.enable { 'julials', 'texlab', 'tinymist', 'lua_ls', 'taplo', 'pyright' }
 
+---@type boolean
+local colourscheme_loaded
 if vim.env['THEME_COLOUR'] == "'prefer-light'" then
-  vim.cmd [[colorscheme dayfox]]
+  colourscheme_loaded = pcall(vim.cmd, [[colorscheme dayfox]])
 else
-  vim.cmd [[colorscheme duskfox]]
+  colourscheme_loaded = pcall(vim.cmd, [[colorscheme nightfox]])
+end
+
+if not colourscheme_loaded then
+  vim.cmd [[colorscheme default]]
 end

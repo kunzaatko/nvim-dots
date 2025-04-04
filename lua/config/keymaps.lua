@@ -1,15 +1,17 @@
-local wk = require 'which-key'
+local which_key_exists, wk = pcall(require, 'which-key')
 
--- TODO: Add other groups <03-05-23>
--- TODO: Do not list window mappings after leader <20-05-23>
-wk.add {
-  { '<leader>a', group = string.format('%s %s', static.icons.ai, 'AI') },
-  { '<leader>f', group = string.format('%s %s', static.icons.find, 'Find') },
-  { '<leader>g', group = string.format('%s %s', static.icons.git.git, 'Git') },
-  { '<leader>s', group = string.format('%s %s', static.icons.snippets, 'Snippets') },
-  { '<leader>t', group = string.format('%s %s', static.icons.terminal, 'Terminal') },
-  { '<leader>u', group = ' UI' },
-}
+if which_key_exists then
+  -- TODO: Add other groups <03-05-23>
+  -- TODO: Do not list window mappings after leader <20-05-23>
+  wk.add {
+    { '<leader>a', group = string.format('%s %s', static.icons.ai, 'AI') },
+    { '<leader>f', group = string.format('%s %s', static.icons.find, 'Find') },
+    { '<leader>g', group = string.format('%s %s', static.icons.git.git, 'Git') },
+    { '<leader>s', group = string.format('%s %s', static.icons.snippets, 'Snippets') },
+    { '<leader>t', group = string.format('%s %s', static.icons.terminal, 'Terminal') },
+    { '<leader>u', group = ' UI' },
+  }
+end
 
 -- Command line shortcuts
 vim.keymap.set('n', ',w', vim.cmd.update, { silent = false, desc = 'write buffer if modified' })

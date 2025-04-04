@@ -1,3 +1,5 @@
+-- BUG: Bug that changes the directory must be in the find the project root function. A possible alternative would be to
+-- use the function as is used in the neovim core LSP implementation the find the root according to project markers.
 -- FIX: Toggling the repl using ¶ does not work when I am in the repl itself. This may be caused by `VimKeymaps.jl` or
 -- perhaps a local mapping does not get set for the terminal... <19-10-24>
 -- TODO: Add autopairs `endwise` rules for "begin end" groups and for "do end" https://github.com/windwp/nvim-autopairs/wiki/Endwise#list-rule-predefined-by-user <11-05-23>

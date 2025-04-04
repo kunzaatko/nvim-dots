@@ -1,3 +1,6 @@
+-- BUG: Bug that changes the directory must be in the find the project root function. A possible alternative would be to
+-- use the function as is used in the neovim core LSP implementation the find the root according to project markers.
+
 -- NOTE: Indent blankline is very slow for LaTeX significantly lowers the performance of insertmode <18-01-24>
 -- TODO: Update this to current workflow <26-03-23>
 -- TODO: Add build terminal and watch terminal <12-05-23>
