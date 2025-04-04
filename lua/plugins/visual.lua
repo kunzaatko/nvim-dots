@@ -151,19 +151,6 @@ return {
     end,
   },
   {
-    'stevearc/dressing.nvim',
-    event = 'VeryLazy',
-    opts = {
-      input = {
-        override = function(conf)
-          conf.col = -1
-          conf.row = 0
-          return conf
-        end,
-      },
-    },
-  },
-  {
     'edluffy/specs.nvim',
     name = 'specs',
     enabled = false, -- TODO: When fixed for nightly can be enabled again <26-03-24>
