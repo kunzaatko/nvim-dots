@@ -48,10 +48,10 @@ function M.on_attach(client, buffer)
 
   self:map('[d', M.diagnostic_goto(true), { desc = 'Next Diagnostic' })
   self:map(']d', M.diagnostic_goto(false), { desc = 'Prev Diagnostic' })
-  self:map(']e', M.diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })
-  self:map('[e', M.diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
-  self:map(']w', M.diagnostic_goto(true, 'WARNING'), { desc = 'Next Warning' })
-  self:map('[w', M.diagnostic_goto(false, 'WARNING'), { desc = 'Prev Warning' })
+  self:map(']e', M.diagnostic_goto(true, vim.diagnostic.severity.ERROR), { desc = 'Next Error' })
+  self:map('[e', M.diagnostic_goto(false, vim.diagnostic.severity.ERROR), { desc = 'Prev Error' })
+  self:map(']w', M.diagnostic_goto(true, vim.diagnostic.severity.WARN), { desc = 'Next Warning' })
+  self:map('[w', M.diagnostic_goto(false, vim.diagnostic.severity.WARN), { desc = 'Prev Warning' })
 
   self:map('<leader>la', function()
     local actions_preview_exists, _ = pcall(require, 'actions-preview')
@@ -94,7 +94,7 @@ function M.diagnostic_goto(next, severity)
     vim.diagnostic.jump {
       count = next and 1 or -1,
       float = true,
-      severity = severity and vim.diagnostic.severity[severity] or nil,
+      severity = severity,
     }
   end
   return function()
