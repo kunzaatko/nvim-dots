@@ -172,6 +172,7 @@ return {
     event = 'VeryLazy',
     opts = {
       default_remote = { 'upstream', 'origin', 'github' },
+      picker = 'snacks',
       reaction_viewer_hint_icon = static.icons.diagnostics.Hint,
       user_icon = static.icons.git.user,
       timeline_marker = static.icons.undotree.node,
