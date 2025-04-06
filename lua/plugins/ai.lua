@@ -181,7 +181,11 @@ local M = {
         desc = 'Cycle Codeium completion reverse',
       },
     },
-    opts = {},
+    opts = {
+      filetypes = {
+        snacks_picker_input = false,
+      },
+    },
   },
 }
 

@@ -45,27 +45,6 @@ local M = {
       end
     end,
   },
-  { 'smjonas/inc-rename.nvim', event = 'LspAttach', cmd = 'IncRename' },
-  {
-    'aznhe21/actions-preview.nvim',
-    event = 'VeryLazy',
-    opts = {
-      diff = {
-        algorithm = 'patience',
-        ignore_whitespace = true,
-      },
-      telescope = require('telescope.themes').get_dropdown { winblend = 10 },
-    },
-  },
-  {
-    'ray-x/lsp_signature.nvim',
-    name = 'lsp-signature',
-    event = 'InsertEnter',
-    opts = {
-      hint_enable = false,
-      transparency = 10,
-    },
-  },
 }
 
 return M

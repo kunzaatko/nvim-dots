@@ -266,8 +266,8 @@ components.NeoCodeium = {
   end,
 
   condition = function()
-    local filetype = vim.api.nvim_get_option_value('filetype', {})
-    if vim.tbl_contains({ 'TelescopePrompt' }, filetype) then
+    local filetype = vim.api.nvim_get_option_value('filetype', { scope = 'local' })
+    if vim.tbl_contains({ 'TelescopePrompt', 'snacks_picker_input', 'snacks_picker_preview' }, filetype) then
       return false
     end
     local exists, _ = pcall(require, 'neocodeium')

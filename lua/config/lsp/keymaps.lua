@@ -20,15 +20,29 @@ function M.on_attach(client, buffer)
   -- TODO: These mappings should be mapped to the lsp group <03-05-23>
   self:map('gl', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
   self:map('<leader>ld', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
-  self:map('<leader>li', 'LspInfo', { desc = 'Lsp Info' })
-  self:map('<leader>lI', 'NullLsInfo', { desc = 'NullLs Info' })
-  self:map('<leader>lD', 'Telescope diagnostics', { desc = 'Telescope Diagnostics' })
 
-  self:map('gd', 'Telescope lsp_definitions', { desc = 'Goto Definition' })
-  self:map('gD', 'Telescope lsp_declarations', { desc = 'Goto Declaration' })
-  self:map('gT', 'Telescope lsp_type_definitions', { desc = 'Goto Type Definition' })
-  self:map('gr', 'Telescope lsp_references', { desc = 'References' })
-  self:map('gI', 'Telescope lsp_implementations', { desc = 'Goto Implementation' })
+  local nvimlspconfig_exists, _ = pcall(require, 'nvim-lspconfig')
+  if nvimlspconfig_exists then
+    self:map('<leader>li', 'LspInfo', { desc = 'Lsp Info' })
+  end
+  local nullls_exists, _ = pcall(require, 'null-ls')
+  if nullls_exists then
+    self:map('<leader>lI', 'NullLsInfo', { desc = 'NullLs Info' })
+  end
+
+  local snacks_exists, _ = pcall(require, 'snacks')
+  if snacks_exists then
+    self:map('<leader>lD', Snacks.picker.diagnostics, { desc = 'Workspace Diagnostics' })
+    self:map('<leader>ld', Snacks.picker.diagnostics_buffer, { desc = 'Buffer Diagnostics' })
+    self:map('<leader>lS', Snacks.picker.lsp_workspace_symbols, { desc = 'LSP Workspace Symbols' })
+    self:map('<leader>ls', Snacks.picker.lsp_symbols, { desc = 'LSP Symbols' })
+
+    self:map('gd', Snacks.picker.lsp_definitions, { desc = 'Goto Definition' })
+    self:map('gD', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
+    self:map('gT', Snacks.picker.lsp_type_definitions, { desc = 'Goto Type Definition' })
+    self:map('gI', Snacks.picker.lsp_implementations, { desc = 'Goto Implementation' })
+    self:map('<leader>gr', Snacks.picker.lsp_references, { nowait = true, desc = 'References' })
+  end
 
   local function show_documentation()
     local filetype = vim.bo.filetype
@@ -53,18 +67,8 @@ function M.on_attach(client, buffer)
   self:map(']w', M.diagnostic_goto(true, vim.diagnostic.severity.WARN), { desc = 'Next Warning' })
   self:map('[w', M.diagnostic_goto(false, vim.diagnostic.severity.WARN), { desc = 'Prev Warning' })
 
-  self:map('<leader>la', function()
-    local actions_preview_exists, _ = pcall(require, 'actions-preview')
-    if actions_preview_exists then
-      require('actions-preview').code_actions()
-    else
-      vim.lsp.buf.code_action()
-    end
-  end, { desc = 'Code Action', mode = { 'n', 'v' }, has = 'codeAction' })
-
-  self:map('<leader>lr', function()
-    return ':IncRename ' .. vim.fn.expand '<cword>'
-  end, { expr = true, desc = 'Rename', has = 'rename' })
+  -- self:map('gra', vim.lsp.buf.code_action, { desc = 'Code Action', mode = { 'n', 'v' }, has = 'codeAction' })
+  self:map('grn', vim.lsp.buf.rename, { desc = 'Rename', has = 'rename' })
 end
 
 function M.new(client, buffer)

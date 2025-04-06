@@ -68,7 +68,6 @@ return {
         trouble = true,
         vimtex = true,
         treesitter = true,
-        telescope = true,
       },
     },
     config = function(_, opts)
@@ -209,7 +208,6 @@ return {
         lsp_trouble = true,
         cmp = false,
         gitsigns = true,
-        telescope = true,
         dap = {
           enabled = false,
           enable_ui = false,

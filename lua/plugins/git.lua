@@ -166,7 +166,6 @@ return {
     'pwntester/octo.nvim',
     name = 'octo',
     dependencies = {
-      { 'nvim-telescope/telescope.nvim', name = 'telescope' },
       { 'nvim-tree/nvim-web-devicons', name = 'devicons' },
     },
     cmd = 'Octo',
