@@ -29,6 +29,44 @@ return {
     },
   },
   {
+    'Hashino/doing.nvim',
+    lazy = false, -- NOTE: With lazy loading saving the tasks to a file does not work <10-05-25>
+    cmd = 'Do',
+    opts = {
+      doing_prefix = '',
+      show_remaining = false,
+      edit_win_config = {
+        width = 70,
+      },
+      store = {
+        file_name = '.tasks',
+      },
+    },
+    keys = {
+      {
+        '<leader>da',
+        function()
+          require('doing').add()
+        end,
+        desc = 'Add task',
+      },
+      {
+        '<leader>dn',
+        function()
+          require('doing').done()
+        end,
+        desc = 'Mark task done',
+      },
+      {
+        '<leader>de',
+        function()
+          require('doing').edit()
+        end,
+        desc = 'Edit tasks',
+      },
+    },
+  },
+  {
     'krivahtoo/silicon.nvim',
     cmd = 'Silicon',
     name = 'silicon',

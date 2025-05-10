@@ -24,6 +24,7 @@ local StatusLineActive = { --{{{
   -- components.Space,
   components.Align,
   components.Timer,
+  components.Doing,
   -- components.Gps,
   components.Align,
   -- components.Space,

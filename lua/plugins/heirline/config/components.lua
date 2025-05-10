@@ -276,6 +276,53 @@ components.NeoCodeium = {
   hl = { fg = 'yellow' },
 }
 
+components.Doing = {
+  condition = function()
+    return require('doing').status() ~= ''
+  end,
+  { provider = 'Doing 󰁕  ', hl = { fg = 'gray', italic = true } },
+  {
+    provider = function()
+      local status = require('doing').status()
+      if not conditions.width_percent_below(#status, 0.3) then
+        local max_len = vim.api.nvim_win_get_width(0) * 0.3
+        status = status:sub(0, max_len) .. '...'
+      end
+      return status
+    end,
+
+    hl = {
+      fg = 'white',
+      italic = true,
+    },
+  },
+
+  {
+    init = function(self)
+      self.count = require('doing').tasks_left() - 1
+    end,
+
+    condition = function()
+      return require('doing').tasks_left() > 1
+    end,
+
+    provider = function(self)
+      return ' +' .. tostring(self.count) .. ' more'
+    end,
+
+    hl = {
+      fg = 'gray',
+      italic = true,
+    },
+  },
+
+  update = {
+    'BufEnter',
+    'User',
+    pattern = 'TaskModified',
+  },
+}
+
 -- TODO: Add a rotating loading animation with the CodeCompanion component
 components.CodeCompanion = {
   static = {
