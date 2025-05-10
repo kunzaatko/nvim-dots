@@ -38,6 +38,7 @@ return {
       edit_win_config = {
         width = 70,
       },
+      winbar = { enabled = false },
       store = {
         file_name = '.tasks',
       },
