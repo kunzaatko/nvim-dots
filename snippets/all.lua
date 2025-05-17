@@ -45,6 +45,14 @@ local sigmarks = {
   end,
 }
 
+s(
+  { trig = 'today' },
+  extras.partial(function()
+    return os.date(_G.luasnip.vars.date_format)
+  end),
+  { dscr = "Insert today's date" }
+)
+
 -- TODO: make a universal function for the todo comments <15-03-22, kunzaatko> --
 -- TODO: Enable *SELECT* mode for these snippets <13-03-22, kunzaatko> --
 -- TODO: Should instead return a DynamicNode since if this is not the case, then the comment sting
