@@ -117,11 +117,6 @@ vim.keymap.set({ 'n', 'x' }, 'y', function()
   return 'y'
 end, { expr = true })
 
-vim.keymap.set('n', 'Y', function()
-  cursorPreYank = vim.api.nvim_win_get_cursor(0)
-  return 'y$'
-end, { expr = true, desc = 'yank to eol' }) -- Y to act as D and C
-
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     if vim.v.event.operator == 'y' and cursorPreYank then
