@@ -65,9 +65,6 @@ vim.opt.formatoptions:append 'n1' -- do not wrap after 1 letter words and number
 vim.opt.textwidth = 120
 vim.opt.colorcolumn = { vim.opt.textwidth:get() + 1 }
 vim.opt.termguicolors = true -- 24-bit colours
--- vim.opt.guicursor = -- cursor styles for modes
---   'n-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,v:block-blinkwait175-blinkoff150-blinkon175,ve:ver25-blinkwait175-blinkoff150-blinkon175'
--- TODO: https://github.com/neovim/neovim/issues/3681
 vim.opt.guicursor = {
   'n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
   'i-ci-o:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
