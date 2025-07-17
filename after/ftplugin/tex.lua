@@ -12,10 +12,10 @@
 -- TODO: LaTeX snippets for label to add the context to the label beginning such as "eq:", "fig:", etc. <17-06-24>
 -- TODO: Build in terminal that autocloses on success <kunzaatko>
 -- FIX: Background highlight of conceal is not changed on TransparentEnable <18-06-24, kunzaatko>
-
 -- FIX: The commands can be run better with the `vim.system` command instead of using plenary <11-08-24>
-
 -- FIX: Scrolling in normal mode is very laggy <18-01-24>
+
+vim.g.tex_flavor = 'latex' -- see `:h ft-tex-plugin`
 
 ---@diagnostic disable: undefined-field
 local Job = require 'plenary.job'
@@ -331,5 +331,7 @@ local abbreviations = scrap.expand_many({
 for _, value in pairs(abbreviations) do
   vim.cmd('abbreviate ' .. value[1] .. ' ' .. value[2])
 end
+
+vim.keymap.set('n', '<localleader>r', '<Cmd>AngryReviewer<CR>', { desc = 'AngryReviewer.com suggestions in QF' })
 
 -- scrap.many_local_abbreviations(abbreviations)

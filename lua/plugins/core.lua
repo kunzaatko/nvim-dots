@@ -29,10 +29,24 @@ return {
       keymaps = { ['_'] = 'actions.parent' },
     },
     lazy = false,
-    keys = '_',
-    dependencies = { { 'nvim-tree/nvim-web-devicons', name = 'devicons' } },
+    keys = {
+      {
+        '_',
+        function()
+          require('oil').open()
+        end,
+        desc = 'Open parent directory',
+      },
+      {
+        'g_',
+        function()
+          require('oil').open(vim.fn.getcwd())
+        end,
+        desc = 'Open current working directory',
+      },
+    },
+    dependencies = { { 'nvim-tree/nvim-web-devicons', name = 'devicons' }, 'benomahony/oil-git.nvim' },
     config = function(_, opts)
-      vim.keymap.set('n', '_', require('oil').open, { desc = 'Open parent directory' })
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('OilOptions', { clear = true }),
         pattern = 'oil',
@@ -45,46 +59,104 @@ return {
   },
   {
     'mrjones2014/smart-splits.nvim',
+    event = 'VeryLazy',
     keys = {
-      '<leader><M-h>',
-      '<leader><M-j>',
-      '<leader><M-k>',
-      '<leader><M-l>',
-      '<M-h>',
-      '<M-j>',
-      '<M-k>',
-      '<M-l>',
-      '<M-Up>',
-      '<M-Down>',
-      '<M-Left>',
-      '<M-Right>',
+      {
+        '<M-h>',
+        function()
+          require('smart-splits').move_cursor_left()
+        end,
+        desc = 'move to left split',
+      },
+      {
+        '<M-j>',
+        function()
+          require('smart-splits').move_cursor_down()
+        end,
+        desc = 'move to below split',
+      },
+      {
+        '<M-k>',
+        function()
+          require('smart-splits').move_cursor_up()
+        end,
+        desc = 'move to above split',
+      },
+      {
+        '<M-l>',
+        function()
+          require('smart-splits').move_cursor_right()
+        end,
+        desc = 'move to right split',
+      },
+      {
+        '<M-Up>',
+        function()
+          require('smart-splits').resize_up()
+        end,
+        desc = 'resize split up',
+      },
+      {
+        '<M-Down>',
+        function()
+          require('smart-splits').resize_down()
+        end,
+        desc = 'resize split down',
+      },
+      {
+        '<M-Left>',
+        function()
+          require('smart-splits').resize_left()
+        end,
+        desc = 'resize split left',
+      },
+      {
+        '<M-Right>',
+        function()
+          require('smart-splits').resize_right()
+        end,
+        desc = 'resize split right',
+      },
+      {
+        '<leader><M-h>',
+        function()
+          require('smart-splits').swap_buf_left()
+        end,
+        desc = 'swap split left',
+      },
+      {
+        '<leader><M-j>',
+        function()
+          require('smart-splits').swap_buf_down()
+        end,
+        desc = 'swap split down',
+      },
+      {
+        '<leader><M-k>',
+        function()
+          require('smart-splits').swap_buf_up()
+        end,
+        desc = 'swap split up',
+      },
+      {
+        '<leader><M-l>',
+        function()
+          require('smart-splits').swap_buf_right()
+        end,
+        desc = 'swap split right',
+      },
     },
     opts = { ignored_filetypes = { 'nofile', 'quickfix', 'qf', 'prompt' }, ignored_buftypes = { 'nofile' } },
-    config = function(_, opts)
-      require('smart-splits').setup(opts)
-      vim.keymap.set('n', '<M-h>', require('smart-splits').move_cursor_left, { desc = 'move to left split' })
-      vim.keymap.set('n', '<M-j>', require('smart-splits').move_cursor_down, { desc = 'move to below split' })
-      vim.keymap.set('n', '<M-k>', require('smart-splits').move_cursor_up, { desc = 'move to above split' })
-      vim.keymap.set('n', '<M-l>', require('smart-splits').move_cursor_right, { desc = 'move to right split' })
-      vim.keymap.set('n', '<M-Up>', require('smart-splits').resize_up, { desc = 'resize split up' })
-      vim.keymap.set('n', '<M-Down>', require('smart-splits').resize_down, { desc = 'resize split down' })
-      vim.keymap.set('n', '<M-Left>', require('smart-splits').resize_left, { desc = 'resize split left' })
-      vim.keymap.set('n', '<M-Right>', require('smart-splits').resize_right, { desc = 'resize split right' })
-      vim.keymap.set('n', '<leader><M-h>', require('smart-splits').swap_buf_left, { desc = 'swap split left' })
-      vim.keymap.set('n', '<leader><M-j>', require('smart-splits').swap_buf_down, { desc = 'swap split down' })
-      vim.keymap.set('n', '<leader><M-k>', require('smart-splits').swap_buf_up, { desc = 'swap split up' })
-      vim.keymap.set('n', '<leader><M-l>', require('smart-splits').swap_buf_right, { desc = 'swap split right' })
-    end,
   },
   {
     'folke/which-key.nvim',
     opts = {
       preset = 'helix',
-      icons = { group = '', separator = '' },
+      icons = { group = '', separator = '' }, -- TODO: Change the separator to something better <08-05-25>
       disable = { ft = { 'TelescopePrompt' } },
       spelling = {
         enabled = true,
-        suggestions = 10,
+        suggestions = 6, -- FIX: Number of suggestions is not respected by the plugin <08-05-25>
       },
     },
     keys = {
@@ -138,24 +210,11 @@ return {
       -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
-  -- TODO: Get inspiration from this for the LaTeX frac snippet <15-06-23>
-  {
-    'utilyre/sentiment.nvim',
-    event = 'VeryLazy',
-    config = true,
-    init = function()
-      vim.g.loaded_matchparen = 1 -- needs to be here for lazy loading
-    end,
-  },
   {
     'numToStr/Comment.nvim',
     name = 'Comment',
     keys = { { 'gb', mode = 'v' }, { 'gc', mode = 'v' }, 'gcc', 'gc', 'gco', 'gcO', 'gcA', 'gb', 'gbc' },
     config = true,
-  },
-  {
-    'famiu/bufdelete.nvim',
-    cmd = { 'Bdelete', 'Bwipeout' },
   },
   {
     'NMAC427/guess-indent.nvim',
@@ -172,86 +231,113 @@ return {
     end,
   },
   {
-    'windwp/nvim-ts-autotag',
-    event = 'InsertEnter',
-    config = true,
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    event = 'BufReadPost',
+    opts = {
+      select = {
+        enable = true,
+        lookahead = false,
+        keymaps = {},
+        selection_modes = {
+          ['@parameter.outer'] = 'v',
+          ['@function.outer'] = 'V',
+          ['@class.outer'] = 'V',
+        },
+      },
+    },
+    config = function()
+      ---@diagnostic disable-next-line: missing-fields
+      local select = require('nvim-treesitter-textobjects.select').select_textobject
+      vim.keymap.set({ 'x', 'o' }, 'af', function()
+        select('@function.outer', 'textobjects')
+      end, { desc = 'select Around Function' })
+      vim.keymap.set({ 'x', 'o' }, 'if', function()
+        select('@function.inner', 'textobjects')
+      end, { desc = 'select In Function' })
+      vim.keymap.set({ 'x', 'o' }, 'ac', function()
+        select('@class.outer', 'textobjects')
+      end, { desc = 'select Around Class' })
+      vim.keymap.set({ 'x', 'o' }, 'ic', function()
+        select('@class.inner', 'textobjects')
+      end, { desc = 'select In Class' })
+      vim.keymap.set({ 'x', 'o' }, 'ap', function()
+        select('@parameter.outer', 'textobjects')
+      end, { desc = 'select Around Parameter' })
+      vim.keymap.set({ 'x', 'o' }, 'as', function()
+        select('@statement.outer', 'textobjects')
+      end, { desc = 'select Around Statement' })
+      vim.keymap.set({ 'x', 'o' }, 'ad', function()
+        select('@string.documentation', 'highlights')
+      end, { desc = 'select Around Docstring' })
+    end,
   },
   {
+    -- stylua: ignore start
     'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      { 'nvim-treesitter/nvim-treesitter-textobjects', name = 'treesitter-textobjects' },
-    },
-    name = 'treesitter',
+    lazy = false,
+    branch = 'main',
     build = ':TSUpdate',
-    event = 'BufReadPost',
-    config = function()
-      local treesitter = require 'nvim-treesitter.configs'
-      ---@diagnostic disable-next-line: missing-fields
-      treesitter.setup {
-        -- stylua: ignore start
-        ensure_installed = {
-          'bash', 'bibtex', 'gitcommit', 'gitignore', 'c', 'cpp', 'css', 'fish', 'go', 'html', 'htmldjango', 'json',
-          'julia', 'latex', 'lua', 'sql', 'r', 'ron', 'diff', 'scss', 'norg', 'python', 'query', 'rust', 'toml',
-          'typst', 'vim', 'yaml', 'markdown', 'markdown_inline',
+    init = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('TreesitterHighlighting', {}),
+        pattern = {
+          'bash', 'bibtex', 'c', 'cpp', 'css', 'diff', 'fish', 'gitcommit', 'gitignore', 'go', 'html', 'htmldjango',
+          'json', 'julia', 'just', 'lua', 'markdown', 'markdown_inline', 'norg', 'python', 'query', 'r', 'ron', 'rust',
+          'scss', 'sql', 'toml', 'typst', 'vim', 'yaml'
         },
-        -- stylua: ignore end
-        highlight = {
-          enable = true,
-          -- FIX: Disabled at the moment due to some issue with patterns "Impossible Pattern". On markdown treesitter
-          -- parser update it can be enabled again <30-04-24>
-          disable = { 'latex', 'tex' }, -- , 'vim', 'markdown' },
-          -- additional_vim_regex_highlighting = { 'markdown' },
-        },
-        indent = { enable = true },
-        textobjects = {
-          select = {
-            -- BUG: error no "function_expression" in julia parser <17-11-24>
-            disable = { 'tex', 'latex', 'julia' },
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              -- TODO: Add more textobjects <12-01-23>
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
-              ['ad'] = {
-                desc = 'Select around an entire docstring',
-                query = '@string.documentation',
-                query_group = 'highlights',
-              },
-            },
-          },
-        },
-        incremental_selection = { enable = true },
-      }
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+
     end,
+    -- stylua: ignore end
   },
   {
     'olimorris/persisted.nvim',
     lazy = false,
     config = true,
   },
-  {
-    'folke/persistence.nvim',
-    enabled = false,
-    event = 'BufReadPre',
-    cmd = 'SessionLoad',
-    opts = {
-      options = { 'buffers', 'curdir', 'tabpages', 'winsize', 'winpos', 'terminal' },
-    },
-    config = function()
-      vim.api.nvim_create_user_command('SessionLoad', require('persistence').load, { nargs = 0 })
-    end,
-  },
-  -- TODO: Replace telescope picking with snacks <28-01-25>
   -- TODO: Use the `icon` utils for setting icons <30-03-25>
   {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
     keys = {
-      -- Top Pickers & Explorer
+      -- Zen --
+      {
+        '<leader><leader>',
+        function()
+          Snacks.zen.zoom()
+        end,
+        desc = 'Toggle Zen zoom',
+      },
+      {
+        'g<leader>',
+        function()
+          Snacks.zen.zen()
+        end,
+        desc = 'Toggle Zen mode',
+      },
+      -- Terminal --
+      {
+        'ŧ',
+        function()
+          require('util.terminal').toggle_repl('fish', 'ŧ')
+        end,
+        desc = 'Toggle terminal',
+      },
+      -- TODO: Use this `vim.fs.root({source}, {marker})` for terminal in the current project <24-06-25>
+      {
+        'gŧ',
+        function()
+          require('util.terminal').toggle_repl('fish', 'ŧ', { cwd = vim.fn.expand '%:p:h' })
+        end,
+        desc = 'Toggle terminal in the current file directory',
+      },
+      -- Pickers & Explorer --
       {
         '<leader><space>',
         function()
@@ -260,7 +346,7 @@ return {
         desc = 'Smart Find Files',
       },
       {
-        '<leader>,',
+        '<leader>.',
         function()
           Snacks.picker.buffers()
         end,
@@ -294,7 +380,7 @@ return {
         end,
         desc = 'File Explorer',
       },
-      -- find
+      -- Find --
       {
         '<leader>fb',
         function()
@@ -337,7 +423,7 @@ return {
         end,
         desc = 'Recent',
       },
-      -- git
+      -- Git --
       {
         '<leader>gb',
         function()
@@ -567,16 +653,36 @@ return {
       },
     },
     opts = {
+      zen = {
+        toggles = {
+          dim = false,
+        },
+        win = {
+          width = 180,
+        },
+      },
       bigfile = {},
       quickfile = {},
       notifier = {},
       statuscolumn = {},
       indent = {},
       input = {},
+      terminal = { shell = 'fish', win = { winbar = '', position = 'bottom' } },
       -- scroll = {},
       words = {},
       ---@class snacks.picker.Config
       picker = {
+        sources = {
+          lines = {
+            win = {
+              preview = {
+                wo = {
+                  cursorlineopt = 'line',
+                },
+              },
+            },
+          },
+        },
         win = {
           input = {
             keys = {
@@ -691,6 +797,35 @@ return {
         },
       },
     },
+    init = function()
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'VeryLazy',
+        callback = function()
+          -- Setup some globals for debugging (lazy-loaded)
+          _G.dd = function(...)
+            Snacks.debug.inspect(...)
+          end
+          _G.bt = function()
+            Snacks.debug.backtrace()
+          end
+          vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+          -- Create some toggle mappings
+          Snacks.toggle.option('spell', { name = 'Spelling' }):map '!s'
+          Snacks.toggle.option('wrap', { name = 'Wrap' }):map '!w'
+          Snacks.toggle.option('relativenumber', { name = 'Relative Number' }):map '!L'
+          Snacks.toggle.diagnostics():map '!d'
+          Snacks.toggle.line_number():map '!l'
+          Snacks.toggle
+            .option('conceallevel', { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+            :map '!c'
+          Snacks.toggle.option('background', { off = 'light', on = 'dark', name = 'Dark Background' }):map '!b'
+          Snacks.toggle.inlay_hints():map '!h'
+          Snacks.toggle.indent():map '!g'
+          Snacks.toggle.dim():map '!D'
+        end,
+      })
+    end,
     config = function(_, opts)
       local trouble_exists, trouble_snacks = pcall(require, 'trouble.sources.snacks')
       if trouble_exists then
@@ -720,6 +855,14 @@ return {
     opts = {
       max_count = 6,
       disable_mouse = false,
+    },
+  },
+  {
+    'chrisgrieser/nvim-spider',
+    keys = {
+      { 'w', "<cmd>lua require('spider').motion('w')<CR>", mode = { 'n', 'o', 'x' } },
+      { 'e', "<cmd>lua require('spider').motion('e')<CR>", mode = { 'n', 'o', 'x' } },
+      { 'b', "<cmd>lua require('spider').motion('b')<CR>", mode = { 'n', 'o', 'x' } },
     },
   },
   {

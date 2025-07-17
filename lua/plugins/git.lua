@@ -3,7 +3,7 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     name = 'gitsigns',
-    dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     event = 'BufReadPre',
     enabled = vim.fn.executable 'git' == 1,
     opts = {
@@ -90,6 +90,7 @@ return {
   },
   -- TODO: Add icons using the icons util <12-05-23>
   -- TODO: Change the diff colours not to overwrite the foreground colours <20-05-23>
+  -- TODO: Add a window-line to indicate 'OURS', 'THEIRS', 'LOCAL' in the diffview <06-07-25>
   {
     'sindrets/diffview.nvim',
     keys = { '<leader>gD' },
@@ -167,6 +168,7 @@ return {
     name = 'octo',
     dependencies = {
       { 'nvim-tree/nvim-web-devicons', name = 'devicons' },
+      'folke/snacks.nvim',
     },
     cmd = 'Octo',
     event = 'VeryLazy',

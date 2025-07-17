@@ -7,7 +7,8 @@ local root_files = {
   'pyrightconfig.json',
 }
 
----@type  vim.lsp.Config
+---@diagnostic disable-next-line: undefined-doc-name
+---@type  vim.lsp.ClientConfig
 local opts = {
   cmd = { 'pyright-langserver', '--stdio' },
   filetypes = { 'python' },

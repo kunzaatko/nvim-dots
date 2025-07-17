@@ -1,18 +1,13 @@
+-- FIX: `Field` completion type should have a brighter colour and a different icon from the `Variable` and the variable
+-- should also be a bit more contrasty <08-04-25>
 return {
   'saghen/blink.cmp',
   dependencies = {
     { 'L3MON4D3/LuaSnip', version = 'v2.*' },
-    { 'saghen/blink.compat', lazy = true, config = true },
+    'erooke/blink-cmp-latex',
     'mikavilpas/blink-ripgrep.nvim',
-    'moyiz/blink-emoji.nvim',
-    'bydlw98/blink-cmp-env',
-    'ribru17/blink-cmp-spell',
-    'dmitmel/cmp-digraphs',
-    {
-      'Kaiser-Yang/blink-cmp-git',
-      dependencies = { 'nvim-lua/plenary.nvim' },
-    },
-    'kdheepak/cmp-latex-symbols',
+    'Kaiser-Yang/blink-cmp-git',
+    'archie-judd/blink-cmp-words',
     'disrupted/blink-cmp-conventional-commits',
   },
   lazy = false,
@@ -45,26 +40,27 @@ return {
         require('luasnip').jump(direction)
       end,
     },
+
     sources = {
       default = {
-        'lazydev',
         'lsp',
         'path',
         'snippets',
-        'emoji',
-        'git',
-        'buffer',
         'ripgrep',
-        'spell',
-        'markdown',
-        'env',
-        'latex_symbols',
-        'conventional_commits',
       },
+      -- stylua: ignore start
       per_filetype = {
         'codecompanion',
+        julia = { inherit_defaults = true, 'latex' },
+        lua = { inherit_defaults = true, 'lazydev' },
         rust = { 'lsp', 'path', 'snippets', 'ripgrep' },
+        markdown = { inherit_defaults = true, 'markdown', 'thesaurus', 'git' },
+        tex = { inherit_defaults = true, 'dictionary', 'thesaurus' },
+        text = { inherit_defaults = true, 'dictionary', 'thesaurus' },
+        octo = { inherit_defautls = true, 'git' }, gitcommit = { inherit_defautls = true, 'git', 'conventional_commits', 'markdown' }, ['NeogitCommitMessage'] = { inherit_defautls = true, 'git', 'conventional_commits', 'markdown' }, gitrebase = { inherit_defautls = true, 'git' },
       },
+      -- stylua: ignore end
+
       -- min_keyword_length = function()
       --   return vim.tbl_contains({ 'codecompanion', 'rust' }, vim.bo.filetype) and 0 or 1
       -- end,
@@ -79,14 +75,6 @@ return {
         path = {
           score_offset = 4,
         },
-        digraphs = {
-          name = 'digraphs',
-          score_offset = 1,
-          module = 'blink.compat.source',
-          opts = {
-            cache_digraphs_on_start = true,
-          },
-        },
         buffer = {
           score_offset = -2,
           min_keyword_length = 3,
@@ -100,10 +88,6 @@ return {
               vim.bo.filetype
             )
           end,
-        },
-        latex_symbols = {
-          name = 'latex_symbols',
-          module = 'blink.compat.source',
         },
         spell = {
           name = 'spell',
@@ -136,6 +120,8 @@ return {
         ripgrep = {
           name = 'Ripgrep',
           module = 'blink-ripgrep',
+          max_items = 5,
+          fallbacks = { 'buffer' },
         },
         emoji = {
           name = 'Emoji',
@@ -152,6 +138,39 @@ return {
           enabled = function()
             return vim.bo.filetype == 'gitcommit'
           end,
+        },
+        latex = {
+          name = 'LaTeX',
+          module = 'blink-cmp-latex',
+          enabled = function()
+            return vim.tbl_contains(
+              { 'octo', 'gitcommit', 'markdown', 'NeogitCommitMessage', 'gitrebase', 'julia' },
+              vim.bo.filetype
+            )
+          end,
+          opts = {
+            insert_command = false,
+          },
+        },
+        thesaurus = {
+          name = 'Words Thesaurus',
+          module = 'blink-cmp-words.thesaurus',
+          max_items = 4,
+          opts = {
+            -- Default pointers define the lexical relations listed under each definition,
+            -- see Pointer Symbols below.
+            -- Default is as below ("antonyms", "similar to" and "also see").
+            pointer_symbols = { '!', '&', '^' },
+          },
+        },
+        dictionary = {
+          name = 'Words Dictionary',
+          module = 'blink-cmp-words.dictionary',
+          max_items = 4,
+          opts = {
+            dictionary_search_threshold = 3, -- Number of characters to trigger completion (if slow increase)
+            pointer_symbols = { '!', '&', '^' }, -- See thesaurus
+          },
         },
       },
     },

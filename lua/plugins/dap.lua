@@ -1,6 +1,6 @@
 return {
   'mfussenegger/nvim-dap',
-  lazy = false,
+  event = 'VeryLazy',
   dependencies = {
     {
       'jay-babu/mason-nvim-dap.nvim',

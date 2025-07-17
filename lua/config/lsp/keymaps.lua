@@ -55,6 +55,7 @@ function M.on_attach(client, buffer)
     else
       vim.lsp.buf.hover()
     end
+    vim.cmd.doautocmd 'User DocWinOpen'
   end
 
   self:map('K', show_documentation, { desc = 'Hover' })

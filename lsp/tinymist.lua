@@ -1,5 +1,6 @@
 -- https://github.com/Myriad-Dreamin/tinymist/blob/main/editors/neovim/Configuration.md
----@type  vim.lsp.Config
+---@diagnostic disable-next-line: undefined-doc-name
+---@type  vim.lsp.ClientConfig
 local opts = {
   cmd = { 'tinymist' },
   filetypes = { 'typst' },

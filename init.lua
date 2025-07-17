@@ -30,18 +30,6 @@ vim.g.maplocalleader = '-'
 -- FIX: The default keymap of opening the terminal in the plugin directory launches a floating terminal and does not
 -- work very well. Could I use the terminat.nvim plugin for it instead? <21-09-24>
 require('lazy').setup({
-  { -- NOTE: For debugging and independent plug-in testing <18-01-24>
-    'abeldekat/lazyflex.nvim',
-    version = '*',
-    cond = false,
-    import = 'lazyflex.hook',
-    opts = {
-      kw = {
-        'blankline',
-      },
-      enable_match = false,
-    },
-  },
   { import = 'plugins' },
   { import = 'plugins.languages' },
   { import = 'plugins.fun' },
@@ -49,7 +37,17 @@ require('lazy').setup({
   rocks = { hererocks = true },
   checker = {
     enabled = true,
-    frequency = 3600 * 24, -- NOTE: Check once per day <03-09-24>
+    frequency = 3600 * 24, -- check for updates once per day
+  },
+  ui = {
+    custom_keys = {
+      ['gf'] = {
+        function(plugin)
+          vim.cmd('tabnew ' .. plugin.dir)
+        end,
+        desc = 'Open tab with the plugin directory',
+      },
+    },
   },
   performance = {
     rtp = {
@@ -73,13 +71,40 @@ require('lazy').setup({
   },
 })
 
--- NOTE: Config must be loaded after lazy setting up to be able to use module plug-ins
+-- TODO: I am not able to set the diagnostic config only for the given buffer. How do I do that? <05-06-25>
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'lazy',
+--   callback = function()
+--     vim.notify 'Lazy autocommand'
+--     local ns = vim.api.nvim_create_namespace 'Lazy diagnostics'
+--     vim.diagnostic.config({
+--       virutal_text = true,
+--     }, ns)
+--   end,
+--   desc = 'Show diagnostics on all lines in `lazy` buffer for the breaking changes annotations',
+-- })
+
+-- config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'
 
--- NOTE: Use `.git` as a marker for every LS
-vim.lsp.config('*', { root_markers = { '.git' }, capabilities = require('util.lsp').get_capabilities() })
--- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
-vim.lsp.enable { 'julials', 'texlab', 'tinymist', 'lua_ls', 'taplo', 'pyright' }
+if vim.version().minor >= 11 then
+  -- NOTE: Use `.git` as a marker for every LS
+  vim.lsp.config('*', { root_markers = { '.git' }, capabilities = require('util.lsp').get_capabilities() })
+  -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
+  vim.lsp.enable {
+    'julials',
+    'texlab',
+    'lua_ls',
+    'taplo',
+    'ccls',
+    'pyright',
+    'jsonln',
+    'kotlin_language_server',
+    'html',
+    'bashls',
+    'harper_ls',
+  }
+end
 
 ---@type boolean
 local colourscheme_loaded

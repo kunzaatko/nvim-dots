@@ -30,9 +30,22 @@ vim.diagnostic.config {
   float = {
     focusable = false,
     style = 'minimal',
-    border = 'rounded',
+    -- border = 'rounded',
     source = 'always',
     header = '',
     prefix = '',
   },
 }
+
+-- Show errors and warnings in a floating window when pausing on an error --
+vim.api.nvim_create_autocmd('CursorHold', {
+  callback = function()
+    -- TODO: Callback should remove the ghost-text that is my default view for a single diagnostic <06-07-25>
+    vim.diagnostic.open_float(nil, {
+      focusable = false,
+      source = 'if_many',
+      -- FIX: How to call on `User` events with custom patterns? <06-07-25>
+      -- close_events = {  'User', { pattern = 'DocWinOpen' }  }
+    })
+  end,
+})

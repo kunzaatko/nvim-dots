@@ -232,5 +232,5 @@ return {
       vim.g.catppuccin_flavour = 'macchiato' -- latte, frappe, macchiato, mocha
     end,
   },
-  { 'rebelot/kanagawa.nvim', name = 'kanagawa', event = 'VeryLazy', priority = 1000 },
+  { 'rebelot/kanagawa.nvim', name = 'clr-kanagawa', event = 'VeryLazy', priority = 1000 },
 }

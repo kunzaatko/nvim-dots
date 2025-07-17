@@ -3,11 +3,13 @@ local util = require 'util'
 -- FIX: Add this as a `Julia` command or `LSP` command <28-03-25>
 util.lsp.on_attach(function()
   vim.api.nvim_create_user_command('JuliaLanguageServerUpdate', function()
-    util.terminal.oneshot {
-      cmd = [[fish -c "julia --project=~/.julia/environments/nvim-lspconfig -e \"using Pkg; Pkg.update()\""]],
-      autoclose = false,
-      layout = { open_cmd = 'botright new' },
-    }
+    util.terminal.oneshot(
+      [[fish -c "julia --project=~/.julia/environments/nvim-lspconfig -e \"using Pkg; Pkg.update()\""]],
+      {
+        interactive = false,
+        win = { position = 'right' },
+      }
+    )
   end, {
     desc = 'Update the `LanguageServer.jl` in the correct environment',
   })
@@ -47,7 +49,8 @@ server.runlinter = true
 run(server)
 ]]
 
----@type  vim.lsp.Config
+---@diagnostic disable-next-line: undefined-doc-name
+---@type  vim.lsp.ClientConfig
 local opts = {
   filetypes = { 'julia' },
   root_markers = { 'Project.toml', 'JuliaProject.toml' },

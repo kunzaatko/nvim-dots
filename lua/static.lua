@@ -1,11 +1,10 @@
 -- FIX: Consider changing this to a normal module instead of a static. This is unnecessarily complicated for the LSP
 -- which does not give satisfactory results because of this. How would it affect the performance? <30-03-25>
 _G.static = {}
--- TODO: Consider adding through neovim sign interface <11-05-23>
--- FIX: Make these from codicon <11-05-23>
+-- FIX: Use codicon for this. It is easy to find with Snacks icon picker (keymap `,si`) <25-06-25>
 _G.static.icons = {
   telescope = '',
-  link = '',
+  link = '',
   rocket = '',
   quote = '',
   find = '',
@@ -164,23 +163,15 @@ static.icons.cmp = {
   LSP = static.icons.lsp.lsp .. ' ',
   Snippets = static.icons.snippets .. ' ',
   git = static.icons.git.github .. ' ',
-  latex_symbols = ' ',
-  Ripgrep = ' ',
+  latex_symbols = '󰂡 ',
+  LaTeX = '󰂡 ',
+  Ripgrep = '󰭎 ',
   spell = static.icons.spellcheck .. ' ',
   ai = static.icons.ai .. ' ',
   CodeCompanion = static.icons.ai .. ' ',
   path = static.icons.explorer.folder_open .. ' ',
-  digraphs = '§',
+  digraphs = ' ',
+  ['Words Thesaurus'] = ' ',
+  ['Words Dictionary'] = ' ',
   ['Conventional Commits'] = static.icons.git.github .. ' ',
 }
-
---                                                                
---                                                                          
---                                                                          
---                                                                         
---                                                                          
---                                                                          
---                                                                           
---                                                                           
---                                                                             
---                              

@@ -28,17 +28,32 @@ return {
       },
     },
   },
-  {
+  { -- 'norcalli/nvim-colorizer.lua': Highlighting RGB colour strings
     'norcalli/nvim-colorizer.lua',
-    event = 'VeryLazy',
+    cmd = { 'ColorizerToggle', 'ColorizerReloadAllBuffers', 'ColorizerDetachFromBuffer', 'ColorizerAttachToBuffer' },
     config = true,
   },
+  -- FIX: There is an issue with keybinding. I should only copy the parts that I want into my config <06-07-25>
+  -- TODO: Configure the `foldtext` to shorten the `"lines"` chunk <06-07-25>
+  -- {
+  --   'chrisgrieser/nvim-origami',
+  --   event = 'VeryLazy',
+  --   enbaled = false,
+  --   opts = {
+  --     foldKeymaps = { setup = false },
+  --   },
+  --   init = function()
+  --     vim.opt.foldlevel = 99
+  --     vim.opt.foldlevelstart = 99
+  --   end,
+  -- },
   -- FIX: I want to use `zm` and `zr`, `zR` and `zM` as in original nvim. Should override nvim-ufo commands and have it
   -- work as indented. <20-03-25>
   -- TODO: Fold documentation strings by default when opened. This can be set through the options <30-03-25>
   {
     'kevinhwang91/nvim-ufo',
     name = 'ufo',
+    enabled = false,
     dependencies = {
       'kevinhwang91/promise-async',
       {
@@ -85,11 +100,11 @@ return {
         end,
       },
     },
-    event = 'BufReadPost',
-    -- ---@type UfoConfig
+    lazy = false,
+    ---@type UfoConfig
     opts = {
       provider_selector = function(_, ftype, _)
-        return ftype == 'julia' and { 'treesitter', 'indent' } or { 'lsp', 'indent' }
+        return ftype == 'julia' and { 'lsp', 'treesitter' } or { 'lsp', 'indent' }
       end,
       preview = {
         mappings = {
@@ -151,13 +166,6 @@ return {
     end,
   },
   {
-    'edluffy/specs.nvim',
-    name = 'specs',
-    enabled = false, -- TODO: When fixed for nightly can be enabled again <26-03-24>
-    event = 'UIEnter',
-    config = true,
-  },
-  {
     'j-hui/fidget.nvim',
     name = 'fidget',
     event = 'LspAttach',
@@ -172,51 +180,6 @@ return {
       excluded_filetypes = { 'prompt', 'TelescopePrompt', 'noice', 'notify' },
     },
   },
-
-  -- TODO: Configure colours <05-10-23>
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    enabled = false,
-    -- TODO: A probable typing error in the commit d343409a. Should report. <05-11-24>
-    commit = 'e7a4442e055ec953311e77791546238d1eaae507',
-    name = 'indent-blankline',
-    event = 'BufReadPost',
-    main = 'ibl',
-    -- enabled = false,
-    opts = {
-      indent = {
-        char = '│',
-      },
-      scope = {
-        char = '┃',
-        -- show_first_indent_level = false,
-        show_start = false,
-        show_end = false,
-      },
-      exclude = {
-        filetypes = {
-          'tex', -- FIX: LaTeX makes indent-blankline very slow, which considerably lowers the speed of insertmode input <18-01-24>
-          'help',
-          'markdown',
-          'packer',
-          'lspinfo',
-          'checkhealth',
-          'txt',
-          'alpha',
-          'lazy',
-          'mason',
-          'DiffviewFiles',
-          'oil_preview',
-          'dashboard',
-        },
-        buftypes = {
-          'terminal',
-        },
-      },
-      -- space_char = '·',
-    },
-  },
-  { 'Bekaboo/deadcolumn.nvim', event = 'VeryLazy', enabled = false },
   {
     'tzachar/highlight-undo.nvim',
     keys = { 'u', '<C-r>' },
@@ -234,10 +197,10 @@ return {
   -- TODO: Test whether this overwrites the number that is given by `neocodeium` <30-03-25>
   {
     'mawkler/modicator.nvim',
+    enabled = false, -- FIX: Broken with treesitter <07-07-25>
     event = 'VeryLazy',
     config = function(_, opts)
       local set = vim.api.nvim_set_hl
-      local get = vim.api.nvim_get_hl
       -- NOTE: Chosen to match the colours in heirline config <kunzaatko>
       set(0, 'NormalMode', { fg = '#BE6069', bg = 'bg' })
       set(0, 'InsertMode', { fg = '#EBCA89', bg = 'bg' })
@@ -250,54 +213,21 @@ return {
       require('modicator').setup(opts)
     end,
   },
+  -- TODO: Testing whether it does not lag the editor... Is it switched to async treesitter API? <22-05-25>
+  -- TODO: Configure the highlight groups <21-05-25>
   {
-    'Isrothy/neominimap.nvim',
-    enabled = false,
-    lazy = false, -- NOTE: It lazy-loads itself <17-08-24>
-    keys = {
-      { '<leader>m', '<cmd>Neominimap bufToggle<cr>', desc = 'Toggle minimap for current buffer' },
-    },
+    'HiPhish/rainbow-delimiters.nvim',
+    event = 'BufReadPost',
     init = function()
-      -- vim.opt.wrap = false -- Recommended
-      -- vim.opt.sidescrolloff = 36 -- It's recommended to set a large value
-      vim.g.neominimap = {
-        auto_enable = true,
-        win_filter = function(bufnr)
-          return vim.g.neominimap_is_in_search
-        end,
-        exclude_buftypes = {
-          'nofile',
-          'nowrite',
-          'quickfix',
-          'terminal',
-          'prompt',
+      ---@type rainbow_delimiters.config
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = 'rainbow-delimiters.strategy.global',
         },
-        buf_filter = function()
-          return true
-        end,
-        -- TODO: Highlight for cursor position should be different than the search to distinguish them <17-08-24>
-        search = {
-          enabled = true,
-          mode = 'line',
+        priority = {
+          [''] = 110,
         },
       }
-      vim.on_key(function(char)
-        if vim.fn.mode() == 'n' then
-          local is_search_nav_key = vim.tbl_contains({ '<CR>', 'n', 'N', '*', '#', '?', '/' }, vim.fn.keytrans(char))
-          if is_search_nav_key then
-            vim.g.neominimap_is_in_search = true
-            require('neominimap').winRefresh({}, {})
-          else
-            vim.g.neominimap_is_in_search = false
-            require('neominimap').winRefresh({}, {})
-          end
-        end
-      end, vim.api.nvim_create_namespace 'auto_search_nav')
     end,
-  },
-  -- TODO: Setup should be called in ftplugin settings. Add for julia documentation comments  <03-06-24>
-  {
-    'folke/paint.nvim',
-    module = 'paint',
   },
 }

@@ -14,6 +14,8 @@ return {
       vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
     end,
   },
+  -- TODO: When the markdown buffer is the current one, I do not want so much concealment as it makes editing more
+  -- difficult <25-06-25>
   {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', { 'nvim-tree/nvim-web-devicons', name = 'devicons' } },

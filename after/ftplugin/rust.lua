@@ -1,6 +1,6 @@
 -- TODO: Terminal to spawn in a vert split and windowbar to set depending whether the command finished or not  <12-05-23>
 local wk = require 'which-key'
-local util = require 'util'
+local termutil = require 'util.terminal'
 
 vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
 vim.keymap.set('n', '<leader>lH', function()
@@ -18,42 +18,30 @@ wk.add({
 
 vim.keymap.set('n', '<localleader>cc', function()
   vim.ui.select({ 'clippy', 'check' }, { prompt = 'Check with:' }, function(option)
-    util.terminal.oneshot {
-      cmd = 'fish -c "cargo ' .. option .. '"',
-      autoclose = false,
-      layout = { open_cmd = 'botright vertical new' },
-    }
+    termutil.oneshot('cargo ' .. option, {
+      interactive = false,
+      win = { position = 'right' },
+    })
   end)
-end, { buffer = true, desc = 'Cargo clippy' })
+end, { buffer = true, desc = 'Cargo clippy|check' })
 
 vim.keymap.set('n', '<localleader>cb', function()
-  util.terminal.oneshot {
-    cmd = 'fish -c "cargo build"',
-    autoclose = false,
-    layout = { open_cmd = 'botright vertical new' },
-  }
+  termutil.oneshot('cargo build', { interactive = false, win = { position = 'right' } })
 end, { buffer = true, desc = 'Cargo build' })
 
 vim.keymap.set('n', '<localleader>cr', function()
-  util.terminal.oneshot {
-    cmd = 'fish -c "cargo run"',
-    autoclose = false,
-    layout = { open_cmd = 'botright vertical new' },
-  }
+  termutil.oneshot('cargo run', { interactive = false, win = { position = 'right' } })
 end, { buffer = true, desc = 'Cargo run' })
 
 vim.keymap.set('n', '<localleader>cd', function()
-  util.terminal.oneshot {
-    cmd = 'fish -c "cargo doc --document-private-items"',
-    autoclose = false,
-    layout = { open_cmd = 'botright new' },
-  }
+  termutil.oneshot('cargo doc --document-private-items', { interactive = false, win = { position = 'right' } })
 end, { buffer = true, desc = 'Cargo doc' })
 
 vim.keymap.set('n', '<localleader>t', function()
-  util.terminal.oneshot {
-    cmd = 'fish -c "cargo test"',
-    autoclose = false,
-    layout = { open_cmd = 'botright vertical new' },
-  }
+  termutil.oneshot('cargo test', {
+    start_insert = false,
+    auto_insert = false,
+    auto_close = false,
+    win = { position = 'right' },
+  })
 end, { buffer = true, desc = 'Cargo test' })

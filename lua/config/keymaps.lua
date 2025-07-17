@@ -9,14 +9,13 @@ if which_key_exists then
     { '<leader>g', group = string.format('%s %s', static.icons.git.git, 'Git') },
     { '<leader>s', group = string.format('%s %s', static.icons.snippets, 'Snippets') },
     { '<leader>t', group = string.format('%s %s', static.icons.terminal, 'Terminal') },
-    { '<leader>u', group = ' UI' },
   }
 end
 
 -- Command line shortcuts
-vim.keymap.set('n', ',w', vim.cmd.update, { silent = false, desc = 'write buffer if modified' })
-vim.keymap.set('n', ',q', vim.cmd.quit, { silent = false, desc = 'quit window' })
-vim.keymap.set('n', ',Q', vim.cmd.xit, { silent = false, desc = 'write and quit' })
+vim.keymap.set('n', '<leader>w', vim.cmd.update, { silent = false, desc = 'write buffer if modified' })
+vim.keymap.set('n', '<leader>q', vim.cmd.quit, { silent = false, desc = 'quit window' })
+vim.keymap.set('n', '<leader>Q', vim.cmd.xit, { silent = false, desc = 'write and quit' })
 vim.keymap.set({ 'n', 'v' }, '<Space>', ':', { desc = 'command line' })
 
 -- View manipulation
@@ -28,7 +27,7 @@ vim.keymap.set('n', '[t', vim.cmd.tabprevious, { desc = 'previous tab' })
 -- Text Objects
 vim.keymap.set({ 'o', 'x' }, 'ae', require('util').entire_buffer, { desc = 'entire buffer textobj' })
 vim.keymap.set({ 'o', 'x' }, 'ie', require('util').entire_buffer, { desc = 'entire buffer textobj' })
-
+--
 local append_blank_lines = function()
   vim.fn.append(vim.api.nvim_win_get_cursor(0)[1], vim.fn['repeat']({ '' }, vim.api.nvim_get_vvar 'count1'))
 end
@@ -52,9 +51,38 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufReadPost' }, {
   end,
 })
 
+--- When the file under the cursor does not exist a prompt is given to create it and optionally is created
+vim.keymap.set('n', 'gf', function()
+  local cursor_file = vim.fn.expand '<cfile>'
+  local current_buffer_path = vim.api.nvim_buf_get_name(0)
+  local target_path
+
+  if current_buffer_path == '' then -- [NO NAME] buffers
+    target_path = vim.fn.fnamemodify(cursor_file, ':p')
+  else
+    local current_buffer_dir = vim.fn.fnamemodify(current_buffer_path, ':h') -- e.g., /home/user/project/src
+    target_path = vim.fn.fnamemodify(vim.fs.joinpath(current_buffer_dir, cursor_file), ':p')
+  end
+
+  if vim.fn.filereadable(target_path) == 1 then
+    return 'gf' -- default behaviour
+  else
+    vim.notify('`gf`: `' .. vim.fn.pathshorten(target_path) .. '` does not exist', vim.log.levels.WARN)
+    vim.schedule(function()
+      vim.ui.select({ 'yes', 'no' }, { prompt = 'Should the file `' .. target_path .. '` be created?' }, function(i)
+        if i == 'yes' then
+          vim.cmd('edit ' .. vim.fn.fnameescape(target_path)) -- filename escaped for special characters
+          vim.notify('`gf`: created file `' .. vim.fn.pathshorten(target_path) .. '`', vim.log.levels.INFO)
+        end
+      end)
+    end)
+  end
+  return '' -- handled in the callback from scheduled vim.ui.select
+end, { expr = true })
+
 -- UI
 
-vim.keymap.set('n', '<leader><leader>', '<cmd>e #<CR>', { desc = 'open alternate-file' })
+vim.keymap.set('n', '<space><space>', '<cmd>e #<CR>', { desc = 'open alternate-file' })
 
 vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufReadPost' }, {
   group = vim.api.nvim_create_augroup('fold openings with `h`', {}),
@@ -97,20 +125,7 @@ vim.on_key(function(char)
   end
 end, vim.api.nvim_create_namespace 'auto_pause_folds')
 
--- TODO: Implement global with autocommands <10-06-23>
-vim.keymap.set('n', '<leader>uw', function()
-  vim.opt_local.wrap = not vim.opt_local.wrap:get()
-end, { desc = 'Toggle wrap' })
--- vim.keymap.set('n', '<leader>uW', function()
---   vim.opt.wrap = not vim.opt.wrap:get()
--- end, { desc = 'Toggle wrap global' })
-vim.keymap.set('n', '<leader>us', function()
-  vim.opt_local.spell = not vim.opt_local.spell:get()
-end, { desc = 'Toggle spell' })
--- vim.keymap.set('n', '<leader>uS', function()
---   vim.opt.spell = not vim.opt.spell:get()
--- end, { desc = 'Toggle spell global' })
-
+-- When yanking line-wise, restore the cursor position --
 local cursorPreYank
 vim.keymap.set({ 'n', 'x' }, 'y', function()
   cursorPreYank = vim.api.nvim_win_get_cursor(0)

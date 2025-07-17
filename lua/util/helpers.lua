@@ -1,12 +1,18 @@
 local M = {}
 
---- Notify the user that a plugin is not loaded.
----@param name string The name of the plugin.
----@param opts table? Optional table of options to pass to `vim.notify_once`.
-function M.notify_plugin_not_loaded(name, opts)
-  opts = vim.tbl_extend('force', { name = 'Plugin', icon = static.icons.link }, (opts or {}))
-  local msg = string.format('Plugin "%s" is not loaded', name)
-  vim.notify_once(msg, vim.log.levels.ERROR, opts)
+---@brief Safely call a function that requires a plugin
+---@param plugin string name of the plugin required by the function
+---@param f function function to call
+---@param ... [any] arguments to the function
+function M.require_plugin(plugin, f, ...)
+  local plugin_exists, _ = pcall(require, plugin)
+  if not plugin_exists then
+    local msg = string.format('Plugin "%s" is not loaded', plugin)
+    vim.notify_once(msg, vim.log.levels.ERROR, { name = 'Plugin', icon = static.icons.link })
+    return false
+  else
+    return f(...)
+  end
 end
 
 return M

@@ -262,7 +262,7 @@ components.NeoCodeium = {
   provider = function(self)
     local symbols = self.symbols
     local status, server_status = require('neocodeium').get_status()
-    return symbols.status[status] .. symbols.server_status[server_status]
+    return (symbols.status[status] or '') .. symbols.server_status[server_status]
   end,
 
   condition = function()
@@ -406,8 +406,6 @@ components.LSPActive = { --{{{
 -- } --}}}
 -- components.Gps = utils.make_flexible_component(3, components.Gps, { provider = '' })
 
----
-
 -- TODO: Separate with '|' or something else <12-05-23>
 -- TODO: Make nicer and edit colours and icons <16-01-22, kunzaatko> --
 components.Diagnostics = { --{{{
@@ -469,8 +467,6 @@ components.Diagnostics = { --{{{
   },
 } --}}}
 
----
-
 components.Timer = {
   condition = function(_)
     local ok, pomo = pcall(require, 'pomo')
@@ -494,9 +490,10 @@ components.Timer = {
   end,
 }
 
----
-
+-- TODO: Only show git branch if it is not the default branch. Use '+','-','~' for the changes and have the git
+-- component next to the file on the right hand side in a colour "block" same as lualine <05-06-25>
 -- TODO: Separate git additions with `|` or some other separator <12-05-23>
+
 --  , , , ,  - for file changes in Neogit and/or Octo
 components.Git = { --{{{
   condition = conditions.is_git_repo,
@@ -527,7 +524,7 @@ components.Git = { --{{{
   {
     provider = function(self)
       local count = self.status_dict.added or 0
-      return count > 0 and (count .. static.icons.git.add .. ' ')
+      return count > 0 and (count .. static.icons.git.add)
     end,
     hl = function(self)
       return { fg = self.colors.git.add }
@@ -536,7 +533,7 @@ components.Git = { --{{{
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
-      return count > 0 and (count .. static.icons.git.delete .. ' ')
+      return count > 0 and (count .. static.icons.git.delete)
     end,
     hl = function(self)
       return { fg = self.colors.git.del }
@@ -545,7 +542,7 @@ components.Git = { --{{{
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
-      return count > 0 and (count .. static.icons.git.change .. ' ')
+      return count > 0 and (count .. static.icons.git.change)
     end,
     hl = function(self)
       return { fg = self.colors.git.change }

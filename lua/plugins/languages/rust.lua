@@ -54,7 +54,7 @@ return {
     config = function(_, opts)
       require('crates').setup(opts)
       vim.api.nvim_create_autocmd('BufRead', {
-        group = vim.api.nvim_create_augroup('Create crates keymaps', {}),
+        group = vim.api.nvim_create_augroup('Crateskeymaps', {}),
         pattern = 'Cargo.toml',
         callback = function()
           local crates = require 'crates'

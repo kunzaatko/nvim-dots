@@ -1,3 +1,4 @@
+-- TODO: Add a picker for snippets that is better than the `LuaSnipListListAvailable` <08-05-25>
 local M = {
   'L3MON4D3/LuaSnip',
   version = 'v2.*',
@@ -39,9 +40,9 @@ function M.config()
     paths = { './snippets' },
   }
 
-  vim.keymap.set('n', '<leader>se', function()
+  vim.api.nvim_create_user_command('LuaSnipEdit', function()
     require('luasnip.loaders').edit_snippet_files()
-  end, { desc = 'Edit snippets' })
+  end, { desc = 'Edit LuaSnip snippets' })
 
   vim.keymap.set({ 'i', 's' }, '<C-l>', function()
     if ls.expand_or_locally_jumpable() then

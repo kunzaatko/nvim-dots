@@ -8,6 +8,17 @@ return {
         command = 'typstyle',
         args = { '-c' .. vim.opt.textwidth:get() },
       },
+      mdformat = {
+        prepend_args = {
+          '--extension',
+          'tables',
+        },
+      },
+      -- latexindent = {
+      --   prepend_args = {
+      --     '-y="defaultIndent:\\"  \\""',
+      --   },
+      -- },
     },
     formatters_by_ft = {
       typst = { 'typstyle' },
@@ -15,11 +26,13 @@ return {
       just = { 'just' },
       json = { 'jq' },
       sh = { 'shfmt' },
-      latex = { 'latexindent' },
-      python = { 'isort', 'black' },
+      -- latex = { 'latexindent' },
+      -- tex = { 'latexindent' },
+      python = { 'ruff_organize_imports', 'ruff_fix', 'ruff_format' },
       rust = { 'rustfmt', lsp_format = 'fallback' },
       lua = { 'stylua' },
       toml = { 'taplo' },
+      markdown = { 'mdformat' },
     },
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable
@@ -34,6 +47,13 @@ return {
   end,
   config = function(_, opts)
     require('conform').setup(opts)
+
+    -- require('conform').formatters.mdformat = {
+    --   prepend_args = {
+    --     '--extension',
+    --     'tables',
+    --   },
+    -- }
 
     vim.api.nvim_create_user_command('FormatDisable', function(args)
       if args.bang then
@@ -51,6 +71,7 @@ return {
       desc = 'Disable autoformat-on-save',
       bang = true,
     })
+
     vim.api.nvim_create_user_command('FormatEnable', function()
       vim.b.disable_autoformat = false
       vim.g.disable_autoformat = false

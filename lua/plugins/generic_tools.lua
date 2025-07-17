@@ -13,10 +13,6 @@ return {
     version = '*',
     lazy = true,
     cmd = { 'TimerStart', 'TimerStop', 'TimerRepeat' },
-    dependencies = {
-      'notify',
-    },
-    after = 'notify',
     opts = {
       notifiers = {
         {
@@ -30,13 +26,14 @@ return {
   },
   {
     'Hashino/doing.nvim',
-    lazy = false, -- NOTE: With lazy loading saving the tasks to a file does not work <10-05-25>
     cmd = 'Do',
+    -- NOTE: Lazy loading causes non-stop overwriting of the `.tasks` file <17-05-25>
+    lazy = false,
     opts = {
       doing_prefix = '',
       show_remaining = false,
       edit_win_config = {
-        width = 70,
+        width = 100,
       },
       winbar = { enabled = false },
       store = {

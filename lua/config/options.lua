@@ -5,6 +5,7 @@ vim.opt.ignorecase, vim.opt.smartcase = true, true -- case insensitive for searc
 vim.opt.showmatch = true -- matching delimiter jump
 vim.opt.mouse = 'a' -- all mouse modes
 vim.opt.shell = 'dash' -- shell for execution ('dash' for performance)
+vim.opt.updatetime = 1000 -- reduce the `CursorHold` event interval (default 4000 [ms])
 
 vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' } -- insert mode completion strategy
 vim.opt.backspace:append { 'nostop' } -- Don't stop backspace at insert
@@ -73,8 +74,19 @@ vim.opt.guicursor = {
 
 vim.opt.cursorline, vim.opt.cursorlineopt = true, 'number' -- highlight cursorline
 vim.opt.foldcolumn = '1' -- style of fold column
-vim.opt.foldlevel = 6 -- show six levels when opening a file
-vim.opt.foldmethod = 'manual'
+vim.o.foldmethod = 'expr'
+-- Default to treesitter folding
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- Prefer LSP folding if client supports it
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client:supports_method 'textDocument/foldingRange' then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+    end
+  end,
+})
 -- TODO: Test only showing sign column on active window <05-01-23>
 vim.opt.signcolumn = 'auto:4' -- style of sign column
 

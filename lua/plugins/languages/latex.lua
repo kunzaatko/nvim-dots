@@ -1,8 +1,7 @@
 return {
-  {
+  { -- 'lervag/vimtex': Tools, concealment and highlighting for LaTeX files
     'lervag/vimtex',
-    ft = 'tex',
-    -- enabled = false,
+    ft = { 'tex', 'latex' },
     config = function()
       vim.g.vimtex_fold_enabled = 0 -- foldexpr function for folds
       -- vim.g.vimtex_fold_manual = 2 -- only fold on demand
@@ -30,24 +29,11 @@ return {
       vim.g.vimtex_toc_config = { show_help = 0 }
     end,
   },
-  {
+  { -- 'anufrievroman/vim-angry-reviewer': Lint using: `https://www.angryreviewer.com/`
     'anufrievroman/vim-angry-reviewer',
     ft = { 'tex', 'latex' },
-    cmd = { 'AngryReviewer' },
-    event = 'VeryLazy',
-    config = function()
+    init = function()
       vim.g.AngryReviewerEnglish = 'british'
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'tex', 'latex' },
-        callback = function()
-          vim.keymap.set(
-            'n',
-            '<localleader>r',
-            '<Cmd>AngryReviewer<CR>',
-            { buffer = true, desc = 'AngryReviewer.com suggestions in QF' }
-          )
-        end,
-      })
     end,
   },
 }

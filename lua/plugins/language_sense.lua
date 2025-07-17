@@ -1,14 +1,10 @@
 return {
   {
-    -- TODO: Add keymaps <10-01-23>
     'danymat/neogen',
-    dependencies = { { 'nvim-treesitter/nvim-treesitter', name = 'treesitter' } },
-    event = 'VeryLazy',
     cmd = { 'Neogen' },
     opts = {
       snippet_engine = 'luasnip',
     },
-    config = true,
   },
 
   -- TODO: Do not select the ones that are loaded first <02-05-23>

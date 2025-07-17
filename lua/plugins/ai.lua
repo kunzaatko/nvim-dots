@@ -1,7 +1,7 @@
 local M = {
   {
     'olimorris/codecompanion.nvim',
-    event = 'VeryLazy',
+    cmd = 'CodeCompanion',
     keys = {
       {
         '€',
@@ -16,6 +16,8 @@ local M = {
       -- FIX: I would like to specify the use of gemini-2.0-flash for git commits but use something other by default.
       -- I could not find a way to do this with the `codecompanion` API at the moment so I use gemini-2.0-flash by
       -- default for every chat invocation. <25-03-25>
+      -- TODO: Add an autocommand that watches the buffer that launched the chat and when it is closed, the chat should
+      -- be also closed <25-04-25>
       {
         '<localleader>a',
         function()
@@ -30,6 +32,7 @@ local M = {
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'ravitemer/mcphub.nvim',
       'nvim-treesitter/nvim-treesitter',
       {
         'MeanderingProgrammer/render-markdown.nvim',
@@ -102,6 +105,16 @@ local M = {
         },
       },
       display = { chat = { show_settings = true } }, -- NOTE: When this is set, the adapter cannot be modified <25-03-25>
+      extensions = {
+        mcphub = {
+          callback = 'mcphub.extensions.codecompanion',
+          opts = {
+            show_result_in_chat = true,
+            make_vars = true,
+            make_slash_commands = true,
+          },
+        },
+      },
     },
     config = function(_, opts)
       local codecompanion_group = vim.api.nvim_create_augroup('CodeCompanionAutoSave', { clear = true })
@@ -151,6 +164,16 @@ local M = {
     end,
   },
   {
+    'ravitemer/mcphub.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    cmd = 'MCPHub',
+    build = 'npm install -g mcp-hub@latest',
+    config = true,
+  },
+  -- TODO: Add a status line component that shows the number of completions instead of only the icon <06-07-25>
+  {
     'monkoose/neocodeium',
     event = 'VeryLazy',
     cmd = 'NeoCodeium',
@@ -185,6 +208,7 @@ local M = {
       filetypes = {
         snacks_picker_input = false,
       },
+      show_label = false, -- Do not show the label with the completion status in the `signcolumn`
     },
   },
 }
