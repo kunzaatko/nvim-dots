@@ -25,8 +25,8 @@ vim.keymap.set('n', ']t', vim.cmd.tabnext, { desc = 'next tab' })
 vim.keymap.set('n', '[t', vim.cmd.tabprevious, { desc = 'previous tab' })
 
 -- Text Objects
-vim.keymap.set({ 'o', 'x' }, 'ae', require('util').entire_buffer, { desc = 'entire buffer textobj' })
-vim.keymap.set({ 'o', 'x' }, 'ie', require('util').entire_buffer, { desc = 'entire buffer textobj' })
+vim.keymap.set({ 'o', 'x' }, 'ae', require('util.visual').entire_buffer, { desc = 'entire buffer textobj' })
+vim.keymap.set({ 'o', 'x' }, 'ie', require('util.visual').entire_buffer, { desc = 'entire buffer textobj' })
 --
 local append_blank_lines = function()
   vim.fn.append(vim.api.nvim_win_get_cursor(0)[1], vim.fn['repeat']({ '' }, vim.api.nvim_get_vvar 'count1'))

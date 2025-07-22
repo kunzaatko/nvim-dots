@@ -24,12 +24,12 @@ local JULIA_PROJECT_REPL_CMD = 'fish -c "julia +1.12 --project --threads auto"'
 local JULIA_REPL_CMD = 'fish -c "julia +1.12"'
 
 vim.api.nvim_buf_create_user_command(0, 'JuliaREPL', function()
-  term.toggle_repl(JULIA_PROJECT_REPL_CMD, '¶')
+  term.toggle_repl(JULIA_PROJECT_REPL_CMD, '¶', {}, '¶')
 end, { nargs = '?' })
 
 -- NOTE: <RightAlt + r>
 vim.keymap.set('n', '¶', function()
-  term.toggle_repl(JULIA_PROJECT_REPL_CMD, '¶')
+  term.toggle_repl(JULIA_PROJECT_REPL_CMD, '¶', {}, '¶')
 end, { desc = 'Julia REPL for project', buffer = true })
 
 vim.keymap.set('n', 'g¶', function()
@@ -37,12 +37,12 @@ vim.keymap.set('n', 'g¶', function()
     env = {
       ['JULIA_DOCUMENTING'] = true,
     },
-  })
+  }, 'g¶')
 end, { desc = 'Julia project REPL for documentation', buffer = true })
 
 -- NOTE: <LocalLeader><RightAlt + r>
 vim.keymap.set('n', '<LocalLeader>¶', function()
-  term.toggle_repl(JULIA_REPL_CMD, '<localleader>¶')
+  term.toggle_repl(JULIA_REPL_CMD, '<localleader>¶', {}, '<localleader>¶')
 end, { desc = 'Julia REPL toggle', buffer = true })
 
 vim.keymap.set('n', '<LocalLeader>t', function()
