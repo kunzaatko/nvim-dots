@@ -2,7 +2,7 @@ return {
   {
     'folke/todo-comments.nvim',
     name = 'todo-comments',
-    dependencies = { 'plenary' },
+    dependencies = { 'nvim-lua/plenary.nvim', name = 'plenary' },
     event = 'BufReadPost',
     opts = {
       highlight = { keyword = 'fg', after = '' },

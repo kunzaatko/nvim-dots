@@ -31,7 +31,7 @@ local M = {
       },
     },
     dependencies = {
-      'nvim-lua/plenary.nvim',
+      { 'nvim-lua/plenary.nvim', name = 'plenary' },
       'ravitemer/mcphub.nvim',
       'nvim-treesitter/nvim-treesitter',
       {
@@ -166,7 +166,7 @@ local M = {
   {
     'ravitemer/mcphub.nvim',
     dependencies = {
-      'nvim-lua/plenary.nvim',
+      { 'nvim-lua/plenary.nvim', name = 'plenary' },
     },
     cmd = 'MCPHub',
     build = 'npm install -g mcp-hub@latest',

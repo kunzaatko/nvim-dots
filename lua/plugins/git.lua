@@ -3,7 +3,7 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     name = 'gitsigns',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { { 'nvim-lua/plenary.nvim', name = 'plenary' } },
     event = 'BufReadPre',
     enabled = vim.fn.executable 'git' == 1,
     opts = {

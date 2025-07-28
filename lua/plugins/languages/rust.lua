@@ -35,7 +35,7 @@ return {
     'saecki/crates.nvim',
     event = { 'BufReadPre Cargo.toml' },
     dependencies = {
-      'plenary',
+      { 'nvim-lua/plenary.nvim', name = 'plenary' },
     },
     opts = {
       lsp = {
