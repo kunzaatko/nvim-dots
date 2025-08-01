@@ -858,3 +858,6 @@ pydub
 getdoc
 aplavin
 Vec
+nrows
+ncols
+FWHM
