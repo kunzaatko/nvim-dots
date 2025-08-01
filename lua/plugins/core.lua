@@ -274,12 +274,25 @@ return {
     end,
   },
   {
-    -- stylua: ignore start
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     branch = 'main',
     build = ':TSUpdate',
     init = function()
+      -- custom parsers
+      vim.api.nvim_create_autocmd('User', {
+        pattern = { 'TSUpdate', 'TSInstall' },
+        callback = function()
+          require('nvim-treesitter.parsers').ghactions = {
+            install_info = {
+              url = 'https://github.com/rmuir/tree-sitter-ghactions',
+              queries = 'queries',
+            },
+          }
+        end,
+      })
+
+    -- stylua: ignore start
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('TreesitterHighlighting', {}),
         pattern = {
@@ -291,7 +304,6 @@ return {
           vim.treesitter.start()
         end,
       })
-
     end,
     -- stylua: ignore end
   },
