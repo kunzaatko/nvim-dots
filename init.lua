@@ -111,7 +111,7 @@ local colourscheme_loaded
 if vim.env['THEME_COLOUR'] == "'prefer-light'" then
   colourscheme_loaded = pcall(vim.cmd, [[colorscheme dayfox]])
 else
-  colourscheme_loaded = pcall(vim.cmd, [[colorscheme nightfox]])
+  colourscheme_loaded = pcall(vim.cmd, [[colorscheme terafox]])
 end
 
 if not colourscheme_loaded then
