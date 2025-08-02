@@ -164,6 +164,9 @@ return {
 
           BlinkCmpSource = { fg = 'palette.magenta.dim' }, -- Source of the completion item
         },
+        terafox = {
+          WinSeparator = { fg = 'palette.green.bright' },
+        },
       }
       opts.groups = vim.tbl_deep_extend('error', opts.groups, blink_groups)
 
