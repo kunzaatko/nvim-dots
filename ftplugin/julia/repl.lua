@@ -48,39 +48,24 @@ end, { desc = 'Julia REPL toggle', buffer = true })
 vim.keymap.set('n', '<LocalLeader>t', function()
   term.oneshot(
     'fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"',
-    vim.tbl_extend('keep', term.DEFAULT_REPL_OPTS, {
-      start_insert = false,
-      auto_insert = false,
-      auto_close = false,
-      interactive = true,
-    })
+    { auto_close = false, win = { position = 'right' } }
   )
 end, { desc = 'Run PACKAGE tests', buffer = true })
 
 vim.keymap.set('n', '<LocalLeader>T', function()
-  term.oneshot(
-    'fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"',
-    vim.tbl_extend('keep', term.DEFAULT_REPL_OPTS, {
-      env = { ['RUNTESTS_FULL'] = true },
-      start_insert = false,
-      auto_insert = false,
-      auto_close = false,
-      interactive = true,
-    })
-  )
+  term.oneshot('fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"', {
+    env = { ['RUNTESTS_FULL'] = true },
+    auto_close = false,
+    win = { position = 'right' },
+  })
 end, { desc = 'Run ALL tests (RUNTESTS_FULL=1)', buffer = true })
 
 vim.keymap.set('n', '<LocalLeader>gT', function()
-  term.oneshot(
-    'fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"',
-    vim.tbl_extend('keep', term.DEFAULT_REPL_OPTS, {
-      env = { ['RUNTESTS_FULL'] = true, ['FIX_DOCTESTS'] = true },
-      start_insert = false,
-      auto_insert = false,
-      auto_close = false,
-      interactive = true,
-    })
-  )
+  term.oneshot('fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"', {
+    env = { ['RUNTESTS_FULL'] = true, ['FIX_DOCTESTS'] = true },
+    auto_close = false,
+    win = { position = 'right' },
+  })
 end, { desc = 'Run ALL tests and fix doctests (RUNTESTS_FULL=1, FIX_DOCTESTS=1)', buffer = true })
 
 _G.JULIA_TEST_ARGS_LAST = nil
@@ -114,11 +99,9 @@ vim.keymap.set('n', '<LocalLeader>gt', function()
     run_tests_function = function()
       term.oneshot(
         command,
-        vim.tbl_extend('keep', term.DEFAULT_REPL_OPTS, {
-          start_insert = false,
-          auto_insert = false,
+        vim.tbl_deep_extend('keep', {
           auto_close = false,
-          interactive = true,
+          win = { position = 'right' },
         }, rerun_keys)
       )
     end

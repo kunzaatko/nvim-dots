@@ -3,6 +3,42 @@ local visual = require 'util.visual'
 
 local _, term = pcall(require, 'snacks.terminal')
 
+---@brief Default keymaps for terminal navigation
+M.TERMINAL_NAV_KEYS = {
+  win_right = {
+    '<M-h>',
+    function()
+      vim.cmd 'wincmd h'
+    end,
+    mode = { 'n', 't' },
+    desc = 'Window: navigate right',
+  },
+  win_down = {
+    '<M-j>',
+    function()
+      vim.cmd 'wincmd j'
+    end,
+    mode = { 't', 'n' },
+    desc = 'Window: navigate down',
+  },
+  win_up = {
+    '<M-k>',
+    function()
+      vim.cmd 'wincmd k'
+    end,
+    mode = { 't', 'n' },
+    desc = 'Window: navigate up',
+  },
+  win_left = {
+    '<M-l>',
+    function()
+      vim.cmd 'wincmd l'
+    end,
+    mode = { 't', 'n' },
+    desc = 'Window: navigate left',
+  },
+}
+
 ---@brief Default snacks.terminal.Opts options for the REPL
 M.DEFAULT_REPL_OPTS = {
   shell = 'fish',
@@ -12,39 +48,7 @@ M.DEFAULT_REPL_OPTS = {
   auto_insert = false,
   win = {
     position = 'right',
-    keys = {
-      win_right = {
-        '<M-h>',
-        function()
-          vim.cmd 'wincmd h'
-        end,
-        mode = { 'n', 't' },
-        desc = 'Window: navigate right',
-      },
-      win_down = {
-        '<M-j>',
-        function()
-          vim.cmd 'wincmd j'
-        end,
-        mode = { 't', 'n' },
-        desc = 'Window: navigate down',
-      },
-      win_up = {
-        '<M-k>',
-        function()
-          vim.cmd 'wincmd k'
-        end,
-        mode = { 't', 'n' },
-        desc = 'Window: navigate up',
-      },
-      win_left = {
-        '<M-l>',
-        function()
-          vim.cmd 'wincmd l'
-        end,
-        mode = { 't', 'n' },
-        desc = 'Window: navigate left',
-      },
+    keys = vim.tbl_extend('keep', {
       toggle_normal = {
         '<C-n>',
         function()
@@ -53,7 +57,25 @@ M.DEFAULT_REPL_OPTS = {
         mode = { 't' },
         desc = 'Normal mode',
       },
-    },
+    }, M.TERMINAL_NAV_KEYS),
+  },
+}
+
+---@brief Default snacks.terminal.Opts options for the oneshot terminal
+M.DEFAULT_ONESHOT_OPTS = {
+  shell = 'fish',
+  start_insert = true,
+  auto_insert = false,
+  win = {
+    enter = false,
+    keys = M.TERMINAL_NAV_KEYS,
+    on_win = function(win)
+      vim.schedule(function()
+        vim.api.nvim_win_call(win.win, function()
+          vim.cmd [[normal! G]]
+        end)
+      end)
+    end,
   },
 }
 
@@ -63,7 +85,7 @@ M.DEFAULT_REPL_OPTS = {
 function M.oneshot(cmd, opts)
   return require('util.helpers').require_plugin('snacks', function()
     opts = opts or {}
-    return term.open(cmd, vim.tbl_extend('keep', opts, { shell = 'fish' }))
+    return term.open(cmd, vim.tbl_deep_extend('keep', opts, M.DEFAULT_ONESHOT_OPTS))
   end)
 end
 
