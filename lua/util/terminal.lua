@@ -87,7 +87,13 @@ M.DEFAULT_ONESHOT_OPTS = {
 function M.oneshot(cmd, opts)
   return require('util.helpers').require_plugin('snacks', function()
     opts = opts or {}
-    return term.open(cmd, vim.tbl_deep_extend('keep', opts, M.DEFAULT_ONESHOT_OPTS))
+    local win, created = term.get(cmd, vim.tbl_deep_extend('keep', opts, M.DEFAULT_ONESHOT_OPTS))
+    if not created then
+      vim.notify 'Closing the existing `oneshot`'
+      win:close()
+      win = term.open(cmd, vim.tbl_deep_extend('keep', opts, M.DEFAULT_ONESHOT_OPTS))
+    end
+    return win
   end)
 end
 
