@@ -18,7 +18,7 @@ local function julia_project_repl()
   term.toggle_repl(JULIA_PROJECT_REPL_CMD, '¶', {
     win = {
       wo = {
-        winbar = 'Julia: Project REPL',
+        winbar = '%=Julia - Project REPL%=',
       },
     },
   }, '¶')
@@ -36,7 +36,7 @@ vim.keymap.set('n', 'g¶', function()
     },
     win = {
       wo = {
-        winbar = 'Julia: documentation REPL',
+        winbar = '%=Julia - documentation REPL%=',
       },
     },
   }, 'g¶')
@@ -44,13 +44,18 @@ end, { desc = 'Julia project REPL for documentation', buffer = true })
 
 -- NOTE: <LocalLeader><RightAlt + r>
 vim.keymap.set('n', '<LocalLeader>¶', function()
-  term.toggle_repl(JULIA_REPL_CMD, '<localleader>¶', { win = { wo = { winbar = 'Julia: REPL' } } }, '<localleader>¶')
+  term.toggle_repl(
+    JULIA_REPL_CMD,
+    '<localleader>¶',
+    { win = { wo = { winbar = '%=Julia - REPL%=' } } },
+    '<localleader>¶'
+  )
 end, { desc = 'Julia REPL toggle', buffer = true })
 
 vim.keymap.set('n', '<LocalLeader>t', function()
   term.oneshot(
     'fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"',
-    { auto_close = false, win = { position = 'right', wo = { winbar = 'Julia: Tests' } } }
+    { auto_close = false, win = { position = 'right', wo = { winbar = '%=Julia - Tests%=' } } }
   )
 end, { desc = 'Run PACKAGE tests', buffer = true })
 
@@ -58,7 +63,7 @@ vim.keymap.set('n', '<LocalLeader>T', function()
   term.oneshot('fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"', {
     env = { ['RUNTESTS_FULL'] = true },
     auto_close = false,
-    win = { position = 'right', wo = { winbar = 'Julia: Tests (RUNTESTS_FULL)' } },
+    win = { position = 'right', wo = { winbar = '%=Julia - Tests (RUNTESTS_FULL)%=' } },
   })
 end, { desc = 'Run ALL tests (RUNTESTS_FULL=1)', buffer = true })
 
@@ -66,7 +71,7 @@ vim.keymap.set('n', '<LocalLeader>gT', function()
   term.oneshot('fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"', {
     env = { ['RUNTESTS_FULL'] = true, ['FIX_DOCTESTS'] = true },
     auto_close = false,
-    win = { position = 'right', wo = { winbar = 'Julia: Tests (RUNTESTS_FULL, FIX_DOCTESTS)' } },
+    win = { position = 'right', wo = { winbar = '%=Julia - Tests (RUNTESTS_FULL, FIX_DOCTESTS)%=' } },
   })
 end, { desc = 'Run ALL tests and fix doctests (RUNTESTS_FULL=1, FIX_DOCTESTS=1)', buffer = true })
 
@@ -108,7 +113,7 @@ vim.keymap.set('n', '<LocalLeader>gt', function()
       auto_close = false,
       win = {
         position = 'right',
-        wo = { winbar = ('Julia: Tests `test_args`: `' .. string.format('[%s]', input) .. '`') },
+        wo = { winbar = ('%=Julia - Tests `test_args=' .. string.format('[%s]', input) .. '`%=') },
       },
     }, rerun_keys)
 
