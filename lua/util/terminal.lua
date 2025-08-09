@@ -84,6 +84,7 @@ M.DEFAULT_ONESHOT_OPTS = {
 ---@brief Launch a oneshot terminal
 ---@param cmd string
 ---@param opts snacks.terminal.Opts
+---@return snacks.win
 function M.oneshot(cmd, opts)
   return require('util.helpers').require_plugin('snacks', function()
     opts = opts or {}
