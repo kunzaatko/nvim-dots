@@ -60,7 +60,9 @@ M.DEFAULT_REPL_OPTS = {
     }, M.TERMINAL_NAV_KEYS),
   },
 }
-
+-- TODO: Add a key mapping that reruns the command in the window. This should take the `win` and launch a new terminal
+-- in that place with the command. <09-08-25>
+-- TODO: On a `oneshot` with the same command, should replace the existing `oneshot` window and rerun the command <09-08-25>
 ---@brief Default snacks.terminal.Opts options for the oneshot terminal
 M.DEFAULT_ONESHOT_OPTS = {
   shell = 'fish',
