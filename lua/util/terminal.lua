@@ -90,7 +90,7 @@ function M.oneshot(cmd, opts)
     opts = opts or {}
     local win, created = term.get(cmd, vim.tbl_deep_extend('keep', opts, M.DEFAULT_ONESHOT_OPTS))
     if not created then
-      vim.notify 'Closing the existing `oneshot`'
+      vim.notify 'Closing existing `oneshot`'
       win:close()
       win = term.open(cmd, vim.tbl_deep_extend('keep', opts, M.DEFAULT_ONESHOT_OPTS))
     end
