@@ -80,46 +80,51 @@ end, { desc = 'Run ALL tests and fix doctests (RUNTESTS_FULL=1, FIX_DOCTESTS=1)'
 _G.JULIA_TEST_ARGS_LAST = nil
 -- TODO: Add completion via the `:command-completion` "custom,func" option. We have to have the test folder for this <14-07-25>
 vim.keymap.set('n', '<LocalLeader>gt', function()
-  vim.ui.input({ prompt = 'Fill `test_args`', default = _G.JULIA_TEST_ARGS_LAST }, function(input)
-    input = input or ''
+  local path = vim.api.nvim_buf_get_name(0)
+  local testname = string.match(path, 'test/(.*).jl')
+  vim.ui.input(
+    { prompt = 'Fill `test_args`', default = testname and string.format('"%s"', testname) or _G.JULIA_TEST_ARGS_LAST },
+    function(input)
+      input = input or ''
 
-    local test_args = string.len(input) == 0 and '' or string.format('test_args=[%q]', input)
+      local test_args = string.len(input) == 0 and '' or string.format('test_args=[%q]', input)
 
-    if string.len(test_args) ~= 0 then
-      vim.notify('Testing with `test_args`: `' .. string.format('[%s]', input) .. '`')
-    end
+      if string.len(test_args) ~= 0 then
+        vim.notify('Testing with `test_args`: `' .. string.format('[%s]', input) .. '`')
+      end
 
-    _G.JULIA_TEST_ARGS_LAST = input
+      _G.JULIA_TEST_ARGS_LAST = input or testname and string.format('"%s"', testname)
 
-    local command = 'fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test(' .. test_args .. ')\'"'
+      local command = 'fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test(' .. test_args .. ')\'"'
 
-    local run_tests_function
-    local rerun_keys = {
-      win = {
-        keys = {
-          rerun = {
-            'R',
-            function()
-              vim.schedule(run_tests_function)
-            end,
-            mode = { 'n', 't' },
-            desc = 'Rerun tests',
+      local run_tests_function
+      local rerun_keys = {
+        win = {
+          keys = {
+            rerun = {
+              'R',
+              function()
+                vim.schedule(run_tests_function)
+              end,
+              mode = { 'n', 't' },
+              desc = 'Rerun tests',
+            },
           },
         },
-      },
-    }
+      }
 
-    local opts = vim.tbl_deep_extend('keep', {
-      auto_close = false,
-      win = {
-        position = 'right',
-        wo = { winbar = ('%=Julia - Tests `test_args=' .. string.format('[%s]', input) .. '`%=') },
-      },
-    }, rerun_keys)
+      local opts = vim.tbl_deep_extend('keep', {
+        auto_close = false,
+        win = {
+          position = 'right',
+          wo = { winbar = ('%=Julia - Tests `test_args=' .. string.format('[%s]', input) .. '`%=') },
+        },
+      }, rerun_keys)
 
-    run_tests_function = function()
-      term.oneshot(command, opts)
+      run_tests_function = function()
+        term.oneshot(command, opts)
+      end
+      run_tests_function()
     end
-    run_tests_function()
-  end)
+  )
 end, { desc = 'Run tests selected tests', buffer = true })
