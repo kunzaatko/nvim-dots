@@ -54,7 +54,7 @@ return {
         julia = { inherit_defaults = true, 'latex' },
         lua = { inherit_defaults = true, 'lazydev' },
         rust = { 'lsp', 'path', 'snippets', 'ripgrep' },
-        markdown = { inherit_defaults = true, 'markdown', 'thesaurus', 'git' },
+        markdown = { inherit_defaults = true, 'markdown', 'thesaurus', 'git', 'latex' },
         tex = { inherit_defaults = true, 'dictionary', 'thesaurus' },
         text = { inherit_defaults = true, 'dictionary', 'thesaurus' },
         octo = { inherit_defautls = true, 'git' }, gitcommit = { inherit_defautls = true, 'git', 'conventional_commits', 'markdown' }, ['NeogitCommitMessage'] = { inherit_defautls = true, 'git', 'conventional_commits', 'markdown' }, gitrebase = { inherit_defautls = true, 'git' },
