@@ -113,9 +113,10 @@ end
 ---passing a list. (default `{}`)
 ---@param send_key string|nil Key to send to the REPL. If you want to set up a send a key for sending visual selection to
 ---the REPL, then pass this parameter.
+---@param send_format function|nil Function to format the text before sending it to the REPL
 ---@return snacks.win|boolean terminal? Returns false is snacks is not loaded, otherwise returns the terminal window
 ---toggled
-function M.toggle_repl(cmd, toggle_key, opts, send_key)
+function M.toggle_repl(cmd, toggle_key, opts, send_key, send_format)
   return require('util.helpers').require_plugin('snacks', function()
     opts = opts or {}
     local repl_opts = vim.tbl_deep_extend('force', M.DEFAULT_REPL_OPTS, {
@@ -137,7 +138,9 @@ function M.toggle_repl(cmd, toggle_key, opts, send_key)
     if send_key then
       vim.keymap.set('v', send_key, function()
         vim.schedule(function()
-          vim.api.nvim_chan_send(vim.b[repl.buf].terminal_job_id, table.concat(visual.get_vsel_text(), '\n') .. '\n')
+          local vtext = table.concat(visual.get_vsel_text(), '\n') .. '\n'
+          local send_text = send_format and send_format(vtext) or vtext
+          vim.api.nvim_chan_send(vim.b[repl.buf].terminal_job_id, send_text)
           visual.exit_vmode()
         end, { desc = 'Send visual selection to REPL', buffer = buf })
       end)

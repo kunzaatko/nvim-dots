@@ -14,6 +14,22 @@ local term = require 'util.terminal'
 local JULIA_PROJECT_REPL_CMD = 'fish -c "julia +1.12 --project --threads auto"'
 local JULIA_REPL_CMD = 'fish -c "julia +1.12"'
 
+--- Format the lines before sending them to the REPL
+---@param text string: The input text
+---@return string: The modified text
+local function send_format(text)
+  local lines = {}
+  for line in text:gmatch '([^\n]*)\n?' do
+    if line ~= '' then
+      -- Remove 'julia>\s*' from the lines
+      local filtered = line:gsub('^julia>', '')
+      table.insert(lines, filtered)
+    end
+  end
+  return table.concat(lines, '\n') .. text:sub(-1) == '\n' and '\n' or ''
+end
+
+--- Toggle the REPL for the current project
 local function julia_project_repl()
   term.toggle_repl(JULIA_PROJECT_REPL_CMD, '¶', {
     win = {
@@ -21,7 +37,7 @@ local function julia_project_repl()
         winbar = '%=Julia - Project REPL%=',
       },
     },
-  }, '¶')
+  }, '¶', send_format)
 end
 
 vim.api.nvim_buf_create_user_command(0, 'JuliaREPL', julia_project_repl, { nargs = '?' })
@@ -39,7 +55,7 @@ vim.keymap.set('n', 'g¶', function()
         winbar = '%=Julia - documentation REPL%=',
       },
     },
-  }, 'g¶')
+  }, 'g¶', send_format)
 end, { desc = 'Julia project REPL for documentation', buffer = true })
 
 -- NOTE: <LocalLeader><RightAlt + r>
@@ -48,7 +64,8 @@ vim.keymap.set('n', '<LocalLeader>¶', function()
     JULIA_REPL_CMD,
     '<localleader>¶',
     { win = { wo = { winbar = '%=Julia - REPL%=' } } },
-    '<localleader>¶'
+    '<localleader>¶',
+    send_format
   )
 end, { desc = 'Julia REPL toggle', buffer = true })
 
