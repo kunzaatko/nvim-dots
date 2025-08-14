@@ -86,6 +86,7 @@
   "undotree": { "branch": "master", "commit": "28f2f54a34baff90ea6f4a735ef1813ad875c743" },
   "vim-angry-reviewer": { "branch": "main", "commit": "24fbfcc770a1909d7353b561210e693fc892c8c4" },
   "vim-just": { "branch": "main", "commit": "e0c04b6433b9c636274f074356744fdfae039b7e" },
+  "vim-matchup": { "branch": "master", "commit": "b4efd6a97380b99bb9f5eb80c9002e061402c288" },
   "vimtex": { "branch": "master", "commit": "2b1ca6635dd419d485162c9debd4866fab662cad" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" },
   "yazi.nvim": { "branch": "main", "commit": "712ae1a6adf45caf073d90bead00c5323bed5f76" },

@@ -878,4 +878,18 @@ return {
     'godlygeek/tabular',
     event = 'VeryLazy',
   },
+  {
+    'andymass/vim-matchup',
+    lazy = false,
+    init = function()
+      vim.g.matchup_treesitter_stopline = 500
+      vim.g.matchup_text_obj_enabled = 0
+    end,
+    ---@type matchup.Config
+    opts = {
+      treesitter = {
+        stopline = 500,
+      },
+    },
+  },
 }
