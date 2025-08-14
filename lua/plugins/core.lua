@@ -205,9 +205,6 @@ return {
       }
 
       -- TODO: Is this still needed for blink.nvim... It has auto-delimiters <14-12-24>
-      -- local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      -- local cmp = require 'cmp'
-      -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
   {

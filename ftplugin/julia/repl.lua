@@ -2,8 +2,6 @@
 -- FIX: Using julia 1.12 because julia 1.11.5 causing 139 error where it apparently accesses an invalid address. When
 -- 1.12 is the release, should remove the version specifier in order not to run with the overhead of fish <25-04-25>
 -- TODO: Add a keymap to generate the documentation for a package <11-06-25>
--- TODO: Add keymap for testing the current test file via `ARGS`. It should be checked if in the test file otherwise it
--- should call the last test file that was visited. <05-06-25>
 -- TODO: Add autopairs `endwise` rules for "begin end" groups and for "do end"
 -- https://github.com/windwp/nvim-autopairs/wiki/Endwise#list-rule-predefined-by-user <11-05-23>
 -- TODO: Add a special notification title and icon for notifications that are linked to julia. See `h snacks-notifier` <20-06-25>
