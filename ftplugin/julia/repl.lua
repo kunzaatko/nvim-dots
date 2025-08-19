@@ -24,7 +24,7 @@ local function send_format(text)
       table.insert(lines, filtered)
     end
   end
-  return table.concat(lines, '\n') .. text:sub(-1) == '\n' and '\n' or ''
+  return table.concat(lines, '\n') .. (text:sub(-1) == '\n' and '\n' or '')
 end
 
 --- Toggle the REPL for the current project
