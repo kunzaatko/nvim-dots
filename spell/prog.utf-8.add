@@ -873,3 +873,7 @@ multinverses
 fft
 lts
 teardown
+voxel
+mapfoldl
+namify
+ustrip
