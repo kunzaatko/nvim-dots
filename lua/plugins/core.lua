@@ -884,6 +884,7 @@ return {
     init = function()
       vim.g.matchup_treesitter_stopline = 500
       vim.g.matchup_text_obj_enabled = 0
+      vim.g.matchup_matchparen_offscreen = {}
     end,
     ---@type matchup.Config
     opts = {
