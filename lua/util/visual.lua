@@ -19,9 +19,15 @@ function M.get_vsel_text()
   local vsel = M.get_vsel()
   local pos = vsel.pos
   if vsel.mode == 'v' then
-    return vim.api.nvim_buf_get_text(0, pos[1] - 1, pos[2] - 1, pos[3] - 1, pos[4], {})
+    local start_row = (pos[1] < pos[3]) and (pos[1] - 1) or (pos[3] - 1)
+    local end_row = (pos[1] < pos[3]) and (pos[3] - 1) or (pos[1] - 1)
+    local start_col = (pos[2] - 1 < pos[4]) and pos[2] - 1 or pos[4] - 1
+    local end_col = (pos[2] - 1 < pos[4]) and pos[4] or pos[2]
+    return vim.api.nvim_buf_get_text(0, start_row, start_col, end_row, end_col, {})
   elseif vsel.mode == 'V' then
-    return vim.api.nvim_buf_get_lines(0, pos[1] - 1, pos[3], true)
+    local start_row = (pos[1] - 1 < pos[3] - 1) and pos[1] - 1 or pos[3] - 1
+    local end_row = (pos[1] < pos[3]) and pos[3] or pos[1]
+    return vim.api.nvim_buf_get_lines(0, start_row, end_row, true)
   end
   error('Invalid mode: ' .. vsel.mode, 2)
 end
