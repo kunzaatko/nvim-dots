@@ -676,7 +676,23 @@ return {
       statuscolumn = {},
       indent = {},
       input = {},
-      terminal = { shell = 'fish', win = { winbar = '', position = 'bottom' } },
+      terminal = {
+        shell = 'fish',
+        win = {
+          winbar = '',
+          position = 'bottom',
+          keys = {
+            toggle_normal = {
+              '<C-n>',
+              function()
+                vim.cmd 'stopinsert'
+              end,
+              mode = { 't' },
+              desc = 'Normal mode',
+            },
+          },
+        },
+      },
       -- scroll = {},
       words = {},
       ---@class snacks.picker.Config
