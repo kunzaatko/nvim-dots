@@ -97,7 +97,7 @@ if vim.version().minor >= 11 then
     'lua_ls',
     'taplo',
     'ccls',
-    'pyright',
+    'ruff',
     'jsonln',
     'kotlin_language_server',
     'html',
