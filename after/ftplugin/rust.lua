@@ -20,21 +20,35 @@ vim.keymap.set('n', '<localleader>cc', function()
   vim.ui.select({ 'clippy', 'check' }, { prompt = 'Check with:' }, function(option)
     termutil.oneshot('cargo ' .. option, {
       interactive = false,
-      win = { position = 'right' },
+      win = {
+        position = 'right',
+        wo = {
+          winbar = '%=' .. option:sub(1, 1):upper() .. option:sub(2, -1) .. ' Check%=',
+        },
+      },
     })
   end)
 end, { buffer = true, desc = 'Cargo clippy|check' })
 
 vim.keymap.set('n', '<localleader>cb', function()
-  termutil.oneshot('cargo build', { interactive = false, win = { position = 'right' } })
+  termutil.oneshot(
+    'cargo build',
+    { interactive = false, win = { position = 'right', wo = { winbar = '%=Cargo Build%=' } } }
+  )
 end, { buffer = true, desc = 'Cargo build' })
 
 vim.keymap.set('n', '<localleader>cr', function()
-  termutil.oneshot('cargo run', { interactive = false, win = { position = 'right' } })
+  termutil.oneshot(
+    'cargo run',
+    { interactive = false, win = { position = 'right', wo = { winbar = '%=Cargo Run%=' } } }
+  )
 end, { buffer = true, desc = 'Cargo run' })
 
 vim.keymap.set('n', '<localleader>cd', function()
-  termutil.oneshot('cargo doc --document-private-items', { interactive = false, win = { position = 'right' } })
+  termutil.oneshot(
+    'cargo doc --document-private-items',
+    { interactive = false, win = { position = 'right', wo = { winbar = '%=Cargo Doc%=' } } }
+  )
 end, { buffer = true, desc = 'Cargo doc' })
 
 vim.keymap.set('n', '<localleader>t', function()
@@ -42,6 +56,6 @@ vim.keymap.set('n', '<localleader>t', function()
     start_insert = false,
     auto_insert = false,
     auto_close = false,
-    win = { position = 'right' },
+    win = { position = 'right', wo = { winbar = '%=Cargo Test%=' } },
   })
 end, { buffer = true, desc = 'Cargo test' })
