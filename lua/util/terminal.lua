@@ -1,8 +1,6 @@
 local M = {}
 local visual = require 'util.visual'
 
-local _, term = pcall(require, 'snacks.terminal')
-
 ---@brief Default keymaps for terminal navigation
 M.TERMINAL_NAV_KEYS = {
   win_right = {
@@ -87,6 +85,7 @@ M.DEFAULT_ONESHOT_OPTS = {
 ---@return snacks.win
 function M.oneshot(cmd, opts)
   return require('util.helpers').require_plugin('snacks', function()
+    local term = require 'snacks.terminal'
     opts = opts or {}
     local win, created = term.get(cmd, vim.tbl_deep_extend('keep', opts, M.DEFAULT_ONESHOT_OPTS))
     if not created then
@@ -118,6 +117,7 @@ end
 ---toggled
 function M.toggle_repl(cmd, toggle_key, opts, send_key, send_format)
   return require('util.helpers').require_plugin('snacks', function()
+    local term = require 'snacks.terminal'
     opts = opts or {}
     local repl_opts = vim.tbl_deep_extend('force', M.DEFAULT_REPL_OPTS, {
       win = {
