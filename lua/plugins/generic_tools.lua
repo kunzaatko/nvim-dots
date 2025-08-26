@@ -2,7 +2,7 @@ return {
   {
     'glacambre/firenvim',
     build = function()
-      vim.fn['firenvim#install'](0)
+      vim.call['firenvim#install'](0)
     end,
     cond = function()
       return vim.fn.exists 'g:started_by_firenvim'
