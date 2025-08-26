@@ -1,5 +1,6 @@
 local M = {}
-
+-- NOTE: https://github.com/neovim/neovim/commit/98f8224c1948fd8440f13f84f19a0adb78171fe4: `vim.pos` and `vim.range`
+-- will be added to the API in 0.12 <26-08-25>
 --- Get visual selection position
 function M.get_vsel()
   local bufnr = vim.api.nvim_win_get_buf(0)

@@ -7,12 +7,9 @@ return {
     init = function()
       require('util.lsp').on_attach(function(client, buffer)
         vim.keymap.set('n', '<C-space>', '<Plug>RustHoverAction', { buffer = true, desc = 'Hover actions' })
-        vim.keymap.set('n', '<localleader>r', function()
+        vim.keymap.set('n', '<localleader>cr', function()
           vim.cmd.RustLsp 'runnables'
         end, { buffer = true, desc = 'Cargo runnables' })
-        vim.keymap.set('n', '<localleader>R', function()
-          vim.cmd.RustLsp 'run'
-        end, { buffer = true, desc = 'Cargo run' })
       end, { server_name = 'rust-analyzer' })
 
       vim.g.rustaceanvim = {
