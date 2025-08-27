@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   callback = function(event)
     local filetype = vim.api.nvim_get_option_value('filetype', { buf = event.buf })
     local buftype = vim.api.nvim_get_option_value('buftype', { buf = event.buf })
-    if buftype == 'nofile' or filetype == 'help' then
+    if buftype == 'nofile' or vim.tbl_contains({ 'help', 'qf' }, filetype) then
       vim.opt_local.buflisted = false
       vim.keymap.set('n', 'q', vim.cmd.close, { buffer = event.buf, silent = true, nowait = true })
     end
