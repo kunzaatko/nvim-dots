@@ -74,6 +74,14 @@ vim.keymap.set('n', '<LocalLeader>t', function()
   )
 end, { desc = 'Run PACKAGE tests', buffer = true })
 
+vim.keymap.set('n', '<LocalLeader>D', function()
+  term.oneshot('fish -c "julia --project --color=yes make.jl"', {
+    cwd = './docs/',
+    auto_close = false,
+    win = { position = 'right', wo = { winbar = '%=Julia - Build Documentation%=' } },
+  })
+end, { desc = 'Run PACKAGE tests', buffer = true })
+
 vim.keymap.set('n', '<LocalLeader>T', function()
   term.oneshot('fish -c "julia +1.12 --project --eval \'using Pkg; Pkg.test()\'"', {
     env = { ['RUNTESTS_FULL'] = true },
