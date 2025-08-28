@@ -19,24 +19,32 @@ return {
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
-        -- TODO: should be the same as in astrovim <19-04-23>
         -- Navigation
-        vim.keymap.set(
-          'n',
-          ']c',
-          "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
-          { expr = true, desc = 'go to next hunk', buffer = bufnr }
-        )
-        vim.keymap.set(
-          'n',
-          '[c',
-          "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
-          { expr = true, desc = 'go to prev hunk', buffer = bufnr }
-        )
+        vim.keymap.set('n', ']c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gs.nav_hunk 'next'
+          end
+        end, { desc = 'next hunk', buffer = bufnr })
+
+        vim.keymap.set('n', '[c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gs.nav_hunk 'prev'
+          end
+        end, { desc = 'previous hunk', buffer = bufnr })
 
         -- Actions
-        vim.keymap.set({ 'n', 'v' }, '<leader>gs', ':Gitsigns stage_hunk<CR>', { desc = 'stage hunk', buffer = bufnr })
-        vim.keymap.set({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>', { desc = 'reset hunk', buffer = bufnr })
+        vim.keymap.set('n', '<leader>gs', gs.stage_hunk, { desc = 'stage hunk', buffer = bufnr })
+        vim.keymap.set('v', '<leader>gs', function()
+          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = 'stage hunk', buffer = bufnr })
+        vim.keymap.set('n', '<leader>gr', gs.reset_hunk, { desc = 'reset hunk', buffer = bufnr })
+        vim.keymap.set('v', '<leader>gr', function()
+          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = 'reset hunk', buffer = bufnr })
         vim.keymap.set('n', '<leader>gS', gs.stage_buffer, { desc = 'stage buffer', buffer = bufnr })
         vim.keymap.set('n', '<leader>gu', gs.undo_stage_hunk, { desc = 'undo hunk staging', buffer = bufnr })
         vim.keymap.set('n', '<leader>gR', gs.reset_buffer, { desc = 'reset buffer', buffer = bufnr })
@@ -51,6 +59,9 @@ return {
         vim.keymap.set('n', '<leader>gdd', function()
           gs.diffthis '~'
         end)
+        vim.keymap.set('n', '<leader>gQ', function()
+          gs.setqflist 'all'
+        end, { desc = 'hunks to quickfix list', buffer = bufnr })
         vim.keymap.set('n', '<leader>gd', gs.toggle_deleted, { desc = 'toggle deleted', buffer = bufnr })
 
         -- Text object
