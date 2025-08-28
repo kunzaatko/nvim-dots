@@ -240,7 +240,7 @@ local M = {
         mode = 'v',
       },
       {
-        '<leader>ot',
+        'Đ',
         function()
           require('opencode').toggle()
         end,
