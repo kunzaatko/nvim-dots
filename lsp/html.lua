@@ -1,5 +1,5 @@
 ---@diagnostic disable-next-line: undefined-doc-name
----@type  vim.lsp.ClientConfig
+---@type  vim.lsp.Config
 local opts = {
   filetypes = { 'html', 'htmldjango' },
 }

@@ -24,7 +24,7 @@ end
 -- I should look how the server is set up in `nvim-lspconfig` <30-03-25>
 
 ---@diagnostic disable-next-line: undefined-doc-name
----@type  vim.lsp.ClientConfig
+---@type  vim.lsp.Config
 return {
   cmd = { 'ccls' },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },

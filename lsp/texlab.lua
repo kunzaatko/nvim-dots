@@ -1,6 +1,6 @@
 -- https://github.com/latex-lsp/texlab/wiki/Configuration
 ---@diagnostic disable-next-line: undefined-doc-name
----@type  vim.lsp.ClientConfig
+---@type  vim.lsp.Config
 local opts = {
   cmd = { 'texlab' },
   filetypes = { 'tex', 'plaintex', 'bib' },

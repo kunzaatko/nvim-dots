@@ -50,7 +50,7 @@ run(server)
 ]]
 
 ---@diagnostic disable-next-line: undefined-doc-name
----@type  vim.lsp.ClientConfig
+---@type  vim.lsp.Config
 local opts = {
   filetypes = { 'julia' },
   root_markers = { 'Project.toml', 'JuliaProject.toml' },
