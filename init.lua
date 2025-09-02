@@ -98,6 +98,7 @@ if vim.version().minor >= 11 then
     'taplo',
     'ccls',
     'ruff',
+    'pyright',
     'jsonln',
     'kotlin_language_server',
     'html',
