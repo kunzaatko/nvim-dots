@@ -232,7 +232,7 @@ local M = {
         mode = 'n',
       },
       {
-        '<leader>oa',
+        'Đ',
         function()
           require('opencode').ask '@selection: '
         end,
@@ -290,7 +290,6 @@ local M = {
         end,
         desc = 'Explain code near cursor',
       },
-      op,
     },
     opts = {
       terminal = {
