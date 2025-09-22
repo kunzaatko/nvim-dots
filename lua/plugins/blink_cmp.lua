@@ -41,6 +41,9 @@ return {
       end,
     },
 
+    -- FIX: When using enter, always accept only if there is a first letter in the completion present. This would avoid
+    -- the enter at the end of the line expanding to a snippet or a completion <05-09-25>
+
     sources = {
       default = {
         'lsp',
