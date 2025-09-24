@@ -15,12 +15,13 @@ vim.opt.shortmess:append { c = true, I = true } -- do not show ins-completion-me
 
 -- vim.opt.virtualedit = 'block' -- allow going past end of line in visual block mode
 vim.opt.pumheight = 15 -- max number of popup menu items
-vim.opt.showmode = false -- do not show mode on last line
+vim.opt.showmode = false -- don't show mode on last line
+vim.opt.wrap = false -- don't wrap text that is longer that the view
 vim.opt.scrolloff = 1 -- leave 1 line above/below while vertical scrolling
 vim.opt.sidescrolloff = 4 -- leave 4 chars after/before while horizontal scrolling
 vim.opt.clipboard:prepend 'unnamedplus' -- use system clipboard
 vim.opt.undofile = true -- persistent undo history
-vim.opt.swapfile = false -- do not save a swapfile
+vim.opt.swapfile = false -- don't save a swapfile
 vim.opt.backup = true -- backup file when overwriting
 if vim.env.XDG_STATE_HOME then
   vim.opt.backupdir = vim.env.XDG_STATE_HOME .. '/nvim/backup//'
