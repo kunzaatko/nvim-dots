@@ -85,7 +85,7 @@ return {
     config = function(_, opts)
       vim.api.nvim_create_autocmd('FileType', {
         pattern = { 'NeogitStatus', 'NeogitPopup' },
-        desc = ' No list and fold in Neogit',
+        desc = 'No list and fold in Neogit',
         callback = function()
           vim.opt_local.list = false
           vim.opt_local.foldlevel = 1000
