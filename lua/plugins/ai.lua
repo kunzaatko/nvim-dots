@@ -232,6 +232,14 @@ local M = {
         mode = 'n',
       },
       {
+        '<leader>oa',
+        function()
+          require('opencode').ask '@selection: '
+        end,
+        desc = 'Ask opencode about this',
+        mode = 'v',
+      },
+      {
         'Đ',
         function()
           require('opencode').ask '@selection: '
@@ -277,7 +285,7 @@ local M = {
       {
         '<leader>op',
         function()
-          require('opencode').select_prompt()
+          require('opencode').select()
         end,
         desc = 'Select prompt',
         mode = { 'n', 'v' },
@@ -291,13 +299,16 @@ local M = {
         desc = 'Explain code near cursor',
       },
     },
-    opts = {
-      terminal = {
-        win = {
-          keys = require('util.terminal').TERMINAL_NAV_KEYS,
+    config = function()
+      local config = require 'opencode.config'
+      config.opts = vim.tbl_deep_extend('force', config.opts, {
+        terminal = {
+          win = {
+            keys = require('util.terminal').TERMINAL_NAV_KEYS,
+          },
         },
-      },
-    },
+      })
+    end,
   },
 }
 
