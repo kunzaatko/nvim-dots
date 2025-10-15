@@ -191,24 +191,12 @@ return {
       timeline_marker = static.icons.undotree.node,
     },
     config = function(_, opts)
-      vim.api.nvim_create_augroup('octo_settings', {})
-      vim.api.nvim_create_autocmd('BufEnter', {
-        pattern = 'octo://*',
-        desc = 'Settings for the octo window',
-        group = 'octo_settings',
+      vim.treesitter.language.register('markdown', 'octo')
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'octo',
+        desc = 'Do not autofold by textwidth in octo issues and pull requests',
         callback = function()
-          local wk = require 'which-key'
-          -- FIX: Does not show the keymaps... Some problem with the registering with which-key which in v3 disabled the
-          -- prefix mappings from v2 <29-03-25>
-          wk.add({
-            { '<leader>a', name = 'Assignee', icon = static.icons.git.user },
-            { '<leader>c', name = 'Comment', icon = static.icons.git.github },
-            { '<leader>r', name = 'Reaction', icon = static.icons.rocket },
-            { '<leader>v', name = 'Reviewer', icon = static.icons.git.review },
-            { '<leader>i', name = 'Issues/Close', icon = static.icons.git.issue },
-            { '<leader>l', name = 'Label', icon = static.icons.label },
-            { '<leader>p', name = 'PR actions', icon = static.icons.snippets },
-          }, { buffer = 0 })
+          vim.opt_local.formatoptions = {}
         end,
       })
       require('octo').setup(opts)
