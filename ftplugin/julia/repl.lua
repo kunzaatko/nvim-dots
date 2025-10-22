@@ -18,10 +18,14 @@ local JULIA_REPL_CMD = 'fish -c "julia +1.12"'
 local function send_format(text)
   local lines = {}
   for line in text:gmatch '([^\n]*)\n?' do
-    if line ~= '' then
-      -- Remove 'julia>\s*' from the lines
-      local filtered = line:gsub('^julia>', '')
-      table.insert(lines, filtered)
+    if line ~= '' then -- skips empty lines
+      -- TODO: Instead of stripping all the leading whitespace from every line separately, only strip the common leading
+      -- whitespace <22-10-25>
+      -- Remove 'julia>\s*' from the lines and trim leading and trailing whitespace
+      -- FIX: Doesn't seem to work with the leading whitespace. It gets stripped even in the REPL, which I thought
+      -- would add the missing whitespace on insertion... <26-08-25>
+      local modified_line = line:gsub('^julia>', ''):gsub('^%s*(.-)%s*$', '%1')
+      table.insert(lines, modified_line)
     end
   end
   return table.concat(lines, '\n') .. (text:sub(-1) == '\n' and '\n' or '')
