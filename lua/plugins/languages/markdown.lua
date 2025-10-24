@@ -22,8 +22,12 @@ return {
     ft = { 'markdown' },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig
-    -- opts = {},
-    -- TODO: Configure <14-12-24>
-    config = true,
+    opts = {
+      code = {
+        -- TODO: Impractical for documentation in the LSP for waste of space. Perhaps it could be done with detecting if
+        -- the buffer is `modifiable` <24-10-25>
+        border = 'thin',
+      },
+    },
   },
 }
