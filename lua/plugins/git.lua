@@ -77,10 +77,15 @@ return {
     event = 'VeryLazy',
     opts = {
       disable_hint = true,
-      disable_builtin_notifications = true,
+      graph_style = 'unicode',
+      process_spinner = true,
       disable_commit_confirmation = true,
-      commit_popup = { kind = 'vsplit' },
-      integrations = { diffview = true },
+      signs = {
+        hunk = { '', '' },
+        item = { '', '' },
+        section = { '', '' },
+      },
+      commit_editor = { kind = 'vsplit' },
     },
     config = function(_, opts)
       vim.api.nvim_create_autocmd('FileType', {
