@@ -123,9 +123,7 @@ components.FileFlags = { --{{{
         return ' ' .. static.icons.statusline.modified .. ' '
       end
     end,
-    hl = function(self)
-      return { fg = self.colors.base.green }
-    end,
+    hl = { fg = 'base_green' },
   },
   {
     provider = function()
@@ -133,9 +131,7 @@ components.FileFlags = { --{{{
         return ' ' .. static.icons.statusline.readonly .. ' '
       end
     end,
-    hl = function(self)
-      return { fg = self.colors.base.red }
-    end,
+    hl = { fg = 'base_red' },
   },
 } --}}}
 
@@ -273,14 +269,14 @@ components.NeoCodeium = {
     local exists, _ = pcall(require, 'neocodeium')
     return exists
   end,
-  hl = { fg = 'yellow' },
+  hl = { fg = 'base_yellow' },
 }
 
 components.Doing = {
   condition = function()
     return require('doing').status() ~= ''
   end,
-  { provider = 'Doing 󰁕  ', hl = { fg = 'gray', italic = true } },
+  { provider = 'Doing 󰁕  ', hl = { fg = 'base_gray', italic = true } },
   {
     provider = function()
       local status = require('doing').status()
@@ -292,7 +288,7 @@ components.Doing = {
     end,
 
     hl = {
-      fg = 'white',
+      fg = 'base_fg',
       italic = true,
     },
   },
@@ -311,7 +307,7 @@ components.Doing = {
     end,
 
     hl = {
-      fg = 'gray',
+      fg = 'base_gray',
       italic = true,
     },
   },
@@ -345,7 +341,7 @@ components.CodeCompanion = {
       return self.processing
     end,
     provider = ' ',
-    hl = { fg = 'yellow' },
+    hl = { fg = 'base_yellow' },
   },
 }
 
@@ -354,7 +350,7 @@ components.AI = {
     components.NeoCodeium,
     components.CodeCompanion,
   }),
-  hl = { fg = 'orange' },
+  hl = { fg = 'base_orange' },
   condition = function(self)
     return components.NeoCodeium.condition() or components.CodeCompanion[1].condition(self)
   end,
@@ -384,13 +380,9 @@ components.LSPActive = { --{{{
     provider = function(self)
       return table.concat(self.names, ' ')
     end,
-    hl = function(self)
-      return { fg = self.colors.base.purple, italic = true }
-    end,
+    hl = { fg = 'base_purple', italic = true },
   }),
-  hl = function(self)
-    return { fg = self.colors.base.yellow }
-  end,
+  hl = { fg = 'base_yellow' },
 }
 
 -- components.Gps = { --{{{
@@ -400,9 +392,7 @@ components.LSPActive = { --{{{
 --     local head = #location > 0 and conditions.is_active() and '⟩ ' or ''
 --     return head .. location
 --   end,
---   hl = function(self)
---     return { fg = self.colors.base.gray }
---   end,
+--   hl = { fg = "base_gray" }
 -- } --}}}
 -- components.Gps = utils.make_flexible_component(3, components.Gps, { provider = '' })
 
@@ -434,33 +424,25 @@ components.Diagnostics = { --{{{
       -- 0 is just another output, we can decide to print it or not!
       return self.errors > 0 and (self.errors .. self.error_icon .. ' ')
     end,
-    hl = function(self)
-      return { fg = self.colors.diag.error }
-    end,
+    hl = { fg = 'diag_error' },
   },
   {
     provider = function(self)
       return self.warnings > 0 and (self.warnings .. self.warn_icon .. ' ')
     end,
-    hl = function(self)
-      return { fg = self.colors.diag.warn }
-    end,
+    hl = { fg = 'diag_warn' },
   },
   {
     provider = function(self)
       return self.info > 0 and (self.info .. self.info_icon .. ' ')
     end,
-    hl = function(self)
-      return { fg = self.colors.diag.info }
-    end,
+    hl = { fg = 'diag_info' },
   },
   {
     provider = function(self)
       return self.hints > 0 and (self.hints .. self.hint_icon .. ' ')
     end,
-    hl = function(self)
-      return { fg = self.colors.diag.hint }
-    end,
+    hl = { fg = 'diag_hint' },
   },
   {
     provider = ']',
@@ -485,9 +467,7 @@ components.Timer = {
     local timer = pomo.get_first_to_finish()
     return '󰄉 ' .. tostring(timer):gsub('#1: ', '')
   end,
-  hl = function(self)
-    return { fg = self.colors.base.orange }
-  end,
+  hl = { fg = 'base_orange' },
 }
 
 -- TODO: Only show git branch if it is not the default branch. Use '+','-','~' for the changes and have the git
@@ -503,9 +483,7 @@ components.Git = { --{{{
     self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
   end,
 
-  hl = function(self)
-    return { fg = self.colors.base.orange }
-  end,
+  hl = { fg = 'base_orange' },
 
   { -- git branch name
     provider = function(self)
@@ -526,27 +504,21 @@ components.Git = { --{{{
       local count = self.status_dict.added or 0
       return count > 0 and (count .. static.icons.git.add)
     end,
-    hl = function(self)
-      return { fg = self.colors.git.add }
-    end,
+    hl = { fg = 'git_add' },
   },
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
       return count > 0 and (count .. static.icons.git.delete)
     end,
-    hl = function(self)
-      return { fg = self.colors.git.del }
-    end,
+    hl = { fg = 'git_del' },
   },
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
       return count > 0 and (count .. static.icons.git.change)
     end,
-    hl = function(self)
-      return { fg = self.colors.git.change }
-    end,
+    hl = { fg = 'git_change' },
   },
   {
     condition = function(self)

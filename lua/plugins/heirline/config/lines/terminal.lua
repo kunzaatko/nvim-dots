@@ -28,19 +28,14 @@ components.TerminalRightBorderBlock = { --{{{
 
 --- Terminal focused buffer statusline
 local TerminalStatuslineActive = { --{{{
-  static = {
-    colors = utils.color_spec,
-  },
   condition = function()
     return conditions.buffer_matches { buftype = { 'terminal' } }
   end,
 
-  hl = function(self)
-    return {
-      fg = self.colors.base.yellow,
-      bg = self.colors.base.bg,
-    }
-  end,
+  hl = {
+    fg = 'base_yellow',
+    bg = 'base_bg',
+  },
 
   components.TerminalLeftBorderBlock,
   components.Align,
@@ -51,18 +46,13 @@ local TerminalStatuslineActive = { --{{{
 
 --- Terminal unfocused buffer statusline
 local TerminalStatusLineInactive = { --{{{
-  static = {
-    colors = utils.color_spec_inactive,
-  },
   condition = function()
     return not conditions.is_active() and conditions.buffer_matches { buftype = { 'terminal' } }
   end,
-  hl = function(self)
-    return {
-      fg = self.colors.base.yellow,
-      bg = self.colors.base.bg,
-    }
-  end,
+  hl = {
+    fg = 'inactive_base_yellow',
+    bg = 'inactive_base_bg',
+  },
 
   components.TerminalLeftBorderBlock,
   components.Align,

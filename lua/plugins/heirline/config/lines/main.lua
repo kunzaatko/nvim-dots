@@ -1,6 +1,5 @@
 local conditions = require 'heirline.conditions'
 local components = require(HEIRLINE_CONFIG_HOME .. '.components')
-local utils = require(HEIRLINE_CONFIG_HOME .. '.utils')
 
 --- Normal focused buffer statusline
 local StatusLineActive = { --{{{
@@ -8,15 +7,33 @@ local StatusLineActive = { --{{{
     self.mode = vim.fn.mode(1)
   end,
   static = {
-    mode_colors = utils.mode_colors,
-    colors = utils.color_spec,
+    mode_colors = {
+      n = 'base_red',
+      i = 'base_yellow',
+      v = 'base_blue',
+      [''] = 'base_blue',
+      V = 'base_blue',
+      c = 'base_magenta',
+      no = 'base_red',
+      s = 'base_orange',
+      S = 'base_orange',
+      [''] = 'base_orange',
+      ic = 'base_yellow',
+      R = 'base_purple',
+      Rv = 'base_purple',
+      cv = 'base_red',
+      ce = 'base_red',
+      r = 'base_cyan',
+      rm = 'base_cyan',
+      ['r?'] = 'base_cyan',
+      ['!'] = 'base_red',
+      t = 'base_red',
+    },
   },
-  hl = function(self)
-    return {
-      fg = self.colors.base.fg,
-      bg = self.colors.base.bg,
-    }
-  end,
+  hl = {
+    fg = 'base_fg',
+    bg = 'base_bg',
+  },
   components.LeftBorderBlockModeColored,
   components.Space,
   components.FileNameBlock,
@@ -43,15 +60,10 @@ local StatusLineActive = { --{{{
 
 --- Normal unfocused buffer statusline
 local StatusLineInactive = { --{{{
-  static = {
-    colors = utils.color_spec_inactive,
+  hl = {
+    fg = 'inactive_base_fg',
+    bg = 'inactive_base_bg',
   },
-  hl = function(self)
-    return {
-      fg = self.colors.base.fg,
-      bg = self.colors.base.bg,
-    }
-  end,
   condition = function()
     return not conditions.is_active()
   end,

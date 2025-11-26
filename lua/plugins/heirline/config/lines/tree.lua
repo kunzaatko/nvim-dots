@@ -25,19 +25,14 @@ components.TreeRightBorderBlock = { --{{{
 
 --- Tree focused buffer statusline
 local TreeStatuslineActive = { --{{{
-  static = {
-    colors = utils.color_spec,
-  },
   condition = function()
     return conditions.buffer_matches { filetype = { 'NvimTree' } }
   end,
 
-  hl = function(self)
-    return {
-      fg = self.colors.base.darkblue,
-      bg = self.colors.base.bg,
-    }
-  end,
+  hl = {
+    fg = 'base_darkblue',
+    bg = 'base_bg',
+  },
 
   components.TreeLeftBorderBlock,
   components.Align,
@@ -46,18 +41,13 @@ local TreeStatuslineActive = { --{{{
 
 --- Tree unfocused buffer statusline
 local TreeStatusLineInactive = { --{{{
-  static = {
-    colors = utils.color_spec_inactive,
-  },
   condition = function()
     return not conditions.is_active() and conditions.buffer_matches { filetype = { 'NvimTree' } }
   end,
-  hl = function(self)
-    return {
-      fg = self.colors.base.darkblue,
-      bg = self.colors.base.bg,
-    }
-  end,
+  hl = {
+    fg = 'inactive_base_darkblue',
+    bg = 'inactive_base_bg',
+  },
 
   components.TreeLeftBorderBlock,
   components.Align,

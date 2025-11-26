@@ -17,8 +17,8 @@ utils.hsl_rec_map = function(entry, hsl_func)
 end
 
 --- hex the hsl colours and recurse into table layers
---- @param entry (table|string)
---- @return string hex colour
+--- @param entry table
+--- @return table[string] hex colour
 utils.hexify_color_spec = function(entry)
   return utils.hsl_rec_map(entry, function(hsl_entry)
     return hsl_entry.hex
@@ -33,11 +33,22 @@ local or_backup = function(a, backup)
   return a ~= '' and a or backup
 end
 
-utils.setup_colors = function()
-  local colors = {
-    fg = hsl(or_backup(utils.get_highlight_hex('Normal', 'fg'), '#D8DEE9')), -- #D8DEE9
-    bg = hsl(or_backup(utils.get_highlight_hex('ColorColumn', 'bg'), '#171523')), -- #171523 #181B21
+--- Prefixes all keys in the source table with the given prefix
+--- @param src table source table
+--- @param prefix string prefix for the keys
+--- @return table src Source table with prefixed keys
+local function prefix_keys(src, prefix)
+  local out = {}
+  for k, v in pairs(src) do
+    out[prefix .. k] = v
+  end
+  return out
+end
 
+utils.setup_colors = function()
+  local base = {
+    fg = hsl(or_backup(utils.get_highlight_hex('Normal', 'fg'), '#D8DEE9')), -- #D8DEE9
+    bg = hsl(or_backup(utils.get_highlight_hex('WinSeparator', 'fg'), '#171523')), -- #171523 #181B21
     red = hsl(or_backup(utils.get_highlight_hex('SpellBad', 'fg'), '#BE6069')), -- #BE6069
     magenta = hsl(or_backup(utils.get_highlight_hex('Float', 'fg'), '#B48EAD')), -- #B48EAD
     green = hsl(or_backup(utils.get_highlight_hex('Character', 'fg'), '#A4BF8D')), -- #A4BF8D
@@ -49,52 +60,38 @@ utils.setup_colors = function()
     purple = hsl(or_backup(utils.get_highlight_hex('Float', 'fg'), '#A77B9F')).da(10), -- #A77B9F
     cyan = hsl(or_backup(utils.get_highlight_hex('Function', 'fg'), '#87BFCF')), -- #87BFCF
   }
-  require('heirline').load_colors(utils.hexify_color_spec(colors))
 
-  --- Base colour specification in hsl format
-  utils.color_spec = {
-    base = colors,
-    diag = {
-      warn = hsl(utils.get_highlight_hex('DiagnosticWarn', 'fg')),
-      error = hsl(utils.get_highlight_hex('DiagnosticError', 'fg')),
-      hint = hsl(utils.get_highlight_hex('DiagnosticHint', 'fg')),
-      info = hsl(utils.get_highlight_hex('DiagnosticInfo', 'fg')),
-    },
-    git = {
-      del = hsl(or_backup(utils.get_highlight_hex('DiffDelete', 'fg'), '#BE6069')),
-      add = hsl(or_backup(utils.get_highlight_hex('DiffAdd', 'fg'), '#A4BF8D')),
-      change = hsl(or_backup(utils.get_highlight_hex('DiffChange', 'fg'), '#EBCA89')),
-      branch = hsl(or_backup(utils.get_highlight_hex('gitcommitBranch', 'fg'), '#D18771')),
-    },
+  local diag = {
+    warn = hsl(utils.get_highlight_hex('DiagnosticWarn', 'fg')),
+    error = hsl(utils.get_highlight_hex('DiagnosticError', 'fg')),
+    hint = hsl(utils.get_highlight_hex('DiagnosticHint', 'fg')),
+    info = hsl(utils.get_highlight_hex('DiagnosticInfo', 'fg')),
   }
-  utils.color_spec_inactive = utils.hexify_color_spec(utils.hsl_rec_map(utils.color_spec, function(hsl_col)
-    return hsl_col.desaturate(50).darken(50)
-  end))
-  utils.color_spec = utils.hexify_color_spec(utils.color_spec)
 
-  --- Mode colour specification
-  utils.mode_colors = {
-    n = utils.color_spec.base.red,
-    i = utils.color_spec.base.yellow,
-    v = utils.color_spec.base.blue,
-    [''] = utils.color_spec.base.blue,
-    V = utils.color_spec.base.blue,
-    c = utils.color_spec.base.magenta,
-    no = utils.color_spec.base.red,
-    s = utils.color_spec.base.orange,
-    S = utils.color_spec.base.orange,
-    [''] = utils.color_spec.base.orange,
-    ic = utils.color_spec.base.yellow,
-    R = utils.color_spec.base.purple,
-    Rv = utils.color_spec.base.purple,
-    cv = utils.color_spec.base.red,
-    ce = utils.color_spec.base.red,
-    r = utils.color_spec.base.cyan,
-    rm = utils.color_spec.base.cyan,
-    ['r?'] = utils.color_spec.base.cyan,
-    ['!'] = utils.color_spec.base.red,
-    t = utils.color_spec.base.red,
+  local git = {
+    del = hsl(or_backup(utils.get_highlight_hex('DiffDelete', 'fg'), '#BE6069')),
+    add = hsl(or_backup(utils.get_highlight_hex('DiffAdd', 'fg'), '#A4BF8D')),
+    change = hsl(or_backup(utils.get_highlight_hex('DiffChange', 'fg'), '#EBCA89')),
+    branch = hsl(or_backup(utils.get_highlight_hex('gitcommitBranch', 'fg'), '#D18771')),
   }
+
+  local colors_hsl =
+    vim.tbl_extend('force', prefix_keys(base, 'base_'), prefix_keys(git, 'git_'), prefix_keys(diag, 'diag_'))
+
+  colors_hsl = vim.tbl_extend(
+    'force',
+    colors_hsl,
+    prefix_keys(
+      utils.hsl_rec_map(colors_hsl, function(hsl_col)
+        return hsl_col.desaturate(50).darken(50)
+      end),
+      'inactive_'
+    )
+  )
+
+  utils.color_spec = utils.hexify_color_spec(colors_hsl)
+
+  require('heirline').load_colors(utils.hexify_color_spec(colors_hsl))
 end
 
 return utils
