@@ -175,7 +175,7 @@ local M = {
   -- TODO: Add a status line component that shows the number of completions instead of only the icon <06-07-25>
   {
     'monkoose/neocodeium',
-    event = 'VeryLazy',
+    event = { 'InsertEnter', 'VeryLazy' },
     cmd = 'NeoCodeium',
     keys = {
       {

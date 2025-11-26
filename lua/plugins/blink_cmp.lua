@@ -11,6 +11,7 @@ return {
     'disrupted/blink-cmp-conventional-commits',
   },
   lazy = false,
+  -- event = { 'InsertEnter', 'VeryLazy' },
   build = 'cargo build --release',
 
   ---@module 'blink.cmp'
