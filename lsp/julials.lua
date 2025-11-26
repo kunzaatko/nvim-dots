@@ -1,20 +1,5 @@
 local util = require 'util'
 
--- FIX: Add this as a `Julia` command or `LSP` command <28-03-25>
-util.lsp.on_attach(function()
-  vim.api.nvim_create_user_command('JuliaLanguageServerUpdate', function()
-    util.terminal.oneshot(
-      [[fish -c "julia --project=~/.julia/environments/nvim-lspconfig -e \"using Pkg; Pkg.update()\""]],
-      {
-        interactive = false,
-        win = { position = 'right' },
-      }
-    )
-  end, {
-    desc = 'Update the `LanguageServer.jl` in the correct environment',
-  })
-end, { server_name = 'julials' })
-
 local language_server_jl = [[
 # Load LanguageServer.jl: attempt to load from ~/.julia/environments/nvim-lspconfig
 # with the regular load path as a fallback
@@ -23,7 +8,7 @@ ls_install_path = joinpath(
     "environments", "nvim-lspconfig"
 )
 pushfirst!(LOAD_PATH, ls_install_path)
-using LanguageServer
+using LanguageServer, SymbolServer, StaticLint
 popfirst!(LOAD_PATH)
 depot_path = get(ENV, "JULIA_DEPOT_PATH", "")
 project_path = let
@@ -63,6 +48,19 @@ local opts = {
     '-e',
     language_server_jl,
   },
+  on_attach = function()
+    vim.api.nvim_create_user_command('LspJuliaUpdate', function()
+      util.terminal.oneshot(
+        [[fish -c "julia --project=~/.julia/environments/nvim-lspconfig -e \"using Pkg; Pkg.update()\""]],
+        {
+          interactive = false,
+          win = { position = 'right' },
+        }
+      )
+    end, {
+      desc = 'Update the `LanguageServer`, `SymbolServer` and `StaticLint` in the `nvim-lspconfig` environment',
+    })
+  end,
 }
 
 return opts
