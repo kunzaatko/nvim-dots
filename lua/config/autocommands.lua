@@ -159,3 +159,18 @@ vim.api.nvim_create_autocmd('UILeave', {
     io.write '\027]111\027\\'
   end,
 })
+
+-- Set filetype for systemd and Podman Quadlet unit files
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = vim.api.nvim_create_augroup('AddFileTypes', {}),
+  -- stylua: ignore start
+  pattern = { -- systemd unit files
+    "*.service", "*.socket", "*.timer", "*.mount", "*.automount",
+    "*.swap", "*.target", "*.path", "*.slice", "*.scope", "*.device",
+    -- Podman Quadlet files
+    "*.container", "*.volume", "*.network", "*.kube", "*.pod", "*.build", "*.image"
+  }, -- stylua: ignore end
+  callback = function()
+    vim.bo.filetype = 'systemd'
+  end,
+})
