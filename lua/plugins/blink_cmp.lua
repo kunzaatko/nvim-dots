@@ -160,21 +160,11 @@ return {
           name = 'Words Thesaurus',
           module = 'blink-cmp-words.thesaurus',
           max_items = 4,
-          opts = {
-            -- Default pointers define the lexical relations listed under each definition,
-            -- see Pointer Symbols below.
-            -- Default is as below ("antonyms", "similar to" and "also see").
-            pointer_symbols = { '!', '&', '^' },
-          },
         },
         dictionary = {
           name = 'Words Dictionary',
           module = 'blink-cmp-words.dictionary',
           max_items = 4,
-          opts = {
-            dictionary_search_threshold = 3, -- Number of characters to trigger completion (if slow increase)
-            pointer_symbols = { '!', '&', '^' }, -- See thesaurus
-          },
         },
       },
     },
