@@ -92,18 +92,19 @@ if vim.version().minor >= 11 then
   vim.lsp.config('*', { root_markers = { '.git' }, capabilities = require('util.lsp').get_capabilities() })
   -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
   vim.lsp.enable {
-    'julials',
-    'texlab',
-    'lua_ls',
-    'taplo',
-    'ccls',
-    'ruff',
-    'pyright',
-    'jsonln',
-    'kotlin_language_server',
-    'html',
     'bashls',
+    'ccls',
+    'cssls',
     'harper_ls',
+    'html',
+    'jsonln',
+    'julials',
+    'kotlin_language_server',
+    'lua_ls',
+    'pyright',
+    'ruff',
+    'taplo',
+    'texlab',
   }
 end
 
