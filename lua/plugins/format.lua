@@ -28,6 +28,8 @@ return {
       css = { 'prettier' },
       scss = { 'prettier' },
       sass = { 'prettier' },
+      htmldjango = { 'prettier' },
+      html = { 'prettier' },
       sh = { 'shfmt' },
       -- latex = { 'latexindent' },
       -- tex = { 'latexindent' },
@@ -57,10 +59,9 @@ return {
     --     'tables',
     --   },
     -- }
-
     vim.api.nvim_create_user_command('FormatDisable', function(args)
       if args.bang then
-        -- FormatDisable! will disable formatting just for this buffer
+        -- `FormatDisable!` will disable formatting just for this buffer
         vim.b.disable_autoformat = true
       else
         vim.g.disable_autoformat = true
