@@ -899,3 +899,7 @@ Joltage
 booleans
 Podman
 Quadlet
+zola
+endmacro
+endif
+htmldjango
