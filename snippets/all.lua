@@ -45,13 +45,17 @@ local sigmarks = {
   end,
 }
 
-s(
-  { trig = 'today' },
-  extras.partial(function()
-    return os.date(_G.luasnip.vars.date_format)
-  end),
-  { dscr = "Insert today's date" }
-)
+local date_snippet_parts = {}
+for _, v in ipairs(_G.luasnip.vars.date_formats) do
+  table.insert(
+    date_snippet_parts,
+    extras.partial(function()
+      return os.date(v)
+    end)
+  )
+end
+
+s({ trig = 'today' }, c(1, date_snippet_parts), { dscr = "Insert today's date" })
 
 -- TODO: make a universal function for the todo comments <15-03-22, kunzaatko> --
 -- TODO: Enable *SELECT* mode for these snippets <13-03-22, kunzaatko> --

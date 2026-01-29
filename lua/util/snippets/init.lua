@@ -4,7 +4,8 @@ _G.luasnip.vars = {
   email = 'martinkunz@email.cz',
   github = 'https://github.com/kunzaatko',
   real_name = 'Martin Kunz',
-  date_format = '%d-%m-%y',
+  date_format = '%d-%m-%Y',
+  date_formats = { '%d-%m-%y', '%Y-%m-%d', '%Y/%m/%d/' },
 }
 _G.luasnip._cache = {}
 
