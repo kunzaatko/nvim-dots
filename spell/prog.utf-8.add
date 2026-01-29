@@ -905,3 +905,4 @@ endif
 htmldjango
 endfor
 SCSS
+pluto_workflow
