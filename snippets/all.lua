@@ -57,6 +57,7 @@ end
 
 s({ trig = 'today' }, c(1, date_snippet_parts), { dscr = "Insert today's date" })
 
+-- TODO: 'commentstring' should be used if the Comments.nvim plugin does not have a comment format candidate <03-02-2026>
 -- TODO: make a universal function for the todo comments <15-03-22, kunzaatko> --
 -- TODO: Enable *SELECT* mode for these snippets <13-03-22, kunzaatko> --
 -- TODO: Should instead return a DynamicNode since if this is not the case, then the comment sting
