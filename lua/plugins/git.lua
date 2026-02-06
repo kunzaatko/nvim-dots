@@ -182,6 +182,7 @@ return {
   {
     'pwntester/octo.nvim',
     name = 'octo',
+    enabled = vim.fn.executable 'gh' == 1,
     dependencies = {
       { 'nvim-tree/nvim-web-devicons', name = 'devicons' },
       'folke/snacks.nvim',
