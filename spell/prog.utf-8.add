@@ -930,3 +930,7 @@ azurerm
 datetime
 karabiner
 pluto
+hostuser
+vimdiff
+gitignore
+hostname
