@@ -37,7 +37,7 @@ require('lazy').setup({
   rocks = { hererocks = true },
   checker = {
     enabled = true,
-    frequency = 3600 * 24, -- check for updates once per day
+    frequency = 3600 * 24 * 7, -- check for updates once per week
   },
   ui = {
     custom_keys = {
