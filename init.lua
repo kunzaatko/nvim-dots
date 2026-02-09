@@ -28,7 +28,7 @@ vim.g.mapleader = ','
 vim.g.maplocalleader = '-'
 
 -- FIX: The default keymap of opening the terminal in the plugin directory launches a floating terminal and does not
--- work very well. Could I use the terminat.nvim plugin for it instead? <21-09-24>
+-- work very well. Could I use the terminal.nvim plugin for it instead? <21-09-24>
 require('lazy').setup({
   { import = 'plugins' },
   { import = 'plugins.languages' },
