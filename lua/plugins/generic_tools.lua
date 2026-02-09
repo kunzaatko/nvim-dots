@@ -73,7 +73,7 @@ return {
       font = 'Fira Code',
       theme = 'Nord',
       output = {
-        path = '/home/kunzaatko/Pictures/Screenshots',
+        path = vim.uv.os_homedir() .. '/Pictures/Screenshots',
       },
       shadow = {
         blur_radius = 15.0,
