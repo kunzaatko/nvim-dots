@@ -2,6 +2,7 @@
 -- should also be a bit more contrasty <08-04-25>
 return {
   'saghen/blink.cmp',
+  version = 'v1.*',
   dependencies = {
     { 'L3MON4D3/LuaSnip', version = 'v2.*' },
     'erooke/blink-cmp-latex',
@@ -12,7 +13,7 @@ return {
   },
   lazy = false,
   -- event = { 'InsertEnter', 'VeryLazy' },
-  build = 'cargo build --release',
+  -- build = 'cargo build --release',
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
@@ -198,7 +199,9 @@ return {
 
     fuzzy = {
       prebuilt_binaries = {
-        download = false, -- NOTE: We are compiling them ourselves
+        -- FIX: Currently the completion sorter does not compile, so I use the pre-compiled binary. When it compiles
+        -- again, I should toggle this to build with optimizations. Also the `build` should be re-enabled <19-02-2026>
+        download = true,
       },
       sorts = {
         function(a, b) -- NOTE: Sort by label if we have two spell entries
