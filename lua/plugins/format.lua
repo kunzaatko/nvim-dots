@@ -25,6 +25,7 @@ return {
       fish = { 'fish_indent' },
       just = { 'just' },
       json = { 'jq' },
+      jsonc = { 'jq' },
       css = { 'prettier' },
       scss = { 'prettier' },
       sass = { 'prettier' },
