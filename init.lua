@@ -105,6 +105,7 @@ if vim.version().minor >= 11 then
     'ruff',
     'taplo',
     'texlab',
+    'terraformls'
   }
 end
 
