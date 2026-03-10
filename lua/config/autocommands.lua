@@ -152,7 +152,7 @@ end
 vim.api.nvim_create_autocmd({ 'UIEnter', 'ColorScheme' }, {
   callback = bg_terminal_sync,
 })
-bg_terminal_sync() -- first call after the colorscheme load
+bg_terminal_sync() -- first call after the colour-scheme load
 
 vim.api.nvim_create_autocmd('UILeave', {
   callback = function()
