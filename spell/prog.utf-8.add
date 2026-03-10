@@ -950,3 +950,7 @@ ipython
 projectdo
 Rhai
 rhai
+opencode
+arg
+env
+Redis
