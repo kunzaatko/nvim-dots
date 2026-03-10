@@ -63,30 +63,22 @@ return {
     keys = {
       {
         '<M-h>',
-        function()
-          require('smart-splits').move_cursor_left()
-        end,
+        '<Cmd>SmartCursorMoveLeft<CR>',
         desc = 'move to left split',
       },
       {
         '<M-j>',
-        function()
-          require('smart-splits').move_cursor_down()
-        end,
+        '<Cmd>SmartCursorMoveDown<CR>',
         desc = 'move to below split',
       },
       {
         '<M-k>',
-        function()
-          require('smart-splits').move_cursor_up()
-        end,
+        '<Cmd>SmartCursorMoveUp<CR>',
         desc = 'move to above split',
       },
       {
         '<M-l>',
-        function()
-          require('smart-splits').move_cursor_right()
-        end,
+        '<Cmd>SmartCursorMoveRight<CR>',
         desc = 'move to right split',
       },
       {
