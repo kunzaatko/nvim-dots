@@ -1,5 +1,6 @@
 local M = {
   {
+    -- TODO: Add opencode through the ACP protocol <10-03-2026>
     'olimorris/codecompanion.nvim',
     cmd = 'CodeCompanion',
     keys = {
@@ -32,7 +33,6 @@ local M = {
     },
     dependencies = {
       { 'nvim-lua/plenary.nvim', name = 'plenary' },
-      'ravitemer/mcphub.nvim',
       'nvim-treesitter/nvim-treesitter',
       {
         'MeanderingProgrammer/render-markdown.nvim',
@@ -105,16 +105,6 @@ local M = {
         },
       },
       display = { chat = { show_settings = true } }, -- NOTE: When this is set, the adapter cannot be modified <25-03-25>
-      extensions = {
-        mcphub = {
-          callback = 'mcphub.extensions.codecompanion',
-          opts = {
-            show_result_in_chat = true,
-            make_vars = true,
-            make_slash_commands = true,
-          },
-        },
-      },
     },
     config = function(_, opts)
       local codecompanion_group = vim.api.nvim_create_augroup('CodeCompanionAutoSave', { clear = true })
@@ -162,15 +152,6 @@ local M = {
       })
       require('codecompanion').setup(opts)
     end,
-  },
-  {
-    'ravitemer/mcphub.nvim',
-    dependencies = {
-      { 'nvim-lua/plenary.nvim', name = 'plenary' },
-    },
-    cmd = 'MCPHub',
-    build = 'npm install -g mcp-hub@latest',
-    config = true,
   },
   -- TODO: Add a status line component that shows the number of completions instead of only the icon <06-07-25>
   {
@@ -234,7 +215,7 @@ local M = {
       {
         '<leader>oa',
         function()
-          require('opencode').ask '@selection: '
+          require('opencode').ask '@this: '
         end,
         desc = 'Ask opencode about this',
         mode = 'v',
