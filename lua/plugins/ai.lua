@@ -242,9 +242,9 @@ local M = {
       {
         'Đ',
         function()
-          require('opencode').ask '@selection: '
+          require('opencode').ask '@this: '
         end,
-        desc = 'Ask opencode about selection',
+        desc = 'Opencode with selection context',
         mode = 'v',
       },
       {
