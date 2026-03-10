@@ -2,6 +2,7 @@ local M = {}
 local visual = require 'util.visual'
 
 ---@brief Default keymaps for terminal navigation
+---@type snacks.win.Keys
 M.TERMINAL_NAV_KEYS = {
   win_right = {
     '<M-h>',
@@ -38,6 +39,7 @@ M.TERMINAL_NAV_KEYS = {
 }
 
 ---@brief Default snacks.terminal.Opts options for the REPL
+---@type snacks.terminal.Opts
 M.DEFAULT_REPL_OPTS = {
   shell = 'fish',
   -- NOTE: `auto_insert` is very annoying, when debugging and error that is diagnosed in the REPL and being fixed in
@@ -110,8 +112,8 @@ end
 ---define a list, then it is not merged with the defaults but is a replacement to the defaults. This is significant in
 ---the `win.keys` option, where if you want to keep the defined keymaps, you need to name the additional keys instead of
 ---passing a list. (default `{}`)
----@param send_key string|nil Key to send to the REPL. If you want to set up a send a key for sending visual selection to
----the REPL, then pass this parameter.
+---@param send_key string|nil Key to send to the REPL. If you want to set up a send a key for sending visual selection
+---to the REPL, then pass this parameter.
 ---@param send_format function|nil Function to format the text before sending it to the REPL
 ---@return snacks.win|boolean terminal? Returns false is snacks is not loaded, otherwise returns the terminal window
 ---toggled
