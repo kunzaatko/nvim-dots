@@ -120,23 +120,11 @@ end
 function M.toggle_repl(cmd, toggle_key, opts, send_key, send_format)
   return require('util.helpers').require_plugin('snacks', function()
     local term = require 'snacks.terminal'
+    local repl_opts = M.get_repl_opts(cmd, toggle_key, opts)
     opts = opts or {}
-    local repl_opts = vim.tbl_deep_extend('force', M.DEFAULT_REPL_OPTS, {
-      win = {
-        keys = {
-          toggle = {
-            toggle_key,
-            function()
-              term.toggle(cmd, opts)
-            end,
-            mode = { 'n', 't' },
-            desc = 'Toggle REPL',
-          },
-        },
-      },
-    })
-    local buf = vim.api.nvim_get_current_buf()
     local repl = term.toggle(cmd, vim.tbl_deep_extend('keep', opts, repl_opts))
+
+    local buf = vim.api.nvim_get_current_buf()
     if send_key then
       vim.keymap.set('v', send_key, function()
         vim.schedule(function()
@@ -144,11 +132,40 @@ function M.toggle_repl(cmd, toggle_key, opts, send_key, send_format)
           local send_text = send_format and send_format(vtext) or vtext
           vim.api.nvim_chan_send(vim.b[repl.buf].terminal_job_id, send_text)
           visual.exit_vmode()
-        end, { desc = 'Send visual selection to REPL', buffer = buf })
-      end)
+        end)
+      end, { desc = 'Send visual selection to REPL', buffer = buf })
     end
     return repl
   end)
+end
+
+---@brief Get the options for a REPL merged with the default options (used for overriding in plugins e.g.
+---`opencode.nvim`)
+---@param cmd string Command for launching the REPL
+---@param toggle_key string Key to toggle the terminal (usually the same as the key that this function is bound to)
+---@param opts snacks.terminal.Opts|nil Options passed to the snacks terminal window. Keep in mind that if the options
+---define a list, then it is not merged with the defaults but is a replacement to the defaults. This is significant in
+---the `win.keys` option, where if you want to keep the defined keymaps, you need to name the additional keys instead of
+---passing a list. (default `{}`)
+---@return snacks.terminal.Config opts? Returns false is snacks is not loaded, otherwise returns the terminal window
+---toggled
+function M.get_repl_opts(cmd, toggle_key, opts)
+  local term = require 'snacks.terminal'
+  opts = opts or {}
+  return vim.tbl_deep_extend('force', M.DEFAULT_REPL_OPTS, {
+    win = {
+      keys = {
+        toggle = {
+          toggle_key,
+          function()
+            term.toggle(cmd, opts)
+          end,
+          mode = { 'n', 't' },
+          desc = 'Toggle REPL',
+        },
+      },
+    },
+  })
 end
 
 -- TODO: Send text function with option of <enter> at the end <18-05-23>
