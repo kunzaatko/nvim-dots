@@ -2,6 +2,7 @@ local M = {
   {
     'neovim/nvim-lspconfig',
     name = 'lspconfig',
+    lazy = false,
     cmd = { 'LspStart', 'LspStop', 'LspInfo', 'LspRestart', 'LspLog' },
     init = function()
       local lspConfigPath = require('lazy.core.config').options.root .. '/nvim-lspconfig'

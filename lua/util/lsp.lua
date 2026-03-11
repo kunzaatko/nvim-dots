@@ -22,11 +22,13 @@ end
 
 _G.lsp_client_capabilities = lsp_client_capabilities or vim.lsp.protocol.make_client_capabilities()
 
----@brief Add additional capabilities to the global LSP client capabilities.
+---@brief Add additional capabilities to the global LSP client capabilities and register the capabilities
 ---@param capabilities lsp.ClientCapabilities Table containing LSP capabilities to be added
 ---@return lsp.ClientCapabilities capabilities The updated LSP client capabilities
 M.add_capabilities = function(capabilities)
   _G.lsp_client_capabilities = vim.tbl_deep_extend('force', _G.lsp_client_capabilities, capabilities)
+  -- TODO: Research whether it is necessary to restart the LSP server if the capabilities are changed <11-03-2026>
+  vim.lsp.config('*', { capabilities = _G.lsp_client_capabilities }) -- NOTE: Tables are deep merged
   return _G.lsp_client_capabilities
 end
 

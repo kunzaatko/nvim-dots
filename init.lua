@@ -88,8 +88,10 @@ require('lazy').setup({
 require 'config'
 
 if vim.version().minor >= 11 then
+  -- FIX: Does not work for the LSP servers that are defined manually in the `lsp/` runtime <11-03-2026>
   -- NOTE: Use `.git` as a marker for every LS
-  vim.lsp.config('*', { root_markers = { '.git' }, capabilities = require('util.lsp').get_capabilities() })
+  vim.lsp.config('*', { root_markers = { '.git' } })
+
   -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
   vim.lsp.enable {
     'bashls',
@@ -112,8 +114,10 @@ end
 ---@type boolean
 local colourscheme_loaded
 if vim.env['THEME_COLOUR'] == "'prefer-light'" then
+  ---@diagnostic disable-next-line: param-type-mismatch
   colourscheme_loaded = pcall(vim.cmd, [[colorscheme dayfox]])
 else
+  ---@diagnostic disable-next-line: param-type-mismatch
   colourscheme_loaded = pcall(vim.cmd, [[colorscheme catppuccin-frappe]])
 end
 
