@@ -439,7 +439,7 @@ return {
         win = {
           input = {
             keys = {
-              ['<a-s>'] = { 'flash', mode = { 'n', 'i' } },
+              ['<a-s>'] = { 'flash', mode = { 'n', 'i' } }, -- FIX: Does not work on MacOS <10-03-2026>
               ['s'] = { 'flash' },
             },
           },
@@ -537,6 +537,7 @@ return {
             ttl = 5 * 60,
             indent = 3,
           },
+          -- FIX: Only include this if `fortune` and `cowsay` are available commands <11-03-2026>
           {
             section = 'terminal',
             cmd = 'fortune -s | cowsay -w -T U',
