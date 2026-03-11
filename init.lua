@@ -97,7 +97,7 @@ if vim.version().minor >= 11 then
     'cssls',
     'harper_ls',
     'html',
-    'jsonln',
+    'jsonls',
     'julials',
     'kotlin_language_server',
     'lua_ls',
@@ -105,7 +105,7 @@ if vim.version().minor >= 11 then
     'ruff',
     'taplo',
     'texlab',
-    'terraformls'
+    'terraformls',
   }
 end
 
