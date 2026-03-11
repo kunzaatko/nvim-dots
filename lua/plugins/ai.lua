@@ -193,102 +193,78 @@ local M = {
     },
   },
   {
-    'NickvanDyke/opencode.nvim',
+    'nickvandyke/opencode.nvim',
     lazy = false,
-    keys = {
-      -- Recommended keymaps
+    dependencies = {
       {
-        '<leader>oA',
-        function()
-          require('opencode').ask()
-        end,
-        desc = 'Ask opencode',
-      },
-      {
-        '<leader>oa',
-        function()
-          require('opencode').ask '@cursor: '
-        end,
-        desc = 'Ask opencode about this',
-        mode = 'n',
-      },
-      {
-        '<leader>oa',
-        function()
-          require('opencode').ask '@this: '
-        end,
-        desc = 'Ask opencode about this',
-        mode = 'v',
-      },
-      {
-        'Đ',
-        function()
-          require('opencode').ask '@this: '
-        end,
-        desc = 'Opencode with selection context',
-        mode = 'v',
-      },
-      {
-        'Đ',
-        function()
-          require('opencode').toggle()
-        end,
-        desc = 'Toggle embedded opencode',
-      },
-      {
-        '<leader>on',
-        function()
-          require('opencode').command 'session_new'
-        end,
-        desc = 'New session',
-      },
-      {
-        '<leader>oy',
-        function()
-          require('opencode').command 'messages_copy'
-        end,
-        desc = 'Copy last message',
-      },
-      {
-        '<S-C-u>',
-        function()
-          require('opencode').command 'messages_half_page_up'
-        end,
-        desc = 'Scroll messages up',
-      },
-      {
-        '<S-C-d>',
-        function()
-          require('opencode').command 'messages_half_page_down'
-        end,
-        desc = 'Scroll messages down',
-      },
-      {
-        '<leader>op',
-        function()
-          require('opencode').select()
-        end,
-        desc = 'Select prompt',
-        mode = { 'n', 'v' },
-      },
-      -- Example: keymap for custom prompt
-      {
-        '<leader>oe',
-        function()
-          require('opencode').prompt 'Explain @cursor and its context'
-        end,
-        desc = 'Explain code near cursor',
+        ---@module "snacks"
+        'folke/snacks.nvim',
+        optional = true,
+        opts = {
+          input = {}, -- Enhances `ask()`
+          picker = { -- Enhances `select()`
+            actions = {
+              opencode_send = function(...)
+                return require('opencode').snacks_picker_send(...)
+              end,
+            },
+            win = {
+              input = {
+                keys = {
+                  ['<C-.>'] = { 'opencode_send', mode = { 'n', 'i' } },
+                },
+              },
+            },
+          },
+        },
       },
     },
     config = function()
-      local config = require 'opencode.config'
-      config.opts = vim.tbl_deep_extend('force', config.opts, {
-        terminal = {
-          win = {
-            keys = require('util.terminal').TERMINAL_NAV_KEYS,
-          },
+      local term_util = require 'util.terminal'
+      local term = require 'snacks.terminal'
+
+      local opencode_cmd = 'opencode --port'
+      ---@type snacks.terminal.Opts
+      local snacks_terminal_opts = term_util.get_repl_opts(opencode_cmd, '<C-.>', {
+        win = {
+          enter = false,
+          on_win = function(win)
+            require('opencode.terminal').setup(win.win) -- Set up keymaps and clean-up for an arbitrary terminal
+          end,
         },
       })
+
+      ---@type opencode.Opts
+      vim.g.opencode_opts = {
+        server = {
+          start = function()
+            term.open(opencode_cmd, snacks_terminal_opts)
+          end,
+          stop = function()
+            term.get(opencode_cmd, snacks_terminal_opts):close()
+          end,
+          toggle = function()
+            term.toggle(opencode_cmd, snacks_terminal_opts)
+          end,
+        },
+      }
+
+      vim.keymap.set('v', '<C-.>', function()
+        require('opencode').ask('@this: ', { submit = true })
+      end, { desc = 'Ask opencode…' })
+      vim.keymap.set({ 'n', 'x' }, 'g<C-.>', function()
+        require('opencode').select()
+      end, { desc = 'Execute opencode action…' })
+      vim.keymap.set({ 'n', 't' }, '<C-.>', function()
+        require('opencode').toggle()
+      end, { desc = 'Toggle opencode' })
+
+      vim.keymap.set('n', '<S-C-u>', function()
+        require('opencode').command 'session.half.page.up'
+      end, { desc = 'Scroll opencode up' })
+      vim.keymap.set('n', '<S-C-d>', function()
+        require('opencode').command 'session.half.page.down'
+      end, { desc = 'Scroll opencode down' })
     end,
   },
 }
