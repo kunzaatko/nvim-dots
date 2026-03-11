@@ -10,7 +10,7 @@
 -- TODO: Add a README and start versioning the configuration <19-04-23>
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
     'clone',
