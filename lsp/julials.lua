@@ -38,7 +38,7 @@ run(server)
 ---@type  vim.lsp.Config
 local opts = {
   filetypes = { 'julia' },
-  root_markers = { 'Project.toml', 'JuliaProject.toml' },
+  root_markers = { 'Project.toml', 'JuliaProject.toml', '.git' },
   cmd = {
     'env',
     'LD_LIBRARY_PATH=/usr/lib/julia',
