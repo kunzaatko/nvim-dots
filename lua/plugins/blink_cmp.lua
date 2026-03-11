@@ -62,7 +62,7 @@ return {
         markdown = { inherit_defaults = true, 'markdown', 'thesaurus', 'git', 'latex' },
         tex = { inherit_defaults = true, 'dictionary', 'thesaurus' },
         text = { inherit_defaults = true, 'dictionary', 'thesaurus' },
-        octo = { inherit_defautls = true, 'git' }, gitcommit = { inherit_defautls = true, 'git', 'conventional_commits', 'markdown' }, ['NeogitCommitMessage'] = { inherit_defautls = true, 'git', 'conventional_commits', 'markdown' }, gitrebase = { inherit_defautls = true, 'git' },
+        octo = { inherit_defaults = true, 'git' }, gitcommit = { inherit_defaults = true, 'git', 'conventional_commits', 'markdown' }, ['NeogitCommitMessage'] = { inherit_defaults = true, 'git', 'conventional_commits', 'markdown' }, gitrebase = { inherit_defaults = true, 'git' },
       },
       -- stylua: ignore end
 
