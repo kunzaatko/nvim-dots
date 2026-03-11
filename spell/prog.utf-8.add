@@ -961,3 +961,5 @@ api
 ehr
 timestr
 fmt
+cowsay
+cmd
