@@ -1,5 +1,3 @@
--- FIX: Probably duplicate mapping for `S` in visual. I would like to have it surround but instead it triggers
--- `flash.nvim` <13-07-24>
 -- TODO: `which-key` now supports icons. I should use them on in the mappings instead of using my own `string.format`
 -- <13-07-24>
 -- TODO: Every command for a specific language should be as a duplicate prepended with the language name for ease of
