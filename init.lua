@@ -69,18 +69,6 @@ require('lazy').setup({
   },
 })
 
--- TODO: I am not able to set the diagnostic config only for the given buffer. How do I do that? <05-06-25>
--- vim.api.nvim_create_autocmd('FileType', {
---   pattern = 'lazy',
---   callback = function()
---     vim.notify 'Lazy autocommand'
---     local ns = vim.api.nvim_create_namespace 'Lazy diagnostics'
---     vim.diagnostic.config({
---       virutal_text = true,
---     }, ns)
---   end,
---   desc = 'Show diagnostics on all lines in `lazy` buffer for the breaking changes annotations',
--- })
 
 -- config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'

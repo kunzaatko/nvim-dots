@@ -37,6 +37,15 @@ vim.diagnostic.config {
   },
 }
 
+vim.diagnostic.config({
+  virtual_text = {
+    current_line = false,
+    prefix = '',
+  },
+  float = false,
+  signs = false,
+}, vim.api.nvim_create_namespace 'lazy') -- NOTE: Retrieves the namespace if already exists
+
 -- Show errors and warnings in a floating window when pausing on an error --
 vim.api.nvim_create_autocmd('CursorHold', {
   callback = function()
