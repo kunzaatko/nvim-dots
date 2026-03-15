@@ -101,6 +101,7 @@ if vim.version().minor >= 11 then
     'html',
     'jsonls',
     'julials',
+    'just',
     'kotlin_language_server',
     'lua_ls',
     'ruff',
@@ -108,6 +109,7 @@ if vim.version().minor >= 11 then
     'terraformls',
     'texlab',
     'ty',
+    'yamlls',
     -- 'pyright',
   }
 end
