@@ -69,7 +69,6 @@ require('lazy').setup({
   },
 })
 
-
 -- config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'
 
@@ -78,26 +77,40 @@ if vim.version().minor >= 11 then
   -- NOTE: Use `.git` as a marker for every LS
   vim.lsp.config('*', { root_markers = { '.git' } })
 
-  -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
-  vim.lsp.enable {
-    'bashls',
-    'ccls',
-    'cssls',
-    'harper_ls',
-    'html',
-    'jsonls',
+  local enabled_servers = {}
+
+  -- conditionally enabled servers
+  for server_name, command in pairs {
+    bashls = 'bash-language-server',
+    ccls = 'ccls',
+    cssls = 'css-languageserver',
+    fish_lsp = 'fish-lsp',
+    harper_ls = 'harper-ls',
+    html = 'html-languageserver',
+    just = 'just-lsp',
+    kotlin_language_server = 'kotlin-language-server',
+    terraformls = 'terraform-ls',
+    texlab = 'texlab',
+    yamlls = 'yaml-language-server',
+  } do
+    if vim.fn.executable(command) == 1 then
+      table.insert(enabled_servers, server_name)
+    end
+  end
+
+  -- always enabled servers
+  enabled_servers = vim.list_extend(enabled_servers, {
+    'json-lsp',
     'julials',
-    'just',
-    'kotlin_language_server',
     'lua_ls',
     'ruff',
     'taplo',
-    'terraformls',
-    'texlab',
     'ty',
-    'yamlls',
     -- 'pyright',
-  }
+  })
+
+  -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
+  vim.lsp.enable(enabled_servers)
 end
 
 ---@type boolean
