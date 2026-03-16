@@ -91,6 +91,7 @@ if vim.version().minor >= 11 then
     kotlin_language_server = 'kotlin-language-server',
     terraformls = 'terraform-ls',
     texlab = 'texlab',
+    ts_ls = 'typescript-language-server',
     yamlls = 'yaml-language-server',
   } do
     if vim.fn.executable(command) == 1 then
@@ -100,7 +101,7 @@ if vim.version().minor >= 11 then
 
   -- always enabled servers
   enabled_servers = vim.list_extend(enabled_servers, {
-    'json-lsp',
+    'jsonls',
     'julials',
     'lua_ls',
     'ruff',
