@@ -1,3 +1,5 @@
+-- TODO: I would like to have a context in the buffer for what class I am in. Possibly only for some file types. Maybe
+-- in the statusline. Maybe in the bufferline. <17-03-2026>
 local M = {
   {
     'neovim/nvim-lspconfig',

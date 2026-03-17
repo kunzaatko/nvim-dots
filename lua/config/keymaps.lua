@@ -51,6 +51,11 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufReadPost' }, {
   end,
 })
 
+-- TODO: I would like for the file if already open to change to that window instead (with `gF`) with the line-number of
+-- the requested file. I would like to change the opening behaviour in some buffer types to launch in the alternate
+-- window (e.g. in `opencode` and the terminal to launch in the window other than the one that holds `opencode`).
+-- <17-03-2026>
+-- TODO: Could this be handled by `'includeexpr'` or `'path'` options instead? <17-03-2026>
 --- When the file under the cursor does not exist a prompt is given to create it and optionally is created
 vim.keymap.set('n', 'gf', function()
   local cursor_file = vim.fn.expand '<cfile>'
@@ -77,7 +82,7 @@ vim.keymap.set('n', 'gf', function()
       end)
     end)
   end
-  return '' -- handled in the callback from scheduled vim.ui.select
+  return '' -- handled in the callback from scheduled `vim.ui.select`
 end, { expr = true })
 
 -- UI

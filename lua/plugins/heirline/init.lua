@@ -1,5 +1,7 @@
 _G.HEIRLINE_CONFIG_HOME = 'plugins.heirline.config'
 
+-- TODO: https://github.com/Zeioth/heirline-components.nvim/wiki/lsp%E2%80%90component
+-- TODO: Breadcrumb for class for python to winbar
 -- TODO: Move my configuration to another plugin <19-04-23>
 -- TODO: Make the configuration clickable <19-04-23>
 -- TODO: Add heirline components from NvChad/NvChad <12-01-23>
@@ -7,6 +9,7 @@ _G.HEIRLINE_CONFIG_HOME = 'plugins.heirline.config'
 -- TODO: Make a delimited list component combinator that takes a list of components <kunzaatko>
 -- TODO: Make a generic combinator component for the front of the statusline and the end of a statusline <14-05-23>
 -- TODO: Move provider functions to and functions that are generic enough to util <14-05-23>
+-- TODO: Status column to be set here instead of other places <17-03-2026>
 
 return {
   'rebelot/heirline.nvim',
