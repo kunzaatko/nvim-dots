@@ -16,13 +16,6 @@ return {
         tools = {},
         -- LSP configuration
         server = {
-          default_settings = {
-            ['rust-analyzer'] = {
-              checkOnSave = {
-                command = 'clippy',
-              },
-            },
-          },
           capabilities = require('util.lsp').get_capabilities(),
         },
       }
