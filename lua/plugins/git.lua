@@ -78,7 +78,7 @@ return {
     opts = {
       disable_hint = true,
       graph_style = 'unicode',
-      process_spinner = true,
+      process_spinner = false, -- https://github.com/NeogitOrg/neogit/issues/1944
       disable_commit_confirmation = true,
       signs = {
         hunk = { '', '' },
