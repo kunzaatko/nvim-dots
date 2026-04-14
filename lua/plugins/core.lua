@@ -638,8 +638,7 @@ return {
       },
     },
   },
-  -- Quickfix --
-  { 'kevinhwang91/nvim-bqf', ft = 'qf' },
+  { 'kevinhwang91/nvim-bqf', ft = 'qf' }, -- quickfix
   {
     'stevearc/quicker.nvim',
     ft = 'qf',
