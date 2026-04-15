@@ -47,14 +47,12 @@ vim.diagnostic.config({
 }, vim.api.nvim_create_namespace 'lazy') -- NOTE: Retrieves the namespace if already exists
 
 -- Show errors and warnings in a floating window when pausing on an error --
-vim.api.nvim_create_autocmd('CursorHold', {
-  callback = function()
-    -- TODO: Callback should remove the ghost-text that is my default view for a single diagnostic <06-07-25>
-    vim.diagnostic.open_float(nil, {
-      focusable = false,
-      source = 'if_many',
-      -- FIX: How to call on `User` events with custom patterns? <06-07-25>
-      -- close_events = {  'User', { pattern = 'DocWinOpen' }  }
-    })
-  end,
-})
+vim.keymap.set('n', 'gK', function()
+  -- TODO: Callback should remove the ghost-text that is my default view for a single diagnostic <06-07-25>
+  vim.diagnostic.open_float(nil, {
+    focusable = false,
+    source = 'if_many',
+    -- FIX: How to call on `User` events with custom patterns? <06-07-25>
+    -- close_events = {  'User', { pattern = 'DocWinOpen' }  }
+  })
+end)
