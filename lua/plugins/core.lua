@@ -297,6 +297,12 @@ return {
               queries = 'queries',
             },
           }
+          require('nvim-treesitter.parsers').rhai = {
+            install_info = {
+              url = 'https://github.com/elkowar/tree-sitter-rhai.git',
+              queries = 'queries',
+            },
+          }
         end,
       })
 
