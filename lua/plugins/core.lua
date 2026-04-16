@@ -603,15 +603,6 @@ return {
     end,
   },
   {
-    'm4xshen/hardtime.nvim',
-    lazy = false,
-    dependencies = { 'MunifTanjim/nui.nvim' },
-    opts = {
-      max_count = 6,
-      disable_mouse = false,
-    },
-  },
-  {
     'chrisgrieser/nvim-spider',
     keys = {
       { 'w', "<cmd>lua require('spider').motion('w')<CR>", mode = { 'n', 'o', 'x' } },
