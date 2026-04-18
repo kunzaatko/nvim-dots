@@ -6,7 +6,7 @@ if which_key_exists then
   wk.add {
     { '<leader>a', group = string.format('%s %s', static.icons.ai, 'AI') },
     { '<leader>f', group = string.format('%s %s', static.icons.find, 'Find') },
-    { '<leader>g', group = string.format('%s %s', static.icons.git.git, 'Git') },
+    { '<leader>g', group = 'Git' },
     { '<leader>s', group = string.format('%s %s', static.icons.snippets, 'Snippets') },
     { '<leader>t', group = string.format('%s %s', static.icons.terminal, 'Terminal') },
   }
