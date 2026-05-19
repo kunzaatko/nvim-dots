@@ -102,4 +102,23 @@ return {
     cmd = { 'TransparentEnable', 'TransparentDisable', 'TransparentToggle' },
     config = true,
   },
+  {
+    'mistricky/codesnap.nvim',
+    tag = 'v2.0.0',
+    cmd = { 'CodeSnap', 'CodeSnapHighlight', 'CodeSnapSave', 'CodeSnapHighlightSave' },
+    opts = {
+      show_workspace = true,
+      snapshot_config = {
+        window = {
+          mac_window_bar = false,
+          margin = {
+            x = 20,
+            y = 20,
+          },
+        },
+        watermark = 'none',
+        background = '#00000000',
+      },
+    },
+  },
 }
