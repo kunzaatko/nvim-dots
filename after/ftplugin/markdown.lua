@@ -6,6 +6,8 @@ local indent = 2
 opt.expandtab, opt.shiftround = true, true
 opt.tabstop, opt.shiftwidth = indent, indent
 
+opt.wrap = true
+
 local _, peek = pcall(require, 'peek')
 vim.keymap.set('n', '<localleader>o', function()
   require('util.helpers').require_plugin('peek', peek.open)
