@@ -11,5 +11,6 @@ M.visual = require 'util.visual'
 M.terminal = require 'util.terminal'
 M.project = require 'util.project'
 M.lsp = require 'util.lsp'
+M.keymap = require 'util.keymap'
 
 return M
