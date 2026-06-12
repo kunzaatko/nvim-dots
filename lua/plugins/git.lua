@@ -69,6 +69,11 @@ return {
       end,
     },
   },
+  {
+    'esmuellert/codediff.nvim',
+    cmd = 'CodeDiff',
+    event = 'VeryLazy',
+  },
   -- TODO: Open neogit in a floating window instead of new buffer. <21-09-24>
   {
     'NeogitOrg/neogit',
