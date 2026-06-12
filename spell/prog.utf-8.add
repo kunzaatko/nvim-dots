@@ -1046,3 +1046,15 @@ Redmine
 getattr
 GUID
 whitelist
+bighubcz
+ip
+Homebrew
+pyproject
+Filesystem
+dataclass
+callables
+ORM
+pluggy
+hardcodes
+asyncio
+backoff
