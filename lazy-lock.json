@@ -17,6 +17,7 @@
   "clr-nordic": { "branch": "main", "commit": "9fb62116b891184049c50ca6ffb0d3bc100a1a6e" },
   "clr-tokyonight": { "branch": "main", "commit": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6" },
   "codecompanion.nvim": { "branch": "main", "commit": "b1cbe52ecd71e7b0ed43ac1dc6eb3aab4099db00" },
+  "codediff.nvim": { "branch": "main", "commit": "7608f3b436ce1f84a4888f75e53079caa981a2e9" },
   "codesnap.nvim": { "branch": "main", "commit": "bd5668f13da97e0f0639131de2ef056b0560f2cc" },
   "conform.nvim": { "branch": "master", "commit": "668a6199990ba64f81f7df8ac32958412ef00db3" },
   "crates.nvim": { "branch": "main", "commit": "694357861ec9ebf12475ddcdd04ea45a0923c32d" },

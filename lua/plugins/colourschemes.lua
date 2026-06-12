@@ -1,7 +1,8 @@
 return {
   {
-    dir = '~/.config/nvim/dev/nord.nvim',
     -- TODO: Check if the directory exists and add it as a git dependency if it does not <10-02-2026> 
+    'kunzaatko/nord.nvim',
+    -- dir = '~/.config/nvim/dev/nord.nvim',
     dependencies = { { 'rktjmp/lush.nvim', name = 'lush' } },
     name = 'clr-nord',
     event = 'VeryLazy',
