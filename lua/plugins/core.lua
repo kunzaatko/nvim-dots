@@ -62,12 +62,12 @@ return {
     event = 'VeryLazy',
     keys = {
       {
-        '<M-h>',
+        '‘',
         '<Cmd>SmartCursorMoveLeft<CR>',
         desc = 'move to left split',
       },
       {
-        '<M-j>',
+        '’',
         '<Cmd>SmartCursorMoveDown<CR>',
         desc = 'move to below split',
       },
@@ -77,7 +77,7 @@ return {
         desc = 'move to above split',
       },
       {
-        '<M-l>',
+        'ł',
         '<Cmd>SmartCursorMoveRight<CR>',
         desc = 'move to right split',
       },
@@ -324,17 +324,17 @@ return {
       },
       -- Terminal --
       {
-        'ŧ',
+        '<M-t>',
         function()
-          require('util.terminal').toggle_repl('fish', 'ŧ')
+          require('util.terminal').toggle_repl('fish', '<M-t>')
         end,
         desc = 'Toggle terminal',
       },
       -- TODO: Use this `vim.fs.root({source}, {marker})` for terminal in the current project <24-06-25>
       {
-        'gŧ',
+        'g<M-t>', -- TODO: I have to change this. Ideally if the change would be same for Mac and Linux <05-02-2026>
         function()
-          require('util.terminal').toggle_repl('fish', 'ŧ', { cwd = vim.fn.expand '%:p:h' })
+          require('util.terminal').toggle_repl('fish', '<M-t>', { cwd = vim.fn.expand '%:p:h' })
         end,
         desc = 'Toggle terminal in the current file directory',
       },
@@ -368,14 +368,14 @@ return {
         desc = 'Buffer Lines',
       },
       {
-        'đ', -- Alt+s
+        'ß', -- <Alt+s> -- FIX: Try to fix with karabiner <19-02-2026>
         function()
           Snacks.picker.grep()
         end,
         desc = 'Grep',
       },
       {
-        '<leader>đ', -- <leader>+<Alt+s>
+        '<leader>ß', -- <leader>+<Alt+s>
         function()
           Snacks.picker.pickers()
         end,
