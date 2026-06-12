@@ -1,3 +1,4 @@
+-- FIX: The symbols in the keywords break the functionality... See https://github.com/folke/todo-comments.nvim/issues/213 <17-04-2026>
 return {
   {
     'folke/todo-comments.nvim',
@@ -10,9 +11,9 @@ return {
         FIX = {
           icon = static.icons.comments.bug .. ' ',
           color = 'error',
-          alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'CHECK', 'PERF!' },
+          alt = { 'FIX?', 'FIXME', 'BUG', 'FIXIT', 'ISSUE', 'CHECK', 'PERF!' },
         },
-        TODO = { icon = static.icons.comments.todo .. ' ', color = 'info', alt = { 'TODO!' } },
+        TODO = { icon = static.icons.comments.todo .. ' ', color = 'info', alt = { 'TODO!', 'TODO?' } },
         HACK = { icon = static.icons.comments.hack .. ' ', color = 'warning' },
         WARN = {
           icon = static.icons.diagnostics.Warn .. ' ',
