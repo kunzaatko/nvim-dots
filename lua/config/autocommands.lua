@@ -94,14 +94,16 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
 vim.api.nvim_create_autocmd('BufWinLeave', {
   pattern = '?*',
   callback = function()
-    if not (vim.tbl_contains(fold_ignored_fts, vim.bo.filetype) or vim.bo.buftype ~= '') then
+    if
+      not (vim.tbl_contains(fold_ignored_fts, vim.bo.filetype) or vim.bo.buftype ~= '' or vim.bo.buftype ~= 'nofile')
+    then
       vim.cmd.mkview(1)
     end
   end,
 })
 
 _G.root_patterns = {
-  all = { '.git', 'Makefile', 'Justfile', 'src' },
+  all = { '.git', 'Makefile', 'Justfile', 'justfile', 'src' },
   julia = { 'Project.toml', 'Manifest.toml' },
   tex = { 'Tectonic.toml', 'build' },
   lua = { 'lazy-lock.json' },
