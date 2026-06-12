@@ -35,7 +35,6 @@ return {
       -- latex = { 'latexindent' },
       -- tex = { 'latexindent' },
       python = { 'ruff_organize_imports', 'ruff_fix', 'ruff_format' },
-      rust = { 'rustfmt', lsp_format = 'fallback' },
       lua = { 'stylua' },
       toml = { 'taplo' },
       markdown = { 'mdformat' },
