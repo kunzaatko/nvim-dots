@@ -204,8 +204,15 @@ local M = {
           input = {}, -- Enhances `ask()`
           picker = { -- Enhances `select()`
             actions = {
-              opencode_send = function(...)
-                return require('opencode').snacks_picker_send(...)
+              ---@param picker snacks.Picker
+              opencode_send = function(picker)
+                local items = vim.tbl_map(function(item) ---@param item snacks.picker.Item
+                  return item.file
+                      and require('opencode').format { path = item.file, from = item.pos, to = item.end_pos }
+                    or item.text
+                end, picker:selected { fallback = true })
+
+                require('opencode').prompt(table.concat(items, ', ') .. ' ')
               end,
             },
             win = {
@@ -224,7 +231,7 @@ local M = {
       local term = require 'snacks.terminal'
 
       local opencode_cmd = 'opencode --port'
-      ---@type snacks.terminal.Opts
+      ---@type snacks.terminal.Config
       local snacks_terminal_opts = term_util.get_repl_opts(opencode_cmd, '<C-.>', {
         win = {
           enter = false,
@@ -240,24 +247,33 @@ local M = {
           start = function()
             term.open(opencode_cmd, snacks_terminal_opts)
           end,
-          stop = function()
-            term.get(opencode_cmd, snacks_terminal_opts):close()
-          end,
-          toggle = function()
-            term.toggle(opencode_cmd, snacks_terminal_opts)
-          end,
         },
       }
+      vim.keymap.set({ 'n', 't' }, '<C-.>', function()
+        require('snacks.terminal').toggle(opencode_cmd, snacks_terminal_opts)
+      end, { desc = 'Toggle OpenCode' })
+
+      -- Show upon submitting prompt
+      vim.api.nvim_create_autocmd('User', {
+        pattern = { 'OpencodeEvent:tui.command.execute' },
+        callback = function(args)
+          ---@type opencode.server.Event
+          local event = args.data.event
+          if event.properties.command == 'prompt.submit' then
+            local win = require('snacks.terminal').get(opencode_cmd, { create = false })
+            if win then
+              win:show()
+            end
+          end
+        end,
+      })
 
       vim.keymap.set('v', '<C-.>', function()
-        require('opencode').ask('@this: ', { submit = true })
+        require('opencode').ask '@this: '
       end, { desc = 'Ask opencode…' })
       vim.keymap.set({ 'n', 'x' }, 'g<C-.>', function()
         require('opencode').select()
       end, { desc = 'Execute opencode action…' })
-      vim.keymap.set({ 'n', 't' }, '<C-.>', function()
-        require('opencode').toggle()
-      end, { desc = 'Toggle opencode' })
 
       vim.keymap.set('n', '<S-C-u>', function()
         require('opencode').command 'session.half.page.up'
