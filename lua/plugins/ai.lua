@@ -239,6 +239,8 @@ local M = {
             require('opencode.terminal').setup(win.win) -- Set up keymaps and clean-up for an arbitrary terminal
           end,
         },
+        auto_insert = true,
+        start_insert = true,
       })
 
       ---@type opencode.Opts
