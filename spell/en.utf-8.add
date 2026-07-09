@@ -159,3 +159,4 @@ prefill
 deserialize
 deserialization
 deduplicate
+idempotently
