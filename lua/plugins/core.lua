@@ -537,7 +537,7 @@ return {
             ttl = 5 * 60,
             indent = 3,
           },
-          -- FIX: Only include this if `fortune` and `cowsay` are available commands <11-03-2026>
+          -- FIX: Only include this if `fortune` and `cowsay` are available commands <11-03-2026>
           {
             section = 'terminal',
             cmd = 'fortune -s | cowsay -w -T U',
