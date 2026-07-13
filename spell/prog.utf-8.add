@@ -1070,3 +1070,16 @@ JSONL
 contextvars
 ACR
 serializer
+openpyxl
+inlines
+POSIX
+keychain
+vec
+Qdrant
+cfg
+reqwest
+filesystem
+mcp
+rustfmt
+homebrew
+str
