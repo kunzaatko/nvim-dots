@@ -268,7 +268,6 @@ return {
     branch = 'main',
     build = ':TSUpdate',
     init = function()
-      -- custom parsers
       vim.api.nvim_create_autocmd('User', {
         pattern = { 'TSUpdate', 'TSInstall' },
         callback = function()
@@ -281,20 +280,20 @@ return {
         end,
       })
 
-    -- stylua: ignore start
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('TreesitterHighlighting', {}),
+        -- stylua: ignore start
         pattern = {
           'bash', 'bibtex', 'c', 'cpp', 'css', 'diff', 'fish', 'gitcommit', 'gitignore', 'go', 'html', 'htmldjango',
           'json', 'julia', 'just', 'lua', 'markdown', 'markdown_inline', 'norg', 'python', 'query', 'r', 'ron', 'rust',
           'scss', 'sql', 'toml', 'typst', 'vim', 'yaml'
         },
+        -- stylua: ignore end
         callback = function()
           vim.treesitter.start()
         end,
       })
     end,
-    -- stylua: ignore end
   },
   {
     'olimorris/persisted.nvim',
