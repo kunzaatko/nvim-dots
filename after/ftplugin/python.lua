@@ -5,6 +5,9 @@ local term = require 'util.terminal'
 local PYTHON_PROJECT_REPL_CMD = 'uv run ipython'
 local PYTHON_REPL_CMD = 'ipython'
 
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+vim.opt_local.indentkeys:remove 'o' -- Avoid indenting to trigger on parentheses (https://www.reddit.com/r/neovim/comments/183n4mn/how_to_disable_aligning_text_to_opening/)
+
 -- FIX: The first indentations should be left and all the rest indentations that match the indentation should be
 -- removed until the indentation that is higher than the one that was previously. <29-08-25>
 --- Format the lines before sending them to the REPL
