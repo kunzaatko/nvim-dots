@@ -72,18 +72,10 @@ local fold_ignored_fts = {
   'qf',
 }
 
--- FIX: Does not work for `:InspectTree` even though the `buftype` is `nofile`  <15-09-24>
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  desc = 'Close filetypes with `q`',
-  group = vim.api.nvim_create_augroup('q_close_windows', { clear = true }),
-  callback = function(event)
-    local filetype = vim.api.nvim_get_option_value('filetype', { buf = event.buf })
-    local buftype = vim.api.nvim_get_option_value('buftype', { buf = event.buf })
-    if buftype == 'nofile' or vim.tbl_contains({ 'help', 'qf' }, filetype) then
-      vim.opt_local.buflisted = false
-      vim.keymap.set('n', 'q', vim.cmd.close, { buffer = event.buf, silent = true, nowait = true })
-    end
-    if not (vim.tbl_contains(fold_ignored_fts, filetype) or buftype ~= '') then
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group = vim.api.nvim_create_augroup('AutoFold on enter', {}),
+  callback = function()
+    if not (vim.tbl_contains(fold_ignored_fts, vim.bo.filetype) or vim.bo.buftype ~= '') then
       pcall(function()
         vim.cmd.loadview(1)
       end) -- pcall, since new files have no view yet
