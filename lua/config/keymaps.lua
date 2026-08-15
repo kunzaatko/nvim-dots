@@ -32,22 +32,23 @@ local append_blank_lines = function()
   vim.fn.append(vim.api.nvim_win_get_cursor(0)[1], vim.fn['repeat']({ '' }, vim.api.nvim_get_vvar 'count1'))
 end
 
-vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufReadPost' }, {
+vim.api.nvim_create_autocmd('BufReadPost', {
   group = vim.api.nvim_create_augroup('modifying keymaps', {}),
   desc = 'Create keymaps that are applicable only to modifiable buffers',
-  callback = function()
-    if vim.opt.modifiable:get() then
-      if not vim.tbl_contains({ 'oil', 'qf' }, vim.opt.filetype:get()) then
-        vim.keymap.set('n', '<CR>', append_blank_lines, { silent = true, desc = 'append blank lines', buffer = 0 })
-      end
-      vim.keymap.set('v', '>', '>gv', { desc = 'indent and reselect', buffer = 0 }) -- reselect after >>
-      vim.keymap.set('v', '<', '<gv', { desc = 'dedent and reselect', buffer = 0 }) -- reselect after <<
-      vim.keymap.set({ 'n', 'v' }, 'p', 'p`]', { silent = true, desc = 'paste', buffer = 0 }) -- go to end of pasted text
-      -- vim.keymap.set('n', '<leader>s', ':%s/', { desc = 'substitute', buffer = 0 })
-      -- vim.keymap.set('n', '<leader>S', ':%s/\\v', { desc = 'substitute with verymagic', buffer = 0 })
-      vim.keymap.set('v', '<leader>s', ':s/', { desc = 'substitute in VISUAL', buffer = 0 })
-      vim.keymap.set('v', '<leader>S', ':s/\\v', { desc = 'substitute in VISUAL with verymagic', buffer = 0 })
+  callback = function(ev)
+    if not vim.bo.modifiable then
+      return
     end
+    if not vim.tbl_contains({ 'oil', 'qf' }, vim.bo.filetype) then
+      vim.keymap.set('n', '<CR>', append_blank_lines, { silent = true, desc = 'append blank lines', buffer = ev.buf })
+    end
+    vim.keymap.set('v', '>', '>gv', { desc = 'indent and reselect', buffer = ev.buf }) -- reselect after >>
+    vim.keymap.set('v', '<', '<gv', { desc = 'dedent and reselect', buffer = ev.buf }) -- reselect after <<
+    vim.keymap.set({ 'n', 'v' }, 'p', 'p`]', { silent = true, desc = 'paste', buffer = ev.buf }) -- go to end of pasted text
+    -- vim.keymap.set('n', '<leader>s', ':%s/', { desc = 'substitute', buffer = 0 })
+    -- vim.keymap.set('n', '<leader>S', ':%s/\\v', { desc = 'substitute with verymagic', buffer = 0 })
+    vim.keymap.set('v', '<leader>s', ':s/', { desc = 'substitute in VISUAL', buffer = ev.buf })
+    vim.keymap.set('v', '<leader>S', ':s/\\v', { desc = 'substitute in VISUAL with verymagic', buffer = ev.buf })
   end,
 })
 
