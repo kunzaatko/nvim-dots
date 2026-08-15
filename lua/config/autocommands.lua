@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.api.nvim_create_autocmd('Filetype', {
+vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('HelpOptions', {}),
   pattern = 'help',
   callback = function()
