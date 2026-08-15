@@ -72,6 +72,8 @@ require('lazy').setup({
 -- config must be loaded after lazy setting up to be able to use module plug-ins
 require 'config'
 
+vim.cmd.packadd 'nvim.undotree'
+
 if vim.version().minor >= 11 then
   -- FIX: Does not work for the LSP servers that are defined manually in the `lsp/` runtime <11-03-2026>
   -- NOTE: Use `.git` as a marker for every LS

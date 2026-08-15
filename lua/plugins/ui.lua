@@ -8,10 +8,16 @@ return {
     dependencies = { { 'nvim-tree/nvim-web-devicons', name = 'devicons' } },
     cmd = { 'Trouble', 'TroubleToggle', 'TroubleClose', 'TroubleRefresh' },
   },
+  -- TODO: I have replaced this with the native `nvim.undotree` plugin. There are some visual differences that I can
+  -- live with right now. I have subscribed to the `nvim.undotree` updates on github and I will see whether they add
+  -- this. Perhaps I can implement it myself some time.
+  -- `https://github.com/neovim/neovim/commits/master/runtime/pack/dist/opt/nvim.undotree/lua/undotree.lua.atom`
+  -- <15-08-2026>
   {
     'mbbill/undotree',
     cmd = 'UndotreeToggle',
     event = 'VeryLazy',
+    enabled = false,
     keys = { { '<leader>u' } },
     config = function()
       vim.g.undotree_WindowLayout = 2 -- layout with diff at the bottom
