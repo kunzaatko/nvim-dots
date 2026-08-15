@@ -61,12 +61,8 @@ require('lazy').setup({
       },
     },
   },
-  defaults = {
-    lazy = true,
-  },
-  diff = {
-    cmd = 'diffview.nvim',
-  },
+  defaults = { lazy = true },
+  diff = { cmd = 'diffview.nvim' },
 })
 
 -- config must be loaded after lazy setting up to be able to use module plug-ins
