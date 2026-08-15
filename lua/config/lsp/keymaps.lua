@@ -35,7 +35,7 @@ function M.on_attach(client, buffer)
     self:map('<leader>lD', Snacks.picker.diagnostics, { desc = 'Workspace Diagnostics' })
     self:map('<leader>ld', Snacks.picker.diagnostics_buffer, { desc = 'Buffer Diagnostics' })
     self:map('<leader>lS', Snacks.picker.lsp_workspace_symbols, { desc = 'LSP Workspace Symbols' })
-    self:map('<leader>ls', Snacks.picker.lsp_symbols, { desc = 'LSP Symbols' })
+    self:map('gO', Snacks.picker.lsp_symbols, { desc = 'LSP Symbols' })
 
     self:map('gd', Snacks.picker.lsp_definitions, { desc = 'Goto Definition' })
     self:map('gD', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
