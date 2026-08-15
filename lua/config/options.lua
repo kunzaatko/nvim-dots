@@ -64,6 +64,7 @@ vim.opt.smarttab = true -- deleting whole tab at once
 vim.opt.tabstop, vim.opt.shiftwidth = 4, 4
 
 vim.opt.formatoptions:append 'n1' -- do not wrap after 1 letter words and numbered list comprehension
+vim.opt.formatoptions:append 'o' -- continue comments when pressing 'o' or 'O'
 vim.opt.textwidth = 120
 vim.opt.colorcolumn = { vim.opt.textwidth:get() + 1 }
 vim.opt.termguicolors = true -- 24-bit colours
