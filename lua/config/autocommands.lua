@@ -83,6 +83,19 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Close filetypes with `q`',
+  group = vim.api.nvim_create_augroup('q_close_windows', { clear = true }),
+  pattern = { 'help', 'qf', 'nvim-undotree' },
+  callback = function(event)
+    -- FIX: I am missing the `nofile` buftype here. Determine which buffers that where previously used are now missed <25-07-2026>
+    -- if vim.bo.buftype == 'nofile' or vim.tbl_contains(, vim.bo.filetype) then
+    vim.opt_local.buflisted = false
+    vim.keymap.set('n', 'q', vim.cmd.close, { buffer = event.buf, silent = true, nowait = true })
+    -- end
+  end,
+})
+
 vim.api.nvim_create_autocmd('BufWinLeave', {
   pattern = '?*',
   callback = function()
