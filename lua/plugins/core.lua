@@ -1,3 +1,23 @@
+local rhs = vim.uv.os_uname().sysname == 'Darwin'
+    and {
+      nav_split_left = '‘',
+      nav_split_down = '’',
+      nav_split_right = 'ł',
+      term_toggle = '<M-t>',
+      term_toggle_cwd = 'g<M-t>',
+      grep = 'ß', -- <Alt+s>
+      pickers = '<leader>ß', -- <leader>+<Alt+s>
+    }
+  or {
+    nav_split_left = '<M-h>',
+    nav_split_down = '<M-j>',
+    nav_split_right = '<M-l>',
+    term_toggle = 'ŧ',
+    term_toggle_cwd = 'gŧ',
+    grep = 'đ', -- Alt+s
+    pickers = '<leader>đ', -- <leader>+Alt+s
+  }
+
 return {
   {
     'folke/flash.nvim',
@@ -62,12 +82,12 @@ return {
     event = 'VeryLazy',
     keys = {
       {
-        '‘',
+        rhs.nav_split_left,
         '<Cmd>SmartCursorMoveLeft<CR>',
         desc = 'move to left split',
       },
       {
-        '’',
+        rhs.nav_split_down,
         '<Cmd>SmartCursorMoveDown<CR>',
         desc = 'move to below split',
       },
@@ -77,7 +97,7 @@ return {
         desc = 'move to above split',
       },
       {
-        'ł',
+        rhs.nav_split_right,
         '<Cmd>SmartCursorMoveRight<CR>',
         desc = 'move to right split',
       },
@@ -323,17 +343,17 @@ return {
       },
       -- Terminal --
       {
-        '<M-t>',
+        rhs.term_toggle,
         function()
-          require('util.terminal').toggle_repl('fish', '<M-t>')
+          require('util.terminal').toggle_repl('fish', rhs.term_toggle)
         end,
         desc = 'Toggle terminal',
       },
       -- TODO: Use this `vim.fs.root({source}, {marker})` for terminal in the current project <24-06-25>
       {
-        'g<M-t>', -- TODO: I have to change this. Ideally if the change would be same for Mac and Linux <05-02-2026>
+        rhs.term_toggle_cwd,
         function()
-          require('util.terminal').toggle_repl('fish', '<M-t>', { cwd = vim.fn.expand '%:p:h' })
+          require('util.terminal').toggle_repl('fish', rhs.term_toggle, { cwd = vim.fn.expand '%:p:h' })
         end,
         desc = 'Toggle terminal in the current file directory',
       },
@@ -367,14 +387,14 @@ return {
         desc = 'Buffer Lines',
       },
       {
-        'ß', -- <Alt+s> -- FIX: Try to fix with karabiner <19-02-2026>
+        rhs.grep,
         function()
           Snacks.picker.grep()
         end,
         desc = 'Grep',
       },
       {
-        '<leader>ß', -- <leader>+<Alt+s>
+        rhs.pickers,
         function()
           Snacks.picker.pickers()
         end,
