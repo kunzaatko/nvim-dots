@@ -1,0 +1,1 @@
+- [ ] Add a pre-commit hook for formatting and for deduplicating the spell add files
