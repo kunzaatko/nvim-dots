@@ -28,3 +28,4 @@ tags
 spell/*.spl
 dev/
 lua/plugins/ai_deprecated.lua
+.opencode/
