@@ -1132,3 +1132,9 @@ mineru
 configs
 namespaced
 namespacing
+Lakebase
+devcontainer
+psycopg
+plaintext
+JSONB
+timestamptz
