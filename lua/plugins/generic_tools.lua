@@ -104,7 +104,6 @@ return {
   },
   {
     'mistricky/codesnap.nvim',
-    tag = 'v2.0.0',
     cmd = { 'CodeSnap', 'CodeSnapHighlight', 'CodeSnapSave', 'CodeSnapHighlightSave' },
     opts = {
       show_workspace = true,
@@ -116,7 +115,7 @@ return {
             y = 20,
           },
         },
-        watermark = 'none',
+        watermark = { content = nil },
         background = '#00000000',
       },
     },
