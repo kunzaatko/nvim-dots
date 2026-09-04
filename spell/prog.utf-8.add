@@ -1138,3 +1138,6 @@ psycopg
 plaintext
 JSONB
 timestamptz
+Zotero's
+pydantic
+entrypoint
