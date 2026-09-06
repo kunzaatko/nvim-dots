@@ -1048,7 +1048,7 @@ GUID
 whitelist
 bighubcz
 ip
-Homebrew
+homebrew
 pyproject
 Filesystem
 dataclass
