@@ -11,7 +11,7 @@ function M.on_attach(client, buffer)
     wk.add({
       {
         '<leader>l',
-        group = string.format('%s %s', static.icons.lsp.lsp, 'LSP'),
+        group = 'LSP',
         icon = { icon = static.icons.lsp.lsp, color = 'blue' },
       },
     }, { buffer = 0 })

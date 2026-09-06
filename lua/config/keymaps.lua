@@ -1,14 +1,11 @@
 local which_key_exists, wk = pcall(require, 'which-key')
 
 if which_key_exists then
-  -- TODO: Add other groups <03-05-23>
+  -- TODO: Add other groups that are used and not listed <03-05-23>
   -- TODO: Do not list window mappings after leader <20-05-23>
   wk.add {
-    { '<leader>a', group = string.format('%s %s', static.icons.ai, 'AI') },
-    { '<leader>f', group = string.format('%s %s', static.icons.find, 'Find') },
     { '<leader>g', group = 'Git' },
-    { '<leader>s', group = string.format('%s %s', static.icons.snippets, 'Snippets') },
-    { '<leader>t', group = string.format('%s %s', static.icons.terminal, 'Terminal') },
+    { '<leader>s', group = 'Snippets', icon = { icon = static.icons.snippets, color = 'yellow' } },
   }
 end
 
