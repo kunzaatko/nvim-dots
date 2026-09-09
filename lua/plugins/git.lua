@@ -36,15 +36,33 @@ return {
           end
         end, { desc = 'previous hunk', buffer = bufnr })
 
+        local restore_cursor = function(fn)
+          local func = function()
+            local pos = vim.api.nvim_win_get_cursor(0)
+            fn()
+            vim.api.nvim_win_set_cursor(0, pos)
+          end
+          return func
+        end
         -- Actions
         vim.keymap.set('n', '<leader>gs', gs.stage_hunk, { desc = 'stage hunk', buffer = bufnr })
-        vim.keymap.set('v', '<leader>gs', function()
-          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'stage hunk', buffer = bufnr })
+        vim.keymap.set(
+          'v',
+          '<leader>gs',
+          restore_cursor(function()
+            gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+          end),
+          { desc = 'stage hunk', buffer = bufnr }
+        )
         vim.keymap.set('n', '<leader>gr', gs.reset_hunk, { desc = 'reset hunk', buffer = bufnr })
-        vim.keymap.set('v', '<leader>gr', function()
-          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'reset hunk', buffer = bufnr })
+        vim.keymap.set(
+          'v',
+          '<leader>gr',
+          restore_cursor(function()
+            gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+          end),
+          { desc = 'reset hunk', buffer = bufnr }
+        )
         vim.keymap.set('n', '<leader>gS', gs.stage_buffer, { desc = 'stage buffer', buffer = bufnr })
         vim.keymap.set('n', '<leader>gu', gs.undo_stage_hunk, { desc = 'undo hunk staging', buffer = bufnr })
         vim.keymap.set('n', '<leader>gR', gs.reset_buffer, { desc = 'reset buffer', buffer = bufnr })
