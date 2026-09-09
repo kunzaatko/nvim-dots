@@ -167,8 +167,8 @@ components.FileName = { --{{{
     if filename == '' then
       return '[No Name]'
     end
-    if not conditions.width_percent_below(#filename, 0.25) then
-      filename = vim.fn.pathshorten(filename)
+    if not conditions.width_percent_below(#filename, 0.38) then
+      filename = vim.fn.pathshorten(filename, 3)
     end
     return filename
   end,
