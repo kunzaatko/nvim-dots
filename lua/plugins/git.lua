@@ -140,7 +140,6 @@ return {
 
       -- FIX: This is deprecated. Get the new method of setting callbacks in the README <22-08-22, kunzaatko>
       local cb = require('diffview.config').diffview_callback
-      local map = vim.keymap.set
       _G.MUtils = _G.MUtils or {}
       _G.MUtils.close_diffview = function()
         vim.cmd [[tabclose]]
