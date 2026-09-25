@@ -290,17 +290,24 @@ return {
     init = function()
       vim.api.nvim_create_autocmd('User', {
         pattern = { 'TSUpdate', 'TSInstall' },
-        callback = function()
-          require('nvim-treesitter.parsers').ghactions = {
+        callback = function() ---@diagnostic disable-next-line: missing-fields
+          require('nvim-treesitter.parsers').ghactions = { ---@diagnostic disable-next-line: missing-fields
             install_info = {
               url = 'https://github.com/rmuir/tree-sitter-ghactions',
               queries = 'queries',
             },
-          }
-          require('nvim-treesitter.parsers').rhai = {
+          } ---@diagnostic disable-next-line: missing-fields
+          require('nvim-treesitter.parsers').rhai = { ---@diagnostic disable-next-line: missing-fields
             install_info = {
-              url = 'https://github.com/elkowar/tree-sitter-rhai.git',
+              url = 'https://github.com/elkowar/tree-sitter-rhai',
               queries = 'queries',
+            },
+          } ---@diagnostic disable-next-line: missing-fields
+          require('nvim-treesitter.parsers').kanata = { ---@diagnostic disable-next-line: missing-fields
+            install_info = {
+              url = 'https://github.com/CyanideData2/tree-sitter-kanata',
+              branch = 'master',
+              queries = 'vim_queries',
             },
           }
         end,
@@ -312,7 +319,7 @@ return {
         pattern = {
           'bash', 'bibtex', 'c', 'cpp', 'css', 'diff', 'fish', 'gitcommit', 'gitignore', 'go', 'html', 'htmldjango',
           'json', 'julia', 'just', 'lua', 'markdown', 'markdown_inline', 'norg', 'python', 'query', 'r', 'ron', 'rust',
-          'scss', 'sql', 'toml', 'typst', 'vim', 'yaml'
+          'scss', 'sql', 'toml', 'typst', 'vim', 'yaml', 'rhai', 'kanata'
         },
         -- stylua: ignore end
         callback = function()
