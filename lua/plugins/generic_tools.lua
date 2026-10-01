@@ -1,14 +1,5 @@
 return {
   {
-    'glacambre/firenvim',
-    build = function()
-      vim.call['firenvim#install'](0)
-    end,
-    cond = function()
-      return vim.fn.exists 'g:started_by_firenvim'
-    end,
-  },
-  {
     'epwalsh/pomo.nvim',
     version = '*',
     lazy = true,
