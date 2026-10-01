@@ -61,6 +61,7 @@ return {
         'luukvbaal/statuscol.nvim',
         config = function()
           local builtin = require 'statuscol.builtin'
+          -- FIX: Should be replaced by the built-in status column functionality <01-10-2026>
           require('statuscol').setup {
             relculright = true,
             ft_ignore = { 'NeogitStatus', 'query', 'snacks_dashboard' },
@@ -196,6 +197,7 @@ return {
     end,
   },
   -- TODO: Test whether this overwrites the number that is given by `neocodeium` <30-03-25>
+  -- FIX: Should be handled by the column <01-10-2026>
   {
     'mawkler/modicator.nvim',
     enabled = false, -- FIX: Broken with treesitter <07-07-25>
