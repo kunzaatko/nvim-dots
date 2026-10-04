@@ -14,6 +14,7 @@ local opts = {
     'stylua.toml',
     'selene.toml',
     'selene.yml',
+    '.git',
   },
   log_level = vim.lsp.protocol.MessageType.Warning,
   single_file_support = 'true',

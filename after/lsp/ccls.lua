@@ -31,7 +31,7 @@ return {
   offset_encoding = 'utf-32',
   -- ccls does not support sending a null root directory
   workspace_required = true,
-  root_markers = { 'compile_commands.json', '.ccls' },
+  root_markers = { 'compile_commands.json', '.ccls', '.git' },
   init_options = {
     compilationDatabaseDirectory = 'build',
     index = {

@@ -86,13 +86,16 @@ local function activate_env(args)
 end
 
 local cmd = {
-  'env',
-  'LD_LIBRARY_PATH=/usr/lib/julia',
-  'julia',
-  '--startup-file=no',
-  '--history-file=no',
-  '-e',
-  [[
+  'fish',
+  '-c',
+  '"' .. table.concat({
+    'env',
+    'LD_LIBRARY_PATH=/usr/lib/julia',
+    '~/.cargo/bin/julia',
+    '--startup-file=no',
+    '--history-file=no',
+    '-e',
+    [[
     # Load LanguageServer.jl: attempt to load from ~/.julia/environments/nvim-lspconfig
     # with the regular load path as a fallback
     ls_install_path = joinpath(
@@ -105,6 +108,7 @@ local cmd = {
     @info "Running language server" VERSION pwd()
     LanguageServer.runserver()
   ]],
+  }, ' ') .. '"',
 }
 
 ---@diagnostic disable-next-line: undefined-doc-name
