@@ -91,6 +91,7 @@ if vim.version().minor >= 11 then
     texlab = 'texlab',
     ts_ls = 'typescript-language-server',
     yamlls = 'yaml-language-server',
+    jetls = 'jetls',
   } do
     if vim.fn.executable(command) == 1 then
       table.insert(enabled_servers, server_name)
@@ -100,14 +101,15 @@ if vim.version().minor >= 11 then
   -- always enabled servers
   enabled_servers = vim.list_extend(enabled_servers, {
     'jsonls',
-    'julials',
     'lua_ls',
     'ruff',
     'taplo',
     'ty',
     'tinymist',
-    -- 'pyright',
   })
+  if not vim.tbl_contains(enabled_servers, 'jetls') then
+    table.insert(enabled_servers, 'julials')
+  end
 
   -- NOTE: Must be loaded after `lazy` for plugins to specify the necessary capabilities and `on_attach` functions
   vim.lsp.enable(enabled_servers)
