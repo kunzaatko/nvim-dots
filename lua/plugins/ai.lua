@@ -230,7 +230,7 @@ local M = {
       local term_util = require 'util.terminal'
       local term = require 'snacks.terminal'
 
-      local opencode_cmd = 'opencode --port'
+      local opencode_cmd = 'opencode'
       ---@type snacks.terminal.Config
       local snacks_terminal_opts = term_util.get_repl_opts(opencode_cmd, '<C-.>', {
         win = {
