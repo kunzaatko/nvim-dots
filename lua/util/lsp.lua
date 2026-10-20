@@ -13,6 +13,9 @@ function M.on_attach(on_attach, opts)
     callback = function(args)
       local buffer = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client and client:supports_method 'textDocument/codeLens' then
+        vim.lsp.codelens.enable(true, { bufnr = args.buf })
+      end
       if server_name == '*' or client ~= nil and client.name == server_name then
         on_attach(client, buffer)
       end
