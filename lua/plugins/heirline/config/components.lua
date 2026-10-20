@@ -229,6 +229,16 @@ components.FileLastModified = {
   end,
 }
 
+components.Busy = {
+  provider = function()
+    local ok, busy = pcall(function()
+      return vim.o.busy
+    end)
+    return (ok and busy and busy > 0) and '◐' or ''
+  end,
+  hl = { fg = 'base_yellow' },
+}
+
 components.NeoCodeium = {
   static = {
     -- TODO: Add these icons to `static` module in the icons instead and source them here <30-03-25>

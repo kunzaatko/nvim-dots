@@ -38,6 +38,7 @@ local StatusLineActive = { --{{{
   components.Space,
   components.FileNameBlock,
   components.Space,
+  components.Busy,
   -- components.Space,
   components.Align,
   components.Timer,
