@@ -15,6 +15,9 @@ vim.opt.shortmess:append { c = true, I = true } -- do not show ins-completion-me
 
 -- vim.opt.virtualedit = 'block' -- allow going past end of line in visual block mode
 vim.opt.pumheight = 15 -- max number of popup menu items
+vim.opt.pumborder = 'rounded'
+vim.opt.pummaxwidth = 60
+vim.opt.winborder = 'rounded'
 vim.opt.showmode = false -- don't show mode on last line
 vim.opt.wrap = false -- don't wrap text that is longer that the view
 vim.opt.scrolloff = 1 -- leave 1 line above/below while vertical scrolling
