@@ -35,6 +35,11 @@ vim.diagnostic.config {
     header = '',
     prefix = '',
   },
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float { bufnr = bufnr }
+    end,
+  },
 }
 
 vim.diagnostic.config({
